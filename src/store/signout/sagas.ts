@@ -3,10 +3,10 @@ import { all, fork, call, takeEvery, put } from 'redux-saga/effects';
 // import { history } from '../../index';
 import { SignoutActionTypes } from './types';
 import { clearAuthStorage } from '../../services/Storage';
-import Config from '../../config';
+import Config from '../../constants';
 import { signoutSuccess } from '../../actions';
 
-function* signoutRequest(params) {
+function* signoutRequest(params: any) {
   console.log('signoutRequest signoutRequest', params);
   yield call(signoutFlow);
 }
@@ -16,10 +16,11 @@ function* signoutFlow() {
 
   yield put(signoutSuccess());
   yield call(clearAuthStorage);
+  // @ts-ignore
   yield call(forwardTo, history, "/signin");
 }
 
-function forwardTo(history, url) {
+function forwardTo(history: any[], url: any) {
   return history.push(url);
 }
 

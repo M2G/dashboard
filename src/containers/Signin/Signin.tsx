@@ -1,15 +1,9 @@
-import { Link } from "react-router-dom";
-
-function Home() {
+function Signin() {
   return (
       <div>
-        <h1>Home</h1>
-        <nav>
-          <Link to="/">Home</Link> |{" "}
-          <Link to="about">About</Link>
-        </nav>
+        <h1>Signin</h1>
       </div>
   );
 }
 
-export default Home;
+export default Signin;

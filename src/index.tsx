@@ -1,17 +1,26 @@
-import React from 'react';
+/* eslint-disable */
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider } from 'react-redux';
+import { createBrowserHistory } from 'history';
+import configureStore from './configureStore';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+// import './index.scss';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+export const history = createBrowserHistory();
+export const store = configureStore({} as any);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function render(Component: any){
+  const MOUNT_NODE = document.getElementById('root');
+  if (MOUNT_NODE) {
+    ReactDOM.render(
+        <Provider store={store}>
+          <Component history={history} />
+        </Provider>,
+        MOUNT_NODE,
+    );
+  }
+}
+
+render(App);
+
+

@@ -1,13 +1,41 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// Settings
+// ==========================================================================
+//@import 'variables';
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+// Libs
+// ==========================================================================
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/mixins/container';
+@import '../node_modules/bootstrap/scss/mixins/grid';
+/*
+// Functions
+// ==========================================================================
+@import './function/em';
+@import './function/rem';
+@import './function/strip-unit';
+
+// Utilities
+// ==========================================================================
+@import './tool/clearfix';
+@import './tool/media-queries';
+@import './tool/font-face';
+@import './tool/hidden.scss';
+
+// Objects
+// ==========================================================================
+@import './object/grid';
+@import './object/columns';
+@import './object/zone';
+
+// Base
+// ==========================================================================
+@import './base/normalize';
+@import './base/box-sizing';
+@import './base/lazyloading';
+@import './base/responsiveness';
+@import './base/typography';
+
+// Typography
+// ==========================================================================
+@import './typography/fonts';
+*/

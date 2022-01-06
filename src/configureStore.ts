@@ -1,10 +1,10 @@
-/* eslint-disable */
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import { rootReducer, rootSaga, ApplicationState } from './store';
-//@ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const composeEnhancers = compose;
 
 const configureStore = (initialState: ApplicationState) => {
   const sagaMiddleware = createSagaMiddleware();
@@ -12,7 +12,6 @@ const configureStore = (initialState: ApplicationState) => {
   return {
     ...createStore(
       rootReducer(),
-      // @ts-ignore
       initialState,
       composeEnhancers ( applyMiddleware ( sagaMiddleware ) )
     ),
@@ -22,3 +21,4 @@ const configureStore = (initialState: ApplicationState) => {
 
 
 export default configureStore;
+

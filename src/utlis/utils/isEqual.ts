@@ -1,12 +1,14 @@
 /* eslint-disable */
 
+// @ts-ignore
 const sortObjectKeys = (obj) =>
   obj &&
   Object.entries(obj)
     ?.sort()
+      // @ts-ignore
     ?.reduce((o, [k, v]) => ((o[k] = v), o), {});
 
-function isEqual(val1, val2) {
+function isEqual(val1: string | number, val2: string | number) {
   if (typeof val1 === 'number' && typeof val2 === 'number')
     return val1 === val2;
   if (typeof val1 === 'string' && typeof val2 === 'string')

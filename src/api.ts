@@ -1,7 +1,6 @@
 /* eslint-disable */
 import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-import Config from './config';
+import Config from './constants';
 
 const { NODE_ENV } = process.env;
 const api = axios.create({
@@ -18,14 +17,13 @@ const api = axios.create({
     // Do whatever you want to transform the data
     const { token } = Config.GLOBAL_VAR;
     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+        if (headers) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
     }
     return data;
   }],
 });
-
-// This sets the mock adapter on the default instance
-const mock = new MockAdapter(api);
 
 /*
 api.addAsyncRequestTransform((request) => async () => {
@@ -56,4 +54,4 @@ const myInterceptor = api.interceptors.response.use(
   },
 );
 
-export { api, mock };
+export { api };
