@@ -9,13 +9,11 @@ import { Route, Navigate, useLocation } from 'react-router';
 import ROUTER_PATH from '../constants/RouterPath';
 import { getAuthStorage } from '../services/Storage';
 
-function PrivateRoute({ children }: { children: JSX.Element }){
+const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
   const isAuthenticated = getAuthStorage() as string | any;
 
-  if (!isAuthenticated) {
-    return <Navigate to={ROUTER_PATH.LOGIN} state={{ from: location }} />;
-  }
+  if (!isAuthenticated) return <Navigate to={ROUTER_PATH.LOGIN} state={{ from: location }} />;
 
   return children;
 }

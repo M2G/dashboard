@@ -27,6 +27,70 @@
     "typescript": "^4.5.2",
     "web-vitals": "^1.1.2"
   },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          [
+            "constants",
+            "./src/constants"
+          ],
+          [
+            "config",
+            "./src/config"
+          ],
+          [
+            "components",
+            "./src/components"
+          ],
+          [
+            "api",
+            "./src/api"
+          ],
+          [
+            "utils",
+            "./src/utils"
+          ],
+          [
+            "actions",
+            "./src/actions"
+          ],
+          [
+            "reducers",
+            "./src/reducers"
+          ],
+          [
+            "schemas",
+            "./src/schemas"
+          ],
+          [
+            "store",
+            "./src/store"
+          ],
+          [
+            "storage",
+            "./src/storage"
+          ],
+          [
+            "hooks",
+            "./src/hooks"
+          ],
+          [
+            "tests",
+            "./src/tests"
+          ],
+          [
+            "styles",
+            "./src/styles"
+          ],
+          [
+            "fixtures",
+            "./src/fixtures"
+          ]
+        ]
+      }
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

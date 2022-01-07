@@ -7,7 +7,6 @@ import { combineReducers } from 'redux';
 //import { signinPlatformReducer } from './signinplatform/reducers';
 //import { signupReducer } from './signup/reducers';
 //import { signoutReducer } from './signout/reducers';
-// import { exerciceReducer } from './exercices/reducers';
 import { authGlobalReducer } from '../reducers';
 
 //import authSaga from './auth/sagas';
@@ -31,7 +30,6 @@ export interface ApplicationState {
   //signinplatform: SigninPlatformState;
   //signup: SignupState;
   //signout: SignoutState;
-  //exercices: ExerciceState;
   //selected: ExerciceState;
   //auth: AuthState;
   auth_global: AuthGlobalState;

@@ -16,8 +16,7 @@ function* signoutFlow() {
 
   yield put(signoutSuccess());
   yield call(clearAuthStorage);
-  // @ts-ignore
-  yield call(forwardTo, history, "/signin");
+  yield call(forwardTo as any, history, "/signin");
 }
 
 function forwardTo(history: any[], url: any) {

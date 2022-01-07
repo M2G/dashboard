@@ -23,7 +23,12 @@ import Forgotyourpassword from '../containers/Forgotyourpassword';
 import Forgotyourpasswordchoose from '../containers/Forgotyourpasswordchoose';
 */
 
-function Router() {
+/**
+ * Top level application router
+ *
+ * @returns {Component}
+ */
+const Router = () => {
     return (
         <Routes>
            <Route
