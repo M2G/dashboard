@@ -1,0 +1,60 @@
+// Settings
+// ==========================================================================
+@import 'variables';
+
+// Libs
+// ==========================================================================
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/mixins/container';
+@import '../../node_modules/bootstrap/scss/mixins/grid';
+@import '../../node_modules/bootstrap/scss/vendor/rfs';
+@import '../../node_modules/bootstrap/scss/forms';
+
+// Functions
+// ==========================================================================
+@import './function/em';
+@import './function/rem';
+@import './function/strip-unit';
+
+// Utilities
+// ==========================================================================
+@import './tool/clearfix';
+@import './tool/media-queries';
+@import './tool/font-face';
+@import './tool/hidden.scss';
+
+// Objects
+// ==========================================================================
+@import './object/grid';
+@import './object/columns';
+@import './object/zone';
+
+// Base
+// ==========================================================================
+@import './base/normalize';
+@import './base/box-sizing';
+@import './base/lazyloading';
+@import './base/responsiveness';
+@import './base/typography';
+
+// Typography
+// ==========================================================================
+@import './typography/fonts';
+
+// Components
+// ==========================================================================
+
+// Page
+// ==========================================================================
+@import './page/dossier';
+
+.icon {
+  display: inline-block;
+
+  width: 25px;
+  height: 25px;
+
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}

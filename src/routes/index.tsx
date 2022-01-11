@@ -8,6 +8,7 @@ import Container from '../components/Layout/Container';
 import PrivateRoute from '../routes/ProtectedRoutes';
 
 import Home from '../containers/Home/Home';
+import Signin from '../containers/Signin/Signin';
 /*
 import Identification from '../containers/Identification';
 import SigninPlatform from '../containers/SigninPlatform';
@@ -38,6 +39,13 @@ const Router = () => {
                         <Home />
                    </PrivateRoute>
                }/>
+            <Route
+                path={ROUTER_PATH.SIGNIN}
+                element={
+                    <PrivateRoute>
+                        <Signin />
+                    </PrivateRoute>
+                }/>
         </Routes>
     );
 }

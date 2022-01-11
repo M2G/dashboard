@@ -2,9 +2,7 @@
 import { AuthActionTypes } from './types';
 
 function signinSuccess() {
-
   console.log("isAuthenticated")
-
   return {
     type: AuthActionTypes.SIGNIN_SUCCESS_GLOBAL,
     isAuthenticated: true,

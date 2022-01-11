@@ -10,7 +10,9 @@ import ROUTER_PATH from '../constants/RouterPath';
 import { getAuthStorage } from '../services/Storage';
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+
   const location = useLocation();
+  // const isAuthenticated = useSelector(selectIsAuthenticated);
   const isAuthenticated = getAuthStorage() as string | any;
 
   if (!isAuthenticated) return <Navigate to={ROUTER_PATH.LOGIN} state={{ from: location }} />;
@@ -18,5 +20,15 @@ const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   return children;
 }
 
-export default PrivateRoute;
+// export default PrivateRoute;
 
+function mapStateToProps(state: { auth_global: any; }, ownProps: any) {
+  return {
+    ...ownProps,
+    auth: state.auth_global,
+  }
+}
+
+PrivateRoute.propTypes = {};
+
+export default connect(mapStateToProps)(PrivateRoute);

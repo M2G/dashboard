@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { SigninActionTypes } from './types';
 
-function signinUserPrepare(service, options) {
+function signinUserPrepare(service: any, options: any) {
   console.log('signinUserPrepare', { service, options });
   return {
     type: SigninActionTypes.SIGNIN_USER_PREPARE,
@@ -10,7 +10,7 @@ function signinUserPrepare(service, options) {
   };
 }
 
-function signinUserAction(service) {
+function signinUserAction(service: any) {
   console.log('loginUserAction', { service });
   return {
     type: SigninActionTypes.SIGNIN_USER_REQUEST,

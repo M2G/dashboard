@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import configureStore from './configureStore';
 import App from './App';
-// import './index.scss';
+import './index.scss';
 
 export const history = createBrowserHistory();
 export const store = configureStore({} as any);

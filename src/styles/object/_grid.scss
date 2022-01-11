@@ -1,0 +1,49 @@
+// ==========================================================================
+// GRID
+// ==========================================================================
+
+.o-zone
+{
+    padding: $_doc_line_base * 2 $_doc_line_base !important;
+}
+.o-page
+{
+    width: 100%;
+    padding: $_doc_line_base * 4 $_doc_line_base !important;
+
+    @include bp(large)
+    {
+        padding: $_doc_line_base $_doc_line_base !important;
+    }
+}
+
+.o-grid
+{
+    max-width: map-get($_layout-grid, width);
+    min-height: 670px;
+    margin: 0 auto;
+
+    background-color: $_color-white;
+
+    @include make-container();
+    @include bp(small)
+    {
+        padding-top: $grid-gutter-width/2;
+    }
+    @include bp(medium)
+    {
+        min-height: auto;
+    }
+}
+
+.o-grid__row
+{
+    @include make-row();
+
+    & &
+    {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
