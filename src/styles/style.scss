@@ -7,8 +7,6 @@
 @import '../../node_modules/bootstrap/scss/functions';
 @import '../../node_modules/bootstrap/scss/mixins/container';
 @import '../../node_modules/bootstrap/scss/mixins/grid';
-@import '../../node_modules/bootstrap/scss/vendor/rfs';
-@import '../../node_modules/bootstrap/scss/forms';
 
 // Functions
 // ==========================================================================
@@ -43,18 +41,3 @@
 
 // Components
 // ==========================================================================
-
-// Page
-// ==========================================================================
-@import './page/dossier';
-
-.icon {
-  display: inline-block;
-
-  width: 25px;
-  height: 25px;
-
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-}
