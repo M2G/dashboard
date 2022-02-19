@@ -1,5 +1,6 @@
 start:
-    npm run start
+	npm run start
+
 test:
     npm run test
 
