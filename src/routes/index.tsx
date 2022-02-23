@@ -1,14 +1,15 @@
 /* eslint-disable */
-import React from 'react';
+import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import ROUTER_PATH from '../constants/RouterPath';
 // import NavBar from '../components/Navbar/NavBar';
-import Container from '../components/Layout/Container';
+//import Container from '../components/Layout/Container';
 import PrivateRoute from '../routes/ProtectedRoutes';
 
 import Home from '../containers/Home/Home';
-import Signin from '../containers/Signin/Signin';
+import Signin from '../containers/Signin';
+import TopLineLoading from 'components/Loading/TopLineLoading';
 /*
 import Identification from '../containers/Identification';
 import SigninPlatform from '../containers/SigninPlatform';
@@ -30,24 +31,33 @@ import Forgotyourpasswordchoose from '../containers/Forgotyourpasswordchoose';
  * @returns {Component}
  */
 const Router = () => {
-    return (
-        <Routes>
-           <Route
-               path={ROUTER_PATH.HOME}
-               element={
-                   <PrivateRoute>
-                        <Home />
-                   </PrivateRoute>
-               }/>
-            <Route
-                path={ROUTER_PATH.SIGNIN}
-                element={
-                    <PrivateRoute>
-                        <Signin />
-                    </PrivateRoute>
-                }/>
-        </Routes>
-    );
-}
+  console.log('Router Router Router');
+  return (
+    <main>
+      <Routes>
+        <Route
+          path={ROUTER_PATH.HOME}
+          element={
+            <Suspense fallback={<TopLineLoading />}>
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+        <Route
+          path={ROUTER_PATH.SIGNIN}
+          element={
+            <Suspense fallback={<TopLineLoading />}>
+              <PrivateRoute>
+                <Signin />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+      </Routes>
+    </main>
+  );
+};
 
 export default Router;

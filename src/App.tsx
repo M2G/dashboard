@@ -1,16 +1,12 @@
+/* eslint-disable */
 import { BrowserRouter } from 'react-router-dom';
-import type { History } from 'history';
 import Routes from './routes';
 
-interface MainProps {
-  history: History;
-}
-
-function App({ history }: MainProps) {
+function App() {
   return (
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
   );
 }
 

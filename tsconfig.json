@@ -42,7 +42,13 @@
     "rootDirs": ["src"],
     "baseUrl": "src",
     "paths": {
+      "index": ["./index"],
+      "api": ["./api"],
+      "store/*": ["./store/*"],
       "services/*": ["./services/*"],
+      "constants/*": ["./constants/*"],
+      "components/*": ["./components/*"],
+      "container/*": ["./container/*"]
     }
   },
   "include": ["src/**/*", "test/**/*"],

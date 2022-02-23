@@ -2,33 +2,23 @@
  * ProtectedRoutes
  */
 /* eslint-disable */
-import React from 'react';
 import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { Route, Navigate, useLocation } from 'react-router';
-import ROUTER_PATH from '../constants/RouterPath';
-import { getAuthStorage } from '../services/Storage';
+import { useSelector } from 'react-redux';
+import Home from 'containers/Home/Home';
 
-const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+const PrivateRoute = ({ children }: { children: JSX.Element }): any => {
+  const { auth } = useSelector((state: any) => ({
+    ...state,
+    auth: state.auth_global,
+  }));
 
-  const location = useLocation();
-  // const isAuthenticated = useSelector(selectIsAuthenticated);
-  const isAuthenticated = getAuthStorage() as string | any;
-
-  if (!isAuthenticated) return <Navigate to={ROUTER_PATH.LOGIN} state={{ from: location }} />;
+  if (auth?.isAuthenticated) return <Home />;
 
   return children;
-}
+};
 
-// export default PrivateRoute;
+PrivateRoute.propTypes = {
+  children: PropTypes.any,
+};
 
-function mapStateToProps(state: { auth_global: any; }, ownProps: any) {
-  return {
-    ...ownProps,
-    auth: state.auth_global,
-  }
-}
-
-PrivateRoute.propTypes = {};
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

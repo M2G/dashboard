@@ -23,7 +23,7 @@
     min-height: 670px;
     margin: 0 auto;
 
-    background-color: $_color-white;
+    //background-color: $_color-white;
 
     @include make-container();
     @include bp(small)

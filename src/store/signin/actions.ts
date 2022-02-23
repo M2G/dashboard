@@ -1,36 +1,25 @@
-/* eslint-disable */
 import { SigninActionTypes } from './types';
 
-function signinUserPrepare(service: any, options: any) {
-  console.log('signinUserPrepare', { service, options });
-  return {
-    type: SigninActionTypes.SIGNIN_USER_PREPARE,
-    service,
-    options,
-  };
-}
+const signinUserPrepare = (user: any, options: any) => ({
+  options,
+  type: SigninActionTypes.SIGNIN_USER_PREPARE,
+  user,
+});
 
-function signinUserAction(service: any) {
-  console.log('loginUserAction', { service });
-  return {
-    type: SigninActionTypes.SIGNIN_USER_REQUEST,
-    service,
-  };
-}
-function signinUserSuccess(user: any) {
-  console.log('loginUserSuccess', user);
-  return {
-    type: SigninActionTypes.SIGNIN_USER_SUCCESS,
-    user,
-  };
-}
-function signinUserError(errors: any) {
-  console.log('loginUserError', errors);
-  return {
-    type: SigninActionTypes.SIGNIN_USER_ERROR,
-    errors,
-  };
-}
+const signinUserAction = (user: any) => ({
+  type: SigninActionTypes.SIGNIN_USER_REQUEST,
+  user,
+});
+
+const signinUserSuccess = (user: any) => ({
+  type: SigninActionTypes.SIGNIN_USER_SUCCESS,
+  user,
+});
+
+const signinUserError = (errors: any) => ({
+  errors,
+  type: SigninActionTypes.SIGNIN_USER_ERROR,
+});
 
 export {
   signinUserAction,

@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
@@ -13,12 +13,10 @@ const configureStore = (initialState: ApplicationState) => {
     ...createStore(
       rootReducer(),
       initialState,
-      composeEnhancers ( applyMiddleware ( sagaMiddleware ) )
+      composeEnhancers(applyMiddleware(sagaMiddleware))
     ),
     runSaga: sagaMiddleware.run(rootSaga),
   };
 };
 
-
 export default configureStore;
-

@@ -1,11 +1,11 @@
 /* eslint-disable */
-import axios from "axios";
+import axios from 'axios';
 import Config from './constants';
 
 const { NODE_ENV } = process.env;
 const api = axios.create({
   // base URL is read from the "constructor"
-  baseURL: 'https://sso.stayinshape.fit',
+  baseURL: 'http://localhost:8181',
   // here are some default headers
   headers: {
     'Content-Type': 'application/json',
@@ -13,16 +13,29 @@ const api = axios.create({
   // 20 second timeout...
   timeout: 20000,
 
-  transformRequest: [function (data, headers) {
-    // Do whatever you want to transform the data
-    const { token } = Config.GLOBAL_VAR;
-    if (token) {
+  transformRequest: [
+    function (data, headers) {
+      // Do whatever you want to transform the data
+      const { token } = Config.GLOBAL_VAR;
+      if (token) {
         if (headers) {
-            headers['Authorization'] = `Bearer ${token}`;
+          headers['Authorization'] = `Bearer ${token}`;
         }
-    }
-    return data;
-  }],
+      }
+      console.log('transformRequest', data);
+
+      return data;
+    },
+    ...(axios.defaults.transformRequest as any),
+  ],
+
+  transformResponse: [
+    function (data) {
+      // Do whatever you want to transform the data
+
+      return data;
+    },
+  ],
 });
 
 /*
@@ -51,7 +64,7 @@ const myInterceptor = api.interceptors.response.use(
     api.interceptors.response.eject(myInterceptor);
     NODE_ENV === 'development' ? alert(JSON.stringify(error?.response)) : '';
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;

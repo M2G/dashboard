@@ -6,36 +6,40 @@ import signinService from './services';
 import { SigninActionTypes } from './types';
 import { signinUserSuccess, signinUserError } from './actions';
 import { signinSuccess } from '../../actions';
-import { setAuthStorage, setTokenStorage } from '../../services/Storage';
-import Config from '../../constants';
-import ROUTER_PATH from '../../constants/RouterPath';
+import { setAuthStorage } from 'services/Storage';
+import Config from 'constants/index';
+import { history } from 'index';
+import ROUTER_PATH from 'constants/RouterPath';
 
-// @ts-ignore
-function* authorize({ username, password, history }): any {
+function* authorize({ ...params }): any {
   try {
-    const response = yield call(signinService, { username, password });
+    const response = yield call(signinService, params);
 
-    console.log('token', response)
+    console.log('response response response', response);
+
+    console.log('::::::::::', JSON.parse(response?.data));
 
     if (response?.status === 200) {
       const signinSuccessResponse = yield put(signinUserSuccess(response));
-      if (signinSuccessResponse) {
-        Config.GLOBAL_VAR.token = response?.data?.token;
-        yield call(setAuthStorage, response?.data?.token);
-        yield call(setTokenStorage,
-          JSON.stringify(
-            JSON.parse(
-              window?.atob(response?.data?.token?.split('.')?.[1])
-            )));
 
+      console.log('signinSuccessResponse', signinSuccessResponse);
+
+      if (signinSuccessResponse) {
+        console.log('signinSuccessResponse 2 ', signinSuccessResponse);
+
+        const {
+          data: { token },
+        } = JSON.parse(response?.data);
+
+        Config.GLOBAL_VAR.token = token;
+        yield call(setAuthStorage, token);
         yield put(signinSuccess());
         yield call(forwardTo, history, ROUTER_PATH.HOME);
       }
     } else {
       yield put(signinUserError({ errors: response?.data }));
     }
-  } catch (e) {
-    // @ts-ignore
+  } catch (e: any) {
     yield put(signinUserError({ errors: e?.message }));
   }
 }
@@ -43,20 +47,19 @@ function* authorize({ username, password, history }): any {
 function* watchSignin(): any {
   while (true) {
     const request = yield take(SigninActionTypes.SIGNIN_USER_REQUEST);
-    const { username, password, history } = request?.service;
-    yield call(authorize, { username, password, history });
+    const { email, password, history } = request?.user;
+    yield call(authorize, { email, password, history });
   }
 }
 
 function forwardTo(history: { push: Function }, location: string) {
+  console.log('forwardTo forwardTo forwardTo', location);
   return history.push({ pathname: location });
 }
 
 // We can also use `fork()` here to split our saga into multiple watchers.
 function* signinSaga(): any {
-  yield all([
-    fork(watchSignin),
-  ]);
+  yield all([fork(watchSignin)]);
 }
 
 export default signinSaga;

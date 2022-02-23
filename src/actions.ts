@@ -2,24 +2,24 @@
 import { AuthActionTypes } from './types';
 
 function signinSuccess() {
-  console.log("isAuthenticated")
+  console.log('isAuthenticated');
   return {
-    type: AuthActionTypes.SIGNIN_SUCCESS_GLOBAL,
     isAuthenticated: true,
+    type: AuthActionTypes.SIGNIN_SUCCESS_GLOBAL,
   };
 }
 
 function signupSuccess() {
   return {
-    type: AuthActionTypes.SIGNUP_SUCCESS_GLOBAL,
     isAuthenticated: false,
+    type: AuthActionTypes.SIGNUP_SUCCESS_GLOBAL,
   };
 }
 
 function signoutSuccess() {
   return {
-    type: AuthActionTypes.SIGNOUT_SUCCESS_GLOBAL,
     isAuthenticated: false,
+    type: AuthActionTypes.SIGNOUT_SUCCESS_GLOBAL,
   };
 }
 
