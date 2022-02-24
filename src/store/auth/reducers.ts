@@ -10,14 +10,13 @@ export const initialState: AuthState = {
   loading: false,
 };
 //@ts-ignore
-const reducer: Reducer<AuthState> = (
-  state = initialState,
-  action,
-) => {
+const reducer: Reducer<AuthState> = (state = initialState, action) => {
   //@ts-ignore
   const { user: { data = {} } = {}, type } = action || {};
   switch (type) {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST:
+      return { ...state, loading: true };
+    case AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST:
       return { ...state, loading: true };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST:
       return { ...state, loading: true, user: action?.user };
@@ -29,7 +28,9 @@ const reducer: Reducer<AuthState> = (
       return { ...state, loading: true };
 
     case AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS:
-      return { ...state, loading: false, user: action?.user  };
+      return { ...state, loading: false, user: action?.user };
+    case AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS:
+      return { ...state, loading: false, user: action?.users };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS:
       return { ...state, loading: false, user: action?.user };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS:
@@ -40,6 +41,8 @@ const reducer: Reducer<AuthState> = (
       return { ...state, loading: false, data: data };
 
     case AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR:
+      return { ...state, loading: false, errors: action };
+    case AuthActionTypes.AUTH_GET_USERS_PROFIL_ERROR:
       return { ...state, loading: false, errors: action };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR:
       return { ...state, loading: false, errors: data };

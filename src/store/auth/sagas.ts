@@ -1,18 +1,32 @@
 /* eslint-disable */
 // @ts-ignore
-import { all, fork, call, put, take, cancelled, select, takeEvery, delay
+import {
+  all,
+  fork,
+  call,
+  put,
+  take,
+  cancelled,
+  select,
+  takeEvery,
+  delay,
 } from 'redux-saga/effects';
-import { forgotPasswordService, userProfilService, updateUserProfilService } from './services';
+import {
+  forgotPasswordService,
+  userProfilService,
+  updateUserProfilService,
+  getUsersService,
+} from './services';
 
 import { AuthActionTypes } from './types';
 import {
   authForgotPasswordErrorAction,
   authGetUserProfilSuccess,
   authGetUserProfilError,
- //  authForgotPasswordAction,
+  //  authForgotPasswordAction,
   authUpdateUserProfilSuccess,
   authUpdateUserProfilError,
-  authRequestErrorAction
+  authRequestErrorAction,
 } from './actions';
 import { signoutUserAction } from '../signout/actions';
 // import { signinSuccess } from '../../actions';
@@ -167,35 +181,45 @@ function* RefreshLoop() {
 */
 
 function* request(api: any, params: unknown, extendParams: unknown) {
-    try {
-        // @ts-ignore
-      const res = yield call(api, params, extendParams);
-      if (res?.status && res?.status === 401) {
-        // @ts-ignore
-        return yield put(signoutUserAction({ ...res.data }));
-      }
-      return res
-     } catch (error) {
-         // @ts-ignore
-      return yield put(authRequestErrorAction({ ...error }));
+  try {
+    // @ts-ignore
+    const res = yield call(api, params, extendParams);
+    if (res?.status && res?.status === 401) {
+      // @ts-ignore
+      return yield put(signoutUserAction({ ...res.data }));
     }
+    return res;
+  } catch (error) {
+    // @ts-ignore
+    return yield put(authRequestErrorAction({ ...error }));
+  }
 }
 
-// @ts-ignore
-function* forgotPassword({ user }) {
+function* forgotPassword({ user }: any) {
   // @ts-ignore
   const res = yield call(forgotPasswordService, { email: user?.login });
 
- if (res.status && res.status === 200) {
+  if (res.status && res.status === 200) {
     yield call(user?.history?.replace, Config.ROUTER_PATH.RESET_PASSWORD);
   } else {
     yield put(authForgotPasswordErrorAction({ ...res.data }));
   }
 }
 
-function* getUserProfil(params: { id: unknown; }) {
+function* getUserProfil(params: { id: unknown }) {
   //@ts-ignore
   const res = yield call(request, userProfilService, params?.id);
+  if (res?.status && res?.status === 200) {
+    yield put(authGetUserProfilSuccess({ ...res.data }));
+  } else {
+    yield put(signoutUserAction({ ...res.data }));
+    yield put(authGetUserProfilError(res.data));
+  }
+}
+
+function* getUsersProfil() {
+  //@ts-ignore
+  const res = yield call(request, getUsersService);
   if (res?.status && res?.status === 200) {
     yield put(authGetUserProfilSuccess({ ...res.data }));
   } else {
@@ -214,7 +238,7 @@ function* updateUserProfil({ user }) {
   // @ts-ignore
   const res = yield call(request, updateUserProfilService, user?._id, user);
   if (res?.status && res?.status === 200) {
-    yield put(authUpdateUserProfilSuccess({  ...res.data }));
+    yield put(authUpdateUserProfilSuccess({ ...res.data }));
     if (history && path) {
       yield call(history.replace, path);
     }
@@ -291,24 +315,35 @@ function forwardTo(history: { push: Function }, location: string) {
 }
 
 function* watchAuth() {
-  // @ts-ignore
-  yield takeEvery(AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST, forgotPassword)
+  yield takeEvery(AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST, forgotPassword);
 }
 
 function* watchUser() {
-  // @ts-ignore
-  yield takeEvery(AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST, getUserProfil)
+  yield takeEvery(
+    AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST as any,
+    getUserProfil
+  );
+}
+
+function* watchUsers() {
+  yield takeEvery(
+    AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST as any,
+    getUsersProfil
+  );
 }
 
 function* watchUpdateUser() {
-  // @ts-ignore
-  yield takeEvery(AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST, updateUserProfil)
+  yield takeEvery(
+    AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST as any,
+    updateUserProfil
+  );
 }
 
 // We can also use `fork()` here to split our saga into multiple watchers.
 function* authSaga() {
   yield all([
     fork(watchAuth),
+    fork(watchUsers),
     fork(watchUser),
     fork(watchUpdateUser),
   ]);
