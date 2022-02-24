@@ -2,9 +2,10 @@
  * ProtectedRoutes
  */
 /* eslint-disable */
-import PropTypes from 'prop-types';
+import { lazy } from 'react';
 import { useSelector } from 'react-redux';
-import Home from 'containers/Home/Home';
+import PropTypes from 'prop-types';
+const Home = lazy(() => import('containers/Home/Home'));
 
 const PrivateRoute = ({ children }: { children: JSX.Element }): any => {
   const { auth } = useSelector((state: any) => ({
