@@ -1,9 +1,8 @@
+/*eslint-disable*/
+import './index.scss';
+
 function Home() {
-  return (
-      <div>
-        <h1>Home</h1>
-      </div>
-  );
+  return <div>test</div>;
 }
 
 export default Home;

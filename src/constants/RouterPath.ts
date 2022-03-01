@@ -1,4 +1,5 @@
 const ROUTER_PATH = {
+  DASHBOARD: '/dashboard',
   HOME: '/',
   LOGIN: '/login',
   RESET_PASSWORD: '/reset-password',

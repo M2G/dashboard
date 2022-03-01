@@ -9,8 +9,10 @@ import PrivateRoute from '../routes/ProtectedRoutes';
 
 const Home = lazy(() => import('containers/Home/Home'));
 const Signin = lazy(() => import('containers/Signin'));
+const Dashboard = lazy(() => import('containers/Dashboard'));
 
 import TopLineLoading from 'components/Loading/TopLineLoading';
+import Navbar from 'components/Navbar/Navbar';
 /*
 import Identification from '../containers/Identification';
 import SigninPlatform from '../containers/SigninPlatform';
@@ -33,14 +35,13 @@ import Forgotyourpasswordchoose from '../containers/Forgotyourpasswordchoose';
  */
 const Router = () => (
   <main>
+    <Navbar />
     <Routes>
       <Route
         path={ROUTER_PATH.HOME}
         element={
           <Suspense fallback={<TopLineLoading />}>
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
+            <Home />
           </Suspense>
         }
       />
@@ -48,8 +49,16 @@ const Router = () => (
         path={ROUTER_PATH.SIGNIN}
         element={
           <Suspense fallback={<TopLineLoading />}>
+            <Signin />
+          </Suspense>
+        }
+      />
+      <Route
+        path={ROUTER_PATH.DASHBOARD}
+        element={
+          <Suspense fallback={<TopLineLoading />}>
             <PrivateRoute>
-              <Signin />
+              <Dashboard />
             </PrivateRoute>
           </Suspense>
         }

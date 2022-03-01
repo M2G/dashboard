@@ -7,16 +7,8 @@
 @import '../../node_modules/bootstrap/scss/mixins/buttons';
 @import '../../node_modules/bootstrap/scss/mixins/container';
 @import '../../node_modules/bootstrap/scss/mixins/grid';
-@import '../../node_modules/bootstrap/scss/mixins/border-radius';
-@import '../../node_modules/bootstrap/scss/mixins/box-shadow';
-@import '../../node_modules/bootstrap/scss/mixins/gradients';
-@import '../../node_modules/bootstrap/scss/mixins/transition';
-@import '../../node_modules/bootstrap/scss/vendor/rfs';
 
-
-@import '../../node_modules/bootstrap/scss/variables';
-@import '../../node_modules/bootstrap/scss/buttons';
-@import '../../node_modules/bootstrap/scss/forms/form-control';
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
 // Functions
 // ==========================================================================
@@ -33,9 +25,11 @@
 
 // Objects
 // ==========================================================================
+@import './object/teaser';
 @import './object/grid';
 @import './object/columns';
 @import './object/zone';
+@import './object/page';
 
 // Base
 // ==========================================================================
@@ -51,6 +45,10 @@
 
 // Components
 // ==========================================================================
+
+// Teaser
+// ==========================================================================
+@import './teaser/article';
 
 // Page
 // ==========================================================================

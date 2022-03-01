@@ -1,9 +1,9 @@
 /* eslint-disable */
 import { all, fork, call, takeEvery, put } from 'redux-saga/effects';
-// import { history } from '../../index';
 import { SignoutActionTypes } from './types';
-import { clearAuthStorage } from '../../services/Storage';
+import { clearAuthStorage } from 'services/Storage';
 import Config from '../../constants';
+import { history } from 'index';
 import { signoutSuccess } from '../../actions';
 
 function* signoutRequest(params: any) {
@@ -16,7 +16,7 @@ function* signoutFlow() {
 
   yield put(signoutSuccess());
   yield call(clearAuthStorage);
-  yield call(forwardTo as any, history, "/signin");
+  yield call(forwardTo as any, history, '/signin');
 }
 
 function forwardTo(history: any[], url: any) {
@@ -28,10 +28,7 @@ function forwardTo(history: any[], url: any) {
  * type, and run our saga, for example the `handleFetch()` saga above.
  */
 function* watchSignout() {
-  yield takeEvery(
-    SignoutActionTypes.SIGNOUT_USER_REQUEST,
-    signoutRequest,
-  );
+  yield takeEvery(SignoutActionTypes.SIGNOUT_USER_REQUEST, signoutRequest);
 }
 
 // We can also use `fork()` here to split our saga into multiple watchers.
@@ -40,4 +37,3 @@ function* signoutSaga() {
 }
 
 export default signoutSaga;
-

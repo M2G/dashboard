@@ -8,3 +8,5 @@ jest.config.js
 test
 entrypoint
 constants.ts
+src/stories
+.storybook

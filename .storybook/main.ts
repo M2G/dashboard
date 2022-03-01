@@ -1,5 +1,3 @@
-import { Configuration } from 'webpack';
-
 const path = require('path');
 
 module.exports = {
@@ -14,27 +12,19 @@ module.exports = {
     './localAddon/register.tsx',
     './localAddon/preset.ts',
   ],
-  webpackFinal: async (config: Configuration) => {
+  webpackFinal: (config) => {
     // add monorepo root as a valid directory to import modules from
-    config?.resolve?.plugins?.forEach((p) => {
+    config.resolve.plugins.forEach((p) => {
       // @ts-ignore
       if (Array.isArray(p.appSrcs)) {
         // @ts-ignore
         p.appSrcs.push(path.join(__dirname, '..', '..', '..'));
       }
     });
-
-    // Make whatever fine-grained changes you need
-    config?.module?.rules?.push({
-      test: /\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
-      include: path.resolve(__dirname, '../'),
-    });
-
     return config;
   },
   core: {
-    builder: 'webpack4',
+    builder: 'webpack5',
   },
   staticDirs: ['../public'],
 };

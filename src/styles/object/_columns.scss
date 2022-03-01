@@ -3,16 +3,14 @@
 // ==========================================================================
 
 // All columns
-[class*="o-col"] {
-  float: left;
-  position: relative;
-  padding-left: 0;
-  padding-right: 0;
-  width: 100%;
-
+[class*='o-col'] {
   @include bp(small) {
-    @include make-col(12);
+    @include make-col-ready(12);
   }
+
+  float: left;
+
+  width: 100%;
 }
 
 .u-no-gutters {

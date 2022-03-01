@@ -1,16 +1,5 @@
 /* eslint-disable */
-// @ts-ignore
-import {
-  all,
-  fork,
-  call,
-  put,
-  take,
-  cancelled,
-  select,
-  takeEvery,
-  delay,
-} from 'redux-saga/effects';
+import { all, fork, call, put, takeEvery } from 'redux-saga/effects';
 import {
   forgotPasswordService,
   userProfilService,
@@ -31,6 +20,7 @@ import {
 import { signoutUserAction } from '../signout/actions';
 // import { signinSuccess } from '../../actions';
 // import { setAuthStorage } from '../../services/Storage';
+import { history } from 'index';
 import Config from '../../constants';
 
 //@ts-ignore
@@ -218,6 +208,8 @@ function* getUserProfil(params: { id: unknown }) {
 }
 
 function* getUsersProfil() {
+  console.log('--------> getUsersProfil');
+
   //@ts-ignore
   const res = yield call(request, getUsersService);
   if (res?.status && res?.status === 200) {
@@ -230,7 +222,6 @@ function* getUsersProfil() {
 
 // @ts-ignore
 function* updateUserProfil({ user }) {
-  const history = user?.history;
   const path = user?.path;
   delete user?.history;
   delete user?.path;
@@ -327,7 +318,7 @@ function* watchUser() {
 
 function* watchUsers() {
   yield takeEvery(
-    AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST as any,
+    AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST as any,
     getUsersProfil
   );
 }
