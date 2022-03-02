@@ -7,7 +7,6 @@
 @import '../../node_modules/bootstrap/scss/mixins/buttons';
 @import '../../node_modules/bootstrap/scss/mixins/container';
 @import '../../node_modules/bootstrap/scss/mixins/grid';
-
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 // Functions
@@ -49,8 +48,4 @@
 // Teaser
 // ==========================================================================
 @import './teaser/article';
-
-// Page
-// ==========================================================================
-@import './src/containers/Signin';
 

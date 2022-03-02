@@ -43,61 +43,47 @@ function Signin({ initialValues, onSubmit }: any) {
     console.log('---------', values, errors);
 
     return (
-      <div className="o-zone s-thema--signin">
-        <div className="o-grid">
-          <div className="o-grid__row">
-            <div className="o-col">
-              <h1>Signin</h1>
-              <Form className="form-signin">
-                <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
-                <div className="form-floating">
-                  <Field
-                    id="floatingInput"
-                    name={INPUT_NAME.EMAIL}
-                    className="form-control"
-                    type="email"
-                    onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
-                    placeholder={PLACEHOLDER_EMAIL}
-                    value={values[INPUT_NAME.EMAIL]}
-                    required
-                  />
-                  {touched[INPUT_NAME.EMAIL]
-                  && errors
-                  && errors[INPUT_NAME.EMAIL] ? (
-                    <span className="error-text">
-                      {errors[INPUT_NAME.EMAIL]}
-                    </span>
-                  ) : null}
-                  <label htmlFor="floatingInput">{LABEL_EMAIL}</label>
-                </div>
-                <div className="form-floating">
-                  <Field
-                    id="floatingPassword"
-                    className="form-control"
-                    name={INPUT_NAME.PASSWORD}
-                    type="password"
-                    onChange={onChange(setFieldValue, INPUT_NAME.PASSWORD)}
-                    placeholder={PLACEHOLDER_PASSWORD}
-                    value={values[INPUT_NAME.PASSWORD]}
-                    required
-                  />
-                  {touched[INPUT_NAME.PASSWORD]
-                  && errors
-                  && errors[INPUT_NAME.PASSWORD] ? (
-                    <span className="error-text">
-                      {errors[INPUT_NAME.PASSWORD]}
-                    </span>
-                  ) : null}
-                  <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
-                </div>
-                <button className="w-100 btn btn-lg btn-primary" type="submit">
-                  Sign in
-                </button>
-              </Form>
-            </div>
+      <div className="form-signin">
+        <Form>
+          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+          <div className="form-floating">
+            <Field
+              id="floatingInput"
+              name={INPUT_NAME.EMAIL}
+              className="form-control"
+              type="email"
+              onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
+              placeholder={PLACEHOLDER_EMAIL}
+              value={values[INPUT_NAME.EMAIL]}
+              required
+            />
+            {touched[INPUT_NAME.EMAIL] && errors && errors[INPUT_NAME.EMAIL] ? (
+              <span className="error-text">{errors[INPUT_NAME.EMAIL]}</span>
+            ) : null}
+            <label htmlFor="floatingInput">{LABEL_EMAIL}</label>
           </div>
-        </div>
+          <div className="form-floating">
+            <Field
+              id="floatingPassword"
+              className="form-control"
+              name={INPUT_NAME.PASSWORD}
+              type="password"
+              onChange={onChange(setFieldValue, INPUT_NAME.PASSWORD)}
+              placeholder={PLACEHOLDER_PASSWORD}
+              value={values[INPUT_NAME.PASSWORD]}
+              required
+            />
+            {touched[INPUT_NAME.PASSWORD]
+            && errors
+            && errors[INPUT_NAME.PASSWORD] ? (
+              <span className="error-text">{errors[INPUT_NAME.PASSWORD]}</span>
+            ) : null}
+            <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
+          </div>
+          <button className="w-100 btn btn-lg btn-primary mt-2" type="submit">
+            Sign in
+          </button>
+        </Form>
       </div>
     );
   };
