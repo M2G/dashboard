@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authGetUsersProfilAction } from 'store/auth/actions';
 import './index.scss';
+import TopLineLoading from 'components/Loading/TopLineLoading';
 
 const useSortableData = (items: any, config = null) => {
   const [sortConfig, setSortConfig] = useState<any>(config);
@@ -97,13 +98,15 @@ const Table = (props: { products: any }) => {
 
 function Home() {
   const dispatch = useDispatch();
-  //@ts-ignore
-  const user = useSelector((state) => state?.user as any);
 
-  useEffect(() => {
-    dispatch(authGetUsersProfilAction(user));
-    console.log(':::::::', user);
-  }, []);
+  const { users, ...args } = useSelector((state: any) => state?.auth as any);
+  const { loading } = args;
+
+  console.log('Home Home Home', users?.data, args);
+
+  useEffect(() => dispatch(authGetUsersProfilAction()), []);
+
+  if (loading) return <TopLineLoading />;
 
   return (
     <div className="o-zone">

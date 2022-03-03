@@ -9,9 +9,8 @@ export const initialState: AuthState = {
   errors: undefined,
   loading: false,
 };
-//@ts-ignore
+
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
-  //@ts-ignore
   const { user: { data = {} } = {}, type } = action || {};
   switch (type) {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST:
@@ -30,7 +29,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS:
       return { ...state, loading: false, user: action?.user };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS:
-      return { ...state, loading: false, user: action?.users };
+      return { ...state, loading: false, users: action?.users };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS:
       return { ...state, loading: false, user: action?.user };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS:

@@ -10,6 +10,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  responseType: 'json',
   // 20 second timeout...
   timeout: 20000,
 
@@ -27,14 +28,6 @@ const api = axios.create({
       return data;
     },
     ...(axios.defaults.transformRequest as any),
-  ],
-
-  transformResponse: [
-    function (data) {
-      // Do whatever you want to transform the data
-
-      return data;
-    },
   ],
 });
 

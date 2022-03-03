@@ -17,11 +17,11 @@ const authGetUserProfilAction = (user: any) => {
   };
 };
 
-const authGetUsersProfilAction = (user: any) => {
-  console.log('authGetUsersProfilAction', user);
+const authGetUsersProfilAction = (users?: any) => {
+  console.log('authGetUsersProfilAction', users);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
-    ...user,
+    ...users,
   };
 };
 
@@ -70,6 +70,14 @@ const authUpdateUserProfilError = (user: any) => {
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR,
     user,
+  };
+};
+
+const authGetUsersProfilSuccess = (users: any) => {
+  console.log('authGetUsersProfilSuccess', users);
+  return {
+    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS,
+    users,
   };
 };
 
@@ -133,6 +141,7 @@ export {
   authRecoverPasswordSuccess,
   authForgotPasswordSuccess,
   authGetUserProfilSuccess,
+  authGetUsersProfilSuccess,
   authForgotPasswordErrorAction,
   authGetUserProfilError,
   authRequestErrorAction,

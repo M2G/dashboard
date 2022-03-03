@@ -16,12 +16,26 @@ import {
   authUpdateUserProfilSuccess,
   authUpdateUserProfilError,
   authRequestErrorAction,
+  authGetUsersProfilSuccess,
 } from './actions';
 import { signoutUserAction } from '../signout/actions';
-// import { signinSuccess } from '../../actions';
-// import { setAuthStorage } from '../../services/Storage';
 import { history } from 'index';
 import Config from '../../constants';
+
+function* request(api: any, params: unknown, extendParams: unknown) {
+  try {
+    // @ts-ignore
+    const res = yield call(api, params, extendParams);
+    if (res?.status && res?.status === 401) {
+      // @ts-ignore
+      return yield put(signoutUserAction({ ...res.data }));
+    }
+    return res;
+  } catch (error) {
+    // @ts-ignore
+    return yield put(authRequestErrorAction({ ...error }));
+  }
+}
 
 //@ts-ignore
 
@@ -170,21 +184,6 @@ function* RefreshLoop() {
 
 */
 
-function* request(api: any, params: unknown, extendParams: unknown) {
-  try {
-    // @ts-ignore
-    const res = yield call(api, params, extendParams);
-    if (res?.status && res?.status === 401) {
-      // @ts-ignore
-      return yield put(signoutUserAction({ ...res.data }));
-    }
-    return res;
-  } catch (error) {
-    // @ts-ignore
-    return yield put(authRequestErrorAction({ ...error }));
-  }
-}
-
 function* forgotPassword({ user }: any) {
   // @ts-ignore
   const res = yield call(forgotPasswordService, { email: user?.login });
@@ -213,7 +212,7 @@ function* getUsersProfil() {
   //@ts-ignore
   const res = yield call(request, getUsersService);
   if (res?.status && res?.status === 200) {
-    yield put(authGetUserProfilSuccess({ ...res.data }));
+    yield put(authGetUsersProfilSuccess({ ...res.data }));
   } else {
     yield put(signoutUserAction({ ...res.data }));
     yield put(authGetUserProfilError(res.data));
