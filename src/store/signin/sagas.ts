@@ -17,8 +17,6 @@ function* authorize({ ...params }): any {
 
     console.log('response response response', response);
 
-    console.log('::::::::::', JSON.parse(response?.data));
-
     if (response?.status === 200) {
       const signinSuccessResponse = yield put(signinUserSuccess(response));
 
@@ -29,7 +27,9 @@ function* authorize({ ...params }): any {
 
         const {
           data: { token },
-        } = JSON.parse(response?.data);
+        } = response?.data;
+
+        console.log('token token token 2 ', token);
 
         Config.GLOBAL_VAR.token = token;
         yield call(setAuthStorage, token);

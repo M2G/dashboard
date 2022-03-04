@@ -188,7 +188,7 @@ function* forgotPassword({ user }: any) {
   // @ts-ignore
   const res = yield call(forgotPasswordService, { email: user?.login });
 
-  if (res.status && res.status === 200) {
+  if (res?.status === 200) {
     yield call(user?.history?.replace, Config.ROUTER_PATH.RESET_PASSWORD);
   } else {
     yield put(authForgotPasswordErrorAction({ ...res.data }));
@@ -198,7 +198,7 @@ function* forgotPassword({ user }: any) {
 function* getUserProfil(params: { id: unknown }) {
   //@ts-ignore
   const res = yield call(request, userProfilService, params?.id);
-  if (res?.status && res?.status === 200) {
+  if (res?.status === 200) {
     yield put(authGetUserProfilSuccess({ ...res.data }));
   } else {
     yield put(signoutUserAction({ ...res.data }));
@@ -211,7 +211,7 @@ function* getUsersProfil() {
 
   //@ts-ignore
   const res = yield call(request, getUsersService);
-  if (res?.status && res?.status === 200) {
+  if (res?.status === 200) {
     yield put(authGetUsersProfilSuccess({ ...res.data }));
   } else {
     yield put(signoutUserAction({ ...res.data }));
