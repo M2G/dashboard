@@ -1,6 +1,7 @@
 /* eslint-disable */
 // @see https://github.com/diegohaz/redux-saga-social-login/blob/master/src/store/social/sagas.js
 // @see https://github.com/redux-saga/redux-saga/issues/14
+
 import { all, fork, call, put, take } from 'redux-saga/effects';
 import signinService from './services';
 import { SigninActionTypes } from './types';
@@ -53,7 +54,6 @@ function* watchSignin(): any {
 }
 
 function forwardTo(history: { push: Function }, location: string) {
-  console.log('forwardTo forwardTo forwardTo', location);
   return history.push({ pathname: location });
 }
 

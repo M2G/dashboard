@@ -32,7 +32,7 @@ import Forgotyourpasswordchoose from '../containers/Forgotyourpasswordchoose';
  *
  * @returns {Component}
  */
-const Router = () => (
+const Router = ({ history }: any) => (
   <main>
     <Navbar />
     <Routes>

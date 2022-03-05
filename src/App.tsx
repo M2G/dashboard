@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { BrowserRouter } from 'react-router-dom';
+import CustomRouter from 'routes/CustomRouter';
 import Routes from './routes';
 
-function App() {
+function App({ history }: any) {
   return (
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <CustomRouter history={history}>
+      <Routes history={history} />
+    </CustomRouter>
   );
 }
 

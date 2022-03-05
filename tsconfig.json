@@ -48,7 +48,8 @@
       "services/*": ["./services/*"],
       "constants/*": ["./constants/*"],
       "components/*": ["./components/*"],
-      "container/*": ["./container/*"]
+      "container/*": ["./container/*"],
+      "routes/*": ["./routes/*"]
     }
   },
   "include": ["src/**/*", "test/**/*"],
