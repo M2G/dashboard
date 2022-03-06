@@ -1,4 +1,3 @@
-/* eslint-disable */
 import CustomRouter from 'routes/CustomRouter';
 import Routes from './routes';
 

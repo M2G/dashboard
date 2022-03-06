@@ -2,7 +2,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authGetUsersProfilAction } from 'store/auth/actions';
-import './index.scss';
 import TopLineLoading from 'components/Loading/TopLineLoading';
 
 const useSortableData = (items: any, config = null) => {
@@ -41,8 +40,8 @@ const useSortableData = (items: any, config = null) => {
   return { items: sortedItems, requestSort, sortConfig };
 };
 
-const Table = (props: { products: any }) => {
-  const { items, requestSort, sortConfig } = useSortableData(props.products);
+const Table = (props: { data: any }) => {
+  const { items, requestSort, sortConfig } = useSortableData(props.data);
   const getClassNamesFor = (name: string) => {
     if (!sortConfig) {
       return;
@@ -51,7 +50,7 @@ const Table = (props: { products: any }) => {
   };
   return (
     <table className="table">
-      <caption>Products</caption>
+      <caption>User list</caption>
       <thead>
         <tr>
           <th>
@@ -66,29 +65,29 @@ const Table = (props: { products: any }) => {
           <th>
             <button
               type="button"
-              onClick={() => requestSort('price')}
-              className={getClassNamesFor('price')}
+              onClick={() => requestSort('email')}
+              className={getClassNamesFor('email')}
             >
-              Price
+              Email
             </button>
           </th>
           <th>
             <button
               type="button"
-              onClick={() => requestSort('stock')}
-              className={getClassNamesFor('stock')}
+              onClick={() => requestSort('created_at')}
+              className={getClassNamesFor('created_at')}
             >
-              In Stock
+              Created at
             </button>
           </th>
         </tr>
       </thead>
       <tbody>
-        {items.map((item: any) => (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>${item.price}</td>
-            <td>{item.stock}</td>
+        {items?.map((item: any) => (
+          <tr key={item?.id}>
+            <td>{item?.name}</td>
+            <td>${item?.email}</td>
+            <td>{item?.created_at}</td>
           </tr>
         ))}
       </tbody>
@@ -99,8 +98,9 @@ const Table = (props: { products: any }) => {
 function Home() {
   const dispatch = useDispatch();
 
-  const { users, ...args } = useSelector((state: any) => state?.auth as any);
-  const { loading } = args;
+  const { users, loading, ...args } = useSelector(
+    (state: any) => state?.auth as any
+  );
 
   console.log('Home Home Home', users?.data, args);
 
@@ -114,24 +114,23 @@ function Home() {
         <div className="o-grid__row">
           <div className="o-col">
             <div className="o-cell--one">
-              <div className="App">
+              {users?.data?.length && (
                 <Table
-                  products={[
-                    { id: 1, name: 'Cheese', price: 4.9, stock: 20 },
-                    { id: 2, name: 'Milk', price: 1.9, stock: 32 },
-                    { id: 3, name: 'Yoghurt', price: 2.4, stock: 12 },
-                    { id: 4, name: 'Heavy Cream', price: 3.9, stock: 9 },
-                    { id: 5, name: 'Butter', price: 0.9, stock: 99 },
-                    { id: 6, name: 'Sour Cream ', price: 2.9, stock: 86 },
-                    {
-                      id: 7,
-                      name: 'Fancy French Cheese 🇫🇷',
-                      price: 99,
-                      stock: 12,
-                    },
-                  ]}
+                  data={users.data.map(
+                    (user: {
+                      _id: any;
+                      first_name: any;
+                      email: any;
+                      created_at: any;
+                    }) => ({
+                      id: user?._id,
+                      name: user?.first_name,
+                      email: user?.email,
+                      created_at: user?.created_at,
+                    })
+                  )}
                 />
-              </div>
+              )}
             </div>
           </div>
         </div>

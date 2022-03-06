@@ -7,7 +7,7 @@ import ROUTER_PATH from '../constants/RouterPath';
 //import Container from '../components/Layout/Container';
 import PrivateRoute from '../routes/ProtectedRoutes';
 
-const Home = lazy(() => import('containers/Home/Home'));
+const Home = lazy(() => import('containers/Home'));
 const Signin = lazy(() => import('containers/Signin'));
 
 import TopLineLoading from 'components/Loading/TopLineLoading';
@@ -32,30 +32,34 @@ import Forgotyourpasswordchoose from '../containers/Forgotyourpasswordchoose';
  *
  * @returns {Component}
  */
-const Router = ({ history }: any) => (
-  <main>
-    <Navbar />
-    <Routes>
-      <Route
-        path={ROUTER_PATH.SIGNIN}
-        element={
-          <Suspense fallback={<TopLineLoading />}>
-            <Signin />
-          </Suspense>
-        }
-      />
-      <Route
-        path={ROUTER_PATH.HOME}
-        element={
-          <Suspense fallback={<TopLineLoading />}>
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          </Suspense>
-        }
-      />
-    </Routes>
-  </main>
-);
+const Router = ({ history }: any) => {
+  console.log('history', history);
+
+  return (
+    <main>
+      <Navbar />
+      <Routes>
+        <Route
+          path={ROUTER_PATH.SIGNIN}
+          element={
+            <Suspense fallback={<TopLineLoading />}>
+              <Signin />
+            </Suspense>
+          }
+        />
+        <Route
+          path={ROUTER_PATH.HOME}
+          element={
+            <Suspense fallback={<TopLineLoading />}>
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+      </Routes>
+    </main>
+  );
+};
 
 export default Router;

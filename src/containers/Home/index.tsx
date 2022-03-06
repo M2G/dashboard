@@ -3,6 +3,7 @@
 // import { useDispatch } from 'react-redux';
 // import { signinUserAction } from 'store/signin/actions';
 import HomeView from './Home';
+import './index.scss';
 
 function Home() {
   /* const dispatch = useDispatch();

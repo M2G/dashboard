@@ -1,5 +1,12 @@
 /* eslint-disable */
-import { all, fork, call, put, takeEvery } from 'redux-saga/effects';
+import {
+  all,
+  fork,
+  call,
+  put,
+  takeEvery,
+  StrictEffect,
+} from 'redux-saga/effects';
 import {
   forgotPasswordService,
   userProfilService,
@@ -18,21 +25,22 @@ import {
   authRequestErrorAction,
   authGetUsersProfilSuccess,
 } from './actions';
-import { signoutUserAction } from '../signout/actions';
+import { signoutUserAction } from 'store/signout/actions';
 import { history } from 'index';
 import Config from '../../constants';
 
-function* request(api: any, params: unknown, extendParams: unknown) {
+function* request(
+  api: any,
+  params: unknown,
+  extendParams: unknown
+): Generator<StrictEffect, any, any> {
   try {
-    // @ts-ignore
     const res = yield call(api, params, extendParams);
-    if (res?.status && res?.status === 401) {
-      // @ts-ignore
+    if (res?.status === 401) {
       return yield put(signoutUserAction({ ...res.data }));
     }
     return res;
-  } catch (error) {
-    // @ts-ignore
+  } catch (error: any) {
     return yield put(authRequestErrorAction({ ...error }));
   }
 }
@@ -206,11 +214,8 @@ function* getUserProfil(params: { id: unknown }) {
   }
 }
 
-function* getUsersProfil() {
-  console.log('--------> getUsersProfil');
-
-  //@ts-ignore
-  const res = yield call(request, getUsersService);
+function* getUsersProfil(): any {
+  const res = yield call(request as any, getUsersService);
   if (res?.status === 200) {
     yield put(authGetUsersProfilSuccess({ ...res.data }));
   } else {
