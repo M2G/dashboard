@@ -1,13 +1,19 @@
+import type { SetStateAction } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ROUTER_PATH from 'constants/RouterPath';
 
 function Navbar() {
+  const [searchInput, setSearchInput] = useState('');
+
+  const searchItems = (searchValue: SetStateAction<string>) => {
+    setSearchInput(searchValue);
+  };
+
+  console.log('searchInput', searchInput);
+
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div className="container-fluid">
-        <Link to={ROUTER_PATH.HOME} className="navbar-brand">
-          Home
-        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -22,8 +28,8 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li className="nav-item">
-              <Link to={ROUTER_PATH.SIGNIN} className="nav-link active">
-                Signin
+              <Link to="/" className="nav-link active">
+                Home
               </Link>
             </li>
           </ul>
@@ -33,6 +39,9 @@ function Navbar() {
               type="search"
               placeholder="Search"
               aria-label="Search"
+              onChange={({ target: { value } }: any) => {
+                searchItems(value as string);
+              }}
             />
             <button className="btn btn-light" type="submit">
               Search

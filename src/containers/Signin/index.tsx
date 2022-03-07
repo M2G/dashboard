@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { INITIAL_VALUES } from 'constants/constants';
 import { signinUserAction } from 'store/signin/actions';
 import SigninView from './Signin';
-import './index.scss';
 
 function Signin() {
   const dispatch = useDispatch();
