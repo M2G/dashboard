@@ -1,16 +1,6 @@
-import type { SetStateAction } from 'react';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Navbar() {
-  const [searchInput, setSearchInput] = useState('');
-
-  const searchItems = (searchValue: SetStateAction<string>) => {
-    setSearchInput(searchValue);
-  };
-
-  console.log('searchInput', searchInput);
-
+function Navbar({ searchTerms }: any) {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div className="container-fluid">
@@ -40,7 +30,7 @@ function Navbar() {
               placeholder="Search"
               aria-label="Search"
               onChange={({ target: { value } }: any) => {
-                searchItems(value as string);
+                searchTerms({ value });
               }}
             />
             <button className="btn btn-light" type="submit">

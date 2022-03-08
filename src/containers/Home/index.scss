@@ -17,7 +17,7 @@ thead th {
 
 thead button {
   border: 0;
-  border-radius: none;
+  border-radius: unset;
   font-family: inherit;
   font-weight: 700;
   font-size: inherit;
@@ -25,16 +25,35 @@ thead button {
   margin-bottom: 1px;
 }
 
+thead button.ascending::before {
+  content: '\f0de';
+  font-family: 'Font Awesome\ 5 Free', sans-serif;
+  margin-left: -10px;
+  float: right;
+  opacity: 0.3;
+}
+
 thead button.ascending::after {
-  content: '👇';
+  content: '\f0dd';
+  font-family: 'Font Awesome\ 5 Free', sans-serif;
   display: inline-block;
   margin-left: 1em;
 }
 
+thead button.descending::before {
+  content: '\f0de';
+  font-family: 'Font Awesome\ 5 Free', sans-serif;
+  display: inline-block;
+  margin-left: -10px;
+  float: right;
+}
+
 thead button.descending::after {
-  content: '☝️';
+  content: '\f0dd';
+  font-family: 'Font Awesome\ 5 Free', sans-serif;
   display: inline-block;
   margin-left: 1em;
+  opacity: 0.3;
 }
 
 tbody td {

@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authGetUsersProfilAction } from 'store/auth/actions';
 import TopLineLoading from 'components/Loading/TopLineLoading';
@@ -87,7 +87,7 @@ const Table = (props: { data: any }) => {
         {items?.map((item: any) => (
           <tr key={item?.id}>
             <td>{item?.name}</td>
-            <td>${item?.email}</td>
+            <td>{item?.email}</td>
             <td>{item?.created_at}</td>
           </tr>
         ))}
@@ -99,19 +99,21 @@ const Table = (props: { data: any }) => {
 function Home() {
   const dispatch = useDispatch();
 
-  const { users, loading, ...args } = useSelector(
-    (state: any) => state?.auth as any
-  );
+  const { users, loading } = useSelector((state: any) => state?.auth as any);
 
-  console.log('Home Home Home', users?.data, args);
-
+  // @ts-ignore
   useEffect(() => dispatch(authGetUsersProfilAction()), []);
+
+  const searchTerms = useCallback((terms) => {
+    console.log('searchTerms', terms);
+    authGetUsersProfilAction({ terms });
+  }, []);
 
   if (loading) return <TopLineLoading />;
 
   return (
     <>
-      <Navbar />
+      <Navbar searchTerms={searchTerms} />
       <div className="o-zone">
         <div className="o-grid">
           <div className="o-grid__row">

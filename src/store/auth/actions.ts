@@ -17,10 +17,11 @@ const authGetUserProfilAction = (user: any) => {
   };
 };
 
-const authGetUsersProfilAction = (users?: any) => {
+const authGetUsersProfilAction = ({ users, search }: any) => {
   console.log('authGetUsersProfilAction', users);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
+    search,
     ...users,
   };
 };

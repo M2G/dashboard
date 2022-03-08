@@ -214,7 +214,8 @@ function* getUserProfil(params: { id: unknown }) {
   }
 }
 
-function* getUsersProfil(): any {
+function* getUsersProfil({ users }: any): any {
+  console.log('getUsersProfil getUsersProfil', users);
   const res = yield call(request as any, getUsersService);
   if (res?.status === 200) {
     yield put(authGetUsersProfilSuccess({ ...res.data }));
