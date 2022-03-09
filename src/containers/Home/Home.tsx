@@ -99,30 +99,33 @@ const Table = (props: { data: any }) => {
 function Home() {
   const dispatch = useDispatch();
 
-  const { users, loading } = useSelector((state: any) => state?.auth as any);
+  const { data, loading, ...args } = useSelector(
+    (state: any) => state?.auth as any
+  );
 
-  // @ts-ignore
-  useEffect(() => dispatch(authGetUsersProfilAction()), []);
+  console.log('searchTerms args args args', args);
 
-  const searchTerms = useCallback((terms) => {
-    console.log('searchTerms', terms);
-    authGetUsersProfilAction({ terms });
+  useEffect(() => dispatch(authGetUsersProfilAction() as any), []);
+
+  const searchTerms = useCallback((data) => {
+    console.log('searchTerms', data);
+    dispatch(authGetUsersProfilAction({ data }));
   }, []);
 
   if (loading) return <TopLineLoading />;
 
   return (
     <>
-      <Navbar searchTerms={searchTerms} />
+      <Navbar onSubmit={searchTerms} />
       <div className="o-zone">
         <div className="o-grid">
           <div className="o-grid__row">
             <div className="o-col">
               <div className="o-cell--one">
-                {users?.data?.length && (
+                {data?.length && (
                   <div className="c-table">
                     <Table
-                      data={users.data.map(
+                      data={data.map(
                         (user: {
                           _id: any;
                           first_name: any;

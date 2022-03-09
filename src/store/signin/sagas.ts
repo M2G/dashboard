@@ -48,8 +48,7 @@ function* authorize({ ...params }): any {
 function* watchSignin(): any {
   while (true) {
     const request = yield take(SigninActionTypes.SIGNIN_USER_REQUEST);
-    const { email, password, history } = request?.user;
-    yield call(authorize, { email, password, history });
+    yield call(authorize, { ...request?.user });
   }
 }
 

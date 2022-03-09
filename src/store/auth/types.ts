@@ -4,10 +4,14 @@
  * https://docs.opendota.com/#tag/heroes%2Fpaths%2F~1heroes%2Fget
  */
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Auth extends ApiResponse {
-  username: string;
-  password: string;
+  _id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password?: string;
+  created_at: string;
+  modified_at?: string;
 }
 
 /*
@@ -54,7 +58,6 @@ export enum AuthActionTypes {
  * https://github.com/piotrwitek/react-redux-typescript-guide#state-with-type-level-immutability
  */
 export interface AuthState {
-  readonly user: any;
   readonly loading: boolean;
   readonly data: Auth[];
   readonly errors?: string;

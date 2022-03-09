@@ -3,7 +3,6 @@ import { Reducer } from 'redux';
 import { AuthActionTypes, AuthState } from './types';
 
 // Type-safe initialState!
-//@ts-ignore
 export const initialState: AuthState = {
   data: [],
   errors: undefined,
@@ -11,14 +10,14 @@ export const initialState: AuthState = {
 };
 
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
-  const { user: { data = {} } = {}, type } = action || {};
+  const { data, type } = action || {};
   switch (type) {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST:
       return { ...state, loading: true };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST:
       return { ...state, loading: true };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST:
-      return { ...state, loading: true, user: action?.user };
+      return { ...state, loading: true, data: data };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST:
       return { ...state, loading: true };
     case AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST:
@@ -27,11 +26,11 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return { ...state, loading: true };
 
     case AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS:
-      return { ...state, loading: false, user: action?.user };
+      return { ...state, loading: false, data: data };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS:
-      return { ...state, loading: false, users: action?.users };
+      return { ...state, loading: false, data: data };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS:
-      return { ...state, loading: false, user: action?.user };
+      return { ...state, loading: false, data: data };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS:
       return { ...state, loading: false, data: data };
     case AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS:
@@ -40,9 +39,9 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return { ...state, loading: false, data: data };
 
     case AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR:
-      return { ...state, loading: false, errors: action };
+      return { ...state, loading: false, errors: data };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_ERROR:
-      return { ...state, loading: false, errors: action };
+      return { ...state, loading: false, errors: data };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR:
       return { ...state, loading: false, errors: data };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_ERROR:

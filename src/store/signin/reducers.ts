@@ -9,20 +9,17 @@ export const initialState: SigninState = {
   loading: false,
 };
 
-const reducer: Reducer<SigninState> = (
-  state = initialState,
-  action,
-) => {
+const reducer: Reducer<SigninState> = (state = initialState, action) => {
   //@ts-ignore
-  const { user: { data = {} } = {}, errors, type } = action || {};
+  const { data = {}, errors, type } = action || {};
 
-  console.log('action action action action', action)
+  console.log('action action action action', action);
 
   switch (type) {
     case SigninActionTypes.SIGNIN_USER_REQUEST:
       return { ...state, loading: true };
     case SigninActionTypes.SIGNIN_USER_SUCCESS:
-      return { ...state, loading: false, data: data };
+      return { ...state, loading: false, data };
     case SigninActionTypes.SIGNIN_USER_ERROR:
       return { ...state, loading: false, errors: errors };
     default:

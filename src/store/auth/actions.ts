@@ -1,132 +1,131 @@
 /* eslint-disable */
 import { AuthActionTypes } from './types';
 
-const authUpdateUserProfilAction = (user: any) => {
-  console.log('authUpdateUserProfilAction', user);
+const authUpdateUserProfilAction = (data: any) => {
+  console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST,
-    user,
+    data,
   };
 };
 
-const authGetUserProfilAction = (user: any) => {
-  console.log('authUpdateUserProfilAction', user);
+const authGetUserProfilAction = (data: any) => {
+  console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
-    ...user,
+    data,
   };
 };
 
-const authGetUsersProfilAction = ({ users, search }: any) => {
-  console.log('authGetUsersProfilAction', users);
+const authGetUsersProfilAction = (data?: any) => {
+  console.log('authGetUsersProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
-    search,
-    ...users,
+    ...data,
   };
 };
 
-const authUpdatePasswordAction = (user: any) => {
-  console.log('authUpdatePasswordAction', user);
+const authUpdatePasswordAction = (data: any) => {
+  console.log('authUpdatePasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST,
-    user,
+    data,
   };
 };
 
-const authRecoverPasswordAction = (user: any) => {
-  console.log('authRecoverPasswordAction', user);
+const authRecoverPasswordAction = (data: any) => {
+  console.log('authRecoverPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST,
-    user,
+    data,
   };
 };
 
-const authForgotPasswordAction = (user: any) => {
-  console.log('authForgotPasswordAction', user);
+const authForgotPasswordAction = (data: any) => {
+  console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST,
-    user,
+    data,
   };
 };
 
-const authForgotPasswordErrorAction = (user: any) => {
-  console.log('authForgotPasswordAction', user);
+const authForgotPasswordErrorAction = (data: any) => {
+  console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_FORGOT_PASSWORD_ERROR,
-    user,
+    data,
   };
 };
 
-const authUpdateUserProfilSuccess = (user: any) => {
-  console.log('authUpdateUserProfilAction', user);
+const authUpdateUserProfilSuccess = (data: any) => {
+  console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS,
-    user,
+    data,
   };
 };
 
-const authUpdateUserProfilError = (user: any) => {
-  console.log('authUpdateUserProfilError', user);
+const authUpdateUserProfilError = (data: any) => {
+  console.log('authUpdateUserProfilError', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR,
-    user,
+    data,
   };
 };
 
-const authGetUsersProfilSuccess = (users: any) => {
-  console.log('authGetUsersProfilSuccess', users);
+const authGetUsersProfilSuccess = (data: any) => {
+  console.log('authGetUsersProfilSuccess', data);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS,
-    users,
+    ...data,
   };
 };
 
-const authGetUserProfilSuccess = (user: any) => {
-  console.log('authUpdateUserProfilAction', user);
+const authGetUserProfilSuccess = (data: any) => {
+  console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS,
-    user,
+    data,
   };
 };
 
-const authGetUserProfilError = (user: any) => {
-  console.log('authGetUserProfilError', user);
+const authGetUserProfilError = (data: any) => {
+  console.log('authGetUserProfilError', data);
   return {
     type: AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR,
-    ...user,
+    data,
   };
 };
 
-const authUpdatePasswordSuccess = (user: any) => {
-  console.log('authUpdatePasswordAction', user);
+const authUpdatePasswordSuccess = (data: any) => {
+  console.log('authUpdatePasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS,
-    user,
+    data,
   };
 };
 
-const authRecoverPasswordSuccess = (user: any) => {
-  console.log('authRecoverPasswordAction', user);
+const authRecoverPasswordSuccess = (data: any) => {
+  console.log('authRecoverPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS,
-    user,
+    data,
   };
 };
 
-const authForgotPasswordSuccess = (user: any) => {
-  console.log('authForgotPasswordAction', user);
+const authForgotPasswordSuccess = (data: any) => {
+  console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_FORGOT_PASSWORD_SUCCESS,
-    user,
+    data,
   };
 };
 
-const authRequestErrorAction = (user: any) => {
-  console.log('authForgotPasswordAction', user);
+const authRequestErrorAction = (data: any) => {
+  console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_REQUEST_ERROR,
-    user,
+    data,
   };
 };
 
