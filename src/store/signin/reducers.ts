@@ -13,8 +13,6 @@ const reducer: Reducer<SigninState> = (state = initialState, action) => {
   //@ts-ignore
   const { data = {}, errors, type } = action || {};
 
-  console.log('action action action action', action);
-
   switch (type) {
     case SigninActionTypes.SIGNIN_USER_REQUEST:
       return { ...state, loading: true };

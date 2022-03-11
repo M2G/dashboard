@@ -10,7 +10,10 @@ export const initialState: AuthState = {
 };
 
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
-  const { data, type } = action || {};
+  const { data, type, ...args } = action || {};
+
+  console.log('---------> action', action);
+
   switch (type) {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST:
       return { ...state, loading: true };
@@ -28,7 +31,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS:
       return { ...state, loading: false, data: data };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS:
-      return { ...state, loading: false, data: data };
+      return { ...state, loading: false, data, ...args };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS:
       return { ...state, loading: false, data: data };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS:

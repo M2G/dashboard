@@ -68,13 +68,15 @@ function* getUserProfil(params: { id: unknown }) {
 }
 
 function* getUsersProfil(params: any): any {
-  console.log('getUsersProfil getUsersProfil', params?.data?.search);
-  const res = yield call(request as any, getUsersService, params?.data?.search);
+  console.log('getUsersProfil getUsersProfil', params);
+  const res = yield call(request as any, getUsersService, params?.search);
 
   console.log('getUsersProfil getUsersProfil res res res', res);
 
+  const args = params?.search ? params.search : {};
+
   if (res?.status === 200) {
-    yield put(authGetUsersProfilSuccess({ ...res.data }));
+    yield put(authGetUsersProfilSuccess({ args, ...res.data }));
   } else {
     yield put(signoutUserAction({ ...res.data }));
     yield put(authGetUserProfilError(res.data));

@@ -1,9 +1,5 @@
 /*eslint-disable*/
-import { useState, useMemo, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { authGetUsersProfilAction } from 'store/auth/actions';
-import TopLineLoading from 'components/Loading/TopLineLoading';
-import Navbar from 'components/Navbar/Navbar';
+import { useState, useMemo } from 'react';
 
 const useSortableData = (items: any, config = null) => {
   const [sortConfig, setSortConfig] = useState<any>(config);
@@ -96,57 +92,37 @@ const Table = (props: { data: any }) => {
   );
 };
 
-function Home() {
-  const dispatch = useDispatch();
-
-  const { data, loading, ...args } = useSelector(
-    (state: any) => state?.auth as any
-  );
-
-  console.log('searchTerms args args args', args);
-
-  useEffect(() => dispatch(authGetUsersProfilAction() as any), []);
-
-  const searchTerms = useCallback((data) => {
-    console.log('searchTerms', data);
-    dispatch(authGetUsersProfilAction({ data }));
-  }, []);
-
-  if (loading) return <TopLineLoading />;
-
+function Home({ data }: any) {
   return (
-    <>
-      <Navbar onSubmit={searchTerms} />
-      <div className="o-zone">
-        <div className="o-grid">
-          <div className="o-grid__row">
-            <div className="o-col">
-              <div className="o-cell--one">
-                {data?.length && (
-                  <div className="c-table">
-                    <Table
-                      data={data.map(
-                        (user: {
-                          _id: any;
-                          first_name: any;
-                          email: any;
-                          created_at: any;
-                        }) => ({
-                          id: user?._id,
-                          name: user?.first_name,
-                          email: user?.email,
-                          created_at: user?.created_at,
-                        })
-                      )}
-                    />
-                  </div>
-                )}
-              </div>
+    <div className="o-zone">
+      <div className="o-grid">
+        <div className="o-grid__row">
+          <div className="o-col">
+            <div className="o-cell--one">
+              {data?.length && (
+                <div className="c-table">
+                  <Table
+                    data={data.map(
+                      (user: {
+                        _id: any;
+                        first_name: any;
+                        email: any;
+                        created_at: any;
+                      }) => ({
+                        id: user?._id,
+                        name: user?.first_name,
+                        email: user?.email,
+                        created_at: user?.created_at,
+                      })
+                    )}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -21,11 +21,7 @@ function Navbar({ onSubmit }: any) {
 
   const handleSubmit = (values: object) => onSubmit(values);
 
-  const renderForm = ({
-    setFieldValue,
-    values,
-  }: // eslint-disable-next-line
-  any): any => {
+  const renderForm = ({ setFieldValue, values }: any): any => {
     console.log('SEARCH SEARCH SEARCH', values);
     return (
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">

@@ -17,11 +17,11 @@ const authGetUserProfilAction = (data: any) => {
   };
 };
 
-const authGetUsersProfilAction = (data?: any) => {
-  console.log('authGetUsersProfilAction', data);
+const authGetUsersProfilAction = (args?: any) => {
+  console.log('authGetUsersProfilAction', args);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
-    ...data,
+    ...args,
   };
 };
 
@@ -73,11 +73,12 @@ const authUpdateUserProfilError = (data: any) => {
   };
 };
 
-const authGetUsersProfilSuccess = (data: any) => {
-  console.log('authGetUsersProfilSuccess', data);
+const authGetUsersProfilSuccess = ({ data, ...args }: any) => {
+  console.log('authGetUsersProfilSuccess', data, args);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS,
-    ...data,
+    data,
+    ...args,
   };
 };
 
