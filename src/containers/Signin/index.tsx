@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { INITIAL_VALUES } from 'constants/constants';
 import { signinUserAction } from 'store/signin/actions';
+import { INITIAL_VALUES } from './constants';
 import SigninView from './Signin';
 
 function Signin() {

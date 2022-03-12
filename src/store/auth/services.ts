@@ -18,8 +18,6 @@ function updateUserProfilService(id: number, params: any): Promise<any> {
 }
 
 function getUsersService(data: string): Promise<any> {
-  console.log(':::::::: getUsersService', data);
-
   return api.get(data ? `/auth/users?search=${data}` : '/auth/users');
 }
 

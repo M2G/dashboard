@@ -7,7 +7,7 @@ import {
   LABEL_EMAIL,
   PLACEHOLDER_EMAIL,
   PLACEHOLDER_PASSWORD,
-} from 'constants/constants';
+} from './constants';
 
 const { ERROR_TEXT_REQUIRED_EMAIL, ERROR_TEXT_REQUIRED_PASSWORD } = ERROR_TEXT_REQUIRED;
 
@@ -21,8 +21,6 @@ function Signin({ initialValues, onSubmit }: any) {
 
   const onValidate = (values: object): {} => {
     const errors = {};
-
-    console.log('-------->', values);
 
     if (!values[INPUT_NAME.EMAIL]) {
       errors[INPUT_NAME.EMAIL] = ERROR_TEXT_REQUIRED_EMAIL;

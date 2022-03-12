@@ -3,17 +3,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import TopLineLoading from './TopLineLoading';
 
-export namespace LoadingNS {
-  export interface Props {
-    isLoading: boolean;
-  }
+export interface LoadingNS {
+  isLoading: boolean;
 }
 
-// @ts-ignore
-const Loading: React.FC<LoadingNS.Props> = ({ isLoading }: boolean) => {
-  if (!isLoading) {
-    return null;
-  }
+const Loading: React.FC<LoadingNS> = ({ isLoading }: boolean | any) => {
+  if (!isLoading) return null;
 
   return <TopLineLoading />;
 };

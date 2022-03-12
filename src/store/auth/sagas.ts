@@ -10,7 +10,7 @@ import {
 import {
   //forgotPasswordService,
   userProfilService,
-  updateUserProfilService,
+  //updateUserProfilService,
   getUsersService,
 } from './services';
 
@@ -20,13 +20,13 @@ import {
   authGetUserProfilSuccess,
   authGetUserProfilError,
   //  authForgotPasswordAction,
-  authUpdateUserProfilSuccess,
-  authUpdateUserProfilError,
+  //authUpdateUserProfilSuccess,
+  //authUpdateUserProfilError,
   authRequestErrorAction,
   authGetUsersProfilSuccess,
 } from './actions';
 import { signoutUserAction } from 'store/signout/actions';
-import { history } from 'index';
+//import { history } from 'index';
 //import Config from '../../constants';
 
 function* request(
@@ -57,7 +57,7 @@ function* forgotPassword({ data }: any) {
 }
 
 function* getUserProfil(params: { id: unknown }) {
-  //@ts-ignore
+  // @ts-ignore
   const res = yield call(request, userProfilService, params?.id);
   if (res?.status === 200) {
     yield put(authGetUserProfilSuccess({ ...res.data }));
@@ -73,10 +73,10 @@ function* getUsersProfil(params: any): any {
 
   console.log('getUsersProfil getUsersProfil res res res', res);
 
-  const args = params?.search ? params.search : {};
+  const search = params?.search ? params.search : '';
 
   if (res?.status === 200) {
-    yield put(authGetUsersProfilSuccess({ args, ...res.data }));
+    yield put(authGetUsersProfilSuccess({ search, ...res.data }));
   } else {
     yield put(signoutUserAction({ ...res.data }));
     yield put(authGetUserProfilError(res.data));
@@ -85,6 +85,7 @@ function* getUsersProfil(params: any): any {
 
 // @ts-ignore
 function* updateUserProfil({ user }) {
+  /*
   const path = user?.path;
   delete user?.history;
   delete user?.path;
@@ -99,7 +100,7 @@ function* updateUserProfil({ user }) {
   } else {
     yield put(signoutUserAction({ ...res.data }));
     yield put(authUpdateUserProfilError({ ...res.data }));
-  }
+  }*/
 }
 /*
 function* updatePassword(api, action) {
