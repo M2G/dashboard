@@ -7,13 +7,9 @@ export const initialState: SignupState = {
   data: [],
   errors: undefined,
   loading: false,
-  currentStep: 0,
 };
 
-const reducer: Reducer<SignupState> = (
-  state = initialState,
-  action,
-) => {
+const reducer: Reducer<SignupState> = (state = initialState, action) => {
   const { user, type } = action;
   switch (type) {
     case SignupActionTypes.SIGNUP_USER_REQUEST:

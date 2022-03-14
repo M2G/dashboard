@@ -48,7 +48,7 @@ function Signin({ initialValues, onSubmit }: any) {
             <Field
               id="floatingInput"
               name={INPUT_NAME.EMAIL}
-              className="form-control"
+              className="form-control mb-2"
               type="email"
               onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
               placeholder={PLACEHOLDER_EMAIL}
@@ -63,7 +63,7 @@ function Signin({ initialValues, onSubmit }: any) {
           <div className="form-floating">
             <Field
               id="floatingPassword"
-              className="form-control"
+              className="form-control mb-2"
               name={INPUT_NAME.PASSWORD}
               type="password"
               onChange={onChange(setFieldValue, INPUT_NAME.PASSWORD)}
@@ -78,7 +78,7 @@ function Signin({ initialValues, onSubmit }: any) {
             ) : null}
             <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
           </div>
-          <button className="w-100 btn btn-lg btn-primary mt-2" type="submit">
+          <button className="w-100 btn btn-lg btn-primary" type="submit">
             Sign in
           </button>
         </Form>

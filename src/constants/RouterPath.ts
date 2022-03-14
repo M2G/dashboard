@@ -4,6 +4,7 @@ const ROUTER_PATH = {
   LOGIN: '/login',
   RESET_PASSWORD: '/reset-password',
   SIGNIN: '/signin',
+  SIGNUP: '/signup',
 };
 
 export default ROUTER_PATH;

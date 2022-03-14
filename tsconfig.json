@@ -46,6 +46,7 @@
       "api": ["./api"],
       "store/*": ["./store/*"],
       "services/*": ["./services/*"],
+      "actions/*": ["./actions/*"],
       "constants/*": ["./constants/*"],
       "components/*": ["./components/*"],
       "container/*": ["./container/*"],

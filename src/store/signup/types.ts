@@ -6,7 +6,7 @@
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Signup extends ApiResponse {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -40,5 +40,4 @@ export interface SignupState {
   readonly loading: boolean;
   readonly data: Signup[];
   readonly errors?: string;
-  readonly currentStep: number;
 }

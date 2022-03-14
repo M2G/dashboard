@@ -1,8 +1,8 @@
 /* eslint-disable */
-import api from '../../api';
+import api from 'api';
 
 function signupUserService(params: any) {
-  return api.post('/auth/sign-up', params);
+  return api.post('/auth/register', params);
 }
 
 export default signupUserService;

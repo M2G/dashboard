@@ -8,6 +8,7 @@ import PrivateRoute from '../routes/ProtectedRoutes';
 
 const Home = lazy(() => import('containers/Home'));
 const Signin = lazy(() => import('containers/Signin'));
+const Signup = lazy(() => import('containers/Signup'));
 
 import TopLineLoading from 'components/Loading/TopLineLoading';
 
@@ -24,6 +25,14 @@ const Router = () => (
         element={
           <Suspense fallback={<TopLineLoading />}>
             <Signin />
+          </Suspense>
+        }
+      />
+      <Route
+        path={ROUTER_PATH.SIGNUP}
+        element={
+          <Suspense fallback={<TopLineLoading />}>
+            <Signup />
           </Suspense>
         }
       />

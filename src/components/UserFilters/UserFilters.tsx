@@ -11,26 +11,23 @@ function UserFilters({ onSubmit, initialValues }: any) {
 
   const handleSubmit = (values: object) => onSubmit(values);
 
-  const renderForm = ({ setFieldValue, values }: any): any => {
-    console.log('SEARCH SEARCH SEARCH', values);
-    return (
-      <Form className="d-flex">
-        <Field
-          id="floatingInput"
-          name={INPUT_NAME.SEARCH}
-          className="form-control me-2"
-          type="search"
-          aria-label="Search"
-          onChange={onChange(setFieldValue, INPUT_NAME.SEARCH)}
-          placeholder={PLACEHOLDER_SEARCH}
-          value={values[INPUT_NAME.SEARCH]}
-        />
-        <button className="btn btn-light" type="submit">
-          Search
-        </button>
-      </Form>
-    );
-  };
+  const renderForm = ({ setFieldValue, values }: any): any => (
+    <Form className="d-flex">
+      <Field
+        id="floatingInput"
+        name={INPUT_NAME.SEARCH}
+        className="form-control me-2"
+        type="search"
+        aria-label="Search"
+        onChange={onChange(setFieldValue, INPUT_NAME.SEARCH)}
+        placeholder={PLACEHOLDER_SEARCH}
+        value={values[INPUT_NAME.SEARCH]}
+      />
+      <button className="btn btn-light" type="submit">
+        Search
+      </button>
+    </Form>
+  );
 
   return (
     <Formik

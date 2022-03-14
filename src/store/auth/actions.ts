@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { AuthActionTypes } from './types';
 
-const authUpdateUserProfilAction = (data: any) => {
+export const authUpdateUserProfilAction = (data: any) => {
   console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST,
@@ -9,7 +9,7 @@ const authUpdateUserProfilAction = (data: any) => {
   };
 };
 
-const authGetUserProfilAction = (data: any) => {
+export const authGetUserProfilAction = (data: any) => {
   console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
@@ -17,7 +17,7 @@ const authGetUserProfilAction = (data: any) => {
   };
 };
 
-const authGetUsersProfilAction = (args?: any) => {
+export const authGetUsersProfilAction = (args?: any) => {
   console.log('authGetUsersProfilAction', args);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
@@ -25,7 +25,7 @@ const authGetUsersProfilAction = (args?: any) => {
   };
 };
 
-const authUpdatePasswordAction = (data: any) => {
+export const authUpdatePasswordAction = (data: any) => {
   console.log('authUpdatePasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST,
@@ -33,7 +33,7 @@ const authUpdatePasswordAction = (data: any) => {
   };
 };
 
-const authRecoverPasswordAction = (data: any) => {
+export const authRecoverPasswordAction = (data: any) => {
   console.log('authRecoverPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST,
@@ -41,7 +41,7 @@ const authRecoverPasswordAction = (data: any) => {
   };
 };
 
-const authForgotPasswordAction = (data: any) => {
+export const authForgotPasswordAction = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST,
@@ -49,7 +49,7 @@ const authForgotPasswordAction = (data: any) => {
   };
 };
 
-const authForgotPasswordErrorAction = (data: any) => {
+export const authForgotPasswordErrorAction = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_FORGOT_PASSWORD_ERROR,
@@ -57,7 +57,7 @@ const authForgotPasswordErrorAction = (data: any) => {
   };
 };
 
-const authUpdateUserProfilSuccess = (data: any) => {
+export const authUpdateUserProfilSuccess = (data: any) => {
   console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS,
@@ -65,7 +65,7 @@ const authUpdateUserProfilSuccess = (data: any) => {
   };
 };
 
-const authUpdateUserProfilError = (data: any) => {
+export const authUpdateUserProfilError = (data: any) => {
   console.log('authUpdateUserProfilError', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR,
@@ -73,7 +73,7 @@ const authUpdateUserProfilError = (data: any) => {
   };
 };
 
-const authGetUsersProfilSuccess = ({ data, ...args }: any) => {
+export const authGetUsersProfilSuccess = ({ data, ...args }: any) => {
   console.log('authGetUsersProfilSuccess', data, args);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS,
@@ -82,7 +82,7 @@ const authGetUsersProfilSuccess = ({ data, ...args }: any) => {
   };
 };
 
-const authGetUserProfilSuccess = (data: any) => {
+export const authGetUserProfilSuccess = (data: any) => {
   console.log('authUpdateUserProfilAction', data);
   return {
     type: AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS,
@@ -90,7 +90,7 @@ const authGetUserProfilSuccess = (data: any) => {
   };
 };
 
-const authGetUserProfilError = (data: any) => {
+export const authGetUserProfilError = (data: any) => {
   console.log('authGetUserProfilError', data);
   return {
     type: AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR,
@@ -98,7 +98,15 @@ const authGetUserProfilError = (data: any) => {
   };
 };
 
-const authUpdatePasswordSuccess = (data: any) => {
+export const authGetUsersProfilError = (data: any) => {
+  console.log('authGetUserProfilError', data);
+  return {
+    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_ERROR,
+    data,
+  };
+};
+
+export const authUpdatePasswordSuccess = (data: any) => {
   console.log('authUpdatePasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS,
@@ -106,7 +114,7 @@ const authUpdatePasswordSuccess = (data: any) => {
   };
 };
 
-const authRecoverPasswordSuccess = (data: any) => {
+export const authRecoverPasswordSuccess = (data: any) => {
   console.log('authRecoverPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS,
@@ -114,7 +122,7 @@ const authRecoverPasswordSuccess = (data: any) => {
   };
 };
 
-const authForgotPasswordSuccess = (data: any) => {
+export const authForgotPasswordSuccess = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_FORGOT_PASSWORD_SUCCESS,
@@ -122,29 +130,10 @@ const authForgotPasswordSuccess = (data: any) => {
   };
 };
 
-const authRequestErrorAction = (data: any) => {
+export const authRequestErrorAction = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_REQUEST_ERROR,
     data,
   };
-};
-
-export {
-  authGetUserProfilAction,
-  authGetUsersProfilAction,
-  authUpdateUserProfilAction,
-  authUpdatePasswordAction,
-  authRecoverPasswordAction,
-  authForgotPasswordAction,
-  authUpdateUserProfilSuccess,
-  authUpdatePasswordSuccess,
-  authRecoverPasswordSuccess,
-  authForgotPasswordSuccess,
-  authGetUserProfilSuccess,
-  authGetUsersProfilSuccess,
-  authForgotPasswordErrorAction,
-  authGetUserProfilError,
-  authRequestErrorAction,
-  authUpdateUserProfilError,
 };

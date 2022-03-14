@@ -24,6 +24,7 @@ import {
   //authUpdateUserProfilError,
   authRequestErrorAction,
   authGetUsersProfilSuccess,
+  authGetUsersProfilError,
 } from './actions';
 import { signoutUserAction } from 'store/signout/actions';
 //import { history } from 'index';
@@ -68,18 +69,13 @@ function* getUserProfil(params: { id: unknown }) {
 }
 
 function* getUsersProfil(params: any): any {
-  console.log('getUsersProfil getUsersProfil', params);
-  const res = yield call(request as any, getUsersService, params?.search);
-
-  console.log('getUsersProfil getUsersProfil res res res', res);
-
   const search = params?.search ? params.search : '';
-
+  const res = yield call(request as any, getUsersService, search);
   if (res?.status === 200) {
     yield put(authGetUsersProfilSuccess({ search, ...res.data }));
   } else {
     yield put(signoutUserAction({ ...res.data }));
-    yield put(authGetUserProfilError(res.data));
+    yield put(authGetUsersProfilError(res.data));
   }
 }
 

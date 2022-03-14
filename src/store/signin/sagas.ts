@@ -2,7 +2,7 @@
 // @see https://github.com/diegohaz/redux-saga-social-login/blob/master/src/store/social/sagas.js
 // @see https://github.com/redux-saga/redux-saga/issues/14
 
-import { all, fork, call, put, take } from 'redux-saga/effects';
+import { all, fork, call, put, take, StrictEffect } from 'redux-saga/effects';
 import signinService from './services';
 import { SigninActionTypes } from './types';
 import { signinUserSuccess, signinUserError } from './actions';
@@ -12,7 +12,7 @@ import Config from 'constants/index';
 import { history } from 'index';
 import ROUTER_PATH from 'constants/RouterPath';
 
-function* authorize({ ...params }): any {
+function* authorize({ ...params }): Generator<StrictEffect, any, any> {
   try {
     const response = yield call(signinService, params);
 

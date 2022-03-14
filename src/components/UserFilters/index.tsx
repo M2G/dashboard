@@ -4,7 +4,6 @@ import { useCallback } from 'react';
 import { authGetUsersProfilAction } from 'store/auth/actions';
 import UserFiltersView from './UserFilters';
 import { INITIAL_VALUES, INPUT_NAME } from './constants';
-const { SEARCH } = INPUT_NAME;
 
 function UserFilters() {
   const dispatch = useDispatch();
@@ -22,13 +21,11 @@ function UserFilters() {
     const initialValues = { ...INITIAL_VALUES };
 
     if (searchValue) {
-      initialValues[SEARCH] = searchValue?.[SEARCH];
+      initialValues[INPUT_NAME.SEARCH] = searchValue?.[INPUT_NAME.SEARCH];
     }
 
     return initialValues;
   }
-
-  console.log('UserFilters args args args', args);
 
   return (
     <UserFiltersView
