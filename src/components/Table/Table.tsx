@@ -1,52 +1,46 @@
+/* eslint-disable */
 import useSortableData from './useSortableData';
+
+function TableHeadSort(
+  data: any = [],
+  requestSort: any,
+  getClassNamesFor: any
+): any {
+  const array = [];
+  const obj = Object.assign({}, ...data);
+  for (const objKey in obj) {
+    console.log('objKey', objKey);
+    array.push(
+      <th>
+        <button
+          type="button"
+          onClick={() => requestSort(objKey)}
+          className={getClassNamesFor(objKey)}
+        >
+          {objKey}
+        </button>
+      </th>
+    );
+  }
+
+  return array;
+}
 
 function Table({ data = [] }: any) {
   const { items, requestSort, sortConfig } = useSortableData(data);
-  const getClassNamesFor = (name: string): any | string => {
-    if (!sortConfig) return;
+  const getClassNamesFor = (
+    name: string
+  ): any | boolean | string | undefined => {
+    if (!sortConfig) return false;
 
-    // eslint-disable-next-line
     return sortConfig.key === name ? sortConfig.direction : undefined;
   };
+
   return (
     <table className="table">
       <caption>User list</caption>
       <thead>
-        <tr>
-          <th>
-            <button
-              type="button"
-              onClick={() => {
-                requestSort('name');
-              }}
-              className={getClassNamesFor('name')}
-            >
-              Name
-            </button>
-          </th>
-          <th>
-            <button
-              type="button"
-              onClick={() => {
-                requestSort('email');
-              }}
-              className={getClassNamesFor('email')}
-            >
-              Email
-            </button>
-          </th>
-          <th>
-            <button
-              type="button"
-              onClick={() => {
-                requestSort('created_at');
-              }}
-              className={getClassNamesFor('created_at')}
-            >
-              Created at
-            </button>
-          </th>
-        </tr>
+        <tr>{TableHeadSort(data, requestSort, getClassNamesFor)}</tr>
       </thead>
       <tbody>
         {items?.map((item: any) => (

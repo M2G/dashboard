@@ -10,21 +10,7 @@ function Home({ data }: any) {
             <div className="o-cell--one">
               {data?.length && (
                 <div className="c-table">
-                  <Table
-                    data={data.map(
-                      (user: {
-                        _id: any;
-                        first_name: any;
-                        email: any;
-                        created_at: any;
-                      }) => ({
-                        id: user?._id,
-                        name: user?.first_name,
-                        email: user?.email,
-                        created_at: user?.created_at,
-                      })
-                    )}
-                  />
+                  <Table data={data} />
                 </div>
               )}
             </div>
