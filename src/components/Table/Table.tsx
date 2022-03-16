@@ -9,6 +9,7 @@ function TableHeadSort(
   const array = [];
   const obj = Object.assign({}, ...data);
   for (const objKey in obj) {
+    if (objKey === 'id') continue;
     console.log('objKey', objKey);
     array.push(
       <th>
@@ -26,7 +27,7 @@ function TableHeadSort(
   return array;
 }
 
-function Table({ data = [] }: any) {
+function Table({ data = [], action }: any) {
   const { items, requestSort, sortConfig } = useSortableData(data);
   const getClassNamesFor = (
     name: string
@@ -48,6 +49,9 @@ function Table({ data = [] }: any) {
             <td>{item?.name}</td>
             <td>{item?.email}</td>
             <td>{item?.created_at}</td>
+            <td>{item?.modified_at}</td>
+            <td onClick={() => action(item?.id)}>EDIT</td>
+            <td onClick={() => action(item?.id)}>DELETE</td>
           </tr>
         ))}
       </tbody>
