@@ -50,8 +50,12 @@ function Table({ data = [], action }: any) {
             <td>{item?.email}</td>
             <td>{item?.created_at}</td>
             <td>{item?.modified_at}</td>
-            <td onClick={() => action(item?.id)}>EDIT</td>
-            <td onClick={() => action(item?.id)}>DELETE</td>
+            <td onClick={() => action(item?.id)}>
+              <i className="fas fa-edit"></i>
+            </td>
+            <td onClick={() => action(item?.id)}>
+              <i className="fas fa-remove"></i>
+            </td>
           </tr>
         ))}
       </tbody>

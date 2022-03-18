@@ -18,7 +18,7 @@ function Home() {
   return (
     <>
       <Navbar />
-      <HomeView data={data} />
+      <HomeView users={data} />
     </>
   );
 }

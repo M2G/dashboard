@@ -1,17 +1,21 @@
 /*eslint-disable*/
-import Table from 'components/Table';
+//import Table from 'components/Table';
+import UserList from 'components/UserListItem/UserList';
 
-function Home({ data }: any) {
+function Home({ users }: any) {
   return (
     <div className="o-zone">
       <div className="o-grid">
         <div className="o-grid__row">
           <div className="o-col">
             <div className="o-cell--one">
-              {data?.length && (
+              <UserList users={users} id="test" />
+              {/*data?.length && (
                 <div className="c-table">
                   <Table
-                    action={(id: any) => console.log('id', id)}
+                      canDelete
+                      canDownload
+                    // action={(id: any) => console.log('id', id)}
                     data={data.map(
                       (user: {
                         _id: string;
@@ -29,7 +33,7 @@ function Home({ data }: any) {
                     )}
                   />
                 </div>
-              )}
+              )*/}
             </div>
           </div>
         </div>
