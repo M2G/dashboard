@@ -9,25 +9,25 @@ const TableHeaderCell = ({
 }: any) => {
   const onSortClick = () => {
     onSort(
-      !currentSortedData || currentSortedData.direction === 'asc'
-        ? 'desc'
-        : 'asc'
+      !currentSortedData || currentSortedData.direction === 'ascending'
+        ? 'descending'
+        : 'ascending'
     );
   };
 
   const sortedClass =
-    currentSortedData?.direction === 'asc' ? 'sort-icon-asc' : 'sort-icon-desc';
+    currentSortedData?.direction === 'ascending' ? 'ascending' : 'descending';
 
   return (
-    <div className={'table-header-cell'}>
+    <th>
       {label}
       {isSortable && (
-        <div
+        <button
           onClick={onSortClick}
           className={`sort-icon ${currentSortedData ? sortedClass : ''}`}
         />
       )}
-    </div>
+    </th>
   );
 };
 

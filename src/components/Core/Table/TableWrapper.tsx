@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import {
   arrayOf,
   string,
-  number,
   oneOfType,
   shape,
   oneOf,
@@ -28,7 +27,7 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
 
   const getSortedTable = useMemo(() => {
     if (!sortData) return rows;
-    const { index, direction, type } = sortData;
+    const { index, direction, type }: any = sortData;
 
     if (!type || type === 'string') {
       return rows.sort(
@@ -36,7 +35,7 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
           a: { [x: string]: { value: any } },
           b: { [x: string]: { value: string } }
         ) =>
-          direction === 'desc'
+          direction === 'descending'
             ? a[index].value.localeCompare(b[index].value)
             : b[index].value.localeCompare(a[index].value)
       );
@@ -47,7 +46,7 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
           a: { [x: string]: { value: number } },
           b: { [x: string]: { value: number } }
         ) =>
-          direction === 'asc'
+          direction === 'ascending'
             ? a[index].value - b[index].value
             : b[index].value - a[index].value
       );
@@ -57,48 +56,44 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
   }, [sortData, rows]);
 
   useEffect(() => {
-    // @ts-ignore
-    header.forEach(({ defaultSort, type }, index) => {
+    header.forEach(({ defaultSort, type }: any, index: any) => {
       if (defaultSort) {
-        handleSort(index, 'desc', type);
+        handleSort(index, 'descending', type);
       }
     });
   }, [header]);
 
   return (
-    <div className={clsx('table-wrapper', className)}>
-      <div className={'table-head'}>
-        <div className={'table-wrapper-row'}>
+    <table className={clsx('table-wrapper', className)}>
+      <thead className={'table-head'}>
+        <tr>
           {header.map(({ label, sortable, type }: any, index: string) => (
-            <div key={'headerTable' + index} className={'table-wrapper-cell'}>
-              <TableHeaderCell
-                label={label}
-                isSortable={sortable}
-                // @ts-ignore
-                currentSortedData={sortData?.index === index ? sortData : null}
-                onSort={(sortDirection) =>
-                  handleSort(index, sortDirection, type)
-                }
-              />
-            </div>
+            <TableHeaderCell
+              label={label}
+              isSortable={sortable}
+              // @ts-ignore
+              currentSortedData={sortData?.index === index ? sortData : null}
+              onSort={(sortDirection) => handleSort(index, sortDirection, type)}
+            />
           ))}
-        </div>
-      </div>
-      <div className={'table-body'}>
+        </tr>
+      </thead>
+      <tbody className={'table-body'}>
         {getSortedTable.map((row: { display: any }[], indexRow: any) => (
-          <div
-            key={`bodyTable__${id}__${indexRow}`}
-            className={'table-wrapper-row'}
-          >
+          <tr>
             {row.map(({ display }, indexCol) => (
-              <div key={`bodyTable__${id}__${indexRow}__${indexCol}`}>
+              <td
+                className={clsx('table-wrapper-cell', {
+                  stickyBlock: indexCol === 0,
+                })}
+              >
                 {display}
-              </div>
+              </td>
             ))}
-          </div>
+          </tr>
         ))}
-      </div>
-    </div>
+      </tbody>
+    </table>
   );
 };
 
@@ -118,8 +113,7 @@ const headerRowType = shape({
 
 TableWrapper.propTypes = {
   rows: arrayOf(arrayOf(rowType)).isRequired,
-  headers: arrayOf(headerRowType).isRequired,
-  columnsWidth: arrayOf(number).isRequired,
+  header: arrayOf(headerRowType).isRequired,
   id: string.isRequired,
 };
 

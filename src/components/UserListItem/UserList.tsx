@@ -21,10 +21,13 @@ const Userist = ({ users, id }: any) => {
   const canDelete = true;
 
   const onDelete = useCallback((currentSource) => {
+    console.log('onDelete', currentSource);
+
     setDeletingSource(currentSource);
   }, []);
 
   const onEdit = useCallback((currentSource) => {
+    console.log('onEdit', currentSource);
     setEditing(currentSource);
     setSource(null);
     setDeletingSource(null);
@@ -47,6 +50,7 @@ const Userist = ({ users, id }: any) => {
 
   const header = useMemo(
     () => [
+      { label: '', sortable: false },
       { label: 'first_name', sortable: false },
       { label: 'email', sortable: false },
       {
@@ -60,13 +64,7 @@ const Userist = ({ users, id }: any) => {
     []
   );
 
-  return (
-    <TableWrapper
-      // @ts-ignore
-      header={header}
-      rows={rows}
-    />
-  );
+  return <TableWrapper id="gdgdfxgx" header={header} rows={rows} />;
 };
 
 export default Userist;

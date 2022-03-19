@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import DateCell from 'components/Core/Table/DateCell';
+import TableStaticCol from 'components/Core/Table/TableStaticCol';
 
 const userListItem = ({ rowId, user, onEdit, onDelete, canDelete }: any) => {
   const id = `user__row__${rowId}__${user.id}`;
@@ -9,7 +10,7 @@ const userListItem = ({ rowId, user, onEdit, onDelete, canDelete }: any) => {
   if (onEdit) {
     actions.push({
       label: 'Edit',
-      icon: 'pencil',
+      icon: 'fa-edit',
       id: `${id}__edit`,
       action: () => {
         onEdit(user);
@@ -20,25 +21,28 @@ const userListItem = ({ rowId, user, onEdit, onDelete, canDelete }: any) => {
   if (canDelete) {
     actions.push({
       label: 'Delete',
-      icon: 'trash',
-      iconType: 'dripicons',
+      icon: 'fa-remove',
       id: `${id}__delete`,
       action: () => {
         onDelete(user);
       },
     });
   }
-  /*
 
-    name
-    email
-    created_at
-    modified_at
-     */
-  const rows = [
+  const tableStaticColProps = {
+    id,
+    actions,
+    //label: source.name || source.export_name,
+    label: 'gsdgds',
+  };
+
+  return [
     {
-      display: user.name,
-      value: user.name,
+      display: <TableStaticCol {...tableStaticColProps} />,
+    },
+    {
+      display: user.first_name,
+      value: user.first_name,
     },
     {
       display: user.email,
@@ -53,8 +57,6 @@ const userListItem = ({ rowId, user, onEdit, onDelete, canDelete }: any) => {
       value: new Date(user.modified_at),
     },
   ];
-
-  return rows;
 };
 
 export default userListItem;
