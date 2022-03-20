@@ -1,7 +1,14 @@
+/*eslint-disable*/
 import Action from 'components/Core/Table/Action';
 import { string } from 'prop-types';
 
-function TableStaticCol({ id, label, actions }: any) {
+interface TableStaticColInterface {
+  actions: any[];
+  id: string;
+  label: string;
+}
+
+function TableStaticCol({ id, label, actions }: TableStaticColInterface) {
   return (
     <div className="tableStaticCol">
       <div className="ml-3 actions">

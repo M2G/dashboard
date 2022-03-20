@@ -2,12 +2,19 @@
 import DateCell from 'components/Core/Table/DateCell';
 import TableStaticCol from 'components/Core/Table/TableStaticCol';
 
-const userListItem = ({ rowId, user, onEdit, onDelete, canDelete }: any) => {
+const userListItem = ({
+  rowId,
+  user,
+  onEdit,
+  onDelete,
+  canDelete,
+  canEdit,
+}: any) => {
   const id = `user__row__${rowId}__${user.id}`;
 
   const actions = [];
 
-  if (onEdit) {
+  if (canEdit) {
     actions.push({
       label: 'Edit',
       icon: 'fa-edit',

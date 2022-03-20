@@ -79,9 +79,9 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
         </tr>
       </thead>
       <tbody className={'table-body'}>
-        {getSortedTable.map((row: { display: any }[], indexRow: any) => (
+        {getSortedTable?.map((row: { display: any }[], indexRow: any) => (
           <tr>
-            {row.map(({ display }, indexCol) => (
+            {row?.map(({ display }, indexCol) => (
               <td
                 className={clsx('table-wrapper-cell', {
                   stickyBlock: indexCol === 0,

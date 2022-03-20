@@ -9,7 +9,7 @@ import {
 import userListItem from 'components/UserListItem/UserListItem';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 
-const Userist = ({ users, id }: any) => {
+const UserList = ({ users, id }: any) => {
   const [editing, setEditing] = useState(null);
   const [source, setSource] = useState(null);
   const [deletingSource, setDeletingSource] = useState(null);
@@ -67,4 +67,4 @@ const Userist = ({ users, id }: any) => {
   return <TableWrapper id="gdgdfxgx" header={header} rows={rows} />;
 };
 
-export default Userist;
+export default UserList;
