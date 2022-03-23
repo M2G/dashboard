@@ -9,16 +9,13 @@ import {
 import userListItem from 'components/UserListItem/UserListItem';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 
-const UserList = ({ users, id }: any) => {
+const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   const [editing, setEditing] = useState(null);
   const [source, setSource] = useState(null);
   const [deletingSource, setDeletingSource] = useState(null);
   // const dispatch = useDispatch();
 
   console.log({ editing, source, deletingSource });
-
-  const canEdit = true;
-  const canDelete = true;
 
   const onDelete = useCallback((currentSource) => {
     console.log('onDelete', currentSource);

@@ -1,6 +1,6 @@
 function isEmptyObject(obj: any = {}) {
   for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+    if (Object.hasOwn(obj, key)) {
       return false;
     }
   }

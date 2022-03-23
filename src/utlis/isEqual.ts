@@ -5,7 +5,7 @@ const sortObjectKeys = (obj) =>
   obj &&
   Object.entries(obj)
     ?.sort()
-      // @ts-ignore
+    // @ts-ignore
     ?.reduce((o, [k, v]) => ((o[k] = v), o), {});
 
 function isEqual(val1: string | number, val2: string | number) {
