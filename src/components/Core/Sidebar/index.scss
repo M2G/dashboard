@@ -1,3 +1,4 @@
+// background
 .background {
   width: 100%;
   z-index: 100;
@@ -9,11 +10,19 @@
   //opacity: ${props => (props.show ? "1" : "0")};
   //visibility: ${props => (props.show ? "visibile" : "hidden")};
   transition: all 0.3s;
+  opacity: 0;
+  visibility: hidden;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
+// navbar
 .burger-menu {
   cursor: pointer;
-  padding: 10px 35px 16px 0px;
+  padding: 10px 35px 16px 0;
 
   & span,
   & span:before,
@@ -49,4 +58,76 @@
   height: 60px;
   padding: 0 1rem;
   background-color: #333;
+}
+
+// sidebar
+.sidebar {
+  position: fixed;
+  z-index: 555;
+  top: 0;
+  left: 0;
+  width: 80%;
+  background-color: #333;
+  padding: 1rem;
+  color: #fff;
+  max-width: 300px;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(0);
+  &.is-active {
+    transform: translateX(-100%);
+  }
+}
+
+.sidebar-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+  font-family: inherit;
+  padding: 1em 2rem;
+  font-size: 13px;
+
+  &:first-of-type {
+    margin-top: 50px;
+  }
+}
+
+.close-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 10px 35px 16px 0;
+
+  & span,
+  & span:before,
+  & span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 3px;
+    width: 30px;
+    background: white;
+    position: absolute;
+    display: block;
+    content: "";
+  }
+
+  & span {
+    background-color: transparent;
+  }
+
+  & span:before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  & span:after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
 }

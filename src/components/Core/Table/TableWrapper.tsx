@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import { useEffect, useMemo, useState } from 'react';
-import clsx from 'clsx';
+import classnames from 'classnames';
 
 import {
   arrayOf,
@@ -15,15 +15,14 @@ import {
 import TableHeaderCell from './TableHeaderCell';
 
 const TableWrapper = ({ header, rows, id, className = '' }: any) => {
-  const [sortData, setSortData] = useState(null);
+  const [sortData, setSortData] = useState<any>(null);
 
-  const handleSort = (index: any, sortDirection: string, type: any) => {
+  const handleSort = (index: any, sortDirection: string, type: any) =>
     setSortData({
       index,
       direction: sortDirection,
       type,
     } as any);
-  };
 
   const getSortedTable = useMemo(() => {
     if (!sortData) return rows;
@@ -57,43 +56,44 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
 
   useEffect(() => {
     header.forEach(({ defaultSort, type }: any, index: any) => {
-      if (defaultSort) {
-        handleSort(index, 'descending', type);
-      }
+      if (defaultSort) handleSort(index, 'descending', type);
     });
   }, [header]);
 
   return (
-    <table className={clsx('table-wrapper', className)}>
-      <thead className={'table-head'}>
-        <tr>
-          {header.map(({ label, sortable, type }: any, index: string) => (
-            <TableHeaderCell
-              label={label}
-              isSortable={sortable}
-              // @ts-ignore
-              currentSortedData={sortData?.index === index ? sortData : null}
-              onSort={(sortDirection) => handleSort(index, sortDirection, type)}
-            />
-          ))}
-        </tr>
-      </thead>
-      <tbody className={'table-body'}>
-        {getSortedTable?.map((row: { display: any }[], indexRow: any) => (
+    <div className="c-table-wrapper">
+      <table className={classnames('c-table', className)}>
+        <thead className="c-table-head">
           <tr>
-            {row?.map(({ display }, indexCol) => (
-              <td
-                className={clsx('table-wrapper-cell', {
-                  stickyBlock: indexCol === 0,
-                })}
-              >
-                {display}
-              </td>
+            {header?.map(({ label, sortable, type }: any, index: string) => (
+              <TableHeaderCell
+                label={label}
+                isSortable={sortable}
+                currentSortedData={sortData?.index === index ? sortData : null}
+                onSort={(sortDirection) =>
+                  handleSort(index, sortDirection, type)
+                }
+              />
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className={'table-body'}>
+          {getSortedTable?.map((row: { display: any }[], indexRow: any) => (
+            <tr>
+              {row?.map(({ display }, indexCol) => (
+                <td
+                  className={classnames('table-wrapper-cell', {
+                    stickyBlock: indexCol === 0,
+                  })}
+                >
+                  {display}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

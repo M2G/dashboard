@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import classnames from 'classnames';
 /*
 const BackgroundStyled = styled.div`
   width: 100%;
@@ -13,15 +14,15 @@ const BackgroundStyled = styled.div`
   transition: all 0.3s;
 `;
 */
+
 const Background = ({ show, setIsOpened }: any) => {
   return (
     <div
-      className="background"
+      className={classnames('background', show ? 'is-active' : '')}
       onClick={() => {
         setIsOpened(false);
         console.log('Background clicked, close sidebar');
       }}
-      // show={show ? 1 : 0}
     />
   );
 };
