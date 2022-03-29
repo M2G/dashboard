@@ -8,14 +8,13 @@ import {
 // import { useDispatch, useSelector } from 'react-redux';
 import userListItem from 'components/UserListItem/UserListItem';
 import TableWrapper from 'components/Core/Table/TableWrapper';
+import SidebarWrapper from 'components/Core/Sidebar/Sidebar';
 
 const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
-  const [editing, setEditing] = useState(null);
-  const [source, setSource] = useState(null);
-  const [deletingSource, setDeletingSource] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [source, setSource] = useState(false);
+  const [deletingSource, setDeletingSource] = useState(false);
   // const dispatch = useDispatch();
-
-  console.log({ editing, source, deletingSource });
 
   const onDelete = useCallback((currentSource) => {
     console.log('onDelete', currentSource);
@@ -23,11 +22,19 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     setDeletingSource(currentSource);
   }, []);
 
+  const onClose = useCallback(() => {
+    console.log('onClose onClose onClose');
+
+    setEditing(false);
+    setSource(false);
+    setDeletingSource(false);
+  }, []);
+
   const onEdit = useCallback((currentSource) => {
     console.log('onEdit', currentSource);
     setEditing(currentSource);
-    setSource(null);
-    setDeletingSource(null);
+    setSource(false);
+    setDeletingSource(false);
   }, []);
 
   const rows = useMemo(
@@ -45,6 +52,8 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     [id, onEdit, onDelete, canDelete, canEdit]
   );
 
+  console.log({ editing, source, deletingSource });
+  console.log('editing', !!editing);
   const header = useMemo(
     () => [
       { label: '', sortable: false },
@@ -61,7 +70,17 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     []
   );
 
-  return <TableWrapper id="gdgdfxgx" header={header} rows={rows} />;
+  return (
+    <>
+      <TableWrapper id="gdgdfxgx" header={header} rows={rows} />
+      <SidebarWrapper
+        key={`edit__${id}`}
+        id={id}
+        isOpened={!!editing}
+        setIsOpened={onClose}
+      />
+    </>
+  );
 };
 
 export default UserList;

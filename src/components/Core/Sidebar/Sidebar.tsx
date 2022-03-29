@@ -1,7 +1,7 @@
-import { useState } from 'react';
+/*eslint-disable*/
 import classnames from 'classnames';
-import Navbar from './Navbar';
 import Background from './Background';
+import './index.scss';
 
 /*
 const SidebarStyled = styled.div`
@@ -76,8 +76,8 @@ function Sidebar({ show, setIsOpened }: any) {
   return (
     <div className={classnames('sidebar', show ? 'is-active' : '')}>
       <div className="sidebar-wrapper">
-        <button
-          type="button"
+        <div
+          role="button"
           className="close-icon"
           onClick={() => {
             setIsOpened(false);
@@ -85,7 +85,7 @@ function Sidebar({ show, setIsOpened }: any) {
           }}
         >
           <span />
-        </button>
+        </div>
         <div className="link">One example link</div>
         <div className="link">Another example link</div>
         <div className="link">And another example link</div>
@@ -94,17 +94,12 @@ function Sidebar({ show, setIsOpened }: any) {
   );
 }
 
-function SidebarWrapper() {
-  const [isOpened, setIsOpened] = useState(false);
+function SidebarWrapper({ isOpened, setIsOpened }: any) {
+  // const [isOpened, setIsOpened] = useState(false);
   return (
     <>
-      <Background setIsOpened={setIsOpened} show={isOpened} />
-      <Navbar toggleMenu={setIsOpened} />
+      <Background show={isOpened} setIsOpened={setIsOpened} />
       <Sidebar show={isOpened} setIsOpened={setIsOpened} />
-      <div className="Content">
-        <h1>Your content goes here</h1>
-        <h2>You can have some amazing content here</h2>
-      </div>
     </>
   );
 }
