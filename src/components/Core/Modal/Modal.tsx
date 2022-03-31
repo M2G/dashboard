@@ -2,8 +2,8 @@
 import PropTypes from 'prop-types';
 import Portal from '../Portal/Portal';
 
-const Modal = ({ isShowing, hide, title, ...props }: any) =>
-  isShowing ? (
+function Modal({ isShowing, hide, title, ...props }: any) {
+  return isShowing ? (
     <Portal>
       <div className="modal-overlay">
         <div className="modal-wrapper">
@@ -24,11 +24,20 @@ const Modal = ({ isShowing, hide, title, ...props }: any) =>
       </div>
     </Portal>
   ) : null;
+}
 
-Modal.propTypes = {
+function ModalWrapper({ isShowing, hide, title, ...props }: any) {
+  return (
+    <Modal isShowing={isShowing} hide={hide} title={title}>
+      {props?.children}
+    </Modal>
+  );
+}
+
+ModalWrapper.propTypes = {
   isShowing: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default Modal;
+export default ModalWrapper;
