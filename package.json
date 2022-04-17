@@ -29,7 +29,6 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
@@ -53,7 +52,6 @@
   },
   "dependencies": {
     "classnames": "^2.3.1",
-    "eslint-config-react-app": "^7.0.0",
     "formik": "^2.2.9",
     "husky": "^7.0.4",
     "prop-types": "^15.8.1",

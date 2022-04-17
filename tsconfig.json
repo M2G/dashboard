@@ -55,6 +55,7 @@
   },
   "include": ["src/**/*", "test/**/*"],
   "exclude": [
+    "src/stories",
     "**/__tests__/*",
     "node_modules",
     "dist",

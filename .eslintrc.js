@@ -29,7 +29,7 @@ module.exports = {
     sourceType: 'module',
     extraFileExtensions: [".scss"]
   },
-  plugins: ["@typescript-eslint", "react", "react-hooks", "jest", "prettier", "import"],
+  plugins: ["@typescript-eslint", "react", "react-hooks", "prettier", "import"],
   rules: {
     "no-return-assign": 0,
     "no-restricted-syntax": 0,
@@ -109,7 +109,6 @@ module.exports = {
   env: {
     browser: true,
     jest: true,
-    jasmine: true,
     node: true
   }
 };

@@ -4,7 +4,7 @@ module.exports = {
   stories: ['../src/components', '../src/stories'],
   logLevel: 'debug',
   addons: [
-    '@storybook/preset-create-react-app',
+    // '@storybook/preset-create-react-app',
     '@storybook/addon-docs',
     '@storybook/addon-actions',
     '@storybook/addon-links',
