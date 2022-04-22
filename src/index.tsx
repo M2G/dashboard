@@ -1,5 +1,5 @@
 /* eslint-disable */
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import configureStore from './configureStore';
@@ -10,13 +10,13 @@ export const history = createBrowserHistory();
 export const store = configureStore({} as any);
 
 function render(Component: any){
-  const MOUNT_NODE = document.getElementById('root');
-  if (MOUNT_NODE) {
-    ReactDOM.render(
+  const MOUNT_NODE: any = document.getElementById('root');
+    const root = createRoot(MOUNT_NODE);
+  if (root) {
+      return root.render(
         <Provider store={store}>
           <Component history={history} />
-        </Provider>,
-        MOUNT_NODE,
+        </Provider>
     );
   }
 }

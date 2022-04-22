@@ -5,8 +5,7 @@ import Background from './Background';
 import './index.scss';
 
 function Sidebar({ show, setIsOpened }: any) {
-  return (
-    <div className={classnames('sidebar', show ? 'is-active' : '')}>
+  return <div className={classnames('sidebar', show ? 'is-active' : '')}>
       <div className="sidebar-wrapper">
         <div
           role="button"
@@ -23,20 +22,19 @@ function Sidebar({ show, setIsOpened }: any) {
         <div className="link">And another example link</div>
       </div>
     </div>
-  );
 }
 
-function SidebarWrapper({ isOpened, setIsOpened }: any) {
+function SidebarWrapper({ id, isOpened, setIsOpened }: any) {
+  console.log('id', id);
   // const [isOpened, setIsOpened] = useState(false);
-  return (
-    <>
+  return <>
       <Background show={isOpened} setIsOpened={setIsOpened} />
       <Sidebar show={isOpened} setIsOpened={setIsOpened} />
     </>
-  );
 }
 
 SidebarWrapper.propTypes = {
+  id: PropTypes.string.isRequired,
   isOpened: PropTypes.bool.isRequired,
   setIsOpened: PropTypes.func.isRequired,
 };

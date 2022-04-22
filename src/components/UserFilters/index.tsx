@@ -13,7 +13,7 @@ function UserFilters() {
   );
 
   const searchTerms = useCallback(
-    (data) => dispatch(authGetUsersProfilAction({ ...data })),
+    (data: any) => dispatch(authGetUsersProfilAction({ ...data })),
     []
   );
 
@@ -27,12 +27,10 @@ function UserFilters() {
     return initialValues;
   }
 
-  return (
-    <UserFiltersView
+  return <UserFiltersView
       initialValues={initialValues(args)}
       onSubmit={searchTerms}
     />
-  );
 }
 
 export default UserFilters;

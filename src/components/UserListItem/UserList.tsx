@@ -16,7 +16,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   const [deletingSource, setDeletingSource] = useState(false);
   // const dispatch = useDispatch();
 
-  const onDelete = useCallback((currentSource) => {
+  const onDelete = useCallback((currentSource: any) => {
     console.log('onDelete', currentSource);
 
     setDeletingSource(currentSource);
@@ -30,7 +30,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     setDeletingSource(false);
   }, []);
 
-  const onEdit = useCallback((currentSource) => {
+  const onEdit = useCallback((currentSource: any) => {
     console.log('onEdit', currentSource);
     setEditing(currentSource);
     setSource(false);
@@ -57,21 +57,22 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   const header = useMemo(
     () => [
       { label: '', sortable: false },
-      { label: 'first_name', sortable: false },
+      { label: 'first name', sortable: false },
       { label: 'email', sortable: false },
       {
-        label: 'created_at',
+        label: 'created at',
         sortable: true,
         type: 'date',
-        defaultSort: true,
       },
-      { label: 'modified_at', sortable: true },
+      { label: 'modified at',
+        sortable: true,
+        type: 'date'
+      },
     ],
     []
   );
 
-  return (
-    <>
+  return <>
       <TableWrapper id="gdgdfxgx" header={header} rows={rows} />
       <SidebarWrapper
         key={`edit__${id}`}
@@ -80,7 +81,6 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
         setIsOpened={onClose}
       />
     </>
-  );
 };
 
 export default UserList;

@@ -7,19 +7,16 @@ const TableHeaderCell = ({
   isSortable,
   currentSortedData,
 }: any) => {
-  const onSortClick = () => {
-    onSort(
+  const onSortClick = () => onSort(
       !currentSortedData || currentSortedData.direction === 'ascending'
         ? 'descending'
         : 'ascending'
     );
-  };
 
   const sortedClass =
     currentSortedData?.direction === 'ascending' ? 'ascending' : 'descending';
 
-  return (
-    <th>
+  return <th>
       {label}
       {isSortable && (
         <button
@@ -28,7 +25,6 @@ const TableHeaderCell = ({
         />
       )}
     </th>
-  );
 };
 
 TableHeaderCell.propTypes = {

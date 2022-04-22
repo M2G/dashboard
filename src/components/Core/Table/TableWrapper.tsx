@@ -60,25 +60,21 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
     });
   }, [header]);
 
-  return (
-    <div className="c-table-wrapper">
-      <table className={classnames('c-table', className)}>
+  return <div className="c-table-wrapper">
+      <table className={classnames('c-table table-bordered', className)}>
         <thead className="c-table-head">
           <tr>
-            {header?.map(({ label, sortable, type }: any, index: string) => (
+            {header?.map(({ label, sortable, type }: any, index: string) =>
               <TableHeaderCell
                 label={label}
                 isSortable={sortable}
                 currentSortedData={sortData?.index === index ? sortData : null}
-                onSort={(sortDirection) =>
-                  handleSort(index, sortDirection, type)
-                }
-              />
-            ))}
+                onSort={(sortDirection) => handleSort(index, sortDirection, type)}
+              />)}
           </tr>
         </thead>
-        <tbody className={'table-body'}>
-          {getSortedTable?.map((row: { display: any }[], indexRow: any) => (
+        <tbody className="table-body">
+          {getSortedTable?.map((row: { display: any }[], indexRow: any) =>
             <tr>
               {row?.map(({ display }, indexCol) => (
                 <td
@@ -90,11 +86,10 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
                 </td>
               ))}
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
-  );
 };
 
 const rowType = shape({

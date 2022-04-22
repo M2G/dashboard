@@ -7,7 +7,7 @@ import SigninView from './Signin';
 function Signin() {
   const dispatch = useDispatch();
   const onSubmit = useCallback(
-    (e) => dispatch(signinUserAction(e)),
+    (e: any) => dispatch(signinUserAction(e)),
     [dispatch],
   );
 

@@ -20,7 +20,7 @@ interface ButtonProps {
 /**
  * The world's most _basic_ button
  */
-export const Button: FunctionComponent<ButtonProps> = ({ children, onClick }) => (
+export const Button: FunctionComponent<ButtonProps> = ({ children, onClick }: any) => (
   <button onClick={onClick} type="button">
     {children}
   </button>

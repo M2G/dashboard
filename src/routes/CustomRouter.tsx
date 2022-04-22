@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { useLayoutEffect, useState } from 'react';
 import type { BrowserRouterProps } from 'react-router-dom';
 import { Router } from 'react-router-dom';

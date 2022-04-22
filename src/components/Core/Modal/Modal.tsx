@@ -27,11 +27,9 @@ function Modal({ isShowing, hide, title, ...props }: any) {
 }
 
 function ModalWrapper({ isShowing, hide, title, ...props }: any) {
-  return (
-    <Modal isShowing={isShowing} hide={hide} title={title}>
+  return <Modal isShowing={isShowing} hide={hide} title={title}>
       {props?.children}
     </Modal>
-  );
 }
 
 ModalWrapper.propTypes = {

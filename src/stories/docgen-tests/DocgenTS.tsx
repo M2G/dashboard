@@ -11,7 +11,7 @@ interface ButtonProps {
 /**
  * Button functional component (React.FC)
  */
-export const ButtonReactFC: React.FC<ButtonProps> = ({ onClick, children }) => (
+export const ButtonReactFC: React.FC<ButtonProps> = ({ onClick, children }: any) => (
   <button onClick={onClick}>{children}</button>
 );
 ButtonReactFC.defaultProps = {
@@ -22,7 +22,7 @@ ButtonReactFC.defaultProps = {
 /**
  * Button functional component (FC)
  */
-export const ButtonFC: FC<ButtonProps> = ({ onClick, children }) => (
+export const ButtonFC: FC<ButtonProps> = ({ onClick, children }: any) => (
   <button onClick={onClick}>{children}</button>
 );
 ButtonFC.defaultProps = {
@@ -33,7 +33,8 @@ ButtonFC.defaultProps = {
 /**
  * Button functional component (FunctionComponent)
  */
-export const ButtonFunctionComponent: FunctionComponent<ButtonProps> = ({ onClick, children }) => (
+
+export const ButtonFunctionComponent: FunctionComponent<ButtonProps> = ({ onClick, children }: any) => (
   <button onClick={onClick}>{children}</button>
 );
 ButtonFunctionComponent.defaultProps = {

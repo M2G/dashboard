@@ -9,8 +9,7 @@ interface TableStaticColInterface {
 }
 
 function TableStaticCol({ id, label, actions }: TableStaticColInterface) {
-  return (
-    <div className="tableStaticCol">
+  return <div className="tableStaticCol">
       <div className="ml-3 actions">
         <div className="labelHandler">
           <label id={id}>{label}</label>
@@ -20,7 +19,6 @@ function TableStaticCol({ id, label, actions }: TableStaticColInterface) {
         </div>
       </div>
     </div>
-  );
 }
 
 TableStaticCol.propTypes = {
