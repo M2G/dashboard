@@ -3,13 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
 
 import {
-  arrayOf,
-  string,
-  oneOfType,
-  shape,
-  oneOf,
-  bool,
-  any,
+  arrayOf, string, node, oneOfType, shape, oneOf, bool,
 } from 'prop-types';
 
 import TableHeaderCell from './TableHeaderCell';
@@ -55,17 +49,18 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
   }, [sortData, rows]);
 
   useEffect(() => {
-    header.forEach(({ defaultSort, type }: any, index: any) => {
+    header?.forEach(({ defaultSort, type }: any, index: any) => {
       if (defaultSort) handleSort(index, 'descending', type);
     });
   }, [header]);
 
   return <div className="c-table-wrapper">
-      <table className={classnames('c-table table-bordered', className)}>
+      <table className={classnames("c-table table-bordered", className)}>
         <thead className="c-table-head">
           <tr>
             {header?.map(({ label, sortable, type }: any, index: string) =>
               <TableHeaderCell
+                key={index}
                 label={label}
                 isSortable={sortable}
                 currentSortedData={sortData?.index === index ? sortData : null}
@@ -73,11 +68,12 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
               />)}
           </tr>
         </thead>
-        <tbody className="table-body">
+        <tbody className="c-table-body">
           {getSortedTable?.map((row: { display: any }[], indexRow: any) =>
-            <tr>
+            <tr key={`bodyTable__${id}__${indexRow}`}>
               {row?.map(({ display }, indexCol) => (
                 <td
+                  key={`bodyTable__${id}__${indexRow}__${indexCol}`}
                   className={classnames('table-wrapper-cell', {
                     stickyBlock: indexCol === 0,
                   })}
@@ -93,10 +89,8 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
 };
 
 const rowType = shape({
-  // @ts-ignore
-  display: oneOfType(any).isRequired,
-  // @ts-ignore
-  value: oneOfType(any).isRequired,
+  display: oneOfType(string, node).isRequired,
+  value: oneOfType(string).isRequired,
 });
 
 const headerRowType = shape({

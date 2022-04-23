@@ -11,16 +11,18 @@ function Home() {
 
   const { data, loading } = useSelector((state: any) => state?.auth as any);
 
-  useEffect(() => dispatch(authGetUsersProfilAction() as any), []);
+  const authGetUsersProfil = () => dispatch(authGetUsersProfilAction() as any);
+
+  useEffect(() => {
+    authGetUsersProfil();
+  }, []);
 
   if (loading) return <TopLineLoading />;
 
-  return (
-    <>
+  return <>
       <Navbar />
       <HomeView users={data} />
     </>
-  );
 }
 
 export default Home;

@@ -39,7 +39,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
 
   const rows = useMemo(
     () =>
-      users.map((user: any) =>
+      users?.map((user: any) =>
         userListItem({
           id,
           user,
@@ -57,14 +57,14 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   const header = useMemo(
     () => [
       { label: '', sortable: false },
-      { label: 'first name', sortable: false },
-      { label: 'email', sortable: false },
+      { label: 'First name', sortable: false },
+      { label: 'Email', sortable: false },
       {
-        label: 'created at',
+        label: 'Created at',
         sortable: true,
         type: 'date',
       },
-      { label: 'modified at',
+      { label: 'Modified at',
         sortable: true,
         type: 'date'
       },

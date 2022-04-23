@@ -1,7 +1,8 @@
-const path = require('path');
+// const path = require('path');
+const { resolve } = require('path');
 
 module.exports = {
-  stories: ['../src/components', '../src/stories'],
+  stories: ['../src/components'],
   logLevel: 'debug',
   addons: [
     // '@storybook/preset-create-react-app',
@@ -11,17 +12,31 @@ module.exports = {
     '@storybook/addon-a11y',
     './localAddon/register.tsx',
     './localAddon/preset.ts',
+    {
+      name: '@storybook/preset-scss',
+      options: {
+        cssLoaderOptions: {
+          modules: true,
+          // localIdentName: '[name]__[local]--[hash:base64:5]',
+        },
+      },
+    },
   ],
   webpackFinal: (config) => {
-    // add monorepo root as a valid directory to import modules from
-    config.resolve.plugins.forEach((p) => {
-      // @ts-ignore
-      if (Array.isArray(p.appSrcs)) {
-        // @ts-ignore
-        p.appSrcs.push(path.join(__dirname, '..', '..', '..'));
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve?.alias,
+          ...{
+            containers: resolve("./src/containers"),
+            components: resolve("./src/components"),
+            styles: resolve("./src/styles")
+          }
+        }
       }
-    });
-    return config;
+    };
   },
   core: {
     builder: 'webpack5',

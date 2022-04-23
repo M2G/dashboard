@@ -1,16 +1,17 @@
 /*eslint-disable*/
-/*import TableStaticCol from './TableStaticCol';
-import { actions } from 'fixtures/actions';
+//import TableStaticCol from './TableStaticCol';
+//import { actions } from 'fixtures/actions';
 import TableWrapper from './TableWrapper';
-import DateCell from './DateCell';
-import { Icon } from '../Icon';
+//import DateCell from './DateCell';
+//import { Icon } from '../Icon';
+import '../../../containers/Home/index.scss';
 
 export default {
     title: 'TableWrapper',
     component: TableWrapper,
 };
 
-const Template = args => <TableWrapper {...args} />;
+const Template = (args: any) => <TableWrapper {...args} />;
 
 const headerRow = [
     { label: 'Table Static Col', sortable: false },
@@ -30,7 +31,8 @@ const dateTable = [
     new Date(Date.now() - 3600000 * 90),
 ];
 
-export const Default = Template.bind({});
+export const Default: any = Template.bind({});
+
 Default.args = {
     id: 'test',
     header: headerRow,
@@ -70,7 +72,7 @@ Default.args = {
     ],
     columnsWidth: [4, 2, 2, 2, 2, 2],
 };
-
+/*
 const images = [
     '788d15f6-8273-4423-a72f-709c2ba594c9-portrait.jpg?ts=1635539913000',
     '9aa87205-3dc7-4b5d-bbea-7f70246b3d93-square-auto.jpg?ts=1635833309000',

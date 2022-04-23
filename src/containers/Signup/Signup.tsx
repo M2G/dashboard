@@ -86,16 +86,14 @@ function Signup({ initialValues, onSubmit }: any) {
     );
   };
 
-  return (
-    <Formik
+  return <Formik
       enableReinitialize
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validate={onValidate}
     >
       {renderForm}
-    </Formik>
-  );
+    </Formik>;
 }
 
 export default Signup;

@@ -48,20 +48,20 @@ const userListItem = ({
       display: <TableStaticCol {...tableStaticColProps} />,
     },
     {
-      display: user.first_name,
-      value: user.first_name,
+      display: user?.first_name,
+      value: user?.first_name,
     },
     {
-      display: user.email,
-      value: user.email,
+      display: user?.email,
+      value: user?.email,
     },
     {
-      display: <DateCell date={user.created_at} />,
-      value: new Date(user.created_at),
+      display: <DateCell date={user?.created_at} />,
+      value: new Date(user?.created_at),
     },
     {
-      display: <DateCell date={user.modified_at} />,
-      value: new Date(user.modified_at),
+      display: <DateCell date={user?.modified_at} />,
+      value: new Date(user?.modified_at),
     },
   ];
 };

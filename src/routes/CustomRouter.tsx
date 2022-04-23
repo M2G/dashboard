@@ -9,6 +9,9 @@ interface Props extends BrowserRouterProps {
 }
 
 function CustomRouter({ history, ...props }: Props | any) {
+
+  console.log('history', history)
+
   const [state, setState] = useState({
     action: history.action,
     location: history.location,
