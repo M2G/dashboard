@@ -1,4 +1,5 @@
-/* import { getRandomId } from 'utils/general';
+/*eslint-disable*/
+import getRandomId from 'utils/general';
 
 export const actions = [
     {
@@ -43,6 +44,3 @@ export const moreActions = [
         id: getRandomId(),
     },
 ];
-
-export default moreActions;
-*/

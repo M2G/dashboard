@@ -43,7 +43,9 @@
     "baseUrl": "src",
     "paths": {
       "index": ["./index"],
+      "utils": ["./utils/*"],
       "api": ["./api"],
+      "fixtures": ["./fixtures/*"],
       "store/*": ["./store/*"],
       "services/*": ["./services/*"],
       "actions/*": ["./actions/*"],

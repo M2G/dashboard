@@ -32,7 +32,9 @@ module.exports = {
           ...{
             containers: resolve("./src/containers"),
             components: resolve("./src/components"),
-            styles: resolve("./src/styles")
+            styles: resolve("./src/styles"),
+            fixtures: resolve("./src/fixtures"),
+            utils: resolve("./src/utils")
           }
         }
       }
