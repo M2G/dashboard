@@ -1,16 +1,17 @@
 /*eslint-disable*/
 import { string, func, arrayOf, shape } from 'prop-types';
+import Icon from 'components/Core/Icon';
 
 function Action({ actions }: any) {
-  return <div>
-      {actions?.map(({ id, action, icon, iconType = 'fas' }: any) =>
-        <div key={`actionBarCol__${id}`} className="actionBar_button">
+  return <>
+      {actions?.map(({ id, action, icon, iconType = 'fas', name, family }: any) =>
+        <div key={`actionCol__${id}`} className="c-action_button">
           <div id={id} onClick={action}>
-            <i className={`${iconType} ${icon}`} />
+            <Icon name={name} family={family} className={`${iconType} ${icon}`} />
           </div>
         </div>
       )}
-    </div>
+    </>
 }
 
 const actionType = shape({

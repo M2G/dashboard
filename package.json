@@ -11,6 +11,7 @@
     "@storybook/builder-webpack5": "^6.5.0-alpha.61",
     "@storybook/eslint-config-storybook": "^3.1.2",
     "@storybook/manager-webpack5": "^6.5.0-alpha.61",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.0-alpha.61",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -28,9 +29,9 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
     "eslint-plugin-storybook": "^0.5.10",
@@ -51,7 +52,6 @@
     "webpack": "^5.72.0"
   },
   "dependencies": {
-    "@storybook/preset-scss": "^1.0.3",
     "classnames": "^2.3.1",
     "css-loader": "^6.7.1",
     "formik": "^2.2.9",
@@ -77,7 +77,8 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^(components|config|constants|actions|reducers|styles|api|hooks|utils|store|storage|schemas|tests)$": "<rootDir>/src/$1"
+      "/^services\\/(.*)$/": "<rootDir>/src/services/$1",
+      "/^gql\\/(.*)$/": "<rootDir>/src/gql/$1"
     }
   },
   "browserslist": {

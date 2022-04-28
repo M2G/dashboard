@@ -1,8 +1,13 @@
 /*eslint-disable*/
-import { string } from 'prop-types';
+import { instanceOf } from 'prop-types';
+
+function dateIsValid(date: any | number) {
+  // @ts-ignore
+  return date instanceof Date && !isNaN(date);
+}
 
 function DateCell({ date }: Date | number | string | any) {
-  const isValid = !isNaN(new Date(date) as any);
+  const isValid = dateIsValid(date);
   return (
     <div className="date_cell">
       {isValid ? (
@@ -18,7 +23,7 @@ function DateCell({ date }: Date | number | string | any) {
 }
 
 DateCell.propTypes = {
-  date: string,
+  date: instanceOf(Date),
 };
 
 export default DateCell;

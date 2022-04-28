@@ -1,11 +1,9 @@
 /*eslint-disable*/
 import { useEffect, useMemo, useState } from 'react';
 import classnames from 'classnames';
-
 import {
-  arrayOf, string, node, oneOfType, shape, oneOf, bool,
+  arrayOf, string, node, oneOfType, shape, oneOf, bool, number
 } from 'prop-types';
-
 import TableHeaderCell from './TableHeaderCell';
 
 const TableWrapper = ({ header, rows, id, className = '' }: any) => {
@@ -89,8 +87,8 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
 };
 
 const rowType = shape({
-  display: oneOfType(string, node).isRequired,
-  value: oneOfType(string).isRequired,
+  display: oneOfType([string, node, number]).isRequired,
+  value: oneOfType([string, number]).isRequired,
 });
 
 const headerRowType = shape({

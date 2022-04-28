@@ -3,7 +3,7 @@ import DateCell from 'components/Core/Table/DateCell';
 import TableStaticCol from 'components/Core/Table/TableStaticCol';
 
 const userListItem = ({
-  rowId,
+  id: rowId,
   user,
   onEdit,
   onDelete,
