@@ -72,6 +72,8 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     []
   );
 
+  console.log('users', users)
+
   return <>
       <TableWrapper id="gdgdfxgx" header={header} rows={rows} />
       <SidebarWrapper
