@@ -1,7 +1,11 @@
-import { resolve } from "path";
+const { resolve } = require("path");
 
 module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: [
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/**/**/*.stories.@(js|jsx|ts|tsx)"
+  ],
   logLevel: 'debug',
   addons: [
     '@storybook/addon-docs',
@@ -20,7 +24,7 @@ module.exports = {
       },
     },
   ],
-  webpackFinal: (config: { resolve: { alias: any; }; }) => {
+  webpackFinal: (config) => {
     return {
       ...config,
       resolve: {
@@ -28,12 +32,12 @@ module.exports = {
         alias: {
           ...config.resolve?.alias,
           ...{
-            containers: resolve(__dirname,"./src/containers"),
-            components: resolve(__dirname,"./src/components"),
-            styles: resolve(__dirname,"./src/styles"),
-            fixtures: resolve(__dirname,"./src/fixtures"),
-            utils: resolve(__dirname,"./src/utils"),
-            gql: resolve(__dirname,"../src/gql")
+            containers: resolve("./src/containers"),
+            components: resolve("./src/components"),
+            styles: resolve("./src/styles"),
+            fixtures: resolve("./src/fixtures"),
+            utils: resolve("./src/utils"),
+            // gql: resolve(__dirname,"./src/gql")
           }
         }
       }

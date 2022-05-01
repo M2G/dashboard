@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@faker-js/faker": "^6.2.0",
     "@storybook/addon-a11y": "6.5.0-alpha.61",
     "@storybook/addon-actions": "6.5.0-alpha.61",
     "@storybook/addon-docs": "6.5.0-alpha.61",
@@ -29,13 +30,14 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
     "eslint-plugin-storybook": "^0.5.10",
     "eslint-webpack-plugin": "^3.1.1",
+    "@cypress/webpack-dev-server": "^1.8.4",
     "history": "^5.3.0",
     "jest": "27.5.1",
     "jest-cli": "^27.5.1",
@@ -54,6 +56,8 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "css-loader": "^6.7.1",
+    "cypress": "^9.6.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "formik": "^2.2.9",
     "husky": "^7.0.4",
     "prop-types": "^15.8.1",
@@ -73,7 +77,9 @@
     "eject": "react-scripts eject",
     "build-storybook": "build-storybook",
     "storybook": "start-storybook -p 9009 --no-manager-cache",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:cypress": "eslint \"cypress/**/*.ts\"",
+    "cypress:open": "cypress open"
   },
   "jest": {
     "moduleNameMapper": {

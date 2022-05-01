@@ -1,9 +1,8 @@
 /*eslint-disable*/
 import { instanceOf } from 'prop-types';
 
-function dateIsValid(date: any | number) {
-  // @ts-ignore
-  return date instanceof Date && !isNaN(date);
+function dateIsValid(date: Date | number): boolean {
+  return date && (new Date(date) !== "Invalid Date" as any) && !isNaN(new Date(date) as any) as any;
 }
 
 function DateCell({ date }: Date | number | string | any) {

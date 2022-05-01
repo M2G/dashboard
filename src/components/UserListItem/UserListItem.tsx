@@ -5,6 +5,7 @@ import TableStaticCol from 'components/Core/Table/TableStaticCol';
 const userListItem = ({
   id: rowId,
   user,
+  label,
   onEdit,
   onDelete,
   canDelete,
@@ -39,8 +40,7 @@ const userListItem = ({
   const tableStaticColProps = {
     id,
     actions,
-    //label: source.name || source.export_name,
-    label: 'gsdgds',
+    label,
   };
 
   return [
@@ -50,6 +50,10 @@ const userListItem = ({
     {
       display: user?.first_name,
       value: user?.first_name,
+    },
+    {
+      display: user?.last_name,
+      value: user?.last_name,
     },
     {
       display: user?.email,

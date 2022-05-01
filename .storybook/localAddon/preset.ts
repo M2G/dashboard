@@ -1,5 +1,3 @@
-export default function () {
-  return {
+module.exports = {
     managerEntries: [],
-  }
-};
+}

@@ -58,16 +58,10 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     () => [
       { label: '', sortable: false },
       { label: 'First name', sortable: false },
+      { label: 'Last name', sortable: false },
       { label: 'Email', sortable: false },
-      {
-        label: 'Created at',
-        sortable: true,
-        type: 'date',
-      },
-      { label: 'Modified at',
-        sortable: true,
-        type: 'date'
-      },
+      { label: 'Created at', sortable: true, type: 'date' },
+      { label: 'Modified at', sortable: true, type: 'date' },
     ],
     []
   );
@@ -75,7 +69,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   console.log('users', users)
 
   return <>
-      <TableWrapper id="gdgdfxgx" header={header} rows={rows} />
+      <TableWrapper id={id} header={header} rows={rows} />
       <SidebarWrapper
         key={`edit__${id}`}
         id={id}
