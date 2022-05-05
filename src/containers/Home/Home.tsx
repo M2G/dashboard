@@ -1,5 +1,4 @@
 /*eslint-disable*/
-//import Table from 'components/Table';
 import UserList from 'components/UserListItem/UserList';
 
 function Home({ users }: any) {

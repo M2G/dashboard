@@ -1,8 +1,9 @@
 /*eslint-disable*/
 import PropTypes from 'prop-types';
 import Portal from '../Portal/Portal';
+import './index.scss';
 
-function Modal({ isShowing, hide, title, ...props }: any) {
+function Modal({ isShowing, hide, title, children }: any) {
   return isShowing ? (
     <Portal>
       <div className="modal-overlay">
@@ -18,7 +19,7 @@ function Modal({ isShowing, hide, title, ...props }: any) {
                 <span>&times;</span>
               </button>
             </div>
-            <div className="modal-body">{props.children}</div>
+            <div className="modal-body">{children}</div>
           </div>
         </div>
       </div>
@@ -26,16 +27,17 @@ function Modal({ isShowing, hide, title, ...props }: any) {
   ) : null;
 }
 
-function ModalWrapper({ isShowing, hide, title, ...props }: any) {
+function ModalWrapper({ isShowing, hide, title, children }: any) {
   return <Modal isShowing={isShowing} hide={hide} title={title}>
-      {props?.children}
+      {children}
     </Modal>
 }
 
 ModalWrapper.propTypes = {
   isShowing: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string,
 };
 
 export default ModalWrapper;

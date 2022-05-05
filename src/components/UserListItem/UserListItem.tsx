@@ -11,7 +11,7 @@ const userListItem = ({
   canDelete,
   canEdit,
 }: any) => {
-  const id = `user__row__${rowId}__${user.id}`;
+  const id = `user__row__${rowId}__${user._id}`;
 
   const actions = [];
 

@@ -4,7 +4,8 @@ import classnames from 'classnames';
 import Background from './Background';
 import './index.scss';
 
-function Sidebar({ show, setIsOpened }: any) {
+function Sidebar({ show, setIsOpened, children }: any) {
+  console.log('children', children)
   return <div className={classnames('sidebar', show ? 'is-active' : '')}>
       <div className="sidebar-wrapper">
         <div
@@ -17,26 +18,26 @@ function Sidebar({ show, setIsOpened }: any) {
         >
           <span />
         </div>
-        <div className="link">One example link</div>
-        <div className="link">Another example link</div>
-        <div className="link">And another example link</div>
+        <div>
+          {children}
+        </div>
       </div>
     </div>
 }
 
-function SidebarWrapper({ id, isOpened, setIsOpened }: any) {
-  console.log('id', id);
-  // const [isOpened, setIsOpened] = useState(false);
+function SidebarWrapper({ isOpened, setIsOpened, children }: any) {
   return <>
       <Background show={isOpened} setIsOpened={setIsOpened} />
-      <Sidebar show={isOpened} setIsOpened={setIsOpened} />
+      <Sidebar show={isOpened} setIsOpened={setIsOpened}>
+        {children}
+      </Sidebar>
     </>
 }
 
 SidebarWrapper.propTypes = {
-  id: PropTypes.string.isRequired,
   isOpened: PropTypes.bool.isRequired,
   setIsOpened: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default SidebarWrapper;

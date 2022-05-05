@@ -23,13 +23,17 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   parserOptions: {
-    project: path.resolve(__dirname, './tsconfig.json'),
+    project: [
+      path.resolve(__dirname, './tsconfig.json'),
+      path.resolve(__dirname, './tsconfig.lint.json'),
+      path.resolve(__dirname, './cypress/tsconfig.json')
+    ],
     tsconfigRootDir: __dirname,
     ecmaVersion: 2020,
     sourceType: 'module',
     extraFileExtensions: [".scss"]
   },
-  plugins: ["@typescript-eslint", "react", "react-hooks", "prettier", "import"],
+  plugins: ["@typescript-eslint", "react", "react-hooks", "prettier", "cypress", "import", "unused-imports"],
   rules: {
     "no-return-assign": 0,
     "no-restricted-syntax": 0,
@@ -109,6 +113,7 @@ module.exports = {
   env: {
     browser: true,
     jest: true,
-    node: true
+    node: true,
+    "cypress/globals": true
   }
 };

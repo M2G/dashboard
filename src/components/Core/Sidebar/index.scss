@@ -6,10 +6,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  //opacity: ${props => (props.show ? "1" : "0")};
-  //visibility: ${props => (props.show ? "visibile" : "hidden")};
-  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   opacity: 0;
   visibility: hidden;
 
@@ -26,13 +24,14 @@
   top: 0;
   left: 0;
   width: 80%;
-  background-color: #333;
   padding: 1rem;
-  color: #fff;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
   max-width: 300px;
   height: 100%;
   transition: all 0.3s ease-in-out;
   transform: translateX(-100%);
+  box-shadow: rgb(0 0 0 / 20%) 0px 8px 10px -5px, rgb(0 0 0 / 14%) 0px 16px 24px 2px, rgb(0 0 0 / 12%) 0px 6px 30px 5px;
   &.is-active {
     transform: translateX(0);
   }
@@ -42,18 +41,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-}
-
-.link {
-  text-decoration: none;
-  color: #fff;
-  font-family: inherit;
-  padding: 1em 2rem;
-  font-size: 13px;
-
-  &:first-of-type {
-    margin-top: 50px;
-  }
 }
 
 .close-icon {

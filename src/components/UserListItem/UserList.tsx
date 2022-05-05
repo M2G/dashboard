@@ -9,31 +9,31 @@ import {
 import userListItem from 'components/UserListItem/UserListItem';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/Sidebar';
+import ModalWrapper from 'components/Core/Modal/Modal';
+
+const Form = () => <div id="test">TEST</div>
 
 const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   const [editing, setEditing] = useState(false);
-  const [source, setSource] = useState(false);
   const [deletingSource, setDeletingSource] = useState(false);
   // const dispatch = useDispatch();
 
   const onDelete = useCallback((currentSource: any) => {
     console.log('onDelete', currentSource);
-
     setDeletingSource(currentSource);
+    setEditing(false);
   }, []);
 
   const onClose = useCallback(() => {
     console.log('onClose onClose onClose');
 
     setEditing(false);
-    setSource(false);
     setDeletingSource(false);
   }, []);
 
   const onEdit = useCallback((currentSource: any) => {
     console.log('onEdit', currentSource);
     setEditing(currentSource);
-    setSource(false);
     setDeletingSource(false);
   }, []);
 
@@ -52,7 +52,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     [id, onEdit, onDelete, canDelete, canEdit]
   );
 
-  console.log({ editing, source, deletingSource });
+  console.log({ editing, deletingSource });
   console.log('editing', !!editing);
   const header = useMemo(
     () => [
@@ -71,11 +71,19 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   return <>
       <TableWrapper id={id} header={header} rows={rows} />
       <SidebarWrapper
-        key={`edit__${id}`}
-        id={id}
         isOpened={!!editing}
         setIsOpened={onClose}
-      />
+      >
+        <Form />
+      </SidebarWrapper>
+
+    <ModalWrapper
+      isShowing={!!deletingSource}
+      hide={onClose}
+    >
+      <div>TEST</div>
+    </ModalWrapper>
+
     </>
 };
 
