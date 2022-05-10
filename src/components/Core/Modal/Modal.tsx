@@ -1,14 +1,14 @@
 /*eslint-disable*/
 import PropTypes from 'prop-types';
-import Portal from '../Portal/Portal';
+import Portal from 'components/Core/Portal/Portal';
 import './index.scss';
 
 function Modal({ isShowing, hide, title, children }: any) {
   return isShowing ? (
     <Portal>
-      <div className="modal-overlay">
-        <div className="modal-wrapper">
-          <div className="modal">
+      <div className="c-modal-overlay">
+        <div className="c-modal-wrapper">
+          <div className="c-modal">
             <div className="modal-header">
               <h4>{title}</h4>
               <button

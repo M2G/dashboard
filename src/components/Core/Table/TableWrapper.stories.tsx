@@ -4,7 +4,7 @@ import { actions } from 'fixtures/action';
 import TableWrapper from './TableWrapper';
 import DateCell from './DateCell';
 import Icon from 'components/Core/Icon';
-import 'containers/Home/index.scss';
+import './index.scss';
 
 export default {
     title: 'TableWrapper',

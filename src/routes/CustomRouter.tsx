@@ -19,15 +19,13 @@ function CustomRouter({ history, ...props }: Props | any) {
 
   useLayoutEffect(() => history.listen(setState), [history]);
 
-  return (
-    <Router
+  return <Router
       // eslint-disable-next-line
       {...props}
       location={state.location}
       navigationType={state.action}
       navigator={history}
     />
-  );
 }
 
 export default CustomRouter;

@@ -1,13 +1,11 @@
-/*eslint-disable*/
 import classnames from 'classnames';
 
-const Background = ({ show, setIsOpened }: any) =>
-  <div
+function Background({ show, setIsOpened }: any) {
+  return <div
+    aria-hidden="true"
     className={classnames('background', show ? 'is-active' : '')}
-    onClick={() => {
-      setIsOpened(false);
-      console.log('Background clicked, close sidebar');
-    }}
-  />
+    onClick={() => setIsOpened(false)}
+  />;
+}
 
 export default Background;

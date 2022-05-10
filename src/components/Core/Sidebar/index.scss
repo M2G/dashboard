@@ -45,10 +45,9 @@
 
 .close-icon {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 20px;
   cursor: pointer;
-  padding: 10px 35px 16px 0;
 
   & span,
   & span:before,
@@ -56,8 +55,8 @@
     cursor: pointer;
     border-radius: 1px;
     height: 3px;
-    width: 30px;
-    background: white;
+    width: 20px;
+    background: #000000;
     position: absolute;
     display: block;
     content: "";

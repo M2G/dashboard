@@ -10,6 +10,7 @@ import userListItem from 'components/UserListItem/UserListItem';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/Sidebar';
 import ModalWrapper from 'components/Core/Modal/Modal';
+import UserEdit from 'components/Users/UserEdit';
 
 const Form = () => <div id="test">TEST</div>
 
@@ -72,16 +73,14 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
       <TableWrapper id={id} header={header} rows={rows} />
       <SidebarWrapper
         isOpened={!!editing}
-        setIsOpened={onClose}
-      >
-        <Form />
+        setIsOpened={onClose}>
+        <UserEdit data={editing} />
       </SidebarWrapper>
 
     <ModalWrapper
       isShowing={!!deletingSource}
-      hide={onClose}
-    >
-      <div>TEST</div>
+      hide={onClose}>
+      <Form />
     </ModalWrapper>
 
     </>

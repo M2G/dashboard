@@ -11,10 +11,7 @@ function Sidebar({ show, setIsOpened, children }: any) {
         <div
           role="button"
           className="close-icon"
-          onClick={() => {
-            setIsOpened(false);
-            console.log('Close icon clicked, close sidebar');
-          }}
+          onClick={() => setIsOpened(false)}
         >
           <span />
         </div>
@@ -26,6 +23,7 @@ function Sidebar({ show, setIsOpened, children }: any) {
 }
 
 function SidebarWrapper({ isOpened, setIsOpened, children }: any) {
+  console.log('SidebarWrapper children', children)
   return <>
       <Background show={isOpened} setIsOpened={setIsOpened} />
       <Sidebar show={isOpened} setIsOpened={setIsOpened}>
@@ -35,7 +33,7 @@ function SidebarWrapper({ isOpened, setIsOpened, children }: any) {
 }
 
 SidebarWrapper.propTypes = {
-  isOpened: PropTypes.bool.isRequired,
+  isOpened: PropTypes.bool,
   setIsOpened: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
