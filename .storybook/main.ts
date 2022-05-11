@@ -15,7 +15,7 @@ module.exports = {
     './localAddon/register.tsx',
     './localAddon/preset.ts'
   ],
-  webpackFinal: (config) => {
+  webpackFinal: (config, { configType }) => {
 
     config.module.rules.push({
       test: /\.scss$/,
@@ -43,6 +43,11 @@ module.exports = {
   },
   core: {
     builder: 'webpack5',
+    channelOptions: { allowFunction: false, maxDepth: 10 },
+    disableTelemetry: true,
   },
   staticDirs: ['../public'],
+  features: {
+    buildStoriesJson: true,
+  },
 };

@@ -11,13 +11,11 @@ export default {
 function Template(args: any) {
   const [isOpened, setIsOpened] = useState(false);
 
-  console.log('isOpened', isOpened)
-
 return <>
   <button onClick={() => setIsOpened(!isOpened)}>OK</button>
   <ModalWrapper
     isShowing={isOpened}
-    hide={setIsOpened}>
+    hide={() => setIsOpened(false)}>
     <div>Test</div>
   </ModalWrapper>
 </>
