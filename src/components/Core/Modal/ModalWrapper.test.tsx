@@ -17,8 +17,19 @@ describe('test DateCell', () => {
     console.log('container', container)
 
     screen.debug();
-    /*const backgroundIsActive: any = container?.querySelector('.c-modal-overlay');
-    const sidebarIsActive: any = container?.querySelector('.sidebar.is-active');
+    const overlay: any = container?.querySelector('.c-modal-overlay');
+    const modalWrapper: any = container?.querySelector('.c-modal-wrapper');
+    const modalContainer: any = container?.querySelector('.c-modal');
+    const modalHeader: any = container?.querySelector('.modal-header');
+    const closeButton: any = container?.querySelector('.modal-close-button');
+
+
+    expect(overlay).toBeInTheDocument();
+    expect(modalWrapper).toBeInTheDocument();
+    expect(modalContainer).toBeInTheDocument();
+    expect(modalHeader).toBeInTheDocument();
+    expect(closeButton).toBeInTheDocument();
+    /*const sidebarIsActive: any = container?.querySelector('.sidebar.is-active');
     const button = screen.getByRole('button');
 
     expect(screen.getByText('Test')).toBeInTheDocument();
