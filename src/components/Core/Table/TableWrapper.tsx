@@ -5,6 +5,7 @@ import {
   arrayOf, string, node, oneOfType, shape, oneOf, bool, number
 } from 'prop-types';
 import TableHeaderCell from './TableHeaderCell';
+import './index.scss';
 
 const TableWrapper = ({ header, rows, id, className = '' }: any) => {
   const [sortData, setSortData] = useState<any>(null);

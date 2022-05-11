@@ -10,3 +10,4 @@ entrypoint
 constants.ts
 src/stories
 .storybook
+index.ts

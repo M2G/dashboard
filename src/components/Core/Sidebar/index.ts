@@ -1,3 +1,3 @@
-import Sidebar from './Sidebar';
+import SidebarWrapper from './SidebarWrapper';
 
-export default Sidebar;
+export default SidebarWrapper;

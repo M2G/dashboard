@@ -8,8 +8,8 @@ import {
 // import { useDispatch, useSelector } from 'react-redux';
 import userListItem from 'components/UserListItem/UserListItem';
 import TableWrapper from 'components/Core/Table/TableWrapper';
-import SidebarWrapper from 'components/Core/Sidebar/Sidebar';
-import ModalWrapper from 'components/Core/Modal/Modal';
+import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
+import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import UserEdit from 'components/Users/UserEdit';
 
 const Form = () => <div id="test">TEST</div>

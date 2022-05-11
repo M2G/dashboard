@@ -13,18 +13,16 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-a11y',
     './localAddon/register.tsx',
-    './localAddon/preset.ts',
-    {
-      name: '@storybook/preset-scss',
-      options: {
-        cssLoaderOptions: {
-          modules: true,
-          // localIdentName: '[name]__[local]--[hash:base64:5]',
-        },
-      },
-    },
+    './localAddon/preset.ts'
   ],
   webpackFinal: (config) => {
+
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: ["style-loader", "css-loader", "sass-loader"],
+      include: resolve(__dirname, "../"),
+    });
+
     return {
       ...config,
       resolve: {

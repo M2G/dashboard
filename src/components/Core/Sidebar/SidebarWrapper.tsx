@@ -11,8 +11,7 @@ function Sidebar({ show, setIsOpened, children }: any) {
         <div
           role="button"
           className="close-icon"
-          onClick={() => setIsOpened(false)}
-        >
+          onClick={() => setIsOpened(false)}>
           <span />
         </div>
         <div>

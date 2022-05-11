@@ -1,11 +1,11 @@
 /*eslint-disable*/
 import { useState } from 'react';
-import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
+import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import './index.scss';
 
 export default {
-  component: SidebarWrapper,
-  title: 'SidebarWrapper',
+  component: ModalWrapper,
+  title: 'ModalWrapper',
 };
 
 function Template(args: any) {
@@ -15,11 +15,11 @@ function Template(args: any) {
 
 return <>
   <button onClick={() => setIsOpened(!isOpened)}>OK</button>
-  <SidebarWrapper
-    isOpened={isOpened}
-    setIsOpened={setIsOpened}>
+  <ModalWrapper
+    isShowing={isOpened}
+    hide={setIsOpened}>
     <div>Test</div>
-  </SidebarWrapper>
+  </ModalWrapper>
 </>
 }
 

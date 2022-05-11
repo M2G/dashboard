@@ -12,7 +12,6 @@
     "@storybook/builder-webpack5": "^6.5.0-alpha.61",
     "@storybook/eslint-config-storybook": "^3.1.2",
     "@storybook/manager-webpack5": "^6.5.0-alpha.61",
-    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.0-alpha.61",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -66,7 +65,7 @@
     "react-moment-proptypes": "^1.8.1",
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.3.0",
-    "sass": "^1.50.1",
+    "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1"
   },
