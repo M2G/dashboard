@@ -9,7 +9,9 @@ const Portal = ({ id, children }: any) => {
   const [dynamic] = useState(!el.current.parentElement);
   useEffect(() => {
     if (dynamic) {
-      el.current.id = id;
+      if (id) {
+        el.current.id = id;
+      }
       document.body.appendChild(el.current);
     }
     return () => {

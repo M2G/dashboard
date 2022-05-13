@@ -2,10 +2,19 @@
 import PropTypes from 'prop-types';
 import Portal from 'components/Core/Portal/Portal';
 import './index.scss';
+import { MouseEventHandler } from 'react';
 
-function Modal({ isShowing, hide, title, children }: any) {
+interface ModalProps {
+  id?: string;
+  isShowing: boolean;
+  hide: MouseEventHandler<HTMLButtonElement>;
+  title: string;
+  children: any;
+}
+
+function Modal({ id, isShowing, hide, title, children }: ModalProps) {
   return isShowing ? (
-    <Portal>
+    <Portal id={id}>
       <div className="c-modal-overlay">
         <div className="c-modal-wrapper">
           <div className="c-modal">
@@ -27,11 +36,12 @@ function Modal({ isShowing, hide, title, children }: any) {
   ) : null;
 }
 
-function ModalWrapper({ isShowing, hide, title, children }: any) {
-  return <Modal isShowing={isShowing} hide={hide} title={title}>{children}</Modal>
+function ModalWrapper({ id, isShowing, hide, title, children }: any) {
+  return <Modal id={id} isShowing={isShowing} hide={hide} title={title}>{children}</Modal>
 }
 
 ModalWrapper.propTypes = {
+  id: PropTypes.string,
   isShowing: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
