@@ -10,7 +10,6 @@ function TableHeadSort(
   const obj = Object.assign({}, ...data);
   for (const objKey in obj) {
     if (objKey === 'id') continue;
-    console.log('objKey', objKey);
     array.push(
       <th>
         <button

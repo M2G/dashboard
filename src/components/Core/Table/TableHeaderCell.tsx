@@ -8,13 +8,6 @@ const TableHeaderCell = ({
   currentSortedData,
 }: any) => {
 
-  console.log('gsgsdgs', {
-    label,
-    onSort,
-    isSortable,
-    currentSortedData,
-  })
-
   const onSortClick = () => onSort(
       !currentSortedData || currentSortedData.direction === 'ascending'
         ? 'descending'

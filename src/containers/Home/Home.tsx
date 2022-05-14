@@ -7,7 +7,7 @@ function Home({ users }: any) {
         <div className="o-grid__row">
           <div className="o-col">
             <div className="o-cell--one">
-              <UserList canEdit canDelete users={users} id="test" />
+              <UserList canEdit canDelete canAdd users={users} id="test" />
             </div>
           </div>
         </div>

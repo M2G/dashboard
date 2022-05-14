@@ -53,8 +53,6 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
     });
   }, [header]);
 
-  console.log('header', header)
-
   return <div className="c-table-wrapper">
       <table className={classnames("c-table table-bordered", className)}>
         <thead className="c-table-head">

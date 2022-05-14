@@ -1,23 +1,28 @@
 /* eslint-disable */
 import { all, fork, call, put, take, StrictEffect } from 'redux-saga/effects';
-import { BrowserHistory } from 'history';
 import signupUserService from './services';
 import { SignupActionTypes } from './types';
 import { signupUserSuccess, signupUserError } from './actions';
 import { signupSuccess } from '../../actions';
-import { history } from 'index';
-import ROUTER_PATH from 'constants/RouterPath';
 
-function* authorize(user: {
+function* authorize({
+                      email,
+                      password,
+                      redirect,
+                    }: {
   email: string;
   password: string;
+  redirect: boolean;
 }): Generator<StrictEffect, any, any> {
+
+  console.log('redirect redirect redirect', redirect)
+
   try {
-    const response = yield call(signupUserService, user);
+    const response = yield call(signupUserService, { email, password });
     if (response?.status === 200) {
       yield put(signupUserSuccess(response));
       yield put(signupSuccess());
-      yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
+      // if (redirect) yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
     } else {
       yield put(signupUserError({ error: response?.data }));
     }
@@ -26,13 +31,12 @@ function* authorize(user: {
   }
 }
 
-function forwardTo(history: BrowserHistory, url: any) {
-  return history.push(url);
-}
-
 function* watchSignup(): any {
   while (true) {
     const { user } = yield take(SignupActionTypes.SIGNUP_USER_REQUEST);
+
+    console.log('user user user', user);
+
     yield call(authorize, user);
   }
 }

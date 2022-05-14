@@ -5,38 +5,61 @@ import {
   useState,
   useCallback,
 } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import userListItem from 'components/UserListItem/UserListItem';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import UserEdit from 'components/Users/UserEdit';
+import UserNew from 'components/Users/UserNew';
+import { signupUserAction } from 'store/signup/actions';
 
 const Form = () => <div id="test">TEST</div>
 
-const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
-  const [editing, setEditing] = useState(false);
-  const [deletingSource, setDeletingSource] = useState(false);
-  // const dispatch = useDispatch();
+const UserList = ({ users, id, canEdit = false, canDelete = false, canAdd = false }: any) => {
+  const [editingUser, setEditingUser] = useState(false);
+  const [newUser, setNewUser] = useState(false);
+  const [deletingUser, setDeletingUser] = useState(false);
+  const dispatch = useDispatch();
+
+  useSelector((state) => {
+    console.log('useSelector useSelector useSelector', state);
+  })
 
   const onDelete = useCallback((currentSource: any) => {
     console.log('onDelete', currentSource);
-    setDeletingSource(currentSource);
-    setEditing(false);
+    setNewUser(false);
+    setDeletingUser(currentSource);
+    setEditingUser(false);
   }, []);
 
   const onClose = useCallback(() => {
     console.log('onClose onClose onClose');
+    setDeletingUser(false);
+    setEditingUser(false);
+    setNewUser(false);
+  }, []);
 
-    setEditing(false);
-    setDeletingSource(false);
+  const onAdd = useCallback(() => {
+    setNewUser(true);
+    setEditingUser(false);
+    setDeletingUser(false);
   }, []);
 
   const onEdit = useCallback((currentSource: any) => {
     console.log('onEdit', currentSource);
-    setEditing(currentSource);
-    setDeletingSource(false);
+    setNewUser(false);
+    setEditingUser(currentSource);
+    setNewUser(false);
   }, []);
+
+  const onNewUser = useCallback((user: any) => {
+    console.log('onNewUser', user);
+    setNewUser(user);
+    setEditingUser(false);
+    setDeletingUser(false);
+    dispatch(signupUserAction(user));
+  }, [dispatch]);
 
   const rows = useMemo(
     () =>
@@ -53,8 +76,6 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
     [id, onEdit, onDelete, canDelete, canEdit]
   );
 
-  console.log({ editing, deletingSource });
-  console.log('editing', !!editing);
   const header = useMemo(
     () => [
       { label: '', sortable: false },
@@ -70,15 +91,27 @@ const UserList = ({ users, id, canEdit = false, canDelete = false }: any) => {
   console.log('users', users)
 
   return <>
+
+      {canAdd && <div onClick={onAdd}>ADD</div>}
+
+    {users?.length ?
       <TableWrapper id={id} header={header} rows={rows} />
+      : <div>No data</div>}
+
       <SidebarWrapper
-        isOpened={!!editing}
+        isOpened={!!editingUser}
         setIsOpened={onClose}>
-        <UserEdit data={editing} />
+        <UserEdit data={editingUser} />
       </SidebarWrapper>
 
+    <SidebarWrapper
+      isOpened={!!newUser}
+      setIsOpened={onClose}>
+      <UserNew onSubmit={onNewUser} />
+    </SidebarWrapper>
+
     <ModalWrapper
-      isShowing={!!deletingSource}
+      isShowing={!!deletingUser}
       hide={onClose}>
       <Form />
     </ModalWrapper>

@@ -11,7 +11,7 @@ function signinSuccess() {
 
 function signupSuccess() {
   return {
-    isAuthenticated: false,
+    isAuthenticated: true,
     type: AuthActionTypes.SIGNUP_SUCCESS_GLOBAL,
   };
 }

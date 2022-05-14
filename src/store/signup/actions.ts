@@ -9,7 +9,7 @@ function signupUserAction(user: any){
   };
 }
 
-function signupUserSuccess(user: any){
+function signupUserSuccess(user?: any){
   console.log('registerUserSuccess', user);
   return {
     type: SignupActionTypes.SIGNUP_USER_SUCCESS,

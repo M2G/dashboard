@@ -22,7 +22,6 @@ function Sidebar({ show, setIsOpened, children }: any) {
 }
 
 function SidebarWrapper({ isOpened, setIsOpened, children }: any) {
-  console.log('SidebarWrapper children', children)
   return <>
       <Background show={isOpened} setIsOpened={setIsOpened} />
       <Sidebar show={isOpened} setIsOpened={setIsOpened}>
