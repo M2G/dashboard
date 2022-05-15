@@ -45,6 +45,8 @@
       "index": ["./index"],
       "utils": ["./utils/*"],
       "api": ["./api"],
+      "sentry": ["./sentry/*"],
+      "exceptions": ["./exceptions/*"],
       "fixtures": ["./fixtures/*"],
       "store/*": ["./store/*"],
       "services/*": ["./services/*"],
