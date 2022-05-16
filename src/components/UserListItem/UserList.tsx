@@ -59,7 +59,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false, canAdd = fals
     setEditingUser(false);
     setDeletingUser(false);
     dispatch(signupUserAction(user));
-  }, [dispatch]);
+  }, []);
 
   const rows = useMemo(
     () =>
@@ -92,7 +92,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false, canAdd = fals
 
   return <>
 
-      {canAdd && <div onClick={onAdd}>ADD</div>}
+    {canAdd && <div onClick={onAdd}>ADD</div>}
 
     {users?.length ?
       <TableWrapper id={id} header={header} rows={rows} />

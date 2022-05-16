@@ -13,7 +13,7 @@ function signupUserSuccess(user?: any){
   console.log('registerUserSuccess', user);
   return {
     type: SignupActionTypes.SIGNUP_USER_SUCCESS,
-    user
+    ...user
   };
 }
 

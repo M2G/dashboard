@@ -20,9 +20,9 @@ function Home() {
   if (loading) return <TopLineLoading />;
 
   return <>
-      <Navbar />
-      <HomeView users={data} />
-    </>
+    <Navbar />
+    <HomeView users={data} />
+  </>
 }
 
 export default Home;

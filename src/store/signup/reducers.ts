@@ -10,14 +10,14 @@ export const initialState: SignupState = {
 };
 
 const reducer: Reducer<SignupState> = (state = initialState, action) => {
-  const { user, type } = action;
+  const { data, type } = action;
   switch (type) {
     case SignupActionTypes.SIGNUP_USER_REQUEST:
-      return { ...state, loading: true, data: user };
+      return { ...state, loading: true, data: data };
     case SignupActionTypes.SIGNUP_USER_SUCCESS:
-      return { ...state, loading: false, data: user };
+      return { ...state, loading: false, data: data };
     case SignupActionTypes.SIGNUP_USER_ERROR:
-      return { ...state, loading: false, errors: user };
+      return { ...state, loading: false, errors: data };
     default:
       return state;
   }

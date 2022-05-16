@@ -37,10 +37,7 @@ function Signup({ initialValues, onSubmit }: any) {
 
   const renderForm = ({
  setFieldValue, values, errors, touched,
-}: any): any => {
-    console.log('---------', values, errors);
-
-    return (
+}: any): any =>
       <div className="form-signin">
         <Form>
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
@@ -82,9 +79,7 @@ function Signup({ initialValues, onSubmit }: any) {
             Sign in
           </button>
         </Form>
-      </div>
-    );
-  };
+      </div>;
 
   return <Formik
       enableReinitialize

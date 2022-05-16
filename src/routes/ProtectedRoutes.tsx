@@ -13,7 +13,7 @@ function PrivateRoute({ children }: any): JSX.Element {
   }));
   const location = useLocation();
 
-  console.log('auth', auth?.isAuthenticated);
+  console.log('auth auth auth auth auth auth', auth);
 
   if (!auth?.isAuthenticated) return <Navigate to="/signin" state={{ from: location }} replace />;
 

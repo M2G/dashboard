@@ -46,10 +46,8 @@ function UserEdit({ onSubmit, initialValues }: any): any {
 
   const renderForm = ({
                         setFieldValue, values, errors, touched,
-                      }: any): any => {
-    console.log('renderForm values', values);
-
-    return <Form className="mt-5">
+                      }: any): any =>
+    <Form className="mt-5">
       <div className="form-floating mb-3">
         <Field
           id="floatingFirstname"
@@ -106,7 +104,6 @@ function UserEdit({ onSubmit, initialValues }: any): any {
         Search
       </button>
     </Form>;
-  };
 
   return <Formik
       enableReinitialize

@@ -18,7 +18,7 @@ const reducer: Reducer<AuthGlobalState> = (state = initialState, action) => {
     case AuthActionTypes.SIGNIN_SUCCESS_GLOBAL:
       return { ...state, isAuthenticated: true };
     case AuthActionTypes.SIGNUP_SUCCESS_GLOBAL:
-      return { ...state, isAuthenticated: false };
+      return { ...state, isAuthenticated: true };
     case AuthActionTypes.SIGNOUT_SUCCESS_GLOBAL:
       clearAuthStorage();
       return { ...state, isAuthenticated: false };

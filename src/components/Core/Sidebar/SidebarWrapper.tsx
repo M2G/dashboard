@@ -5,7 +5,6 @@ import Background from './Background';
 import './index.scss';
 
 function Sidebar({ show, setIsOpened, children }: any) {
-  console.log('children', children)
   return <div className={classnames('sidebar', show ? 'is-active' : '')}>
       <div className="sidebar-wrapper">
         <div
