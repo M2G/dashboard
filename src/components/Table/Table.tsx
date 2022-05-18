@@ -50,10 +50,10 @@ function Table({ data = [], action }: any) {
             <td>{item?.created_at}</td>
             <td>{item?.modified_at}</td>
             <td onClick={() => action(item?.id)}>
-              <i className="fas fa-edit"></i>
+              <i className='fas fa-edit'/>
             </td>
             <td onClick={() => action(item?.id)}>
-              <i className="fas fa-remove"></i>
+              <i className='fas fa-remove'/>
             </td>
           </tr>
         ))}

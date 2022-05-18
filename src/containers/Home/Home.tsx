@@ -1,19 +1,18 @@
 /*eslint-disable*/
-import UserList from 'components/UserListItem/UserList';
+import UserList from 'containers/UserListItem/UserList';
 
-function Home({ users }: any) {
+function Home() {
   return <div className="o-zone">
       <div className="o-grid">
         <div className="o-grid__row">
           <div className="o-col">
             <div className="o-cell--one">
-              <UserList canEdit canDelete canAdd users={users} id="test" />
+              <UserList canEdit canDelete canAdd id="test" />
             </div>
           </div>
         </div>
       </div>
     </div>
-
 }
 
 export default Home;

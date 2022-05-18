@@ -2,28 +2,40 @@
 import {
   useMemo,
   useState,
-  useCallback,
+  useCallback, useEffect,
+
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import userListItem from 'components/UserListItem/UserListItem';
+import userListItem from 'containers/UserListItem/UserListItem';
+import UserEdit from 'containers/Users/UserEdit';
+import UserNew from 'containers/Users/UserNew';
+import { signupUserAction } from 'store/signup/actions';
+import { authGetUsersProfilAction } from 'store/auth/actions';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
-import UserEdit from 'components/Users/UserEdit';
-import UserNew from 'components/Users/UserNew';
-import { signupUserAction } from 'store/signup/actions';
+import TopLineLoading from 'components/Loading/TopLineLoading';
 
 const Form = () => <div id="test">TEST</div>
 
-const UserList = ({ users, id, canEdit = false, canDelete = false, canAdd = false }: any) => {
+const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: any) => {
   const [editingUser, setEditingUser] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [deletingUser, setDeletingUser] = useState(false);
+
+  const { data: users, loading } = useSelector((state: any) => state?.auth as any);
+  const { data: signupData } = useSelector((state: any) => state?.signup as any);
+
   const dispatch = useDispatch();
 
-  useSelector((state) => {
-    console.log('useSelector useSelector useSelector', state);
-  })
+  console.log('loading', loading)
+  console.log('users', users)
+
+  const authGetUsersProfil = () => dispatch(authGetUsersProfilAction() as any);
+
+  useEffect(() => {
+    authGetUsersProfil();
+  }, [signupData]);
 
   const onDelete = useCallback((currentSource: any) => {
     console.log('onDelete', currentSource);
@@ -72,7 +84,7 @@ const UserList = ({ users, id, canEdit = false, canDelete = false, canAdd = fals
           canEdit,
         })
       ),
-    [id, onEdit, onDelete, canDelete, canEdit]
+    [users, id, onEdit, onDelete, canDelete, canEdit]
   );
 
   const header = useMemo(
@@ -88,6 +100,8 @@ const UserList = ({ users, id, canEdit = false, canDelete = false, canAdd = fals
   );
 
   console.log('users', users)
+
+  if (loading) return <TopLineLoading />;
 
   return <>
 

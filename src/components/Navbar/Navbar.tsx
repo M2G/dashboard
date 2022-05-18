@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import UserFilters from '../UserFilters';
+import UserFilters from 'containers/UserFilters';
 
 function Navbar() {
   return (
