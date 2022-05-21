@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import UserFilters from 'containers/UserFilters';
 
 function Navbar() {
@@ -19,9 +18,9 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li className="nav-item">
-              <Link to="/" className="nav-link active">
+              <a href="#/" className="nav-link active">
                 Home
-              </Link>
+              </a>
             </li>
           </ul>
           <UserFilters />

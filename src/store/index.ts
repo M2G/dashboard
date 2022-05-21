@@ -4,14 +4,12 @@ import { combineReducers } from 'redux';
 
 import { authReducer } from './auth/reducers';
 import { signinReducer } from './signin/reducers';
-//import { signinPlatformReducer } from './signinplatform/reducers';
 import { signupReducer } from './signup/reducers';
 import { signoutReducer } from './signout/reducers';
 import { authGlobalReducer } from '../reducers';
 
 import authSaga from './auth/sagas';
 import signinSaga from './signin/sagas';
-//import signinPlatformSaga from './signinplatform/sagas';
 import signupSaga from './signup/sagas';
 import signoutSaga from './signout/sagas';
 
@@ -20,13 +18,11 @@ import { AuthState } from './auth/types';
 import { SigninState } from './signin/types';
 import { SignupState } from './signup/types';
 import { SignoutState } from './signout/types';
-//import { SigninPlatformState } from './signinplatform/types';
 import { AuthGlobalState } from '../types';
 
 // The top-level state object
 export interface ApplicationState {
   signin: SigninState;
-  //signinplatform: SigninPlatformState;
   signup: SignupState;
   signout: SignoutState;
   auth: AuthState;
@@ -61,7 +57,6 @@ function rootReducer() {
 function* rootSaga() {
   yield all([
     fork(signinSaga),
-    //fork(signinPlatformSaga),
     fork(signupSaga),
     fork(signoutSaga),
     fork(authSaga),

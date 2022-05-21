@@ -1,14 +1,14 @@
 /* eslint-disable */
-import { render, screen,
- // fireEvent
-} from '@testing-library/react';
 import Navbar from './Navbar';
+import { render, screen } from '../../test-utils/test-utils';
 
-describe('test DateCell', () => {
+describe('test Navbar', () => {
   test('should render', () => {
-    // const onClose = jest.fn();
 
-    const { container }: any = render(<Navbar />);
+    const initialState = { data: { auth: {} } };
+    const options: any = { initialState };
+
+    const { container }: any = render(<Navbar />, options);
 
     screen.debug();
 
@@ -27,7 +27,7 @@ describe('test DateCell', () => {
     expect(onClose).toHaveBeenCalledTimes(1);*/
   });
 
-  test('should not render', () => {
+/*  test('should not render', () => {
     //  const onClose = jest.fn();
 
     // const { container }: any = render(<Navbar />);
@@ -42,6 +42,6 @@ describe('test DateCell', () => {
     expect(button).toBeInTheDocument();
 
     fireEvent.click(button);
-    expect(onClose).toHaveBeenCalledTimes(1);*/
-  });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });*/
 });
