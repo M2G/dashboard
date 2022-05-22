@@ -31,7 +31,7 @@ const render = <
   // destructure additional properties from the options and set defaults
   const {
     initialState = undefined,
-    store = createStore(rootReducer(), initialState),
+    store = createStore(rootReducer(), initialState) as any,
     ...renderOptions
   } = options;
 

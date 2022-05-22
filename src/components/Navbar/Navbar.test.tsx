@@ -1,10 +1,9 @@
 /* eslint-disable */
 import Navbar from './Navbar';
-import { render, screen } from '../../test-utils/test-utils';
+import { render, screen, fireEvent } from '../../test-utils/test-utils';
 
 describe('test Navbar', () => {
   test('should render', () => {
-
     const initialState = { data: { auth: {} } };
     const options: any = { initialState };
 
@@ -14,34 +13,11 @@ describe('test Navbar', () => {
 
     console.log('container', container)
 
-    /*const backgroundIsActive: any = container?.querySelector('.background.is-active');
-    const sidebarIsActive: any = container?.querySelector('.sidebar.is-active');
-    const button = screen.getByRole('button');
+    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.getByText('Search')).toBeInTheDocument();
 
-    expect(screen.getByText('Test')).toBeInTheDocument();
-    expect(sidebarIsActive).toBeInTheDocument();
-    expect(backgroundIsActive).toBeInTheDocument();
+    const button: any = container?.querySelector('.btn');
     expect(button).toBeInTheDocument();
-
     fireEvent.click(button);
-    expect(onClose).toHaveBeenCalledTimes(1);*/
   });
-
-/*  test('should not render', () => {
-    //  const onClose = jest.fn();
-
-    // const { container }: any = render(<Navbar />);
-
-    /*const backgroundIsActive: any = container?.querySelector('.background');
-    const sidebarIsActive: any = container?.querySelector('.sidebar');
-    const button = screen.getByRole('button');
-
-    expect(screen.getByText('Test')).toBeInTheDocument();
-    expect(sidebarIsActive).toBeInTheDocument();
-    expect(backgroundIsActive).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
-
-    fireEvent.click(button);
-    expect(onClose).toHaveBeenCalledTimes(1);
-  });*/
 });
