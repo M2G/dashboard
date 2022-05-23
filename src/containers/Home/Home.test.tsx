@@ -1,5 +1,5 @@
 /* eslint-disable */
-import Signup from './Signup';
+import Home from './Home';
 import { render } from '../../test-utils/test-utils';
 
 describe('test Navbar', () => {
@@ -7,6 +7,7 @@ describe('test Navbar', () => {
     const initialState = { data: { auth: {}, auth_global: {}, signup: {}, signin: {}, signout: {} } };
     const options: any = { initialState };
 
-    render(<Signup />, options);
+    render(<Home />, options);
+
   });
 });

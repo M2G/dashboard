@@ -49,7 +49,7 @@ function Signin({ initialValues, onSubmit }: any) {
               type="email"
               onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
               placeholder={PLACEHOLDER_EMAIL}
-              value={values[INPUT_NAME.EMAIL]}
+              value={values?.[INPUT_NAME.EMAIL]}
               required
             />
             {touched[INPUT_NAME.EMAIL] && errors && errors[INPUT_NAME.EMAIL] ? (
@@ -65,7 +65,7 @@ function Signin({ initialValues, onSubmit }: any) {
               type="password"
               onChange={onChange(setFieldValue, INPUT_NAME.PASSWORD)}
               placeholder={PLACEHOLDER_PASSWORD}
-              value={values[INPUT_NAME.PASSWORD]}
+              value={values?.[INPUT_NAME.PASSWORD]}
               required
             />
             {touched[INPUT_NAME.PASSWORD]
