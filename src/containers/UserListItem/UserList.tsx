@@ -28,8 +28,8 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
 
   const dispatch = useDispatch();
 
-  console.log('loading', loading)
-  console.log('users', users)
+  console.log('loading :', loading)
+  console.log('users : ', users)
 
   const authGetUsersProfil = () => dispatch(authGetUsersProfilAction() as any);
 
@@ -98,8 +98,6 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
     ],
     []
   );
-
-  console.log('users', users)
 
   if (loading) return <TopLineLoading />;
 

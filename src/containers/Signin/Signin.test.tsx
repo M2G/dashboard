@@ -1,19 +1,20 @@
-/* eslint-disable */
-import { fireEvent, screen, render, cleanup } from "@testing-library/react";
+/*eslint-disable*/
+import {
+ fireEvent, render, cleanup,
+} from "@testing-library/react";
 import Signin from './Signin';
 import { INPUT_NAME } from '../Signup/constants';
 
 afterEach(cleanup);
 
-describe('test Navbar', () => {
-
+describe('Signin Container', () => {
+  describe("Submitting form", () => {
   let wrapper: any;
   let floatingInput: HTMLInputElement;
   let floatingPassword: HTMLInputElement;
   const onSubmit = jest.fn();
 
   beforeEach(() => {
-
     const INITIAL_VALUES = {
       [INPUT_NAME.EMAIL]: '',
       [INPUT_NAME.PASSWORD]: '',
@@ -22,7 +23,6 @@ describe('test Navbar', () => {
     wrapper = render(<Signin
       initialValues={INITIAL_VALUES}
       onSubmit={onSubmit} />);
-
 
     floatingInput = wrapper.container.querySelector('#floatingInput');
     floatingPassword = wrapper.container.querySelector('#floatingPassword');
@@ -35,15 +35,14 @@ describe('test Navbar', () => {
 
     const button: any = wrapper.container.querySelector('.btn');
     fireEvent.click(button);
-
-    screen.debug();
   });
 
-  test('should render', () => {
-    expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(onSubmit).toHaveBeenCalledWith({
-      email: "test@gmail.com",
-      password: "test",
-    })
+    test('should render', () => {
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit).toHaveBeenCalledWith({
+        email: "test@gmail.com",
+        password: "test",
+      });
+    });
   });
 });
