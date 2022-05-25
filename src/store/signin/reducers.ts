@@ -10,7 +10,6 @@ export const initialState: SigninState = {
 };
 
 const reducer: Reducer<SigninState> = (state = initialState, action) => {
-  //@ts-ignore
   const { data = {}, errors, type } = action || {};
 
   switch (type) {

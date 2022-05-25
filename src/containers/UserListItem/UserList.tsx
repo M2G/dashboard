@@ -99,7 +99,7 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
     []
   );
 
-  if (loading) return <TopLineLoading />;
+  if (!users?.length && loading) return <TopLineLoading />;
 
   return <>
 

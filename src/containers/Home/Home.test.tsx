@@ -4,6 +4,7 @@ import { render, screen } from '../../test-utils/test-utils';
 
 describe('Home Container', () => {
   describe("Submitting form", () => {
+    let wrapper: any;
 
     const data = [
       {
@@ -15,18 +16,15 @@ describe('Home Container', () => {
         "modified_at": "2021-11-22T15:46:44.533Z"
       }];
 
-    const initialState = { auth: {
-        data,
-        loading: false,
-      }, auth_global: {}, signup: {}, signin: {}, signout: {} };
+    const initialState = { auth: { data, loading: false }, auth_global: {}, signup: {}, signin: {}, signout: {} };
     const options: any = { initialState };
 
-    render(<Home />, options);
+    wrapper = render(<Home />, options);
 
     test('should render', () => {
       screen.debug();
 
-      // console.log('container', container)
+      console.log('wrapper', wrapper)
     });
   });
 });
