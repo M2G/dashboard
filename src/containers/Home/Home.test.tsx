@@ -23,7 +23,23 @@ describe('Home Container', () => {
 
     test('should render', () => {
       screen.debug();
+      expect(screen.getAllByText('First name')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('Last name')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('Email')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('Created at')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('Modified at')[0]).toBeInTheDocument();
 
+      expect(wrapper.container?.querySelector('#user__row__test__6237a814d7d983d4e78228c3')).toBeInTheDocument();
+      expect(wrapper.container?.querySelector('#user__row__test__6237a814d7d983d4e78228c3__edit')).toBeInTheDocument();
+      expect(wrapper.container?.querySelector('#user__row__test__6237a814d7d983d4e78228c3__delete')).toBeInTheDocument();
+
+      expect(screen.getByText('Oliver')).toBeInTheDocument();
+      expect(screen.getByText('Garcia')).toBeInTheDocument();
+      expect(screen.getByText('oliver.garcia@university.com')).toBeInTheDocument();
+      expect(screen.getByText('11/21/2021')).toBeInTheDocument();
+      expect(screen.getAllByText('4:46:44 PM')[0]).toBeInTheDocument();
+
+      expect(screen.getByText('Search')).toBeInTheDocument();
       console.log('wrapper', wrapper)
     });
   });
