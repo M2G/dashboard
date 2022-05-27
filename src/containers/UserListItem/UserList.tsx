@@ -31,12 +31,6 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
   console.log('loading :', loading)
   console.log('users : ', users)
 
-  const authGetUsersProfil = () => dispatch(authGetUsersProfilAction() as any);
-
-  useEffect(() => {
-    authGetUsersProfil();
-  }, [signupData]);
-
   const onDelete = useCallback((currentSource: any) => {
     console.log('onDelete', currentSource);
     setNewUser(false);
@@ -71,6 +65,13 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
     setDeletingUser(false);
     dispatch(signupUserAction(user));
   }, []);
+
+  const authGetUsersProfil = () => dispatch(authGetUsersProfilAction() as any);
+
+  useEffect(() => {
+    authGetUsersProfil();
+    onClose();
+  }, [signupData]);
 
   const rows = useMemo(
     () =>

@@ -20,7 +20,7 @@ interface ExtraOptions {
   store?: ApplicationState;
 }
 
-const render = <
+const render: any = <
   // supports generics for Queries and Container
   // copied types from RTL version
   Q extends Queries = typeof queries,
