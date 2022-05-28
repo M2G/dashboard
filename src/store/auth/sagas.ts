@@ -79,6 +79,10 @@ function* getUsersProfil(params: any): any {
   }
 }
 
+function* deleteUserProfil(params: any): any {
+    console.log('deleteUserProfil', params)
+}
+
 // @ts-ignore
 function* updateUserProfil({ user }) {
   /*
@@ -190,6 +194,13 @@ function* watchUpdateUser() {
   );
 }
 
+function* watchDeleteUser() {
+  yield takeEvery(
+    AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST as any,
+    deleteUserProfil
+  );
+}
+
 // We can also use `fork()` here to split our saga into multiple watchers.
 function* authSaga() {
   yield all([
@@ -197,6 +208,7 @@ function* authSaga() {
     fork(watchUsers),
     fork(watchUser),
     fork(watchUpdateUser),
+    fork(watchDeleteUser),
   ]);
 }
 

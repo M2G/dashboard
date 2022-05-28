@@ -10,32 +10,40 @@ import userListItem from 'containers/UserListItem/UserListItem';
 import UserEdit from 'containers/Users/UserEdit';
 import UserNew from 'containers/Users/UserNew';
 import { signupUserAction } from 'store/signup/actions';
-import { authGetUsersProfilAction } from 'store/auth/actions';
+import { authGetUsersProfilAction, authDeleteUserProfilAction } from 'store/auth/actions';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import TopLineLoading from 'components/Loading/TopLineLoading';
 
-const Form = () => <div id="test">TEST</div>
+function Form() {
+  return <div id="test">TEST</div>;
+}
 
-const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: any) => {
+function UserList({
+ id, canEdit = false, canDelete = false, canAdd = false,
+}: any) {
   const [editingUser, setEditingUser] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [deletingUser, setDeletingUser] = useState(false);
 
-  const { data: users, loading } = useSelector((state: any) => state?.auth as any);
-  const { data: signupData } = useSelector((state: any) => state?.signup as any);
+  const { data: users, loading } = useSelector((state: any) => state?.auth);
+  const { data: signupData } = useSelector((state: any) => state?.signup);
 
   const dispatch = useDispatch();
 
-  console.log('loading :', loading)
-  console.log('users : ', users)
+  console.log('loading :', loading);
+  console.log('users : ', users);
+
+  const authGetUsersProfil = () => dispatch(authGetUsersProfilAction());
+  const deleteUser = (id: string) => dispatch(authDeleteUserProfilAction(id) as any);
 
   const onDelete = useCallback((currentSource: any) => {
     console.log('onDelete', currentSource);
     setNewUser(false);
     setDeletingUser(currentSource);
     setEditingUser(false);
+    dispatch(deleteUser(currentSource));
   }, []);
 
   const onClose = useCallback(() => {
@@ -66,8 +74,6 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
     dispatch(signupUserAction(user));
   }, []);
 
-  const authGetUsersProfil = () => dispatch(authGetUsersProfilAction() as any);
-
   useEffect(() => {
     authGetUsersProfil();
     onClose();
@@ -83,9 +89,13 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
           onDelete,
           canDelete,
           canEdit,
-        })
-      ),
-    [users, id, onEdit, onDelete, canDelete, canEdit]
+        })),
+    [users,
+id,
+onEdit,
+onDelete,
+canDelete,
+canEdit],
   );
 
   const header = useMemo(
@@ -97,17 +107,16 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
       { label: 'Created at', sortable: true, type: 'date' },
       { label: 'Modified at', sortable: true, type: 'date' },
     ],
-    []
+    [],
   );
 
   if (!users?.length && loading) return <TopLineLoading />;
 
   return <>
 
-    {canAdd && <div onClick={onAdd}>ADD</div>}
+    {canAdd && <button type="submit" onClick={onAdd}>ADD</button>}
 
-    {users?.length ?
-      <TableWrapper id={id} header={header} rows={rows} />
+    {users?.length ? <TableWrapper id={id} header={header} rows={rows} />
       : <div>No data</div>}
 
       <SidebarWrapper
@@ -116,19 +125,19 @@ const UserList = ({ id, canEdit = false, canDelete = false, canAdd = false }: an
         <UserEdit data={editingUser} />
       </SidebarWrapper>
 
-    <SidebarWrapper
-      isOpened={!!newUser}
-      setIsOpened={onClose}>
-      <UserNew onSubmit={onNewUser} />
-    </SidebarWrapper>
+      <SidebarWrapper
+        isOpened={!!newUser}
+        setIsOpened={onClose}>
+        <UserNew onSubmit={onNewUser} />
+      </SidebarWrapper>
 
-    <ModalWrapper
-      isShowing={!!deletingUser}
-      hide={onClose}>
-      <Form />
-    </ModalWrapper>
+      <ModalWrapper
+        isShowing={!!deletingUser}
+        hide={onClose}>
+        <Form />
+      </ModalWrapper>
 
-    </>
-};
+    </>;
+}
 
 export default UserList;

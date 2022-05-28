@@ -2,15 +2,39 @@
 import { AuthActionTypes } from './types';
 
 export const authUpdateUserProfilAction = (data: any) => {
-  console.log('authUpdateUserProfilAction', data);
+  console.log('AUTH_UPDATE_USER_PROFIL_REQUEST', data);
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST,
     data,
   };
 };
 
-export const authGetUserProfilAction = (data: any) => {
-  console.log('authUpdateUserProfilAction', data);
+export const authDeleteUserProfilAction = (id: any) => {
+  console.log('AUTH_DELETE_USER_PROFIL_REQUEST', id);
+  return {
+    type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST,
+    id,
+  };
+};
+
+export const authDeleteUserProfilSuccess = (data: any) => {
+  console.log('AUTH_DELETE_USER_PROFIL_SUCCESS', data);
+  return {
+    type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_SUCCESS,
+    data,
+  };
+};
+
+export const authDeleteUserProfilErrorAction = (data: any) => {
+  console.log('AUTH_DELETE_USER_PROFIL_ERROR', data);
+  return {
+    type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_ERROR,
+    data,
+  };
+};
+
+export const authGetUserProfilErrorAction = (data: any) => {
+  console.log('AUTH_GET_USER_PROFIL_REQUEST', data);
   return {
     type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
     data,
@@ -18,7 +42,7 @@ export const authGetUserProfilAction = (data: any) => {
 };
 
 export const authGetUsersProfilAction = (args?: any) => {
-  console.log('authGetUsersProfilAction', args);
+  console.log('AUTH_GET_USERS_PROFIL_REQUEST', args);
   return {
     type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
     ...args,
@@ -49,7 +73,7 @@ export const authForgotPasswordAction = (data: any) => {
   };
 };
 
-export const authForgotPasswordErrorAction = (data: any) => {
+export const authForgotPasswordError = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
     type: AuthActionTypes.AUTH_FORGOT_PASSWORD_ERROR,
