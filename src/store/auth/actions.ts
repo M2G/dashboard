@@ -17,19 +17,17 @@ export const authDeleteUserProfilAction = (id: any) => {
   };
 };
 
-export const authDeleteUserProfilSuccess = (data: any) => {
-  console.log('AUTH_DELETE_USER_PROFIL_SUCCESS', data);
+export const authDeleteUserProfilSuccess = () => {
   return {
     type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_SUCCESS,
-    data,
   };
 };
 
-export const authDeleteUserProfilErrorAction = (data: any) => {
-  console.log('AUTH_DELETE_USER_PROFIL_ERROR', data);
+export const authDeleteUserProfilError = (errors: any) => {
+  console.log('AUTH_DELETE_USER_PROFIL_ERROR', errors);
   return {
     type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_ERROR,
-    data,
+    errors,
   };
 };
 

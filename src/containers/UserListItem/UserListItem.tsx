@@ -37,8 +37,6 @@ const userListItem = ({
     });
   }
 
-  console.log('actions', actions)
-
   const tableStaticColProps = {
     id,
     actions,

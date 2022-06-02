@@ -40,7 +40,6 @@ describe('Home Container', () => {
       expect(screen.getAllByText('4:46:44 PM')[0]).toBeInTheDocument();
 
       expect(screen.getByText('Search')).toBeInTheDocument();
-      console.log('wrapper', wrapper)
     });
   });
 });

@@ -101,7 +101,7 @@ function UserEdit({ onSubmit, initialValues }: any): any {
         <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
       </div>
       <button className="btn btn-primary" type="submit">
-        Search
+        Save
       </button>
     </Form>;
 

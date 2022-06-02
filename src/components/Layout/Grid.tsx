@@ -1,3 +1,5 @@
-const Grid = ({ children }: any) => children;
+function Grid({ children }: any) {
+  return <div className="o-grid">{children}</div>;
+}
 
 export default Grid;

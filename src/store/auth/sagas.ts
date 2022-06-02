@@ -5,6 +5,7 @@ import {
   call,
   put,
   takeEvery,
+  takeLatest,
   StrictEffect,
 } from 'redux-saga/effects';
 import {
@@ -12,11 +13,14 @@ import {
   userProfilService,
   //updateUserProfilService,
   getUsersService,
+  deleteUsersService,
 } from './services';
 
 import { AuthActionTypes } from './types';
 import {
   //authForgotPasswordErrorAction,
+  authDeleteUserProfilSuccess,
+  authDeleteUserProfilError,
   authGetUserProfilSuccess,
   authGetUserProfilError,
   //  authForgotPasswordAction,
@@ -80,11 +84,23 @@ function* getUsersProfil(params: any): any {
 }
 
 function* deleteUserProfil(params: any): any {
-    console.log('deleteUserProfil', params)
+    console.log('deleteUserProfil params', params)
+  const res = yield call(request as any, deleteUsersService, params?.id);
+
+  console.log('deleteUserProfil res', res)
+
+  if (res?.status === 200) {
+    yield put(authDeleteUserProfilSuccess());
+  } else {
+    yield put(authDeleteUserProfilError({ ...res.data }));
+  }
 }
 
 // @ts-ignore
-function* updateUserProfil({ user }) {
+function* updateUserProfil(params) {
+
+  console.log('updateUserProfil', params)
+
   /*
   const path = user?.path;
   delete user?.history;
@@ -195,7 +211,7 @@ function* watchUpdateUser() {
 }
 
 function* watchDeleteUser() {
-  yield takeEvery(
+  yield takeLatest(
     AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST as any,
     deleteUserProfil
   );

@@ -3,8 +3,8 @@ import {
   useMemo,
   useState,
   useCallback, useEffect,
-
 } from 'react';
+import { remove } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import userListItem from 'containers/UserListItem/UserListItem';
 import UserEdit from 'containers/Users/UserEdit';
@@ -16,38 +16,33 @@ import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import TopLineLoading from 'components/Loading/TopLineLoading';
 
-function Form() {
-  return <div id="test">TEST</div>;
-}
-
 function UserList({
  id, canEdit = false, canDelete = false, canAdd = false,
 }: any) {
   const [editingUser, setEditingUser] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [deletingUser, setDeletingUser] = useState(false);
+  const [userList, setUserList] = useState<any>([]);
 
   const { data: users, loading } = useSelector((state: any) => state?.auth);
   const { data: signupData } = useSelector((state: any) => state?.signup);
 
-  const dispatch = useDispatch();
+  useSelector((state: any) => {
+    console.log('useSelector useSelector useSelector : ', state);
+  });
 
-  console.log('loading :', loading);
-  console.log('users : ', users);
+  const dispatch = useDispatch();
 
   const authGetUsersProfil = () => dispatch(authGetUsersProfilAction());
   const deleteUser = (id: string) => dispatch(authDeleteUserProfilAction(id) as any);
 
   const onDelete = useCallback((currentSource: any) => {
-    console.log('onDelete', currentSource);
     setNewUser(false);
-    setDeletingUser(currentSource);
     setEditingUser(false);
-    dispatch(deleteUser(currentSource));
+    setDeletingUser(currentSource);
   }, []);
 
   const onClose = useCallback(() => {
-    console.log('onClose onClose onClose');
     setDeletingUser(false);
     setEditingUser(false);
     setNewUser(false);
@@ -59,29 +54,34 @@ function UserList({
     setDeletingUser(false);
   }, []);
 
-  const onEdit = useCallback((currentSource: any) => {
-    console.log('onEdit', currentSource);
-    setNewUser(false);
-    setEditingUser(currentSource);
-    setNewUser(false);
-  }, []);
+  const onEdit = useCallback((user: any) => {
+    remove(userList, { _id: user._id });
+    userList?.push(user);
+    setEditingUser(user);
+    setUserList(userList);
+  }, [userList]);
 
   const onNewUser = useCallback((user: any) => {
-    console.log('onNewUser', user);
     setNewUser(user);
-    setEditingUser(false);
-    setDeletingUser(false);
     dispatch(signupUserAction(user));
   }, []);
+
+  const onDeleteUser = useCallback((user: any) => {
+    dispatch(deleteUser(user._id));
+    setUserList(remove(userList, user));
+    onClose();
+  }, [userList]);
 
   useEffect(() => {
     authGetUsersProfil();
     onClose();
   }, [signupData]);
 
+  useEffect(() => setUserList(users));
+
   const rows = useMemo(
     () =>
-      users?.map((user: any) =>
+      userList?.map((user: any) =>
         userListItem({
           id,
           user,
@@ -90,13 +90,9 @@ function UserList({
           canDelete,
           canEdit,
         })),
-    [users,
-id,
-onEdit,
-onDelete,
-canDelete,
-canEdit],
-  );
+    [userList, id, onEdit, onDelete, canDelete, canEdit, editingUser, newUser, deletingUser, userList]);
+
+  console.log('userList', userList)
 
   const header = useMemo(
     () => [
@@ -107,22 +103,24 @@ canEdit],
       { label: 'Created at', sortable: true, type: 'date' },
       { label: 'Modified at', sortable: true, type: 'date' },
     ],
-    [],
-  );
+    []);
 
-  if (!users?.length && loading) return <TopLineLoading />;
+  if (!userList?.length && loading) return <TopLineLoading />;
 
   return <>
 
-    {canAdd && <button type="submit" onClick={onAdd}>ADD</button>}
+    {canAdd && <button className="btn btn-primary" type="submit" onClick={onAdd}>ADD</button>}
 
-    {users?.length ? <TableWrapper id={id} header={header} rows={rows} />
+    {userList?.length ? <TableWrapper id={id} header={header} rows={rows} />
       : <div>No data</div>}
 
       <SidebarWrapper
         isOpened={!!editingUser}
         setIsOpened={onClose}>
-        <UserEdit data={editingUser} />
+        <UserEdit
+          data={editingUser}
+          onSubmit={onEdit}
+        />
       </SidebarWrapper>
 
       <SidebarWrapper
@@ -134,7 +132,10 @@ canEdit],
       <ModalWrapper
         isShowing={!!deletingUser}
         hide={onClose}>
-        <Form />
+        <button
+          className="btn btn-primary"
+          onClick={() => onDeleteUser(deletingUser)}>Delete
+        </button>
       </ModalWrapper>
 
     </>;

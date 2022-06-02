@@ -2,12 +2,20 @@ export const INPUT_NAME = {
     FIRST_NAME: 'first_name',
     LAST_NAME:'last_name',
     EMAIL: 'email',
+    ID: '_id',
+    USERNAME: 'username',
+    CREATED_AT: 'created_at',
+    MODIFIED_AT: 'modified_at'
 };
 
 export const INITIAL_VALUES = {
     [INPUT_NAME.FIRST_NAME]: '',
     [INPUT_NAME.LAST_NAME]: '',
     [INPUT_NAME.EMAIL]: '',
+    [INPUT_NAME.ID]: '',
+    [INPUT_NAME.USERNAME]: '',
+    [INPUT_NAME.CREATED_AT]: '',
+    [INPUT_NAME.MODIFIED_AT]: '',
 };
 
 export const PLACEHOLDER_FIRST_NAME = 'First name';

@@ -21,10 +21,15 @@ function getUsersService(data: string): Promise<any> {
   return api.get(`/auth/users${data ? `?search=${data}` : ''}`);
 }
 
+function deleteUsersService(id: string): Promise<any> {
+  return api.delete(`/auth/users/${id}`);
+}
+
 export {
   getUsersService,
   forgotPasswordService,
   createUserProfilService,
   userProfilService,
   updateUserProfilService,
+  deleteUsersService,
 };
