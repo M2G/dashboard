@@ -10,7 +10,7 @@ import userListItem from 'containers/UserListItem/UserListItem';
 import UserEdit from 'containers/Users/UserEdit';
 import UserNew from 'containers/Users/UserNew';
 import { signupUserAction } from 'store/signup/actions';
-import { authGetUsersProfilAction, authDeleteUserProfilAction } from 'store/auth/actions';
+import { authGetUsersProfilAction, authDeleteUserProfilAction, authUpdateUserProfilAction } from 'store/auth/actions';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
@@ -27,14 +27,11 @@ function UserList({
   const { data: users, loading } = useSelector((state: any) => state?.auth);
   const { data: signupData } = useSelector((state: any) => state?.signup);
 
-  useSelector((state: any) => {
-    console.log('useSelector useSelector useSelector : ', state);
-  });
-
   const dispatch = useDispatch();
 
   const authGetUsersProfil = () => dispatch(authGetUsersProfilAction());
-  const deleteUser = (id: string) => dispatch(authDeleteUserProfilAction(id) as any);
+  const deleteUserAction = (id: string) => dispatch(authDeleteUserProfilAction(id) as any);
+  const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params) as any);
 
   const onDelete = useCallback((currentSource: any) => {
     setNewUser(false);
@@ -54,12 +51,19 @@ function UserList({
     setDeletingUser(false);
   }, []);
 
-  const onEdit = useCallback((user: any) => {
+  const onEditUser = useCallback((user: any) => {
     remove(userList, { _id: user._id });
     userList?.push(user);
-    setEditingUser(user);
     setUserList(userList);
+    dispatch(editUserAction(user));
+    onClose();
   }, [userList]);
+
+  const onEdit = useCallback((user: any) => {
+    setEditingUser(user);
+    setNewUser(false);
+    setDeletingUser(false);
+  }, []);
 
   const onNewUser = useCallback((user: any) => {
     setNewUser(user);
@@ -67,7 +71,7 @@ function UserList({
   }, []);
 
   const onDeleteUser = useCallback((user: any) => {
-    dispatch(deleteUser(user._id));
+    dispatch(deleteUserAction(user._id));
     setUserList(remove(userList, user));
     onClose();
   }, [userList]);
@@ -77,7 +81,7 @@ function UserList({
     onClose();
   }, [signupData]);
 
-  useEffect(() => setUserList(users));
+  useEffect(() => setUserList(users), [users]);
 
   const rows = useMemo(
     () =>
@@ -115,22 +119,22 @@ function UserList({
       : <div>No data</div>}
 
       <SidebarWrapper
-        isOpened={!!editingUser}
+        isOpened={editingUser}
         setIsOpened={onClose}>
         <UserEdit
           data={editingUser}
-          onSubmit={onEdit}
+          onSubmit={onEditUser}
         />
       </SidebarWrapper>
 
       <SidebarWrapper
-        isOpened={!!newUser}
+        isOpened={newUser}
         setIsOpened={onClose}>
         <UserNew onSubmit={onNewUser} />
       </SidebarWrapper>
 
       <ModalWrapper
-        isShowing={!!deletingUser}
+        isShowing={deletingUser}
         hide={onClose}>
         <button
           className="btn btn-primary"
