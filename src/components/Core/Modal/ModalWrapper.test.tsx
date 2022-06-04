@@ -5,12 +5,15 @@ import ModalWrapper from './ModalWrapper';
 describe('test DateCell', () => {
   test('should render', async () => {
     const onClose = jest.fn();
+    const onConfirm = jest.fn();
 
     render(
       <ModalWrapper
         id="test"
         isShowing
-        hide={onClose}>
+        hide={onClose}
+        onConfirm={onConfirm}
+      >
         <div>Test</div>
       </ModalWrapper>
     );
@@ -35,10 +38,12 @@ describe('test DateCell', () => {
 
   test('should not render', () => {
     const onClose = jest.fn();
+    const onConfirm = jest.fn();
 
     render(
       <ModalWrapper
         isShowing={false}
+        onConfirm={onConfirm}
         hide={onClose}>
         <div>Test</div>
       </ModalWrapper>

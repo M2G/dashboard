@@ -14,6 +14,7 @@ function Template(args: any) {
 return <>
   <button onClick={() => setIsOpened(!isOpened)}>OK</button>
   <ModalWrapper
+    onConfirm={() => {}}
     isShowing={isOpened}
     hide={() => setIsOpened(false)}>
     <div>Test</div>

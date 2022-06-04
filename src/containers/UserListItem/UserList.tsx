@@ -24,8 +24,10 @@ function UserList({
   const [deletingUser, setDeletingUser] = useState(false);
   const [userList, setUserList] = useState<any>([]);
 
-  const { data: users, loading } = useSelector((state: any) => state?.auth);
-  const { data: signupData } = useSelector((state: any) => state?.signup);
+  const { auth, signup }: any = useSelector((state: any) => ({
+    signup: state?.signup,
+    auth: state?.auth
+  }));
 
   const dispatch = useDispatch();
 
@@ -71,17 +73,17 @@ function UserList({
   }, []);
 
   const onDeleteUser = useCallback((user: any) => {
-    dispatch(deleteUserAction(user._id));
     setUserList(remove(userList, user));
+    dispatch(deleteUserAction(user._id));
     onClose();
   }, [userList]);
 
   useEffect(() => {
     authGetUsersProfil();
     onClose();
-  }, [signupData]);
+  }, [signup.data]);
 
-  useEffect(() => setUserList(users), [users]);
+  useEffect(() => setUserList(auth.data), [auth.data]);
 
   const rows = useMemo(
     () =>
@@ -109,11 +111,24 @@ function UserList({
     ],
     []);
 
-  if (!userList?.length && loading) return <TopLineLoading />;
+  if (!userList?.length && auth.loading) return <TopLineLoading />;
 
   return <>
 
-    {canAdd && <button className="btn btn-primary" type="submit" onClick={onAdd}>ADD</button>}
+    <section className="py-5 text-center container">
+      <div className="row py-lg-5">
+        <div className="col-lg-6 col-md-8 mx-auto">
+          <h1 className="fw-light">Album example</h1>
+          <p className="lead text-muted">Something short and leading about the collection below—its
+            contents, the creator, etc. Make it short and sweet, but not too short so folks don’t
+            simply skip over it entirely.</p>
+          <p>
+            {canAdd && <button className="btn btn-primary my-2"  type="submit" onClick={onAdd}>Add user(s)</button>}
+          </p>
+        </div>
+      </div>
+    </section>
+
 
     {userList?.length ? <TableWrapper id={id} header={header} rows={rows} />
       : <div>No data</div>}
@@ -134,13 +149,10 @@ function UserList({
       </SidebarWrapper>
 
       <ModalWrapper
+        hide={onClose}
         isShowing={deletingUser}
-        hide={onClose}>
-        <button
-          className="btn btn-primary"
-          onClick={() => onDeleteUser(deletingUser)}>Delete
-        </button>
-      </ModalWrapper>
+        onConfirm={() => onDeleteUser(deletingUser)}
+      />
 
     </>;
 }
