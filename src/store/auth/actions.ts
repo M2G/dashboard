@@ -79,11 +79,9 @@ export const authForgotPasswordError = (data: any) => {
   };
 };
 
-export const authUpdateUserProfilSuccess = (data: any) => {
-  console.log('authUpdateUserProfilAction', data);
+export const authUpdateUserProfilSuccess = () => {
   return {
     type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS,
-    data,
   };
 };
 

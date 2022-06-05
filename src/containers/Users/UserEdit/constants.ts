@@ -15,7 +15,7 @@ export const INITIAL_VALUES = {
     [INPUT_NAME.ID]: '',
     [INPUT_NAME.USERNAME]: '',
     [INPUT_NAME.CREATED_AT]: '',
-    [INPUT_NAME.MODIFIED_AT]: new Date(),
+    [INPUT_NAME.MODIFIED_AT]: '',
 };
 
 export const PLACEHOLDER_FIRST_NAME = 'First name';

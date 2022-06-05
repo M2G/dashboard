@@ -13,8 +13,8 @@ function createUserProfilService(params: any): Promise<any> {
   return api.put(`/users/`, params);
 }
 
-function updateUserProfilService(id: number, params: any): Promise<any> {
-  return api.put(`/users/${id}`, params);
+function updateUserProfilService({ _id, ...params }: any): Promise<any> {
+  return api.put(`/auth/users/${_id}`, params);
 }
 
 function getUsersService(data: string): Promise<any> {

@@ -36,7 +36,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS:
       return { ...state, loading: false, data };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS:
-      return { ...state, loading: false, data };
+      return { ...state, loading: false };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS:
       return { ...state, loading: false, data: data };
     case AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS:
