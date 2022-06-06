@@ -84,11 +84,7 @@ function* getUsersProfil(params: any): any {
 }
 
 function* deleteUserProfil(params: any): any {
-    console.log('deleteUserProfil params', params)
   const res = yield call(request as any, deleteUsersService, params?.id);
-
-  console.log('deleteUserProfil res', res)
-
   if (res?.status === 200) {
     yield put(authDeleteUserProfilSuccess());
   } else {
@@ -96,11 +92,7 @@ function* deleteUserProfil(params: any): any {
   }
 }
 
-// @ts-ignore
 function* updateUserProfil({ data: { ...args } }) {
-
-  console.log('updateUserProfil', { ...args })
-
   // @ts-ignore
   const res = yield call(request, updateUserProfilService, { ...args });
   if (res?.status === 200) {
@@ -110,6 +102,7 @@ function* updateUserProfil({ data: { ...args } }) {
     yield put(authUpdateUserProfilError({ ...res.data }));
   }
 }
+
 /*
 function* updatePassword(api, action) {
   const { params } = action;

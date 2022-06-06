@@ -3,6 +3,7 @@
 // import { ErrorBoundary } from "react-error-boundary";
 import CustomRouter from 'routes/CustomRouter';
 import Routes from './routes';
+import "./i18n";
 
 /*
 <ErrorBoundary FallbackComponent={ErrorPage} onError={logError}>

@@ -1,6 +1,13 @@
+/*eslint-disable*/
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import UserFilters from 'containers/UserFilters';
 
 function Navbar() {
+  const { i18n } = useTranslation();
+  const [state, setState] = useState<any>(false);
+
+  console.log('state', state)
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div className="container-fluid">
@@ -23,6 +30,11 @@ function Navbar() {
               </a>
             </li>
           </ul>
+          <button type="button" className="me-2 btn btn-light" onClick={() => {
+            setState(!state) as any;
+            if (state) return i18n?.changeLanguage("fr");
+            i18n?.changeLanguage("en");
+          }}>{state ? 'fr' : 'en'}</button>
           <UserFilters />
         </div>
       </div>

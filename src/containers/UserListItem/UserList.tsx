@@ -6,6 +6,7 @@ import {
 } from 'react';
 import { remove } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
 import userListItem from 'containers/UserListItem/UserListItem';
 import UserEdit from 'containers/Users/UserEdit';
 import UserNew from 'containers/Users/UserNew';
@@ -19,6 +20,7 @@ import TopLineLoading from 'components/Loading/TopLineLoading';
 function UserList({
  id, canEdit = false, canDelete = false, canAdd = false,
 }: any) {
+  const { t } = useTranslation();
   const [editingUser, setEditingUser] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [deletingUser, setDeletingUser] = useState(false);
@@ -118,7 +120,7 @@ function UserList({
     <section className="py-5 text-center container">
       <div className="row py-lg-5">
         <div className="col-lg-6 col-md-8 mx-auto">
-          <h1 className="fw-light">Album example</h1>
+          <h1 className="fw-light">{t("Welcome to React")}</h1>
           <p className="lead text-muted">Something short and leading about the collection below—its
             contents, the creator, etc. Make it short and sweet, but not too short so folks don’t
             simply skip over it entirely.</p>
