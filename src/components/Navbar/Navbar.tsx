@@ -5,7 +5,7 @@ import UserFilters from 'containers/UserFilters';
 
 function Navbar() {
   const { i18n } = useTranslation();
-  const [state, setState] = useState<any>(false);
+  const [state, setState] = useState<boolean>(false);
 
   console.log('state', state)
   return (
@@ -31,7 +31,7 @@ function Navbar() {
             </li>
           </ul>
           <button type="button" className="me-2 btn btn-light" onClick={() => {
-            setState(!state) as any;
+            setState(!state);
             if (state) return i18n?.changeLanguage("fr");
             i18n?.changeLanguage("en");
           }}>{state ? 'fr' : 'en'}</button>

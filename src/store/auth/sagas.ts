@@ -50,7 +50,8 @@ function* request(
   }
 }
 
-function* forgotPassword({ data }: any) {
+function* forgotPassword(params: any) {
+  console.log('forgotPassword forgotPassword forgotPassword forgotPassword', params)
   /*
   const res = yield call(forgotPasswordService, { email: data?.login });
 
@@ -170,7 +171,7 @@ function forwardTo(history: { push: Function }, location: string) {
   });
 }
 
-function* watchAuth() {
+function* watchforgotPassword() {
   yield takeEvery(AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST, forgotPassword);
 }
 
@@ -205,7 +206,7 @@ function* watchDeleteUser() {
 // We can also use `fork()` here to split our saga into multiple watchers.
 function* authSaga() {
   yield all([
-    fork(watchAuth),
+    fork(watchforgotPassword),
     fork(watchUsers),
     fork(watchUser),
     fork(watchUpdateUser),
