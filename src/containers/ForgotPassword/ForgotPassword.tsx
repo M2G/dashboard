@@ -34,12 +34,12 @@ function ForgotPassword({ initialValues, onSubmit }: any) {
 }: any): any =>
       <div className="form-signin">
         <Form>
-          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+          <h1 className="h3 mb-3 fw-normal">Forgot password</h1>
           <div className="form-floating">
             <Field
               id="floatingInput"
               name={INPUT_NAME.EMAIL}
-              className="form-control mb-2"
+              className="form-control"
               type="email"
               onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
               placeholder={PLACEHOLDER_EMAIL}
@@ -47,12 +47,12 @@ function ForgotPassword({ initialValues, onSubmit }: any) {
               required
             />
             {touched[INPUT_NAME.EMAIL] && errors && errors[INPUT_NAME.EMAIL] ? (
-              <span className="error-text">{errors[INPUT_NAME.EMAIL]}</span>
+              <span className="error-text text-danger">{errors[INPUT_NAME.EMAIL]}</span>
             ) : null}
             <label htmlFor="floatingInput">{LABEL_EMAIL}</label>
           </div>
-          <button className="w-100 btn btn-lg btn-primary" type="submit">
-            Sign in
+          <button className="w-100 btn btn-lg btn-primary mt-2" type="submit">
+            Submit
           </button>
         </Form>
       </div>;

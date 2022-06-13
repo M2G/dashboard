@@ -2,7 +2,13 @@
 import api from 'api';
 
 function forgotPasswordService(params: object): Promise<any> {
-  return api.post('/auth/change-password', params);
+  console.log('params', params);
+  return api.post('/auth/forgot-password', params);
+}
+
+function recoverPasswordService(params: object): Promise<any> {
+  console.log('params', params);
+  return api.post('/auth/reset-password', params);
 }
 
 function userProfilService(id: number): Promise<any> {
@@ -26,8 +32,9 @@ function deleteUsersService(id: string): Promise<any> {
 }
 
 export {
-  getUsersService,
   forgotPasswordService,
+  recoverPasswordService,
+  getUsersService,
   createUserProfilService,
   userProfilService,
   updateUserProfilService,

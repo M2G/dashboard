@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { fireEvent, render, cleanup } from "@testing-library/react";
-import ResetPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
 import { INPUT_NAME } from './constants';
 
 afterEach(cleanup);
@@ -15,7 +15,8 @@ describe('Signup Container', () => {
   beforeEach(() => {
 
     const INITIAL_VALUES = {
-      [INPUT_NAME.EMAIL]: '',
+      [INPUT_NAME.NEW_PASSWORD]: '',
+      [INPUT_NAME.VERIFY_PASSWORD]: '',
     };
 
     wrapper = render(<ResetPassword

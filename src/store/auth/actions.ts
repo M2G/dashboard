@@ -142,6 +142,14 @@ export const authRecoverPasswordSuccess = (data: any) => {
   };
 };
 
+export const authRecoverPasswordError = (data: any) => {
+  console.log('authRecoverPasswordAction', data);
+  return {
+    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_ERROR,
+    data,
+  };
+};
+
 export const authForgotPasswordSuccess = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {

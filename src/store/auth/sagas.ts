@@ -9,30 +9,33 @@ import {
   StrictEffect,
 } from 'redux-saga/effects';
 import {
-  //forgotPasswordService,
+  forgotPasswordService,
   userProfilService,
   updateUserProfilService,
   getUsersService,
   deleteUsersService,
+  recoverPasswordService
 } from './services';
 
 import { AuthActionTypes } from './types';
 import {
-  //authForgotPasswordErrorAction,
+  authForgotPasswordError,
   authDeleteUserProfilSuccess,
   authDeleteUserProfilError,
   authGetUserProfilSuccess,
   authGetUserProfilError,
-  //  authForgotPasswordAction,
   authUpdateUserProfilSuccess,
   authUpdateUserProfilError,
   authRequestErrorAction,
   authGetUsersProfilSuccess,
   authGetUsersProfilError,
-} from './actions';
+  authRecoverPasswordAction,
+  authRecoverPasswordSuccess,
+  authRecoverPasswordError,
+} from "./actions";
 import { signoutUserAction } from 'store/signout/actions';
-//import { history } from 'index';
-//import Config from '../../constants';
+import { history } from 'index';
+import Config from '../../constants';
 
 function* request(
   api: any,
@@ -50,16 +53,34 @@ function* request(
   }
 }
 
-function* forgotPassword(params: any) {
-  console.log('forgotPassword forgotPassword forgotPassword forgotPassword', params)
-  /*
-  const res = yield call(forgotPasswordService, { email: data?.login });
+function* forgotPassword({ data }: any) {
+  console.log('forgotPassword', data)
+
+  // @ts-ignore
+  const res = yield call(forgotPasswordService, { ...data });
+
+  console.log('res res res res', res)
 
   if (res?.status === 200) {
-    yield call(data?.history?.replace, Config.ROUTER_PATH.RESET_PASSWORD);
+    yield put(authRecoverPasswordSuccess({ ...res.data }));
   } else {
-    yield put(authForgotPasswordErrorAction({ ...res.data }));
-  }*/
+    yield put(authForgotPasswordError({ ...res.data }));
+  }
+}
+
+function* recoverPassword({ ...data }: any) {
+  console.log('recoverPassword', data)
+
+  // @ts-ignore
+  const res = yield call(recoverPasswordService, { ...data });
+
+  if (res?.status === 200) {
+    yield put(authRecoverPasswordAction({}));
+    // @ts-ignore
+    return yield call(history?.replace, Config.ROUTER_PATH.HOME);
+  } else {
+    yield put(authRecoverPasswordError({ ...res.data }));
+  }
 }
 
 function* getUserProfil(params: { id: unknown }) {
@@ -133,45 +154,13 @@ function* updatePassword(api, action) {
     yield put(signinUserError({ ...res.data, updatePassword: true }));
   }
 }
+*/
 
-function* recoverPassword(api, action) {
-  const { params } = action;
-  const res = yield call(api.recoverPassword, params);
-
-  if (res.status && res.status === 202) {
-    history.replace('/');
-  } else if (res.status && res.status === 422) {
-    const error = res.data.map((item) => ({
-      [item.field]: item.message,
-    }));
-
-    yield put(
-      signinUserError({
-        error,
-        recoverPassword: true,
-      }),
-    );
-  } else {
-    yield put(
-      signinUserError({
-        ...res.data,
-        recoverPassword: true,
-      }),
-    );
-  }
-}*/
-
-// @ts-ignore
-function forwardTo(history: { push: Function }, location: string) {
-  return history.push({
-    pathname: location,
-    state: {
-      message: 'Signin Success',
-    },
-  });
+function* watchRecoverPassword() {
+  yield takeEvery(AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST, recoverPassword);
 }
 
-function* watchforgotPassword() {
+function* watchForgotPassword() {
   yield takeEvery(AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST, forgotPassword);
 }
 
@@ -206,7 +195,8 @@ function* watchDeleteUser() {
 // We can also use `fork()` here to split our saga into multiple watchers.
 function* authSaga() {
   yield all([
-    fork(watchforgotPassword),
+    fork(watchRecoverPassword),
+    fork(watchForgotPassword),
     fork(watchUsers),
     fork(watchUser),
     fork(watchUpdateUser),

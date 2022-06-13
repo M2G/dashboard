@@ -10,6 +10,7 @@ const Home = lazy(() => import('containers/Home'));
 const Signin = lazy(() => import('containers/Signin'));
 const Signup = lazy(() => import('containers/Signup'));
 const ForgotPassword = lazy(() => import('containers/ForgotPassword'));
+const ResetPassword = lazy(() => import('containers/ResetPassword'));
 
 import TopLineLoading from 'components/Loading/TopLineLoading';
 
@@ -21,6 +22,14 @@ import TopLineLoading from 'components/Loading/TopLineLoading';
 const Router = () => (
   <main>
     <Routes>
+      <Route
+        path={ROUTER_PATH.RESET_PASSWORD}
+        element={
+          <Suspense fallback={<TopLineLoading />}>
+            <ResetPassword />
+          </Suspense>
+        }
+      />
       <Route
         path={ROUTER_PATH.FORGOT_PASSWORD}
         element={

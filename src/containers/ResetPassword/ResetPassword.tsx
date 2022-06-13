@@ -3,11 +3,16 @@ import { Formik, Field, Form } from 'formik';
 import {
   ERROR_TEXT_REQUIRED,
   INPUT_NAME,
-  LABEL_EMAIL,
-  PLACEHOLDER_EMAIL,
-} from './constants';
+  LABEL_NEW_PASSWORD,
+  LABEL_VERIFY_PASSWORD,
+  PLACEHOLDER_NEW_PASSWORD,
+  PLACEHOLDER_VERIFY_PASSWORD,
+} from "./constants";
 
-const { ERROR_TEXT_REQUIRED_EMAIL } = ERROR_TEXT_REQUIRED;
+const {
+ ERROR_TEXT_REQUIRED_NEW_PASSWORD,
+  ERROR_TEXT_REQUIRED_VERIFY_PASSWORD,
+} = ERROR_TEXT_REQUIRED;
 
 function ResetPassword({ initialValues, onSubmit }: any) {
   const setField = (setFieldValue: any, setFieldName: any, value: any): any =>
@@ -20,8 +25,12 @@ function ResetPassword({ initialValues, onSubmit }: any) {
   const onValidate = (values: object): {} => {
     const errors = {};
 
-    if (!values[INPUT_NAME.EMAIL]) {
-      errors[INPUT_NAME.EMAIL] = ERROR_TEXT_REQUIRED_EMAIL;
+    if (!values[INPUT_NAME.NEW_PASSWORD]) {
+      errors[INPUT_NAME.NEW_PASSWORD] = ERROR_TEXT_REQUIRED_NEW_PASSWORD;
+    }
+
+    if (!values[INPUT_NAME.VERIFY_PASSWORD]) {
+      errors[INPUT_NAME.VERIFY_PASSWORD] = ERROR_TEXT_REQUIRED_VERIFY_PASSWORD;
     }
 
     return errors;
@@ -37,18 +46,34 @@ function ResetPassword({ initialValues, onSubmit }: any) {
           <div className="form-floating">
             <Field
               id="floatingInput"
-              name={INPUT_NAME.EMAIL}
+              name={INPUT_NAME.NEW_PASSWORD}
               className="form-control mb-2"
-              type="email"
-              onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
-              placeholder={PLACEHOLDER_EMAIL}
-              value={values?.[INPUT_NAME.EMAIL]}
+              type="text"
+              onChange={onChange(setFieldValue, INPUT_NAME.NEW_PASSWORD)}
+              placeholder={PLACEHOLDER_NEW_PASSWORD}
+              value={values?.[INPUT_NAME.NEW_PASSWORD]}
               required
             />
-            {touched[INPUT_NAME.EMAIL] && errors && errors[INPUT_NAME.EMAIL] ? (
-              <span className="error-text">{errors[INPUT_NAME.EMAIL]}</span>
+            {touched[INPUT_NAME.NEW_PASSWORD] && errors && errors[INPUT_NAME.NEW_PASSWORD] ? (
+              <span className="error-text">{errors[INPUT_NAME.NEW_PASSWORD]}</span>
             ) : null}
-            <label htmlFor="floatingInput">{LABEL_EMAIL}</label>
+            <label htmlFor="floatingInput">{LABEL_NEW_PASSWORD}</label>
+          </div>
+          <div className="form-floating">
+            <Field
+              id="floatingInput"
+              name={INPUT_NAME.VERIFY_PASSWORD}
+              className="form-control mb-2"
+              type="text"
+              onChange={onChange(setFieldValue, INPUT_NAME.VERIFY_PASSWORD)}
+              placeholder={PLACEHOLDER_VERIFY_PASSWORD}
+              value={values?.[INPUT_NAME.VERIFY_PASSWORD]}
+              required
+            />
+            {touched[INPUT_NAME.VERIFY_PASSWORD] && errors && errors[INPUT_NAME.VERIFY_PASSWORD] ? (
+              <span className="error-text">{errors[INPUT_NAME.VERIFY_PASSWORD]}</span>
+            ) : null}
+            <label htmlFor="floatingInput">{LABEL_VERIFY_PASSWORD}</label>
           </div>
           <button className="w-100 btn btn-lg btn-primary" type="submit">
             Sign in
