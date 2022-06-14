@@ -1,12 +1,12 @@
 /* eslint-disable */
 import api from 'api';
 
-function forgotPasswordService(params: object): Promise<any> {
+function forgotPasswordService(params: any): Promise<any> {
   console.log('params', params);
   return api.post('/auth/forgot-password', params);
 }
 
-function recoverPasswordService(params: object): Promise<any> {
+function recoverPasswordService(params: any): Promise<any> {
   console.log('params', params);
   return api.post('/auth/reset-password', params);
 }

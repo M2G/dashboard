@@ -57,7 +57,7 @@ function* forgotPassword({ data }: any) {
   console.log('forgotPassword', data)
 
   // @ts-ignore
-  const res = yield call(forgotPasswordService, { ...data });
+  const res = yield call(request, forgotPasswordService, { ...data });
 
   console.log('res res res res', res)
 
@@ -68,11 +68,10 @@ function* forgotPassword({ data }: any) {
   }
 }
 
-function* recoverPassword({ ...data }: any) {
+function* recoverPassword({ data }: any) {
   console.log('recoverPassword', data)
-
   // @ts-ignore
-  const res = yield call(recoverPasswordService, { ...data });
+  const res = yield call(request, recoverPasswordService, { ...data });
 
   if (res?.status === 200) {
     yield put(authRecoverPasswordAction({}));
@@ -84,6 +83,7 @@ function* recoverPassword({ ...data }: any) {
 }
 
 function* getUserProfil(params: { id: unknown }) {
+
   // @ts-ignore
   const res = yield call(request, userProfilService, params?.id);
   if (res?.status === 200) {
