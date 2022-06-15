@@ -39,15 +39,15 @@ import Config from '../../constants';
 
 function* request(
   api: any,
-  params: unknown,
-  extendParams: unknown
+  params: any,
+  extendParams: any
 ): Generator<StrictEffect, any, any> {
   try {
     const res = yield call(api, params, extendParams);
     if (res?.status === 401) {
       return yield put(signoutUserAction({ ...res.data }));
     }
-    return res;
+    return res as any;
   } catch (error: any) {
     return yield put(authRequestErrorAction({ ...error }));
   }
@@ -74,7 +74,7 @@ function* recoverPassword({ data }: any) {
   const res = yield call(request, recoverPasswordService, { ...data });
 
   if (res?.status === 200) {
-    yield put(authRecoverPasswordAction({}));
+    yield put(authRecoverPasswordAction({ ...res.data }));
     // @ts-ignore
     return yield call(history?.replace, Config.ROUTER_PATH.HOME);
   } else {

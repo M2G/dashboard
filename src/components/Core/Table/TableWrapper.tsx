@@ -1,11 +1,33 @@
 /*eslint-disable*/
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, createContext, useContext } from 'react';
 import classnames from 'classnames';
 import {
   arrayOf, string, node, oneOfType, shape, oneOf, bool, number
 } from 'prop-types';
 import TableHeaderCell from './TableHeaderCell';
 import './index.scss';
+
+const TableContext = createContext<Record<string, any>>({})
+
+const TableHead = ({}) => {
+  const { header, handleSort, sortData } = useContext(
+    TableContext,
+  )
+  return <thead className="c-table-head">
+  <tr>
+    {header?.map(({ label, sortable, type }: any, index: string) =>
+      <TableHeaderCell
+        key={index}
+        label={label}
+        isSortable={sortable}
+        currentSortedData={sortData?.index === index ? sortData : null}
+        onSort={(sortDirection) => handleSort(index, sortDirection, type)}
+      />)}
+  </tr>
+  </thead>
+}
+
+
 
 const TableWrapper = ({ header, rows, id, className = '' }: any) => {
   const [sortData, setSortData] = useState<any>(null);
@@ -53,20 +75,12 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
     });
   }, [header]);
 
-  return <div className="c-table-wrapper">
+  return <TableContext.Provider
+    value={{ header, handleSort, sortData }}
+  >
+  <div className="c-table-wrapper">
       <table className={classnames("c-table table-bordered", className)}>
-        <thead className="c-table-head">
-          <tr>
-            {header?.map(({ label, sortable, type }: any, index: string) =>
-              <TableHeaderCell
-                key={index}
-                label={label}
-                isSortable={sortable}
-                currentSortedData={sortData?.index === index ? sortData : null}
-                onSort={(sortDirection) => handleSort(index, sortDirection, type)}
-              />)}
-          </tr>
-        </thead>
+        <TableHead key="TableHead" />
         <tbody className="c-table-body">
           {getSortedTable?.map((row: { display: any }[], indexRow: any) =>
             <tr key={`bodyTable__${id}__${indexRow}`}>
@@ -85,6 +99,7 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
         </tbody>
       </table>
     </div>
+  </TableContext.Provider>
 };
 
 const rowType = shape({
