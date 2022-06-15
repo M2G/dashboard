@@ -10,9 +10,7 @@ import './index.scss';
 const TableContext = createContext<Record<string, any>>({})
 
 const TableHead = ({}) => {
-  const { header, handleSort, sortData } = useContext(
-    TableContext,
-  )
+  const { header, handleSort, sortData } = useContext(TableContext);
   return <thead className="c-table-head">
   <tr>
     {header?.map(({ label, sortable, type }: any, index: string) =>
@@ -25,6 +23,26 @@ const TableHead = ({}) => {
       />)}
   </tr>
   </thead>
+}
+
+const TableBody = ({ id }: string | number | any) => {
+  const { getSortedTable } = useContext(TableContext);
+  return <tbody className="c-table-body">
+  {getSortedTable?.map((row: { display: any }[], indexRow: any) =>
+    <tr key={`bodyTable__${id}__${indexRow}`}>
+      {row?.map(({ display }, indexCol) => (
+        <td
+          key={`bodyTable__${id}__${indexRow}__${indexCol}`}
+          className={classnames('table-wrapper-cell', {
+            stickyBlock: indexCol === 0,
+          })}
+        >
+          {display}
+        </td>
+      ))}
+    </tr>
+  )}
+  </tbody>
 }
 
 
@@ -76,27 +94,12 @@ const TableWrapper = ({ header, rows, id, className = '' }: any) => {
   }, [header]);
 
   return <TableContext.Provider
-    value={{ header, handleSort, sortData }}
+    value={{ header, handleSort, sortData, getSortedTable }}
   >
   <div className="c-table-wrapper">
       <table className={classnames("c-table table-bordered", className)}>
         <TableHead key="TableHead" />
-        <tbody className="c-table-body">
-          {getSortedTable?.map((row: { display: any }[], indexRow: any) =>
-            <tr key={`bodyTable__${id}__${indexRow}`}>
-              {row?.map(({ display }, indexCol) => (
-                <td
-                  key={`bodyTable__${id}__${indexRow}__${indexCol}`}
-                  className={classnames('table-wrapper-cell', {
-                    stickyBlock: indexCol === 0,
-                  })}
-                >
-                  {display}
-                </td>
-              ))}
-            </tr>
-          )}
-        </tbody>
+        <TableBody key="TableBody" />
       </table>
     </div>
   </TableContext.Provider>
