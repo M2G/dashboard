@@ -75,8 +75,10 @@ function UserList({
   }, []);
 
   const onDeleteUser = useCallback((user: any) => {
-    setUserList(remove(userList, user));
+    remove(userList, user)
+    setUserList(userList);
     dispatch(deleteUserAction(user._id));
+    console.log('userList userList userList', userList)
     onClose();
   }, [userList]);
 
@@ -98,7 +100,7 @@ function UserList({
           canDelete,
           canEdit,
         })),
-    [userList, id, onEdit, onDelete, canDelete, canEdit, editingUser, newUser, deletingUser, userList]);
+    [id, onEdit, onDelete, canDelete, canEdit, editingUser, newUser, deletingUser, userList]);
 
   console.log('userList', userList)
 
