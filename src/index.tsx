@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { init as initSentry } from "@sentry/react";
@@ -19,11 +18,9 @@ function render(Component: any){
     const root = createRoot(MOUNT_NODE);
   if (root) {
       return root.render(
-        <StrictMode>
           <Provider store={store}>
             <Component history={history} />
           </Provider>
-        </StrictMode>
     );
   }
 }
