@@ -4,17 +4,10 @@ import {
   PLACEHOLDER_LAST_NAME,
   PLACEHOLDER_EMAIL,
   INPUT_NAME,
-  ERROR_TEXT_REQUIRED,
   LABEL_FIRST_NAME,
   LABEL_LAST_NAME,
   LABEL_EMAIL,
 } from './constants';
-
-const {
- ERROR_TEXT_REQUIRED_FIRST_NAME,
-  ERROR_TEXT_REQUIRED_LAST_NAME,
-  ERROR_TEXT_REQUIRED_EMAIL,
-} = ERROR_TEXT_REQUIRED;
 
 function UserEdit({ onSubmit, initialValues }: any): any {
   const setField = (setFieldValue: any, setFieldName: any, value: any): any =>
@@ -23,24 +16,6 @@ function UserEdit({ onSubmit, initialValues }: any): any {
   const onChange = (setFieldValue: any, setFieldName: any): any =>
     ({ target: { value = '' } }: any) =>
       setField(setFieldValue, setFieldName, value);
-
-  const onValidate = (values: object): {} => {
-    const errors = {};
-
-    if (!values[INPUT_NAME.FIRST_NAME]) {
-      errors[INPUT_NAME.FIRST_NAME] = ERROR_TEXT_REQUIRED_FIRST_NAME;
-    }
-
-    if (!values[INPUT_NAME.LAST_NAME]) {
-      errors[INPUT_NAME.LAST_NAME] = ERROR_TEXT_REQUIRED_LAST_NAME;
-    }
-
-    if (!values[INPUT_NAME.EMAIL]) {
-      errors[INPUT_NAME.EMAIL] = ERROR_TEXT_REQUIRED_EMAIL;
-    }
-
-    return errors;
-  };
 
   const handleSubmit = (values: object) => onSubmit(values);
 
@@ -57,7 +32,6 @@ function UserEdit({ onSubmit, initialValues }: any): any {
           onChange={onChange(setFieldValue, INPUT_NAME.FIRST_NAME)}
           placeholder={PLACEHOLDER_FIRST_NAME}
           value={values[INPUT_NAME.FIRST_NAME]}
-          required
         />
         {touched[INPUT_NAME.FIRST_NAME] && errors && errors[INPUT_NAME.FIRST_NAME] ? (
           <span className="error-text">{errors[INPUT_NAME.FIRST_NAME]}</span>
@@ -73,7 +47,6 @@ function UserEdit({ onSubmit, initialValues }: any): any {
           onChange={onChange(setFieldValue, INPUT_NAME.LAST_NAME)}
           placeholder={PLACEHOLDER_LAST_NAME}
           value={values[INPUT_NAME.LAST_NAME]}
-          required
         />
         {touched[INPUT_NAME.LAST_NAME]
         && errors
@@ -91,7 +64,6 @@ function UserEdit({ onSubmit, initialValues }: any): any {
           onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
           placeholder={PLACEHOLDER_EMAIL}
           value={values[INPUT_NAME.EMAIL]}
-          required
         />
         {touched[INPUT_NAME.EMAIL]
         && errors
@@ -109,7 +81,6 @@ function UserEdit({ onSubmit, initialValues }: any): any {
       enableReinitialize
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validate={onValidate}
     >
       {renderForm}
     </Formik>;

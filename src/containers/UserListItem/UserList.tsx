@@ -134,8 +134,9 @@ function UserList({
     </section>
 
 
-    {userList?.length ? <TableWrapper id={id} header={header} rows={rows} />
-      : <div>No data</div>}
+    {!userList?.length && !auth.loading && <div>No data</div>}
+
+    <TableWrapper id={id} header={header} rows={rows} />
 
       <SidebarWrapper
         isOpened={editingUser}
