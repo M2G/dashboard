@@ -25,17 +25,16 @@ const TableHead = ({}) => {
   </thead>
 }
 
-const TableBody = ({ id }: string | number | any) => {
+const TableBody = ({ id }: string | number | any): any => {
   const { getSortedTable } = useContext(TableContext);
+  if (!getSortedTable) return <></>;
   return <tbody className="c-table-body">
-  {getSortedTable?.map((row: { display: any }[], indexRow: any) =>
+  {getSortedTable.map((row: { display: any }[], indexRow: any) =>
     <tr key={`bodyTable__${id}__${indexRow}`}>
       {row?.map(({ display }, indexCol) => (
         <td
           key={`bodyTable__${id}__${indexRow}__${indexCol}`}
-          className={classnames('table-wrapper-cell', {
-            stickyBlock: indexCol === 0,
-          })}
+          className="table-wrapper-cell"
         >
           {display}
         </td>
@@ -44,8 +43,6 @@ const TableBody = ({ id }: string | number | any) => {
   )}
   </tbody>
 }
-
-
 
 const TableWrapper = ({ header, rows, id, className = '' }: any) => {
   const [sortData, setSortData] = useState<any>(null);

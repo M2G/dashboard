@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import UserList from 'containers/UserListItem/UserList';
 
 function Home() {
@@ -12,7 +11,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </div>;
 }
 
 export default Home;

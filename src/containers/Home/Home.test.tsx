@@ -38,8 +38,6 @@ describe('Home Container', () => {
       expect(screen.getByText('oliver.garcia@university.com')).toBeInTheDocument();
       expect(screen.getByText('11/21/2021')).toBeInTheDocument();
       expect(screen.getAllByText('4:46:44 PM')[0]).toBeInTheDocument();
-
-      expect(screen.getByText('Search')).toBeInTheDocument();
     });
   });
 });
