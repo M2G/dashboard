@@ -13,3 +13,6 @@ build:
 
 story:
 	npm run storybook
+
+cypress:
+	npm run cypress:open

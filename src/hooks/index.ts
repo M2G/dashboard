@@ -1,3 +1,7 @@
-import  useSelector from './useSelector';
+import useSelector from './useSelector';
+import usePrevious from './usePrevious';
 
-export default useSelector;
+export {
+  useSelector,
+  usePrevious
+};

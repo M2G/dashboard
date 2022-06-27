@@ -2,16 +2,19 @@
 import {
   useMemo,
   useState,
-  useCallback, useEffect,
+  useCallback,
+  useEffect,
 } from 'react';
-import { remove } from 'lodash';
+// import { remove } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import userListItem from 'containers/UserListItem/UserListItem';
 import UserEdit from 'containers/Users/UserEdit';
 import UserNew from 'containers/Users/UserNew';
 import { signupUserAction } from 'store/signup/actions';
-import { authGetUsersProfilAction, authDeleteUserProfilAction, authUpdateUserProfilAction } from 'store/auth/actions';
+import {
+  authGetUsersProfilAction,
+  authDeleteUserProfilAction, authUpdateUserProfilAction } from 'store/auth/actions';
 import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
@@ -24,9 +27,11 @@ function UserList({
   const [editingUser, setEditingUser] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [deletingUser, setDeletingUser] = useState(false);
-  const [userList, setUserList] = useState<any>([]);
+  // const [userList, setUserList] = useState<any>([]);
 
-  const { auth, signup }: any = useSelector((state: any) => ({
+  const { auth,
+    // signup
+  }: any = useSelector((state: any) => ({
     signup: state?.signup,
     auth: state?.auth
   }));
@@ -56,12 +61,12 @@ function UserList({
   }, []);
 
   const onEditUser = useCallback((user: any) => {
-    remove(userList, { _id: user._id });
-    userList?.push(user);
-    setUserList(userList);
+    //remove(userList, { _id: user._id });
+    //userList?.push(user);
+    //setUserList(userList);
     dispatch(editUserAction(user));
     onClose();
-  }, [userList]);
+  }, []);
 
   const onEdit = useCallback((user: any) => {
     setEditingUser(user);
@@ -72,26 +77,26 @@ function UserList({
   const onNewUser = useCallback((user: any) => {
     setNewUser(user);
     dispatch(signupUserAction(user));
+    authGetUsersProfil();
   }, []);
 
   const onDeleteUser = useCallback((user: any) => {
-    remove(userList, user)
-    setUserList(userList);
+    //remove(userList, user)
+    //setUserList(userList);
     dispatch(deleteUserAction(user._id));
-    console.log('userList userList userList', userList)
+   // console.log('userList userList userList', userList)
     onClose();
-  }, [userList]);
+  }, []);
 
   useEffect(() => {
     authGetUsersProfil();
-    onClose();
-  }, [signup.data]);
+  }, []);
 
-  useEffect(() => setUserList(auth.data), [auth.data]);
+  const users = auth?.data || [];
 
   const rows = useMemo(
     () =>
-      userList?.map((user: any) =>
+      users?.map((user: any) =>
         userListItem({
           id,
           user,
@@ -100,9 +105,9 @@ function UserList({
           canDelete,
           canEdit,
         })),
-    [id, onEdit, onDelete, canDelete, canEdit, editingUser, newUser, deletingUser, userList]);
+    [id, onEdit, onDelete, canDelete, canEdit, editingUser, newUser, deletingUser, users]);
 
-  console.log('userList', userList)
+  console.log('users', users)
 
   const header = useMemo(
     () => [
@@ -115,7 +120,7 @@ function UserList({
     ],
     []);
 
-  if (!userList?.length && auth.loading) return <TopLineLoading />;
+  if (!users?.length && auth.loading) return <TopLineLoading />;
 
   return <>
 
@@ -134,7 +139,7 @@ function UserList({
     </section>
 
 
-    {!userList?.length && !auth.loading && <div>No data</div>}
+    {!users?.length && !auth.loading && <div>No data</div>}
 
     <TableWrapper id={id} header={header} rows={rows} />
 

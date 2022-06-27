@@ -1,23 +1,15 @@
-const findReactScriptsWebpackConfig = require("@cypress/react/plugins/react-scripts/findReactScriptsWebpackConfig")
-const { startDevServer } = require('@cypress/webpack-dev-server')
-const _ = require('lodash')
+/// <reference types="cypress" />
 
-module.exports = (on, config) => {
-  const map = _.map([4, 8], n => n * 2)
-  console.log(map)
-  require('@cypress/code-coverage/task')(on, config)
-  const webpackConfig = findReactScriptsWebpackConfig(config)
-
-  const rules = webpackConfig.module.rules.find(rule => !!rule.oneOf).oneOf;
-  const babelRule = rules.find(rule => /babel-loader/.test(rule.loader))
-  babelRule.options.plugins.push(require.resolve('babel-plugin-istanbul'))
-
-  on('dev-server:start', (options) => {
-    return startDevServer({ options, webpackConfig })
-  })
-
-  // IMPORTANT to return the config object
-  // with the any changed environment variables
-  return config
-}
-
+/**
+ * @type {Cypress.PluginConfig}
+ */
+module.exports = (_: any, config: any) => {
+  // config.env.auth0_username = process.env.AUTH0_USERNAME;
+  //config.env.auth0_password = process.env.AUTH0_PASSWORD;
+  //config.env.auth0_domain = process.env.REACT_APP_AUTH0_DOMAIN;
+  //config.env.auth0_audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+  //config.env.auth0_scope = process.env.REACT_APP_AUTH0_SCOPE;
+  //config.env.auth0_client_id = process.env.REACT_APP_AUTH0_CLIENTID;
+  //config.env.auth0_client_secret = process.env.AUTH0_CLIENT_SECRETD;
+  return config;
+};
