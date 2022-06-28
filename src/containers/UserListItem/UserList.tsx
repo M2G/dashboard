@@ -27,7 +27,6 @@ function UserList({
   const [editingUser, setEditingUser] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [deletingUser, setDeletingUser] = useState(false);
-  // const [userList, setUserList] = useState<any>([]);
 
   const { auth,
     // signup
@@ -41,6 +40,7 @@ function UserList({
   const authGetUsersProfil = () => dispatch(authGetUsersProfilAction());
   const deleteUserAction = (id: string) => dispatch(authDeleteUserProfilAction(id) as any);
   const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params) as any);
+  const signupAction = (params: any) => dispatch(signupUserAction(params) as any);
 
   const onDelete = useCallback((currentSource: any) => {
     setNewUser(false);
@@ -61,10 +61,8 @@ function UserList({
   }, []);
 
   const onEditUser = useCallback((user: any) => {
-    //remove(userList, { _id: user._id });
-    //userList?.push(user);
-    //setUserList(userList);
-    dispatch(editUserAction(user));
+    editUserAction(user);
+    authGetUsersProfil();
     onClose();
   }, []);
 
@@ -76,15 +74,13 @@ function UserList({
 
   const onNewUser = useCallback((user: any) => {
     setNewUser(user);
-    dispatch(signupUserAction(user));
+    signupAction(user);
     authGetUsersProfil();
   }, []);
 
   const onDeleteUser = useCallback((user: any) => {
-    //remove(userList, user)
-    //setUserList(userList);
-    dispatch(deleteUserAction(user._id));
-   // console.log('userList userList userList', userList)
+    deleteUserAction(user._id);
+    authGetUsersProfil();
     onClose();
   }, []);
 

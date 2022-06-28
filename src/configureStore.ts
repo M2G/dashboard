@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { createStore, applyMiddleware, compose } from 'redux';
+import { legacy_createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import { rootReducer, rootSaga, ApplicationState } from './store';
@@ -10,7 +10,7 @@ const configureStore = (initialState: ApplicationState) => {
   const sagaMiddleware = createSagaMiddleware();
 
   return {
-    ...createStore(
+    ...legacy_createStore(
       rootReducer(),
       initialState,
       composeEnhancers(applyMiddleware(sagaMiddleware))

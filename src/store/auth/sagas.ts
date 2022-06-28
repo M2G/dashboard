@@ -5,7 +5,6 @@ import {
   call,
   put,
   takeEvery,
-  takeLatest,
   StrictEffect,
 } from 'redux-saga/effects';
 import {
@@ -186,7 +185,7 @@ function* watchUpdateUser() {
 }
 
 function* watchDeleteUser() {
-  yield takeLatest(
+  yield takeEvery(
     AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST as any,
     deleteUserProfil
   );
