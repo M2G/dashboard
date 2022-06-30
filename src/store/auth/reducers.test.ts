@@ -7,7 +7,35 @@ describe('todos reducer', () => {
      ).toEqual({ data: [], errors: undefined, loading: false});
   });
 
-  it('should handle ADD_TODO', () => {
+  it('should handle AUTH_GET_USER_PROFIL_REQUEST', () => {
+    expect(
+      authReducer(
+        { data: [], errors: undefined, loading: false },
+        { type: 'AUTH_GET_USER_PROFIL_SUCCESS' },
+      ),
+    )
+      .toEqual({
+        data: [],
+        errors: undefined,
+        loading: false,
+      });
+  });
+
+  it('should handle AUTH_GET_USERS_PROFIL_REQUEST', () => {
+    expect(
+      authReducer(
+        { data: [], errors: undefined, loading: false },
+        { type: 'AUTH_GET_USERS_PROFIL_REQUEST' },
+      ),
+    )
+      .toEqual({
+        data: [],
+        errors: undefined,
+        loading: false,
+      });
+  });
+
+  it('should handle AUTH_GET_USER_PROFIL_SUCCESS', () => {
     const data = [
       {
         _id: "62bb94deb0f09b1a1803ce3e",
@@ -23,8 +51,8 @@ describe('todos reducer', () => {
       authReducer(
 { data: [], errors: undefined, loading: false },
         { data, type: 'AUTH_GET_USER_PROFIL_SUCCESS' },
-),
-)
+      ),
+      )
       .toEqual({
         data: [],
       errors: undefined,
