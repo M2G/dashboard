@@ -12,8 +12,8 @@ export const initialState: AuthState = {
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
   const { data, errors, type } = action || {};
 
-  console.log('------------------> action', action);
-  console.log('------------------> state', state);
+  console.log('------------------> AUTH action', action);
+  console.log('------------------> AUTH state', state);
 
   switch (type) {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST:
@@ -38,11 +38,11 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS:
       return { ...state, loading: false };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS:
-      return { ...state, loading: false, data: data };
+      return { ...state, loading: false, data };
     case AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS:
-      return { ...state, loading: false, data: data };
+      return { ...state, loading: false, data };
     case AuthActionTypes.AUTH_FORGOT_PASSWORD_SUCCESS:
-      return { ...state, loading: false, data: data };
+      return { ...state, loading: false, data };
     case AuthActionTypes.AUTH_DELETE_USER_PROFIL_SUCCESS:
       return { ...state, loading: false };
 
