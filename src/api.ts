@@ -1,6 +1,8 @@
 /* eslint-disable */
 import axios from 'axios';
 import Config from './constants';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const { NODE_ENV } = process.env;
 const api = axios.create({
@@ -55,7 +57,7 @@ const myInterceptor = api.interceptors.response.use(
     console.log('interceptors', error?.response);
 
     api.interceptors.response.eject(myInterceptor);
-    NODE_ENV === 'development' ? alert(JSON.stringify(error?.response)) : '';
+    NODE_ENV === 'development' ? toast(JSON.stringify(error?.response)) : '';
     return Promise.reject(error);
   }
 );
