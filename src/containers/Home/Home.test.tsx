@@ -22,7 +22,6 @@ describe('Home Container', () => {
     wrapper = render(<Home />, options);
 
     test('should render', () => {
-      screen.debug();
       expect(screen.getAllByText('First name')[0]).toBeInTheDocument();
       expect(screen.getAllByText('Last name')[0]).toBeInTheDocument();
       expect(screen.getAllByText('Email')[0]).toBeInTheDocument();

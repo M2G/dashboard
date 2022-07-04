@@ -8,14 +8,17 @@ export const initialState: SignoutState = {
   errors: undefined,
   loading: false,
 };
-// @ts-ignore
+
 const reducer: Reducer<SignoutState> = (
   state = initialState,
   action,
 ) => {
+
+  console.log('--------> signoutReducer state', state)
+  console.log('--------> signoutReducer action', action)
   const { user, type } = action;
   if (type === SignoutActionTypes.SIGNOUT_USER_REQUEST) {
-    return { ...state, loading: true, data: user};
+    return { ...state, loading: true, data: user };
   }
 
   return state;

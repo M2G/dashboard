@@ -28,13 +28,21 @@ import {
   authRequestErrorAction,
   authGetUsersProfilSuccess,
   authGetUsersProfilError,
-  authRecoverPasswordAction,
   authRecoverPasswordSuccess,
-  authRecoverPasswordError,
-} from "./actions";
+  authRecoverPasswordError, authForgotPasswordSuccess,
+} from './actions';
 import { signoutUserAction } from 'store/signout/actions';
 import { history } from 'index';
 import Config from '../../constants';
+
+export interface ResponseGenerator {
+  config?:any,
+  data?:any,
+  headers?:any,
+  request?:any,
+  status?:number,
+  statusText?:string
+}
 
 function* request(
   api: any,
@@ -55,42 +63,38 @@ function* request(
 function* forgotPassword({ data }: any) {
   console.log('forgotPassword', data)
 
-  // @ts-ignore
-  const res = yield call(request, forgotPasswordService, { ...data });
+  const res: ResponseGenerator = yield call(request as any, forgotPasswordService, { ...data });
 
   console.log('res res res res', res)
 
   if (res?.status === 200) {
-    yield put(authRecoverPasswordSuccess({ ...res.data }));
-  } else {
-    yield put(authForgotPasswordError({ ...res.data }));
+    yield put(authForgotPasswordSuccess({ ...res.data }));
+    return;
   }
+
+  yield put(authForgotPasswordError({ ...res.data }));
 }
 
 function* recoverPassword({ data }: any) {
   console.log('recoverPassword', data)
-  // @ts-ignore
-  const res = yield call(request, recoverPasswordService, { ...data });
+
+  const res: ResponseGenerator = yield call(request as any, recoverPasswordService, { ...data });
 
   if (res?.status === 200) {
-    yield put(authRecoverPasswordAction({ ...res.data }));
-    // @ts-ignore
-    return yield call(history?.replace, Config.ROUTER_PATH.HOME);
-  } else {
-    yield put(authRecoverPasswordError({ ...res.data }));
+    yield put(authRecoverPasswordSuccess({ ...res.data }));
+    yield call(history?.replace, Config.ROUTER_PATH.HOME);
+    return;
   }
+  yield put(authRecoverPasswordError({ ...res.data }));
 }
 
 function* getUserProfil(params: { id: unknown }) {
-
-  // @ts-ignore
-  const res = yield call(request, userProfilService, params?.id);
+  const res: ResponseGenerator = yield call(request as any, userProfilService, params?.id);
   if (res?.status === 200) {
     yield put(authGetUserProfilSuccess({ ...res.data }));
-  } else {
-    yield put(signoutUserAction({ ...res.data }));
-    yield put(authGetUserProfilError(res.data));
+    return;
   }
+    yield put(authGetUserProfilError({ ...res.data }));
 }
 
 function* getUsersProfil(params: any): any {
@@ -98,30 +102,29 @@ function* getUsersProfil(params: any): any {
   const res = yield call(request as any, getUsersService, search);
   if (res?.status === 200) {
     yield put(authGetUsersProfilSuccess({ search, ...res.data }));
-  } else {
-    yield put(signoutUserAction({ ...res.data }));
-    yield put(authGetUsersProfilError(res.data));
+    return;
   }
+
+  yield put(authGetUsersProfilError({ ...res.data }));
 }
 
 function* deleteUserProfil(params: any): any {
   const res = yield call(request as any, deleteUsersService, params?.id);
   if (res?.status === 200) {
     yield put(authDeleteUserProfilSuccess());
-  } else {
-    yield put(authDeleteUserProfilError({ ...res.data }));
+    return;
   }
+  yield put(authDeleteUserProfilError({ ...res.data }));
 }
 
-function* updateUserProfil({ data: { ...args } }) {
-  // @ts-ignore
-  const res = yield call(request, updateUserProfilService, { ...args });
+function* updateUserProfil({ ...args }) {
+
+  const res: ResponseGenerator = yield call(request as any, updateUserProfilService, { ...args });
   if (res?.status === 200) {
     yield put(authUpdateUserProfilSuccess());
-  } else {
-    yield put(signoutUserAction({ ...res.data }));
-    yield put(authUpdateUserProfilError({ ...res.data }));
+    return;
   }
+    yield put(authUpdateUserProfilError({ ...res.data }));
 }
 
 /*
@@ -203,4 +206,13 @@ function* authSaga() {
   ]);
 }
 
-export default authSaga;
+export {
+  request,
+  authSaga,
+  forgotPassword,
+  recoverPassword,
+  getUserProfil,
+  getUsersProfil,
+  deleteUserProfil,
+  updateUserProfil,
+}

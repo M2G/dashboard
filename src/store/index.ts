@@ -8,7 +8,7 @@ import { signupReducer } from './signup/reducers';
 import { signoutReducer } from './signout/reducers';
 import { authGlobalReducer } from '../reducers';
 
-import authSaga from './auth/sagas';
+import { authSaga } from './auth/sagas';
 import signinSaga from './signin/sagas';
 import signupSaga from './signup/sagas';
 import signoutSaga from './signout/sagas';
