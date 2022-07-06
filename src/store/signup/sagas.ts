@@ -15,20 +15,16 @@ function* authorize({
                     }: {
   email: string;
   password: string;
-  redirect: boolean;
+  redirect?: boolean;
 }): Generator<StrictEffect, any, any> {
-  try {
     const response = yield call(signupUserService, { email, password });
     if (response?.status === 200) {
       yield put(signupUserSuccess({ ...response?.data }));
       yield put(signupSuccess());
       if (redirect) yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
-    } else {
-      yield put(signupUserError({ error: response?.data }));
+      return;
     }
-  } catch (e: any) {
-    yield put(signupUserError({ error: e.message }));
-  }
+      yield put(signupUserError({ error: response?.data }));
 }
 
 function forwardTo(history: BrowserHistory, url: any) {
@@ -50,4 +46,7 @@ function* signupSaga() {
   yield all([fork(watchSignup)]);
 }
 
-export default signupSaga;
+export {
+  authorize,
+  signupSaga
+};

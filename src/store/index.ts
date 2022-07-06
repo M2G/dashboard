@@ -9,9 +9,9 @@ import { signoutReducer } from './signout/reducers';
 import { authGlobalReducer } from '../reducers';
 
 import { authSaga } from './auth/sagas';
-import signinSaga from './signin/sagas';
-import signupSaga from './signup/sagas';
-import signoutSaga from './signout/sagas';
+import { signinSaga } from './signin/sagas';
+import { signupSaga } from './signup/sagas';
+import { signoutSaga } from './signout/sagas';
 
 
 import { AuthState } from './auth/types';

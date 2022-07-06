@@ -13,36 +13,18 @@ import { history } from 'index';
 import ROUTER_PATH from 'constants/RouterPath';
 
 function* authorize({ ...params }): Generator<StrictEffect, any, any> {
-  try {
     const response = yield call(signinService, params);
-
-    console.log('response response response', response);
-
     if (response?.status === 200) {
-      const signinSuccessResponse = yield put(signinUserSuccess(response));
-
-      console.log('signinSuccessResponse', signinSuccessResponse);
-
-      if (signinSuccessResponse) {
-        console.log('signinSuccessResponse 2 ', signinSuccessResponse);
-
-        const {
-          data: { token },
-        } = response?.data;
-
-        console.log('token token token 2 ', token);
+      yield put(signinUserSuccess(response));
+        const { data: { token } } = response?.data;
 
         Config.GLOBAL_VAR.token = token;
         yield call(setAuthStorage, token);
         yield put(signinSuccess());
         yield call(forwardTo, history, ROUTER_PATH.HOME);
-      }
-    } else {
-      yield put(signinUserError({ errors: response?.data }));
+        return;
     }
-  } catch (e: any) {
-    yield put(signinUserError({ errors: e?.message }));
-  }
+      yield put(signinUserError({ ...response?.data }));
 }
 
 function* watchSignin(): any {
@@ -61,4 +43,7 @@ function* signinSaga(): any {
   yield all([fork(watchSignin)]);
 }
 
-export default signinSaga;
+export {
+  authorize,
+  signinSaga
+};

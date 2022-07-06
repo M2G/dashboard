@@ -6,17 +6,16 @@ import Config from '../../constants';
 import { history } from 'index';
 import { signoutSuccess } from '../../actions';
 
-function* signoutRequest(params: any) {
-  console.log('signoutRequest signoutRequest', params);
-  yield call(signoutFlow);
-}
-
 function* signoutFlow() {
   Config.GLOBAL_VAR.token = '';
 
   yield put(signoutSuccess());
   yield call(clearAuthStorage);
-  yield call(forwardTo as any, history, '/signin');
+  yield call(forwardTo as any, history, Config.ROUTER_PATH.SIGNIN);
+}
+
+function* signoutRequest() {
+  yield call(signoutFlow);
 }
 
 function forwardTo(history: any[], url: any) {
@@ -36,4 +35,8 @@ function* signoutSaga() {
   yield all([fork(watchSignout)]);
 }
 
-export default signoutSaga;
+export {
+  signoutRequest,
+  signoutFlow,
+  signoutSaga
+};
