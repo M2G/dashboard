@@ -11,12 +11,12 @@ function recoverPasswordService(params: any): Promise<any> {
   return api.post('/auth/reset-password', params);
 }
 
-function userProfilService(id: number): Promise<any> {
+function userProfilService(id: string): Promise<any> {
   return api.get(`/users/${id}`);
 }
 
 function createUserProfilService(params: any): Promise<any> {
-  return api.put(`/users/`, params);
+  return api.post(`/users/`, params);
 }
 
 function updateUserProfilService({ _id, ...params }: any): Promise<any> {

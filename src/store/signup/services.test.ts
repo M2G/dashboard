@@ -6,7 +6,7 @@ jest.mock('api');
 describe('signupUserService', () => {
   const data = {
     data: {
-      email: 'test',
+      email: 'test@test.com',
       password: 'test',
     },
   };
