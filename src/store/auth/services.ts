@@ -16,14 +16,14 @@ function userProfilService(id: string): Promise<any> {
 }
 
 function createUserProfilService(params: any): Promise<any> {
-  return api.post(`/users/`, params);
+  return api.post(`/users`, params);
 }
 
 function updateUserProfilService({ _id, ...params }: any): Promise<any> {
   return api.put(`/auth/users/${_id}`, params);
 }
 
-function getUsersService(data: string): Promise<any> {
+function getUsersService(data?: string): Promise<any> {
   return api.get(`/auth/users${data ? `?search=${data}` : ''}`);
 }
 
