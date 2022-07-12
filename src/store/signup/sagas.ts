@@ -21,10 +21,9 @@ function* authorize({
     if (response?.status === 200) {
       yield put(signupUserSuccess({ ...response?.data }));
       yield put(signupSuccess());
-      if (redirect) yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
-      return;
+      if (redirect) return yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
     }
-      yield put(signupUserError({ error: response?.data }));
+    yield put(signupUserError({ error: response?.data }));
 }
 
 function forwardTo(history: BrowserHistory, url: any) {

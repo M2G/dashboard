@@ -5,7 +5,6 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-// import { remove } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import userListItem from 'containers/UserListItem/UserListItem';
@@ -48,13 +47,16 @@ function UserList({
   const users = auth?.data || [];
 
   useEffect(() => {
-   if(prevAmount?.receiveAmount?.length !== users?.length) {
+    console.log('prevAmount prevAmount prevAmount', prevAmount?.receiveAmount);
+    console.log('users?.length', users?.length);
 
-     console.log('prevAmount prevAmount prevAmount', prevAmount?.receiveAmount);
+   if(prevAmount?.receiveAmount?.length !== users?.length) {
      authGetUsersProfil();
-      // process here
    }
-  }, [auth?.data])
+  },
+    // [auth?.data]
+    []
+  )
 
   const onDelete = useCallback((currentSource: any) => {
     setNewUser(false);
@@ -99,11 +101,6 @@ function UserList({
     onClose();
   }, []);
 
-  useEffect(() => {
-    authGetUsersProfil();
-  }, []);
-
-
   const rows = useMemo(
     () =>
       users?.map((user: any) =>
@@ -147,7 +144,6 @@ function UserList({
         </div>
       </div>
     </section>
-
 
     {!users?.length && !auth.loading && <div>No data</div>}
 

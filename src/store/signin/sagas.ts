@@ -21,8 +21,7 @@ function* authorize({ ...params }): Generator<StrictEffect, any, any> {
         Config.GLOBAL_VAR.token = token;
         yield call(setAuthStorage, token);
         yield put(signinSuccess());
-        yield call(forwardTo, history, ROUTER_PATH.HOME);
-        return;
+        return yield call(forwardTo, history, ROUTER_PATH.HOME);
     }
       yield put(signinUserError({ ...response?.data }));
 }

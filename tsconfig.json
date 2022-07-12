@@ -57,7 +57,7 @@
       "routes/*": ["./routes/*"]
     }
   },
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src/**/*", "src/**/**/*", "test/**/*"],
   "exclude": [
     "src/stories",
     "**/__tests__/*",

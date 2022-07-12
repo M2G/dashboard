@@ -49,8 +49,14 @@ function* request(
   params: any,
   extendParams: any
 ): Generator<StrictEffect, any, any> {
+
+  console.log('::::::::::::::::::::::::::');
+
   try {
     const res = yield call(api, params, extendParams);
+
+    console.log('--------------->');
+
     if (res?.status === 401) {
       return yield put(signoutUserAction({ ...res.data }));
     }
@@ -60,49 +66,51 @@ function* request(
   }
 }
 
-function* forgotPassword({ data }: any) {
-  console.log('forgotPassword', data)
-
+function* forgotPassword({ data }: any): any {
   const res: ResponseGenerator = yield call(request as any, forgotPasswordService, { ...data });
-
-  console.log('res res res res', res)
-
   if (res?.status === 200) {
-    yield put(authForgotPasswordSuccess({ ...res.data }));
-    return;
+    return yield put(authForgotPasswordSuccess({ ...res.data }));
   }
 
   yield put(authForgotPasswordError({ ...res.data }));
 }
 
-function* recoverPassword({ data }: any) {
-  console.log('recoverPassword', data)
-
+function* recoverPassword({ data }: any): any {
   const res: ResponseGenerator = yield call(request as any, recoverPasswordService, { ...data });
 
   if (res?.status === 200) {
     yield put(authRecoverPasswordSuccess({ ...res.data }));
-    yield call(history?.replace, Config.ROUTER_PATH.HOME);
-    return;
+    return yield call(history?.replace, Config.ROUTER_PATH.HOME);
   }
+
   yield put(authRecoverPasswordError({ ...res.data }));
 }
 
-function* getUserProfil(params: { id: unknown }) {
+function* getUserProfil(params: { id: unknown }): any {
   const res: ResponseGenerator = yield call(request as any, userProfilService, params?.id);
   if (res?.status === 200) {
-    yield put(authGetUserProfilSuccess({ ...res.data }));
-    return;
+    return yield put(authGetUserProfilSuccess({ ...res.data }));
   }
-    yield put(authGetUserProfilError({ ...res.data }));
+
+  if (res?.data?.response?.status === 401) {
+    return yield put(signoutUserAction({ ...res.data.response.data.error }));
+  }
+
+  yield put(authGetUserProfilError({ ...res.data }));
 }
 
 function* getUsersProfil(params: any): any {
   const search = params?.search ? params.search : '';
   const res = yield call(request as any, getUsersService, search);
+
+  console.log('getUsersProfil getUsersProfil getUsersProfil', res)
+
   if (res?.status === 200) {
-    yield put(authGetUsersProfilSuccess({ search, ...res.data }));
-    return;
+    return yield put(authGetUsersProfilSuccess({ search, ...res.data }));
+  }
+
+  if (res?.data?.response?.status === 401) {
+    return yield put(signoutUserAction({ ...res.data.response.data.error }));
   }
 
   yield put(authGetUsersProfilError({ ...res.data }));
@@ -111,19 +119,29 @@ function* getUsersProfil(params: any): any {
 function* deleteUserProfil(params: any): any {
   const res = yield call(request as any, deleteUsersService, params?.id);
   if (res?.status === 200) {
-    yield put(authDeleteUserProfilSuccess());
-    return;
+    return yield put(authDeleteUserProfilSuccess());
   }
+
+  if (res?.data?.response?.status === 401) {
+    return yield put(signoutUserAction({ ...res.data.response.data.error }));
+  }
+
   yield put(authDeleteUserProfilError({ ...res.data }));
 }
 
-function* updateUserProfil({ ...args }) {
+function* updateUserProfil({ data }: any): any {
 
-  const res: ResponseGenerator = yield call(request as any, updateUserProfilService, { ...args });
+  console.log('data', data)
+
+  const res: ResponseGenerator = yield call(request as any, updateUserProfilService, { ...data });
   if (res?.status === 200) {
-    yield put(authUpdateUserProfilSuccess());
-    return;
+    return yield put(authUpdateUserProfilSuccess());
   }
+
+  if (res?.data?.response?.status === 401) {
+    return yield put(signoutUserAction({ ...res.data.response.data.error }));
+  }
+
     yield put(authUpdateUserProfilError({ ...res.data }));
 }
 
