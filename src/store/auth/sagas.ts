@@ -87,33 +87,47 @@ function* recoverPassword({ data }: any): any {
 }
 
 function* getUserProfil(params: { id: unknown }): any {
-  const res: ResponseGenerator = yield call(request as any, userProfilService, params?.id);
-  if (res?.status === 200) {
-    return yield put(authGetUserProfilSuccess({ ...res.data }));
+  try {
+    const res: ResponseGenerator = yield call(request as any, userProfilService, params?.id);
+    if (res?.status === 200) {
+      return yield put(authGetUserProfilSuccess({ ...res.data }));
+    }
+  } catch (err: any) {
+    if (err?.response?.status === 401) {
+    return yield put(signoutUserAction({  ...err.response.data.error }));
   }
 
-  if (res?.data?.response?.status === 401) {
-    return yield put(signoutUserAction({ ...res.data.response.data.error }));
-  }
+    if (err instanceof Error) {
+      return yield put(authGetUsersProfilError({ ...(err.stack as any) }));
+    }
 
-  yield put(authGetUserProfilError({ ...res.data }));
+    yield put(authGetUserProfilError("An unknown error occured."));
+  }
 }
 
 function* getUsersProfil(params: any): any {
+  try {
   const search = params?.search ? params.search : '';
-  const res = yield call(request as any, getUsersService, search);
+  const res = yield call(getUsersService, search);
 
   console.log('getUsersProfil getUsersProfil getUsersProfil', res)
 
-  if (res?.status === 200) {
-    return yield put(authGetUsersProfilSuccess({ search, ...res.data }));
-  }
+    yield put(authGetUsersProfilSuccess({ search, ...res.data }));
 
-  if (res?.data?.response?.status === 401) {
-    return yield put(signoutUserAction({ ...res.data.response.data.error }));
-  }
+  } catch (err: any) {
 
-  yield put(authGetUsersProfilError({ ...res.data }));
+    console.log('err err err err err err err', err)
+
+    if (err?.response?.status === 401) {
+      return yield put(signoutUserAction({ ...err.response.data.error }));
+    }
+
+    if (err instanceof Error) {
+      return yield put(authGetUsersProfilError({ ...(err.stack as any) }));
+    }
+
+    yield put(authGetUsersProfilError("An unknown error occured."));
+  }
 }
 
 function* deleteUserProfil(params: any): any {
@@ -142,7 +156,7 @@ function* updateUserProfil({ data }: any): any {
     return yield put(signoutUserAction({ ...res.data.response.data.error }));
   }
 
-    yield put(authUpdateUserProfilError({ ...res.data }));
+  yield put(authUpdateUserProfilError({ ...res.data }));
 }
 
 /*

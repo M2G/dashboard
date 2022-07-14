@@ -162,7 +162,7 @@ describe('Auth saga', () => {
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, getUsersService, params.search));
+        expect(saga.next().value).toEqual(call(getUsersService, params.search));
         expect(saga.next(response).value).toEqual(put(authGetUsersProfilSuccess(response.data)));
       });
     });
@@ -174,12 +174,13 @@ describe('Auth saga', () => {
         const responseError = {
           status: 500,
           data: {
-            error: 'internal server error',
+            error: 'An unknown error occured.',
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, getUsersService, params.search));
-        expect(saga.next(responseError).value).toEqual(put(authGetUsersProfilError(responseError.data)));
+        expect(saga.next().value).toEqual(call(getUsersService, params.search));
+        const result = saga.throw('An unknown error occured.');
+        expect(result.value).toEqual(put(authGetUsersProfilError(responseError.data.error)));
       });
     });
   });
@@ -224,15 +225,15 @@ describe('Auth saga', () => {
     });
   });
   describe('updateUserProfil saga', () => {
-    const params = {
-      id: '62aa40abce7734608ac729fa',
-      first_name: "test",
-      last_name: "test",
+    const data = {
+        _id: '62aa40abce7734608ac729fa',
+        first_name: "test",
+        last_name: "test",
     };
 
     describe('when updateUserProfil success', () => {
       test('should dispatch success action', () => {
-        const saga = updateUserProfil(params);
+        const saga = updateUserProfil({ data });
         const response = {
           status: 200,
           data: {
@@ -244,14 +245,14 @@ describe('Auth saga', () => {
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, updateUserProfilService, params));
+        expect(saga.next().value).toEqual(call(request as any, updateUserProfilService, { ...data }));
         expect(saga.next(response).value).toEqual(put(authUpdateUserProfilSuccess()));
       });
     });
 
     describe('when updateUserProfil fail', () => {
       test('should dispatch fail action', () => {
-        const saga = updateUserProfil(params);
+        const saga = updateUserProfil({ data });
 
         const responseError = {
           status: 500,
@@ -260,7 +261,7 @@ describe('Auth saga', () => {
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, updateUserProfilService, params));
+        expect(saga.next().value).toEqual(call(request as any, updateUserProfilService, { ...data }));
         expect(saga.next(responseError).value).toEqual(put(authUpdateUserProfilError(responseError.data)));
       });
     });

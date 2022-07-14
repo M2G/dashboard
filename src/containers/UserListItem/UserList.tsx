@@ -49,13 +49,14 @@ function UserList({
   useEffect(() => {
     console.log('prevAmount prevAmount prevAmount', prevAmount?.receiveAmount);
     console.log('users?.length', users?.length);
+      console.log('auth?.data auth?.data', auth?.data);
 
    if(prevAmount?.receiveAmount?.length !== users?.length) {
      authGetUsersProfil();
    }
   },
     // [auth?.data]
-    []
+    [auth?.data]
   )
 
   const onDelete = useCallback((currentSource: any) => {
