@@ -40,12 +40,13 @@ describe('Auth saga', () => {
         const responseError = {
           status: 500,
           data: {
-            errors: 'internal server error',
+            errors: 'An unknown error occured.',
           }
         };
 
         expect(saga.next().value).toEqual(call(signinService, data));
-        expect(saga.next(responseError).value).toEqual(put(signinUserError(responseError.data)));
+        const result = saga.throw('An unknown error occured.');
+        expect(result.value).toEqual(put(signinUserError(responseError.data.errors)));
       });
     });
   });

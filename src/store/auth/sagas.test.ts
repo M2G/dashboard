@@ -4,9 +4,9 @@ import {
   forgotPassword,
   recoverPassword,
   getUserProfil,
-  request,
   getUsersProfil,
-  deleteUserProfil, updateUserProfil,
+  deleteUserProfil,
+  updateUserProfil,
 } from './sagas';
 import {
   authRecoverPasswordSuccess,
@@ -19,14 +19,16 @@ import {
   authGetUserProfilError,
   authDeleteUserProfilSuccess,
   authDeleteUserProfilError,
-  authUpdateUserProfilSuccess, authUpdateUserProfilError,
-
+  authUpdateUserProfilSuccess,
+  authUpdateUserProfilError,
 } from './actions';
 import {
   deleteUsersService,
   forgotPasswordService,
   getUsersService,
-  recoverPasswordService, updateUserProfilService, userProfilService,
+  recoverPasswordService,
+  updateUserProfilService,
+  userProfilService,
 } from 'store/auth/services';
 
 describe('Auth saga', () => {
@@ -45,7 +47,7 @@ describe('Auth saga', () => {
          }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, forgotPasswordService, data));
+        expect(saga.next().value).toEqual(call(forgotPasswordService, data));
         expect(saga.next(response).value).toEqual(put(authForgotPasswordSuccess(response.data)));
       });
     });
@@ -57,12 +59,13 @@ describe('Auth saga', () => {
         const responseError = {
           status: 500,
           data: {
-            error: 'internal server error',
+            error: 'An unknown error occured.',
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, forgotPasswordService, data));
-        expect(saga.next(responseError).value).toEqual(put(authForgotPasswordError(responseError.data)));
+        expect(saga.next().value).toEqual(call(forgotPasswordService, data));
+        const result = saga.throw('An unknown error occured.');
+        expect(result.value).toEqual(put(authForgotPasswordError(responseError.data.error)));
       });
     });
   });
@@ -83,7 +86,7 @@ describe('Auth saga', () => {
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, recoverPasswordService, data));
+        expect(saga.next().value).toEqual(call(recoverPasswordService, data));
         expect(saga.next(response).value).toEqual(put(authRecoverPasswordSuccess(response.data)));
       });
     });
@@ -95,12 +98,13 @@ describe('Auth saga', () => {
         const responseError = {
           status: 500,
           data: {
-            error: 'internal server error',
+            error: 'An unknown error occured.',
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, recoverPasswordService, data));
-        expect(saga.next(responseError).value).toEqual(put(authRecoverPasswordError(responseError.data)));
+        expect(saga.next().value).toEqual(call(recoverPasswordService, data));
+        const result = saga.throw('An unknown error occured.');
+        expect(result.value).toEqual(put(authRecoverPasswordError(responseError.data.error)));
       });
     });
   });
@@ -122,7 +126,7 @@ describe('Auth saga', () => {
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, userProfilService, params.id));
+        expect(saga.next().value).toEqual(call(userProfilService, params.id));
         expect(saga.next(response).value).toEqual(put(authGetUserProfilSuccess(response.data)));
       });
     });
@@ -134,12 +138,13 @@ describe('Auth saga', () => {
         const responseError = {
           status: 500,
           data: {
-            error: 'internal server error',
+            error: 'An unknown error occured.',
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, userProfilService, params.id));
-        expect(saga.next(responseError).value).toEqual(put(authGetUserProfilError(responseError.data)));
+        expect(saga.next().value).toEqual(call(userProfilService, params.id));
+        const result = saga.throw('An unknown error occured.');
+        expect(result.value).toEqual(put(authGetUserProfilError(responseError.data.error)));
       });
     });
   });
@@ -203,7 +208,7 @@ describe('Auth saga', () => {
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, deleteUsersService, params.id));
+        expect(saga.next().value).toEqual(call(deleteUsersService, params.id));
         expect(saga.next(response).value).toEqual(put(authDeleteUserProfilSuccess()));
       });
     });
@@ -215,12 +220,13 @@ describe('Auth saga', () => {
         const responseError = {
           status: 500,
           data: {
-            error: 'internal server error',
+            error: 'An unknown error occured.',
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, deleteUsersService, params.id));
-        expect(saga.next(responseError).value).toEqual(put(authDeleteUserProfilError(responseError.data)));
+        expect(saga.next().value).toEqual(call(deleteUsersService, params.id));
+        const result = saga.throw('An unknown error occured.');
+        expect(result.value).toEqual(put(authDeleteUserProfilError(responseError.data.error)));
       });
     });
   });
@@ -245,7 +251,7 @@ describe('Auth saga', () => {
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, updateUserProfilService, { ...data }));
+        expect(saga.next().value).toEqual(call(updateUserProfilService, { ...data }));
         expect(saga.next(response).value).toEqual(put(authUpdateUserProfilSuccess()));
       });
     });
@@ -257,12 +263,13 @@ describe('Auth saga', () => {
         const responseError = {
           status: 500,
           data: {
-            error: 'internal server error',
+            error: 'An unknown error occured.',
           }
         };
 
-        expect(saga.next().value).toEqual(call(request as any, updateUserProfilService, { ...data }));
-        expect(saga.next(responseError).value).toEqual(put(authUpdateUserProfilError(responseError.data)));
+        expect(saga.next().value).toEqual(call(updateUserProfilService, { ...data }));
+        const result = saga.throw('An unknown error occured.');
+        expect(result.value).toEqual(put(authUpdateUserProfilError(responseError.data.error)));
       });
     });
   });

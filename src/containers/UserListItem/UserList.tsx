@@ -55,7 +55,6 @@ function UserList({
      authGetUsersProfil();
    }
   },
-    // [auth?.data]
     [auth?.data]
   )
 

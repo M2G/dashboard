@@ -5,7 +5,6 @@ import {
   call,
   put,
   takeEvery,
-  StrictEffect,
 } from 'redux-saga/effects';
 import {
   forgotPasswordService,
@@ -25,7 +24,7 @@ import {
   authGetUserProfilError,
   authUpdateUserProfilSuccess,
   authUpdateUserProfilError,
-  authRequestErrorAction,
+  // authRequestErrorAction,
   authGetUsersProfilSuccess,
   authGetUsersProfilError,
   authRecoverPasswordSuccess,
@@ -44,54 +43,46 @@ export interface ResponseGenerator {
   statusText?:string
 }
 
-function* request(
-  api: any,
-  params: any,
-  extendParams: any
-): Generator<StrictEffect, any, any> {
-
-  console.log('::::::::::::::::::::::::::');
-
-  try {
-    const res = yield call(api, params, extendParams);
-
-    console.log('--------------->');
-
-    if (res?.status === 401) {
-      return yield put(signoutUserAction({ ...res.data }));
-    }
-    return res as any;
-  } catch (error: any) {
-    return yield put(authRequestErrorAction({ ...error }));
-  }
-}
-
 function* forgotPassword({ data }: any): any {
-  const res: ResponseGenerator = yield call(request as any, forgotPasswordService, { ...data });
-  if (res?.status === 200) {
-    return yield put(authForgotPasswordSuccess({ ...res.data }));
-  }
+      try {
+        const res: ResponseGenerator = yield call(forgotPasswordService, { ...data });
 
-  yield put(authForgotPasswordError({ ...res.data }));
+        yield put(authForgotPasswordSuccess({ ...res.data }));
+
+    } catch (err: any) {
+
+        if (err instanceof Error) {
+          yield put(authForgotPasswordError({ ...(err.stack as any) }));
+        }
+
+        yield put(authForgotPasswordError("An unknown error occured."));
+      }
 }
 
 function* recoverPassword({ data }: any): any {
-  const res: ResponseGenerator = yield call(request as any, recoverPasswordService, { ...data });
+    try {
 
-  if (res?.status === 200) {
-    yield put(authRecoverPasswordSuccess({ ...res.data }));
-    return yield call(history?.replace, Config.ROUTER_PATH.HOME);
-  }
+      const res: ResponseGenerator = yield call(recoverPasswordService, { ...data });
+      yield put(authRecoverPasswordSuccess({ ...res.data }));
+      yield call(history?.replace, Config.ROUTER_PATH.HOME);
 
-  yield put(authRecoverPasswordError({ ...res.data }));
+    } catch (err: any) {
+
+      if (err instanceof Error) {
+        yield put(authRecoverPasswordError({ ...(err.stack as any) }));
+      }
+
+      yield put(authRecoverPasswordError("An unknown error occured."));
+    }
 }
 
-function* getUserProfil(params: { id: unknown }): any {
+function* getUserProfil(params: { id: any }): any {
   try {
-    const res: ResponseGenerator = yield call(request as any, userProfilService, params?.id);
-    if (res?.status === 200) {
-      return yield put(authGetUserProfilSuccess({ ...res.data }));
-    }
+
+    const res: ResponseGenerator = yield call(userProfilService, params?.id);
+
+    yield put(authGetUserProfilSuccess({ ...res.data }));
+
   } catch (err: any) {
     if (err?.response?.status === 401) {
     return yield put(signoutUserAction({  ...err.response.data.error }));
@@ -131,32 +122,43 @@ function* getUsersProfil(params: any): any {
 }
 
 function* deleteUserProfil(params: any): any {
-  const res = yield call(request as any, deleteUsersService, params?.id);
-  if (res?.status === 200) {
-    return yield put(authDeleteUserProfilSuccess());
-  }
+    try {
+      yield call(deleteUsersService, params?.id);
+      yield put(authDeleteUserProfilSuccess());
+    } catch (err: any) {
 
-  if (res?.data?.response?.status === 401) {
-    return yield put(signoutUserAction({ ...res.data.response.data.error }));
-  }
+      if (err?.response?.status === 401) {
+        return yield put(signoutUserAction({ ...err.data.response.data.error }));
+      }
 
-  yield put(authDeleteUserProfilError({ ...res.data }));
+      if (err instanceof Error) {
+        yield put(authDeleteUserProfilError({ ...(err.stack as any) }));
+      }
+
+      yield put(authDeleteUserProfilError("An unknown error occured."));
+    }
 }
 
 function* updateUserProfil({ data }: any): any {
+  try {
 
-  console.log('data', data)
+    yield call(updateUserProfilService, { ...data });
+    yield put(authUpdateUserProfilSuccess());
 
-  const res: ResponseGenerator = yield call(request as any, updateUserProfilService, { ...data });
-  if (res?.status === 200) {
-    return yield put(authUpdateUserProfilSuccess());
+    } catch (err: any) {
+
+      if (err?.response?.status === 401) {
+        return yield put(signoutUserAction({ ...err.data.response.data.error }));
+      }
+
+      if (err instanceof Error) {
+        yield put(authUpdateUserProfilError({ ...(err.stack as any) }));
+      }
+
+      yield put(authUpdateUserProfilError("An unknown error occured."));
+
   }
 
-  if (res?.data?.response?.status === 401) {
-    return yield put(signoutUserAction({ ...res.data.response.data.error }));
-  }
-
-  yield put(authUpdateUserProfilError({ ...res.data }));
 }
 
 /*
@@ -239,7 +241,6 @@ function* authSaga() {
 }
 
 export {
-  request,
   authSaga,
   forgotPassword,
   recoverPassword,

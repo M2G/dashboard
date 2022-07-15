@@ -13,17 +13,26 @@ import { history } from 'index';
 import ROUTER_PATH from 'constants/RouterPath';
 
 function* authorize({ ...params }): Generator<StrictEffect, any, any> {
+   try {
     const response = yield call(signinService, params);
-    if (response?.status === 200) {
-      yield put(signinUserSuccess(response));
-        const { data: { token } } = response?.data;
+        yield put(signinUserSuccess(response));
 
+        const { data: { token } } = response?.data;
         Config.GLOBAL_VAR.token = token;
+
         yield call(setAuthStorage, token);
         yield put(signinSuccess());
-        return yield call(forwardTo, history, ROUTER_PATH.HOME);
-    }
-      yield put(signinUserError({ ...response?.data }));
+        yield call(forwardTo, history, ROUTER_PATH.HOME);
+
+    } catch (err: any) {
+
+     if (err instanceof Error) {
+      return yield put(signinUserError({ ...(err.stack as any) }));
+     }
+
+     yield put(signinUserError("An unknown error occured."));
+
+   }
 }
 
 function* watchSignin(): any {
