@@ -18,7 +18,6 @@ import TableWrapper from 'components/Core/Table/TableWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import TopLineLoading from 'components/Loading/TopLineLoading';
-import { usePrevious } from '../../hooks';
 
 function UserList({
  id, canEdit = false, canDelete = false, canAdd = false,
@@ -42,21 +41,9 @@ function UserList({
   const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params) as any);
   const signupAction = (params: any) => dispatch(signupUserAction(params) as any);
 
-  const prevAmount: any = usePrevious({ receiveAmount: auth?.data } as any);
-
   const users = auth?.data || [];
 
-  useEffect(() => {
-    console.log('prevAmount prevAmount prevAmount', prevAmount?.receiveAmount);
-    console.log('users?.length', users?.length);
-      console.log('auth?.data auth?.data', auth?.data);
-
-   if(prevAmount?.receiveAmount?.length !== users?.length) {
-     authGetUsersProfil();
-   }
-  },
-    [auth?.data]
-  )
+  useEffect(() => authGetUsersProfil(), []);
 
   const onDelete = useCallback((currentSource: any) => {
     setNewUser(false);
