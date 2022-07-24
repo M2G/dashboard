@@ -91,11 +91,11 @@ describe('test TableStaticCol', () => {
     },
   ];
 
-  const createdAt = new Date().toISOString();
+  const createdAt = new Date().getTime();
 
   const d = new Date();
   const addDays = d.setDate(d.getDate() + 7);
-  const modifiedAt = new Date(addDays).toISOString();
+  const modifiedAt = new Date(addDays).getTime();
 
   const USER_1: any = {
     "_id": faker.datatype.uuid(),
@@ -163,8 +163,8 @@ describe('test TableStaticCol', () => {
     expect(screen.getByText(USER_1.first_name)).toBeInTheDocument();
     expect(screen.getByText(USER_1.last_name)).toBeInTheDocument();
     expect(screen.getByText(USER_1.email)).toBeInTheDocument();
-    expect(screen.getByText(new Date(USER_1.created_at).toLocaleDateString())).toBeInTheDocument();
-    expect(screen.getByText(new Date(USER_1.modified_at).toLocaleDateString())).toBeInTheDocument();
+    expect(screen.getByText(new Date(USER_1.created_at * 1000).toLocaleDateString())).toBeInTheDocument();
+    expect(screen.getByText(new Date(USER_1.modified_at * 1000).toLocaleDateString())).toBeInTheDocument();
 
     expect(screen.getByText(USER_2.first_name)).toBeInTheDocument();
     expect(screen.getByText(USER_2.last_name)).toBeInTheDocument();

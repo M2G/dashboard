@@ -6,14 +6,16 @@ describe('Home Container', () => {
   describe("Submitting form", () => {
     let wrapper: any;
 
+    const date = Math.floor(Date.now() / 1000);
+
     const data = [
       {
         "_id": "6237a814d7d983d4e78228c3",
-        "created_at": "2021-11-21T15:46:44.533Z",
+        "created_at": date,
         "email": "oliver.garcia@university.com",
         "first_name": "Oliver",
         "last_name": "Garcia",
-        "modified_at": "2021-11-22T15:46:44.533Z"
+        "modified_at": date
       }];
 
     const initialState = { auth: { data, loading: false }, auth_global: {}, signup: {}, signin: {}, signout: {} };
@@ -35,8 +37,8 @@ describe('Home Container', () => {
       expect(screen.getByText('Oliver')).toBeInTheDocument();
       expect(screen.getByText('Garcia')).toBeInTheDocument();
       expect(screen.getByText('oliver.garcia@university.com')).toBeInTheDocument();
-      expect(screen.getByText('11/21/2021')).toBeInTheDocument();
-      expect(screen.getAllByText('4:46:44 PM')[0]).toBeInTheDocument();
+      // expect(screen.getByText(new Date(date * 1000).toLocaleDateString())).toBeInTheDocument();
+      expect(screen.getAllByText(new Date(date * 1000).toLocaleDateString())[0]).toBeInTheDocument();
     });
   });
 });

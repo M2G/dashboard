@@ -22,7 +22,6 @@ function TableStaticCol({ id, label, actions }: TableStaticColInterface) {
 }
 
 TableStaticCol.propTypes = {
-  // eslint-disable-next-line
   actions: Action.propTypes.actions,
   id: string.isRequired,
   label: string.isRequired,
