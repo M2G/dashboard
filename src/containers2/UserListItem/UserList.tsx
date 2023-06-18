@@ -7,9 +7,9 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
-import userListItem from 'containers/UserListItem/UserListItem';
-import UserEdit from 'containers/Users/UserEdit';
-import UserNew from 'containers/Users/UserNew';
+import userListItem from '../UserListItem/UserListItem';
+import UserEdit from '../Users/UserEdit';
+import UserNew from '../Users/UserNew';
 import { signupUserAction } from 'store/signup/actions';
 import {
   authGetUsersProfilAction,

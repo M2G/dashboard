@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import UserEditView from 'containers/Users/UserEdit/UserEdit';
+import UserEditView from '../../Users/UserEdit/UserEdit';
 import { INITIAL_VALUES, INPUT_NAME } from './constants';
 
 function UserEdit({ data, onSubmit }: any) {

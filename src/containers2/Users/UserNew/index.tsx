@@ -1,4 +1,4 @@
-import UserNewView from 'containers/Users/UserNew/UserNew';
+import UserNewView from '../../Users/UserNew/UserNew';
 import { INITIAL_VALUES } from './constants';
 
 function UserNew({ onSubmit }: any) {
