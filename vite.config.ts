@@ -19,6 +19,9 @@ export default defineConfig(() => ({
       routes: path.resolve(__dirname, './src/routes/'),
       sentry: path.resolve(__dirname, './src/sentry/'),
       services: path.resolve(__dirname, './src/services/'),
+      store: path.resolve(__dirname, './src/store/'),
+      index: path.resolve(__dirname, './src/index/'),
+      api: path.resolve(__dirname, './src/api/'),
     },
     css: {
       modules: {
