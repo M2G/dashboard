@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Reducer } from 'redux';
 import { AuthActionTypes, AuthGlobalState } from './types';
 import { getAuthStorage, clearAuthStorage } from 'services/Storage';
