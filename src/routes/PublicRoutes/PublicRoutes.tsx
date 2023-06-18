@@ -3,10 +3,10 @@ import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ROUTER_PATH from 'constants/RouterPath';
 
-const Signin = lazy(async () => import('containers/Signin'));
-const Signup = lazy(async () => import('containers/Signup'));
-const ForgotPassword = lazy(async () => import('containers/ForgotPassword'));
-const ResetPassword = lazy(async () => import('containers/ResetPassword'));
+const Signin = lazy(async () => import('../../containers2/Signin'));
+const Signup = lazy(async () => import('../../containers2/Signup'));
+const ForgotPassword = lazy(async () => import('../../containers2/ForgotPassword'));
+const ResetPassword = lazy(async () => import('../../containers2/ResetPassword'));
 
 function PublicRoutes(): JSX.Element {
   return (
