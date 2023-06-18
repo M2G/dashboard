@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import { withScope, captureException, Severity } from "@sentry/react";
 import NotFoundException from "exceptions/NotFoundException";
 
