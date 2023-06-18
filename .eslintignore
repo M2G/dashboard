@@ -4,10 +4,12 @@ build
 config
 .eslintrc.js
 custom.d.ts
-jest.config.js
 test
 entrypoint
 constants.ts
 src/stories
 .storybook
 index.ts
+src/modules
+modules/graphql/generated
+stylelint.config.js
