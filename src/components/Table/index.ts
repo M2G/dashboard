@@ -1,3 +1,3 @@
-import Table from './Table';
+import TableWrapper from './TableWrapper';
 
-export default Table;
+export default TableWrapper;

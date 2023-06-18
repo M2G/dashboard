@@ -8,10 +8,7 @@ import {
   LABEL_EMAIL,
 } from './constants';
 
-const {
-  ERROR_TEXT_REQUIRED_EMAIL,
-  ERROR_TEXT_REQUIRED_PASSWORD,
-} = ERROR_TEXT_REQUIRED;
+const { ERROR_TEXT_REQUIRED_EMAIL, ERROR_TEXT_REQUIRED_PASSWORD } = ERROR_TEXT_REQUIRED;
 
 function UserNew({ onSubmit, initialValues }: any): any {
   const setField = (setFieldValue: any, setFieldName: any, value: any): any =>
@@ -35,26 +32,24 @@ function UserNew({ onSubmit, initialValues }: any): any {
     return errors;
   };
 
-  const handleSubmit = (values: object) => onSubmit({ ...values, redirect: false });
+  const handleSubmit = (values: object) => onSubmit({ ...values });
 
   const renderForm = ({
-                        setFieldValue, values, errors, touched,
-                      }: any): any =>
+ setFieldValue, values, errors, touched,
+}: any): any => (
     <Form className="mt-5">
       <div className="form-floating mb-3">
         <Field
           id="floatingEmail"
           className="form-control mb-2"
           name={INPUT_NAME.EMAIL}
-          type="text"
+          type="email"
           onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
           placeholder={PLACEHOLDER_EMAIL}
           value={values[INPUT_NAME.EMAIL]}
           required
         />
-        {touched[INPUT_NAME.EMAIL]
-        && errors
-        && errors[INPUT_NAME.EMAIL] ? (
+        {touched[INPUT_NAME.EMAIL] && errors && errors[INPUT_NAME.EMAIL] ? (
           <span className="error-text">{errors[INPUT_NAME.EMAIL]}</span>
         ) : null}
         <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
@@ -64,30 +59,35 @@ function UserNew({ onSubmit, initialValues }: any): any {
           id="floatingPassword"
           name={INPUT_NAME.PASSWORD}
           className="form-control mb-2"
-          type="text"
+          type="password"
           onChange={onChange(setFieldValue, INPUT_NAME.PASSWORD)}
           placeholder={PLACEHOLDER_PASSWORD}
           value={values[INPUT_NAME.PASSWORD]}
           required
         />
-        {touched[INPUT_NAME.PASSWORD] && errors && errors[INPUT_NAME.PASSWORD] ? (
+        {touched[INPUT_NAME.PASSWORD]
+        && errors
+        && errors[INPUT_NAME.PASSWORD] ? (
           <span className="error-text">{errors[INPUT_NAME.PASSWORD]}</span>
         ) : null}
-        <label htmlFor="floatingFirstname">{LABEL_PASSWORD}</label>
+        <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
       </div>
-      <button className="btn btn-primary" type="submit">
+      <button className="btn btn-light" type="submit">
         Save
       </button>
-    </Form>;
+    </Form>
+  );
 
-  return <Formik
+  return (
+    <Formik
       enableReinitialize
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validate={onValidate}
     >
       {renderForm}
-    </Formik>;
+    </Formik>
+  );
 }
 
 export default UserNew;

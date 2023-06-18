@@ -3,10 +3,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #F5F5F5;
   flex-direction: column;
+  margin-bottom: 10px;
 
   form {
+    border-radius: 1.35em;
+    background-color: var(--color-bg-form);
+  }
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  input,
+  button {
     width: map-get($_grid-breakpoints, sm) / 2;
+  }
+
+  .error-text {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: -5px;
+    color: $_color-red;
   }
 }

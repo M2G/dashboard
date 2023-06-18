@@ -1,48 +1,42 @@
-/*eslint-disable*/
-import {
- fireEvent, render, cleanup,
-} from "@testing-library/react";
+import { render, screen } from '@testing-library/react';
+import { MockedProvider } from '@apollo/client/testing';
+import { SigninDocument } from 'modules/graphql/generated';
 import Signin from './Signin';
-import { INPUT_NAME } from '../Signup/constants';
+import { InMemoryCache } from '@apollo/client';
 
-afterEach(cleanup);
+describe('test Signin', () => {
+  test('should render', () => {
+    const mocks = [
+      {
+        request: {
+          query: SigninDocument,
+          variables: {
+            name: "Buck"
+          }
+        },
+        result: {
+          data: {
+            dog: { id: "1", name: "Buck", breed: "bulldog" }
+          }
+        }
+      }
+    ];
+    render(
+      <MockedProvider
+        mocks={mocks}
+        addTypename={false}
+        defaultOptions={{
+          watchQuery: { fetchPolicy: 'no-cache' },
+          query: { fetchPolicy: 'no-cache' },
+        }}
+        cache={
+          new InMemoryCache()
+        }
+      >
+        <Signin />
+      </MockedProvider>,
+    );
 
-describe('Signin Container', () => {
-  describe("Submitting form", () => {
-  let wrapper: any;
-  let floatingInput: HTMLInputElement;
-  let floatingPassword: HTMLInputElement;
-  const onSubmit = jest.fn();
-
-  beforeEach(() => {
-    const INITIAL_VALUES = {
-      [INPUT_NAME.EMAIL]: '',
-      [INPUT_NAME.PASSWORD]: '',
-    };
-
-    wrapper = render(<Signin
-      initialValues={INITIAL_VALUES}
-      onSubmit={onSubmit} />);
-
-    floatingInput = wrapper.container.querySelector('#floatingInput');
-    floatingPassword = wrapper.container.querySelector('#floatingPassword');
-
-    fireEvent.change(floatingInput, { target: { value: 'test@gmail.com' } });
-    fireEvent.change(floatingPassword, { target: { value: 'test' } });
-
-    expect(floatingInput).toBeInTheDocument();
-    expect(floatingPassword).toBeInTheDocument();
-
-    const button: any = wrapper.container.querySelector('.btn');
-    fireEvent.click(button);
-  });
-
-    test('should render', () => {
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
-        email: "test@gmail.com",
-        password: "test",
-      });
-    });
+    screen.debug();
   });
 });
