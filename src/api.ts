@@ -1,8 +1,6 @@
-/* eslint-disable */
 import axios from 'axios';
 import Config from './constants';
 
-const { NODE_ENV } = process.env;
 const api = axios.create({
   // base URL is read from the "constructor"
   baseURL: 'http://localhost:8181',
@@ -55,7 +53,7 @@ const myInterceptor = api.interceptors.response.use(
     console.log('interceptors', error?.response);
 
     api.interceptors.response.eject(myInterceptor);
-    NODE_ENV === 'development' ? console.error(JSON.stringify(error?.response)) : '';
+    (import.meta as any).env.MODE === 'development' ? console.error(JSON.stringify(error?.response)) : '';
     return Promise.reject(error);
   }
 );
