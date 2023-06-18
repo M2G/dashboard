@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { legacy_createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
