@@ -1,16 +1,26 @@
-import { logError } from "sentry/logError";
-import ErrorPage from "containers/Error/Error";
-import { ErrorBoundary } from "react-error-boundary";
-import CustomRouter from 'routes/CustomRouter';
+import type { JSX } from 'react';
+import * as Sentry from '@sentry/react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ToastContainer } from 'react-toastify';
+import { logError } from 'sentry/logError';
+import { BrowserRouter } from 'react-router-dom';
+import ErrorFallback from 'containers/Error/Error';
+import AuthContext from './AuthContext';
 import Routes from './routes';
-import "./i18n";
+import 'react-toastify/dist/ReactToastify.css';
+import './i18n';
 
-function App({ history }: any) {
-  return <ErrorBoundary FallbackComponent={ErrorPage} onError={logError}>
-    <CustomRouter history={history}>
-      <Routes />
-    </CustomRouter>
-  </ErrorBoundary>;
+function App(): JSX.Element {
+  return (
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
+          <AuthContext.Provider>
+            <BrowserRouter>
+              <Routes />
+              <ToastContainer />
+            </BrowserRouter>
+          </AuthContext.Provider>
+      </ErrorBoundary>
+  );
 }
 
-export default App;
+export default Sentry.withProfiler(App);
