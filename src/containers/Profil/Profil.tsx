@@ -33,6 +33,8 @@ function initialValues(values: {
 }
 
 function Profil(): JSX.Element | null {
+  return null
+  /*
   const { userData }: { userData: { id: number } } = useContext(AuthContext);
 
   const {
@@ -91,7 +93,7 @@ function Profil(): JSX.Element | null {
       initialValues={initialValues({ ...userProfil?.getUser })}
       onSubmit={handleSubmit}
     />
-  );
+  );*/
 }
 
 export default Profil;

@@ -30,6 +30,9 @@ function UserList({
   canEdit = false,
   id,
 }: UserList): JSX.Element {
+
+  return null
+  /*
   const [state, setUser] = useState<{
     deletingUser?: User | boolean;
     editingUser?: User | boolean;
@@ -409,7 +412,7 @@ function UserList({
         <p>Warning, you are about to perform an irreversible action</p>
       </ModalWrapper>
     </div>
-  );
+  );*/
 }
 
 export default UserList;

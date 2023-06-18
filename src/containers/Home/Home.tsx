@@ -12,6 +12,8 @@ import chunk from './helpers';
 import './index.scss';
 
 function Home(): JSX.Element {
+  return null
+  /*
   const [term, setTerm] = useState('');
   const [getConcerts, { data, fetchMore, loading }] = useGetConcertsLazyQuery({
     fetchPolicy: 'cache-and-network',
@@ -149,7 +151,7 @@ function Home(): JSX.Element {
         </InfiniteScroll>
       </div>
     </div>
-  );
+  );*/
 }
 
 export default Home;
