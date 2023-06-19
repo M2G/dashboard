@@ -9,7 +9,7 @@ const clearAuthStorage = () => {
   localStorage.removeItem(STORAGE_KEY_AUTH);
 };
 
-const setUserStorage = (userData: any) => {
+const setUserStorage = (userData: string) => {
   localStorage.setItem(STORAGE_KEY_USER, userData);
 };
 const getUserStorage = () => localStorage.getItem(STORAGE_KEY_USER);
