@@ -10,6 +10,7 @@ import {
   PLACEHOLDER_EMAIL,
   PLACEHOLDER_PASSWORD,
 } from './constants';
+import './index.scss';
 
 const { ERROR_TEXT_REQUIRED_EMAIL, ERROR_TEXT_REQUIRED_PASSWORD } = ERROR_TEXT_REQUIRED;
 
@@ -40,7 +41,10 @@ function SignupForm({ initialValues, onSubmit }: any) {
 }): any => (
     <div className="form-signin">
       <Form>
-        <h1 className="h3 mb-3 fw-normal">Please sign up</h1>
+        <div className="mb-4">
+          <h1 className="h3 mb-1">Create your account</h1>
+          <span>to continue</span>
+        </div>
         <div className="form-floating">
           <Field
             id="floatingInput"
@@ -73,16 +77,19 @@ function SignupForm({ initialValues, onSubmit }: any) {
           ) : null}
           <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
         </div>
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
+        <button className="w-100 btn btn-lg" type="submit">
           Sign up
         </button>
+        <div className="c-action">
+          <span>Have an account ?</span>
+          <Link to={ROUTER_PATH.SIGNIN} className="text-muted">
+            Signin
+          </Link>
+          <Link to={ROUTER_PATH.FORGOT_PASSWORD} className="text-muted">
+            Forgot Password
+          </Link>
+        </div>
       </Form>
-      <Link to={ROUTER_PATH.SIGNIN} className="mt-4 text-muted">
-        Signin
-      </Link>
-      <Link to={ROUTER_PATH.FORGOT_PASSWORD} className="mt-1 text-muted">
-        Forgot Password
-      </Link>
     </div>
   );
 

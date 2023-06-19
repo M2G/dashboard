@@ -41,7 +41,7 @@ function SigninForm({ initialValues, onSubmit }: any) {
     <div className="form-signin">
       <Form>
         <div className="mb-4">
-          <h1 className="h3 mb-1">Create your account</h1>
+          <h1 className="h3 mb-1">Please authenticate</h1>
           <span>to continue</span>
         </div>
         <div className="form-floating">
@@ -76,8 +76,7 @@ function SigninForm({ initialValues, onSubmit }: any) {
           ) : null}
           <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
         </div>
-
-        <button className="w-100 btn btn-lg" type="submit">
+        <button className="w-100 btn btn-lg btn-primary" type="submit">
           Sign in
         </button>
         <div className="c-action">
