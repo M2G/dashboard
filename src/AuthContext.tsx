@@ -9,7 +9,7 @@ import {
   getUserStorage,
   setAuthStorage,
   setUserStorage,
-} from './services/storage';
+} from 'services/storage';
 
 export const AuthContext = createContext({});
 
@@ -50,6 +50,8 @@ function Provider({ children }: AuthContextProps): JSX.Element {
       clearAuthStorage();
     },
   };
+
+  console.log('value', isAuth);
 
   const authValue = useMemo(() => value, [value]);
 
