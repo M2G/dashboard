@@ -23,6 +23,8 @@ function Router(): JSX.Element {
   const { isAuth } = useContext(AuthContext) as Auth;
   const { userData } = useContext(AuthContext) as Auth;
 
+  console.log('userData', userData);
+
   const userId = userData?.id;
 
   return (
