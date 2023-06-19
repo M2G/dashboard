@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { all, fork, call, put, take, StrictEffect } from 'redux-saga/effects';
 import { BrowserHistory } from 'history';
 import signupUserService from './services';
@@ -19,7 +18,6 @@ function* authorize({
 }): Generator<StrictEffect, any, any> {
 
   try {
-
     const response = yield call(signupUserService, { email, password });
     yield put(signupUserSuccess({ ...response?.data }));
     yield put(signupSuccess());

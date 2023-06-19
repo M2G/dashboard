@@ -3,11 +3,12 @@
 // @see https://github.com/redux-saga/redux-saga/issues/14
 
 import { all, fork, call, put, take, StrictEffect } from 'redux-saga/effects';
+import jwt_decode from "jwt-decode";
 import signinService from './services';
 import { SigninActionTypes } from './types';
 import { signinUserSuccess, signinUserError } from './actions';
 import { signinSuccess } from '../../actions';
-import { setAuthStorage } from 'services/Storage';
+import { setAuthStorage, setUserStorage } from 'services/storage';
 import Config from 'constants/index';
 import { history } from 'index';
 import ROUTER_PATH from 'constants/RouterPath';
@@ -20,6 +21,19 @@ function* authorize({ ...params }): Generator<StrictEffect, any, any> {
         const { data: { token } } = response?.data;
         Config.GLOBAL_VAR.token = token;
 
+       const decodedToken: {
+           email: string;
+           id: number;
+       } = jwt_decode(token) || {};
+
+       const user = {
+           email: decodedToken.email,
+           id: decodedToken.id,
+       };
+
+       console.log('setUserStorage setUserStorage', user)
+
+        yield call(setUserStorage, JSON.stringify(user));
         yield call(setAuthStorage, token);
         yield put(signinSuccess());
         yield call(forwardTo, history, ROUTER_PATH.HOME);
