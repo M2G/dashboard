@@ -1,42 +1,54 @@
-import { Field, Formik, Form } from 'formik';
-import { PLACEHOLDER_SEARCH, INPUT_NAME } from './constants';
+import type { JSX } from 'react';
 
-function UserFilters({ onSubmit, initialValues }: any) {
-  const setField = (setFieldValue: any, setFieldName: any, value: any): any =>
-    setFieldValue(setFieldName, value);
+import { useEffect, useRef, useState } from 'react';
+import { debounce } from 'lodash';
 
-  const onChange = (setFieldValue: any, setFieldName: any): any =>
-    ({ target: { value = '' } }: any) =>
-      setField(setFieldValue, setFieldName, value);
+import { INPUT_NAME, PLACEHOLDER_SEARCH } from './constants';
+import './index.scss';
 
-  const handleSubmit = (values: object) => onSubmit(values);
+interface UserFiltersProps {
+  currentTerm?: string;
+  onSearchTerm: (searchTerm: string) => void;
+}
 
-  const renderForm = ({ setFieldValue, values }: any): any => (
-    <Form className="d-flex">
-      <Field
-        id="floatingInput"
-        name={INPUT_NAME.SEARCH}
-        className="form-control me-2"
-        type="search"
-        aria-label="Search"
-        onChange={onChange(setFieldValue, INPUT_NAME.SEARCH)}
-        placeholder={PLACEHOLDER_SEARCH}
-        value={values[INPUT_NAME.SEARCH]}
-      />
-      <button className="btn btn-light" type="submit">
-        Search
-      </button>
-    </Form>
+function UserFilters({
+  currentTerm,
+  onSearchTerm,
+}: UserFiltersProps): JSX.Element {
+  const [term, setTerm] = useState(currentTerm);
+  const debouncedSearch = useRef(
+    debounce((criteria): void => {
+      onSearchTerm(criteria);
+    }, 400),
+  ).current;
+
+  useEffect(
+    () => (): void => {
+      debouncedSearch.cancel();
+    },
+    [debouncedSearch],
   );
 
+  function handleChange({
+    target: { value = '' },
+  }: {
+    target: { value: string };
+  }): void {
+    debouncedSearch(value);
+    setTerm(value);
+  }
+
   return (
-    <Formik
-      enableReinitialize
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-    >
-      {renderForm}
-    </Formik>
+    <input
+      aria-label="Search"
+      className="form-control c-search-input"
+      id="floatingInput"
+      name={INPUT_NAME.SEARCH}
+      onChange={handleChange}
+      placeholder={PLACEHOLDER_SEARCH}
+      type="search"
+      value={term}
+    />
   );
 }
 
