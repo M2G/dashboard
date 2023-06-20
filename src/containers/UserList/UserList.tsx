@@ -3,14 +3,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import type { UserList } from './types';
 import type { IUserListItem } from 'containers/UserList/UserListItem';
-import type { GetUsersQuery, User, Users } from 'modules/graphql/generated';
-import {
-  GetUsersDocument,
-  useCreateUserMutation,
-  useDeleteUserMutation,
-  useGetUsersLazyQuery,
-  useUpdateUserMutation,
-} from 'modules/graphql/generated';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 import TopLineLoading from 'components/Loading/TopLineLoading';
@@ -30,13 +22,10 @@ function UserList({
   canEdit = false,
   id,
 }: UserList): JSX.Element {
-
-  return null
-  /*
   const [state, setUser] = useState<{
-    deletingUser?: User | boolean;
-    editingUser?: User | boolean;
-    newUser?: User | boolean;
+   // deletingUser?: User | boolean;
+   // editingUser?: User | boolean;
+    // newUser?: User | boolean;
   }>({
     deletingUser: false,
     editingUser: false,
@@ -49,34 +38,38 @@ function UserList({
     page: 1,
     pageSize: 5,
   });
+
+  console.log(':::::')
+
   const [term, setTerm] = useState('');
 
+  /*
   const [getUsers, { data, error, loading }] = useGetUsersLazyQuery({
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
   });
 
   console.log('useGetUserListLazyQuery', { data, error, loading });
-
+*/
   async function getData(): Promise<void> {
-    await getUsers({
+    /* await getUsers({
       variables: {
         filters: term,
         page: pagination.page,
         pageSize: pagination.pageSize,
       },
-    });
+    });*/
   }
 
   useEffect((): void => {
     getData();
   }, [pagination, term]);
 
-  const [createUser] = useCreateUserMutation();
-  const [updateUser] = useUpdateUserMutation();
-  const [deleteUser] = useDeleteUserMutation();
+  //const [createUser] = useCreateUserMutation();
+  //const [updateUser] = useUpdateUserMutation();
+  //const [deleteUser] = useDeleteUserMutation();
 
-  const onDelete = useCallback((user: User): void => {
+  const onDelete = useCallback((user: any): void => {
     setUser({ deletingUser: user, editingUser: false, newUser: false });
   }, []);
 
@@ -88,240 +81,245 @@ function UserList({
     setUser({ deletingUser: false, editingUser: false, newUser: true });
   }, []);
 
-  const onEdit = useCallback((user: User): void => {
+  const onEdit = useCallback((user: any): void => {
     setUser({ deletingUser: false, editingUser: user, newUser: false });
   }, []);
 
   const onEditUser = useCallback(
-    async (user: User): Promise<void> => {
-      await updateUser({
-        optimisticResponse: {
-          __typename: 'Mutation',
-          updateUser: {
-            __typename: 'Status',
-            success: true,
-          },
-        },
-        update(cache, _) {
-          const cachedUserList = cache.readQuery<GetUsersQuery>({
-            query: GetUsersDocument,
-            variables: {
-              filters: term,
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            },
-          });
+    async (user: any): Promise<void> => {
+      /*
+     await updateUser({
+       optimisticResponse: {
+         __typename: 'Mutation',
+         updateUser: {
+           __typename: 'Status',
+           success: true,
+         },
+       },
+       update(cache, _) {
+         const cachedUserList = cache.readQuery<GetUsersQuery>({
+           query: GetUsersDocument,
+           variables: {
+             filters: term,
+             page: pagination.page,
+             pageSize: pagination.pageSize,
+           },
+         });
 
-          const userList = cachedUserList?.users?.results || [];
+         const userList = cachedUserList?.users?.results || [];
 
-          const users = userList.map((d) => {
-            if (d?.id !== user?.id) return d;
-            return {
-              ...user,
-              __typename: 'User',
-              created_at: Math.floor(Date.now() / 1000),
-              id: user.id,
-              modified_at: Math.floor(Date.now() / 1000),
-              password: user.password,
-            };
-          });
+         const users = userList.map((d) => {
+           if (d?.id !== user?.id) return d;
+           return {
+             ...user,
+             __typename: 'User',
+             created_at: Math.floor(Date.now() / 1000),
+             id: user.id,
+             modified_at: Math.floor(Date.now() / 1000),
+             password: user.password,
+           };
+         });
 
-          const newData = {
-            users: {
-              __typename: 'Users',
-              pageInfo: cachedUserList?.users?.pageInfo,
-              results: users,
-            },
-          };
+         const newData = {
+           users: {
+             __typename: 'Users',
+             pageInfo: cachedUserList?.users?.pageInfo,
+             results: users,
+           },
+         };
 
-          cache.writeQuery({
-            data: {
-              __typename: 'Query',
-              ...newData,
-            },
-            query: GetUsersDocument,
-            variables: {
-              filters: term,
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            },
-          });
-        },
-        variables: {
-          id: user.id!,
-          input: {
-            email: user?.email,
-            first_name: user?.first_name,
-            last_name: user?.last_name,
-            username: user?.username,
-          },
-        },
-      });
+         cache.writeQuery({
+           data: {
+             __typename: 'Query',
+             ...newData,
+           },
+           query: GetUsersDocument,
+           variables: {
+             filters: term,
+             page: pagination.page,
+             pageSize: pagination.pageSize,
+           },
+         });
+       },
+       variables: {
+         id: user.id!,
+         input: {
+           email: user?.email,
+           first_name: user?.first_name,
+           last_name: user?.last_name,
+           username: user?.username,
+         },
+       },
+     });*/
       onClose();
     },
-    [pagination, onClose, updateUser],
+    [pagination, onClose],
   );
 
   const onNewUser = useCallback(
-    async (user: User): Promise<void> => {
-      await createUser({
-        optimisticResponse: {
-          __typename: 'Mutation',
-          createUser: {
-            __typename: 'User',
-            created_at: Math.floor(Date.now() / 1000),
-            email: user?.email,
-            first_name: user?.first_name || '',
-            last_name: user?.last_name || '',
-            modified_at: Math.floor(Date.now() / 1000),
-          },
-        },
-        update(cache, mutationResult) {
-          const resultMessage = mutationResult?.data?.createUser;
-          const cachedUserList = cache.readQuery<GetUsersQuery>({
-            query: GetUsersDocument,
-            variables: {
-              filters: term,
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            },
-          });
+    async (user: any): Promise<void> => {
+      /*
+     await createUser({
+       optimisticResponse: {
+         __typename: 'Mutation',
+         createUser: {
+           __typename: 'User',
+           created_at: Math.floor(Date.now() / 1000),
+           email: user?.email,
+           first_name: user?.first_name || '',
+           last_name: user?.last_name || '',
+           modified_at: Math.floor(Date.now() / 1000),
+         },
+       },
+       update(cache, mutationResult) {
+         const resultMessage = mutationResult?.data?.createUser;
+         const cachedUserList = cache.readQuery<GetUsersQuery>({
+           query: GetUsersDocument,
+           variables: {
+             filters: term,
+             page: pagination.page,
+             pageSize: pagination.pageSize,
+           },
+         });
 
-          const userList = cachedUserList?.users?.results || [];
+         const userList = cachedUserList?.users?.results || [];
 
-          const newUser = [
-            ...userList,
-            ...[
-              {
-                ...user,
-                __typename: 'User',
-                created_at: Math.floor(Date.now() / 1000),
-                first_name: resultMessage?.first_name || '',
-                id: Math.floor(Math.random() * 2),
-                last_name: resultMessage?.last_name || '',
-                modified_at: Math.floor(Date.now() / 1000),
-              },
-            ],
-          ];
+         const newUser = [
+           ...userList,
+           ...[
+             {
+               ...user,
+               __typename: 'User',
+               created_at: Math.floor(Date.now() / 1000),
+               first_name: resultMessage?.first_name || '',
+               id: Math.floor(Math.random() * 2),
+               last_name: resultMessage?.last_name || '',
+               modified_at: Math.floor(Date.now() / 1000),
+             },
+           ],
+         ];
 
-          const newData = {
-            users: {
-              __typename: 'Users',
-              pageInfo: cachedUserList?.users?.pageInfo,
-              results: newUser,
-            },
-          };
+         const newData = {
+           users: {
+             __typename: 'Users',
+             pageInfo: cachedUserList?.users?.pageInfo,
+             results: newUser,
+           },
+         };
 
-          cache.writeQuery({
-            data: {
-              __typename: 'Query',
-              ...newData,
-            },
-            query: GetUsersDocument,
-            variables: {
-              filters: term,
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            },
-          });
-        },
-        variables: {
-          email: user.email,
-          password: user.password,
-        },
-      });
+         cache.writeQuery({
+           data: {
+             __typename: 'Query',
+             ...newData,
+           },
+           query: GetUsersDocument,
+           variables: {
+             filters: term,
+             page: pagination.page,
+             pageSize: pagination.pageSize,
+           },
+         });
+       },
+       variables: {
+         email: user.email,
+         password: user.password,
+       },
+     });*/
       onClose();
     },
-    [createUser, onClose, pagination.page, pagination.pageSize, term],
+    [onClose, pagination.page, pagination.pageSize, term],
   );
 
   const onDeleteUser = useCallback(
-    async (user: User): Promise<void> => {
-      await deleteUser({
-        optimisticResponse: {
-          __typename: 'Mutation',
-          deleteUser: {
-            __typename: 'Status',
-            success: true,
-          },
-        },
-        update(cache, _) {
-          const cachedUserList: { users: Users } | null = cache.readQuery({
-            query: GetUsersDocument,
-            variables: {
-              filters: term,
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            },
-          });
+    async (user: any): Promise<void> => {
+      /*
+     await deleteUser({
+       optimisticResponse: {
+         __typename: 'Mutation',
+         deleteUser: {
+           __typename: 'Status',
+           success: true,
+         },
+       },
+       update(cache, _) {
+         const cachedUserList: { users: Users } | null = cache.readQuery({
+           query: GetUsersDocument,
+           variables: {
+             filters: term,
+             page: pagination.page,
+             pageSize: pagination.pageSize,
+           },
+         });
 
-          const filtered: never[] =
-            cachedUserList?.users?.results?.filter(
-              (({ id: userId }: { id: number }) => userId !== user.id) as any,
-            ) || [];
+         const filtered: never[] =
+           cachedUserList?.users?.results?.filter(
+             (({ id: userId }: { id: number }) => userId !== user.id) as any,
+           ) || [];
 
-          const newUser = [...filtered];
+         const newUser = [...filtered];
 
-          const newData = {
-            users: {
-              __typename: 'Users',
-              pageInfo: cachedUserList?.users.pageInfo,
-              results: newUser,
-            },
-          };
+         const newData = {
+           users: {
+             __typename: 'Users',
+             pageInfo: cachedUserList?.users.pageInfo,
+             results: newUser,
+           },
+         };
 
-          cache.writeQuery({
-            data: {
-              __typename: 'Query',
-              ...newData,
-            },
-            query: GetUsersDocument,
-            variables: {
-              filters: term,
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            },
-          });
-        },
-        variables: {
-          id: user?.id!,
-        },
-      });
+         cache.writeQuery({
+           data: {
+             __typename: 'Query',
+             ...newData,
+           },
+           query: GetUsersDocument,
+           variables: {
+             filters: term,
+             page: pagination.page,
+             pageSize: pagination.pageSize,
+           },
+         });
+       },
+       variables: {
+         id: user?.id!,
+       },
+     });*/
       onClose();
     },
-    [deleteUser, onClose, pagination.page, pagination.pageSize, term],
+    [onClose, pagination.page, pagination.pageSize, term],
   );
 
   const searchTerms = useCallback(
     async (term: string): Promise<void> => {
       setTerm(term);
-      await getUsers({
-        variables: {
-          filters: term,
-          page: pagination.page,
-          pageSize: pagination.pageSize,
-        },
-      });
+      /*
+     await getUsers({
+       variables: {
+         filters: term,
+         page: pagination.page,
+         pageSize: pagination.pageSize,
+       },
+     });*/
     },
-    [getUsers, pagination.page, pagination.pageSize],
+    [pagination.page, pagination.pageSize],
   );
 
   const onChangePage = useCallback(
     async (page: number): Promise<void> => {
-      setPagination((prevState) => ({
-        ...prevState,
-        page,
-      }));
 
-      await getUsers({
-        variables: {
-          filters: term,
-          page: page || pagination.page,
-          pageSize: pagination.pageSize,
-        },
-      });
+     setPagination((prevState) => ({
+       ...prevState,
+       page,
+     }));
+      /*
+       await getUsers({
+         variables: {
+           filters: term,
+           page: page || pagination.page,
+           pageSize: pagination.pageSize,
+         },
+       });*/
     },
-    [getUsers, term, pagination.page, pagination.pageSize],
+    [term, pagination.page, pagination.pageSize],
   );
 
   const onChangePageSize = useCallback(
@@ -330,17 +328,20 @@ function UserList({
         ...prevState,
         pageSize,
       }));
-
-      await getUsers({
-        variables: {
-          filters: term,
-          page: pagination.page,
-          pageSize: pageSize || pagination.pageSize,
-        },
-      });
+      /*
+        await getUsers({
+          variables: {
+            filters: term,
+            page: pagination.page,
+            pageSize: pageSize || pagination.pageSize,
+          },
+        });*/
     },
-    [pagination, getUsers],
+    [pagination],
   );
+
+  const data = {};
+  const loading = false;
 
   const users: any = data?.users || [];
   const results = users?.results || [];
@@ -403,7 +404,7 @@ function UserList({
 
       <ModalWrapper
         onConfirm={async () =>
-          onDeleteUser(state.deletingUser as unknown as User)
+          onDeleteUser(state.deletingUser as unknown as any)
         }
         hide={onClose}
         isShowing={state.deletingUser}
@@ -412,7 +413,7 @@ function UserList({
         <p>Warning, you are about to perform an irreversible action</p>
       </ModalWrapper>
     </div>
-  );*/
+  );
 }
 
 export default UserList;
