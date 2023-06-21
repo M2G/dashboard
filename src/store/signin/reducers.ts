@@ -14,6 +14,7 @@ const reducer: Reducer<SigninState> = (state = initialState, action) => {
 
   console.log('------------------> SIGNIN action', action);
   console.log('------------------> SIGNIN state', state);
+  console.log('------------------> SIGNIN data', data);
 
   switch (type) {
     case SigninActionTypes.SIGNIN_USER_REQUEST:

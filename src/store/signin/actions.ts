@@ -11,9 +11,9 @@ const signinUserAction = (user: any) => ({
   user,
 });
 
-const signinUserSuccess = (user: any) => ({
+const signinUserSuccess = (data) => ({
   type: SigninActionTypes.SIGNIN_USER_SUCCESS,
-  user,
+  ...data,
 });
 
 const signinUserError = (errors: any) => ({
