@@ -33,6 +33,9 @@ import {
 import { signoutUserAction } from 'store/signout/actions';
 import { history } from 'index';
 import Config from '../../constants';
+import ROUTER_PATH from "constants/RouterPath";
+import {clearAuthStorage, clearUserStorage, setAuthStorage, setUserStorage} from "services/storage";
+import {signinSuccess} from "../../actions";
 
 export interface ResponseGenerator {
   config?:any,
@@ -41,6 +44,10 @@ export interface ResponseGenerator {
   request?:any,
   status?:number,
   statusText?:string
+}
+
+function forwardTo(history: { push: Function }, location: string) {
+  return history.push({ pathname: location });
 }
 
 function* forgotPassword({ data }: any): any {
@@ -83,8 +90,11 @@ function* getUserProfil(params: { id: any }): any {
 
     yield put(authGetUserProfilSuccess({ ...res.data }));
 
-  } catch (err: any) {
+  } catch (err) {
     if (err?.response?.status === 401) {
+      yield clearAuthStorage();
+      yield clearUserStorage();
+      yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
     return yield put(signoutUserAction({  ...err.response.data.error }));
   }
 
