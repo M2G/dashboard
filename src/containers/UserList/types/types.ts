@@ -3,6 +3,8 @@ interface UserList {
   canEdit?: boolean;
   canDelete?: boolean;
   canAdd?: boolean;
+  users: any;
+  loading: boolean;
 }
 
 interface List {

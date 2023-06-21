@@ -1,7 +1,14 @@
 import type { JSX } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+ useCallback, useEffect, useMemo, useState,
+} from 'react';
 
-import type { UserList } from './types';
+import {connect, useDispatch} from "react-redux";
+import {
+    authGetUserProfilError,
+    authGetUserProfilErrorAction, authGetUsersProfilAction,
+    authUpdateUserProfilAction,
+} from "store/auth/actions";
 import type { IUserListItem } from 'containers/UserList/UserListItem';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
@@ -12,6 +19,7 @@ import List from 'containers/UserList/ListLegacy';
 import userListItem from 'containers/UserList/UserListItem';
 import UserEdit from 'containers/Users/UserEdit';
 import UserNew from 'containers/Users/UserNew';
+import { UserList } from './types';
 
 import AddUser from './Action/AddUser';
 import './index.scss';
@@ -21,6 +29,9 @@ function UserList({
   canDelete = false,
   canEdit = false,
   id,
+                      loading,
+                      users,
+
 }: UserList): JSX.Element {
   const [state, setUser] = useState<{
    // deletingUser?: User | boolean;
@@ -38,36 +49,19 @@ function UserList({
     page: 1,
     pageSize: 5,
   });
-
-  console.log(':::::')
-
-  const [term, setTerm] = useState('');
-
-  /*
-  const [getUsers, { data, error, loading }] = useGetUsersLazyQuery({
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-first',
-  });
-
-  console.log('useGetUserListLazyQuery', { data, error, loading });
-*/
-  async function getData(): Promise<void> {
-    /* await getUsers({
-      variables: {
+    const [term, setTerm] = useState('');
+    const dispatch = useDispatch();
+    useEffect(() => dispatch(authGetUsersProfilAction({
         filters: term,
         page: pagination.page,
         pageSize: pagination.pageSize,
-      },
-    });*/
-  }
+    })), [dispatch, pagination.page, pagination.pageSize, term]);
 
-  useEffect((): void => {
-    getData();
-  }, [pagination, term]);
+  console.log(':::::', users);
 
-  //const [createUser] = useCreateUserMutation();
-  //const [updateUser] = useUpdateUserMutation();
-  //const [deleteUser] = useDeleteUserMutation();
+  // const [createUser] = useCreateUserMutation();
+  // const [updateUser] = useUpdateUserMutation();
+  // const [deleteUser] = useDeleteUserMutation();
 
   const onDelete = useCallback((user: any): void => {
     setUser({ deletingUser: user, editingUser: false, newUser: false });
@@ -150,7 +144,7 @@ function UserList({
            username: user?.username,
          },
        },
-     });*/
+     }); */
       onClose();
     },
     [pagination, onClose],
@@ -224,10 +218,13 @@ function UserList({
          email: user.email,
          password: user.password,
        },
-     });*/
+     }); */
       onClose();
     },
-    [onClose, pagination.page, pagination.pageSize, term],
+    [onClose,
+pagination.page,
+pagination.pageSize,
+term],
   );
 
   const onDeleteUser = useCallback(
@@ -282,15 +279,19 @@ function UserList({
        variables: {
          id: user?.id!,
        },
-     });*/
+     }); */
       onClose();
     },
-    [onClose, pagination.page, pagination.pageSize, term],
+    [onClose,
+pagination.page,
+pagination.pageSize,
+term],
   );
 
   const searchTerms = useCallback(
     async (term: string): Promise<void> => {
       setTerm(term);
+
       /*
      await getUsers({
        variables: {
@@ -298,29 +299,30 @@ function UserList({
          page: pagination.page,
          pageSize: pagination.pageSize,
        },
-     });*/
+     }); */
     },
     [pagination.page, pagination.pageSize],
   );
 
   const onChangePage = useCallback(
     async (page: number): Promise<void> => {
-
      setPagination((prevState) => ({
        ...prevState,
        page,
      }));
-      /*
-       await getUsers({
-         variables: {
-           filters: term,
-           page: page || pagination.page,
-           pageSize: pagination.pageSize,
-         },
-       });*/
+
+        dispatch(authGetUsersProfilAction({
+            filters: term,
+            page: page || pagination.page,
+            pageSize: pagination.pageSize,
+        }));
     },
-    [term, pagination.page, pagination.pageSize],
-  );
+    [
+        term,
+        pagination.page,
+        pagination.pageSize,
+],
+      );
 
   const onChangePageSize = useCallback(
     async (pageSize: number): Promise<void> => {
@@ -328,22 +330,21 @@ function UserList({
         ...prevState,
         pageSize,
       }));
-      /*
-        await getUsers({
-          variables: {
+
+        dispatch(authGetUsersProfilAction({
             filters: term,
             page: pagination.page,
             pageSize: pageSize || pagination.pageSize,
-          },
-        });*/
+        }));
     },
-    [pagination],
+    [
+        dispatch,
+        pagination.page,
+        pagination.pageSize,
+        term,
+    ],
   );
 
-  const data = {};
-  const loading = false;
-
-  const users: any = data?.users || [];
   const results = users?.results || [];
   const pageInfo = users?.pageInfo || {};
 
@@ -357,9 +358,13 @@ function UserList({
           onDelete,
           onEdit,
           user,
-        } as IUserListItem),
-      ),
-    [results, canDelete, canEdit, id, onDelete, onEdit],
+        } as IUserListItem)),
+    [results,
+canDelete,
+canEdit,
+id,
+onDelete,
+onEdit],
   );
 
   const header = useMemo(
@@ -416,4 +421,12 @@ function UserList({
   );
 }
 
-export default UserList;
+const mapStateToProps =  (state: { auth: { data: any; loading: any; }; }) => {
+    console.log('UserList UserList UserList UserList', state);
+    return {
+        users: state.auth.data,
+        loading: state.auth.loading,
+    };
+};
+
+export default connect(mapStateToProps)(UserList);

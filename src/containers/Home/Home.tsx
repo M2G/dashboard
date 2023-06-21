@@ -12,7 +12,7 @@ import chunk from './helpers';
 import './index.scss';
 
 function Home(): JSX.Element {
-  return <div>Home</div>
+  return <div>Home</div>;
   /*
   const [term, setTerm] = useState('');
   const [getConcerts, { data, fetchMore, loading }] = useGetConcertsLazyQuery({
