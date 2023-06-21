@@ -31,8 +31,6 @@ function* authorize({ ...params }): Generator<StrictEffect, any, any> {
            id: decodedToken.id,
        };
 
-       console.log('setUserStorage setUserStorage', user)
-
         yield call(setUserStorage, JSON.stringify(user));
         yield call(setAuthStorage, token);
         yield put(signinSuccess());
