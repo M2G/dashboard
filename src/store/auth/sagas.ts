@@ -73,8 +73,7 @@ function* recoverPassword({ data }: any): any {
       yield put(authRecoverPasswordSuccess({ ...res.data }));
       yield call(history?.replace, Config.ROUTER_PATH.HOME);
 
-    } catch (err: any) {
-
+    } catch (err) {
       if (err instanceof Error) {
         yield put(authRecoverPasswordError({ ...(err.stack as any) }));
       }
@@ -115,8 +114,7 @@ function* getUsersProfil(params: any): any {
 
     yield put(authGetUsersProfilSuccess({ search, ...res.data }));
 
-  } catch (err: any) {
-
+  } catch (err) {
     console.log('err err err err err err err', err)
 
     if (err?.response?.status === 401) {
