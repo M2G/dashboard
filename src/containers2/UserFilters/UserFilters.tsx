@@ -17,7 +17,7 @@ function UserFilters({
 }: UserFiltersProps): JSX.Element {
   const [term, setTerm] = useState(currentTerm);
   const debouncedSearch = useRef(
-    debounce((criteria): void => {
+    debounce((criteria: string): void => {
       onSearchTerm(criteria);
     }, 400),
   ).current;
