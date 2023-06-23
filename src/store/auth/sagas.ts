@@ -107,9 +107,9 @@ function* getUserProfil(params: { id: any }): any {
 
 function* getUsersProfil(params: any): any {
   try {
-  const search = params?.search ? params.search : '';
-  const res = yield call(getUsersService, search);
-    yield put(authGetUsersProfilSuccess({ search, ...res.data }));
+  const filters = params?.filters ? params.filters : '';
+  const res = yield call(getUsersService, filters);
+    yield put(authGetUsersProfilSuccess({ filters, ...res.data }));
   } catch (err) {
     if (err?.response?.status === 401) {
       yield clearAuthStorage();
@@ -126,9 +126,10 @@ function* getUsersProfil(params: any): any {
   }
 }
 
-function* deleteUserProfil(params: any): any {
+function* deleteUserProfil({id}: { id: number }): any {
+  console.log('deleteUserProfil', id)
     try {
-      yield call(deleteUsersService, params?.id);
+      yield call(deleteUsersService, id);
       yield put(authDeleteUserProfilSuccess());
     } catch (err: any) {
 

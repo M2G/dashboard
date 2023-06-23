@@ -11,6 +11,10 @@ import Config from 'constants/index';
 import { history } from 'index';
 import ROUTER_PATH from 'constants/RouterPath';
 
+function forwardTo(history: { push: Function }, location: string) {
+    return history.push({ pathname: location });
+}
+
 function* authorize({ ...params }): Generator<StrictEffect, any, any> {
    try {
     const response = yield call(signinService, params);
@@ -18,7 +22,7 @@ function* authorize({ ...params }): Generator<StrictEffect, any, any> {
         Config.GLOBAL_VAR.token = token;
         yield put(signinUserSuccess({ ...response?.data }));
         yield put(signinSuccess());
-        return yield call(forwardTo, history, ROUTER_PATH.HOME);
+        yield call(forwardTo, history, ROUTER_PATH.HOME);
     } catch (err) {
      if (err instanceof Error) {
       return yield put(signinUserError({ ...(err.stack as any) }));
@@ -34,10 +38,6 @@ function* watchSignin(): Generator<TakeEffect | CallEffect> {
     const request: any = yield take(SigninActionTypes.SIGNIN_USER_REQUEST);
     yield call(authorize, { ...request?.user });
   }
-}
-
-function forwardTo(history: { push: Function }, location: string) {
-  return history.push({ pathname: location });
 }
 
 // We can also use `fork()` here to split our saga into multiple watchers.

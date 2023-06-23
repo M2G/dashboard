@@ -5,8 +5,7 @@ import {
 
 import {connect, useDispatch} from "react-redux";
 import {
-    authGetUserProfilError,
-    authGetUserProfilErrorAction, authGetUsersProfilAction,
+    authGetUsersProfilAction,
     authUpdateUserProfilAction,
     authDeleteUserProfilAction,
 } from "store/auth/actions";
@@ -21,7 +20,6 @@ import userListItem from 'containers/UserList/UserListItem';
 import UserEdit from 'containers/Users/UserEdit';
 import UserNew from 'containers/Users/UserNew';
 import { UserList } from './types';
-
 import AddUser from './Action/AddUser';
 import './index.scss';
 
@@ -52,20 +50,15 @@ function UserList({
   });
     const [term, setTerm] = useState('');
     const dispatch = useDispatch();
-    useEffect(() => dispatch(authGetUsersProfilAction({
-        filters: term,
-        page: pagination.page,
-        pageSize: pagination.pageSize,
-    })), [dispatch,
-pagination.page,
-pagination.pageSize,
-term]);
+    useEffect(() => {
+        dispatch(authGetUsersProfilAction({
+            filters: '',
+            page: 1,
+            pageSize: 5,
+        }));
+}, [dispatch]);
 
   console.log(':::::', users);
-
-  // const [createUser] = useCreateUserMutation();
-  // const [updateUser] = useUpdateUserMutation();
-  // const [deleteUser] = useDeleteUserMutation();
 
   const onDelete = useCallback((user: any): void => {
     setUser({ deletingUser: user, editingUser: false, newUser: false });
@@ -85,70 +78,7 @@ term]);
 
   const onEditUser = useCallback(
     async (user: any): Promise<void> => {
-      /*
-     await updateUser({
-       optimisticResponse: {
-         __typename: 'Mutation',
-         updateUser: {
-           __typename: 'Status',
-           success: true,
-         },
-       },
-       update(cache, _) {
-         const cachedUserList = cache.readQuery<GetUsersQuery>({
-           query: GetUsersDocument,
-           variables: {
-             filters: term,
-             page: pagination.page,
-             pageSize: pagination.pageSize,
-           },
-         });
-
-         const userList = cachedUserList?.users?.results || [];
-
-         const users = userList.map((d) => {
-           if (d?.id !== user?.id) return d;
-           return {
-             ...user,
-             __typename: 'User',
-             created_at: Math.floor(Date.now() / 1000),
-             id: user.id,
-             modified_at: Math.floor(Date.now() / 1000),
-             password: user.password,
-           };
-         });
-
-         const newData = {
-           users: {
-             __typename: 'Users',
-             pageInfo: cachedUserList?.users?.pageInfo,
-             results: users,
-           },
-         };
-
-         cache.writeQuery({
-           data: {
-             __typename: 'Query',
-             ...newData,
-           },
-           query: GetUsersDocument,
-           variables: {
-             filters: term,
-             page: pagination.page,
-             pageSize: pagination.pageSize,
-           },
-         });
-       },
-       variables: {
-         id: user.id!,
-         input: {
-           email: user?.email,
-           first_name: user?.first_name,
-           last_name: user?.last_name,
-           username: user?.username,
-         },
-       },
-     }); */
+      dispatch(authUpdateUserProfilAction({ id: user.id }));
       onClose();
     },
     [pagination, onClose],
@@ -156,73 +86,7 @@ term]);
 
   const onNewUser = useCallback(
     async (user: any): Promise<void> => {
-      /*
-     await createUser({
-       optimisticResponse: {
-         __typename: 'Mutation',
-         createUser: {
-           __typename: 'User',
-           created_at: Math.floor(Date.now() / 1000),
-           email: user?.email,
-           first_name: user?.first_name || '',
-           last_name: user?.last_name || '',
-           modified_at: Math.floor(Date.now() / 1000),
-         },
-       },
-       update(cache, mutationResult) {
-         const resultMessage = mutationResult?.data?.createUser;
-         const cachedUserList = cache.readQuery<GetUsersQuery>({
-           query: GetUsersDocument,
-           variables: {
-             filters: term,
-             page: pagination.page,
-             pageSize: pagination.pageSize,
-           },
-         });
-
-         const userList = cachedUserList?.users?.results || [];
-
-         const newUser = [
-           ...userList,
-           ...[
-             {
-               ...user,
-               __typename: 'User',
-               created_at: Math.floor(Date.now() / 1000),
-               first_name: resultMessage?.first_name || '',
-               id: Math.floor(Math.random() * 2),
-               last_name: resultMessage?.last_name || '',
-               modified_at: Math.floor(Date.now() / 1000),
-             },
-           ],
-         ];
-
-         const newData = {
-           users: {
-             __typename: 'Users',
-             pageInfo: cachedUserList?.users?.pageInfo,
-             results: newUser,
-           },
-         };
-
-         cache.writeQuery({
-           data: {
-             __typename: 'Query',
-             ...newData,
-           },
-           query: GetUsersDocument,
-           variables: {
-             filters: term,
-             page: pagination.page,
-             pageSize: pagination.pageSize,
-           },
-         });
-       },
-       variables: {
-         email: user.email,
-         password: user.password,
-       },
-     }); */
+      dispatch(authUpdateUserProfilAction({ id: user.id }));
       onClose();
     },
     [onClose,
@@ -233,27 +97,34 @@ term],
 
   const onDeleteUser = useCallback(
     async (user: any): Promise<void> => {
-        dispatch(authGetUsersProfilAction({ id: user.id }));
+      dispatch(authDeleteUserProfilAction({ id: user.id }));
+      dispatch(authGetUsersProfilAction({
+            filters: term,
+            page: pagination.page,
+            pageSize: pagination.pageSize,
+        }));
       onClose();
     },
-    [dispatch, onClose],
+    [dispatch,
+onClose,
+pagination.page,
+pagination.pageSize,
+term],
   );
 
   const searchTerms = useCallback(
-    async (term: string): Promise<void> => {
-      setTerm(term);
-
-      /*
-     await getUsers({
-       variables: {
-         filters: term,
-         page: pagination.page,
-         pageSize: pagination.pageSize,
-       },
-     }); */
+    async (search: string): Promise<void> => {
+      setTerm(search);
+        dispatch(authGetUsersProfilAction({
+            filters: search,
+            page: pagination.page,
+            pageSize: pagination.pageSize,
+        }));
     },
-    [pagination.page, pagination.pageSize],
-  );
+    [dispatch,
+        pagination.page,
+        pagination.pageSize],
+      );
 
   const onChangePage = useCallback(
     async (page: number): Promise<void> => {
@@ -261,8 +132,7 @@ term],
        ...prevState,
        page,
      }));
-
-        dispatch(authGetUsersProfilAction({
+     dispatch(authGetUsersProfilAction({
             filters: term,
             page: page || pagination.page,
             pageSize: pagination.pageSize,
@@ -301,7 +171,7 @@ term],
 
   const rows = useMemo(
     () =>
-      results?.map((user: any) =>
+      results?.map((user) =>
         userListItem({
           canDelete,
           canEdit,
@@ -310,12 +180,14 @@ term],
           onEdit,
           user,
         } as IUserListItem)),
-    [results,
-canDelete,
-canEdit,
-id,
-onDelete,
-onEdit],
+    [
+        results,
+        canDelete,
+        canEdit,
+        id,
+        onDelete,
+        onEdit,
+    ],
   );
 
   const header = useMemo(

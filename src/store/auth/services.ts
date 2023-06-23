@@ -24,7 +24,7 @@ function updateUserProfilService({ _id, ...params }: any): Promise<any> {
 }
 
 function getUsersService(data?: string): Promise<any> {
-  return api.get(`/auth/users${data ? `?search=${data}` : ''}`);
+  return api.get(`/auth/users${data ? `?filters=${data}` : ''}`);
 }
 
 function deleteUsersService(id: string): Promise<any> {

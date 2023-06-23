@@ -5,10 +5,16 @@ import { signinUserAction } from 'store/signin/actions';
 import SigninForm from 'components/SigninForm';
 import { INITIAL_VALUES } from './constants';
 import { AuthContext } from '../../AuthContext';
+
+interface ISignin {
+    loading: boolean;
+    signin: any;
+}
+
 function Signin({
                   loading,
                   signin,
-                }): JSX.Element {
+                }: ISignin): JSX.Element {
   const { activateAuth }: any = useContext(AuthContext);
   const dispatch = useDispatch();
   const onSubmit = useCallback(
@@ -17,7 +23,7 @@ function Signin({
   );
 
   useEffect(() => {
-    signin?.token && activateAuth(signin.token);
+      (signin?.token && activateAuth(signin.token));
     }, [activateAuth, signin?.token]);
 
   return <SigninForm initialValues={INITIAL_VALUES} onSubmit={onSubmit} />;

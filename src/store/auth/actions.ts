@@ -9,15 +9,14 @@ export const authUpdateUserProfilAction = (data: any) => {
   };
 };
 
-export const authDeleteUserProfilAction = (id: any) => {
-  console.log('AUTH_DELETE_USER_PROFIL_REQUEST', id);
+export const authDeleteUserProfilAction = ({ id }: { id: number }): { id: number; type: AuthActionTypes } => {
   return {
     type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST,
     id,
   };
 };
 
-export const authDeleteUserProfilSuccess = () => {
+export const authDeleteUserProfilSuccess = (): { type: AuthActionTypes } => {
   return {
     type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_SUCCESS,
   };
