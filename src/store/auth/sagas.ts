@@ -109,15 +109,12 @@ function* getUsersProfil(params: any): any {
   try {
   const search = params?.search ? params.search : '';
   const res = yield call(getUsersService, search);
-
-  console.log('getUsersProfil getUsersProfil getUsersProfil', res)
-
     yield put(authGetUsersProfilSuccess({ search, ...res.data }));
-
   } catch (err) {
-    console.log('err err err err err err err', err)
-
     if (err?.response?.status === 401) {
+      yield clearAuthStorage();
+      yield clearUserStorage();
+      yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
       return yield put(signoutUserAction({ ...err.response.data.error }));
     }
 

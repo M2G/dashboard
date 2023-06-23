@@ -8,6 +8,7 @@ import {
     authGetUserProfilError,
     authGetUserProfilErrorAction, authGetUsersProfilAction,
     authUpdateUserProfilAction,
+    authDeleteUserProfilAction,
 } from "store/auth/actions";
 import type { IUserListItem } from 'containers/UserList/UserListItem';
 import ModalWrapper from 'components/Core/Modal/ModalWrapper';
@@ -55,7 +56,10 @@ function UserList({
         filters: term,
         page: pagination.page,
         pageSize: pagination.pageSize,
-    })), [dispatch, pagination.page, pagination.pageSize, term]);
+    })), [dispatch,
+pagination.page,
+pagination.pageSize,
+term]);
 
   console.log(':::::', users);
 
@@ -229,63 +233,10 @@ term],
 
   const onDeleteUser = useCallback(
     async (user: any): Promise<void> => {
-      /*
-     await deleteUser({
-       optimisticResponse: {
-         __typename: 'Mutation',
-         deleteUser: {
-           __typename: 'Status',
-           success: true,
-         },
-       },
-       update(cache, _) {
-         const cachedUserList: { users: Users } | null = cache.readQuery({
-           query: GetUsersDocument,
-           variables: {
-             filters: term,
-             page: pagination.page,
-             pageSize: pagination.pageSize,
-           },
-         });
-
-         const filtered: never[] =
-           cachedUserList?.users?.results?.filter(
-             (({ id: userId }: { id: number }) => userId !== user.id) as any,
-           ) || [];
-
-         const newUser = [...filtered];
-
-         const newData = {
-           users: {
-             __typename: 'Users',
-             pageInfo: cachedUserList?.users.pageInfo,
-             results: newUser,
-           },
-         };
-
-         cache.writeQuery({
-           data: {
-             __typename: 'Query',
-             ...newData,
-           },
-           query: GetUsersDocument,
-           variables: {
-             filters: term,
-             page: pagination.page,
-             pageSize: pagination.pageSize,
-           },
-         });
-       },
-       variables: {
-         id: user?.id!,
-       },
-     }); */
+        dispatch(authGetUsersProfilAction({ id: user.id }));
       onClose();
     },
-    [onClose,
-pagination.page,
-pagination.pageSize,
-term],
+    [dispatch, onClose],
   );
 
   const searchTerms = useCallback(
@@ -321,8 +272,8 @@ term],
         term,
         pagination.page,
         pagination.pageSize,
-],
-      );
+    ],
+  );
 
   const onChangePageSize = useCallback(
     async (pageSize: number): Promise<void> => {
@@ -421,7 +372,7 @@ onEdit],
   );
 }
 
-const mapStateToProps =  (state: { auth: { data: any; loading: any; }; }) => {
+const mapStateToProps = (state: { auth: { data: any; loading: any } }) => {
     console.log('UserList UserList UserList UserList', state);
     return {
         users: state.auth.data,

@@ -17,9 +17,8 @@ function Signin({
   );
 
   useEffect(() => {
-    console.log('signin.token', signin?.token)
-    signin && activateAuth(signin.token);
-    }, [activateAuth, signin]);
+    signin?.token && activateAuth(signin.token);
+    }, [activateAuth, signin?.token]);
 
   return <SigninForm initialValues={INITIAL_VALUES} onSubmit={onSubmit} />;
 }
