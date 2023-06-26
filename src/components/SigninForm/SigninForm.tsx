@@ -1,106 +1,81 @@
-import { Link } from 'react-router-dom';
-import { Formik, Field, Form } from 'formik';
+import type { FormSchemaType, SubmitHandler } from 'react-hook-form';
+import type { z } from 'zod';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import ROUTER_PATH from 'constants/RouterPath';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 import {
-  ERROR_TEXT_REQUIRED,
-  LABEL_PASSWORD,
   INPUT_NAME,
   LABEL_EMAIL,
+  LABEL_PASSWORD,
   PLACEHOLDER_EMAIL,
   PLACEHOLDER_PASSWORD,
+  formSchema,
 } from './constants';
 import './index.scss';
 
-const { ERROR_TEXT_REQUIRED_EMAIL, ERROR_TEXT_REQUIRED_PASSWORD } = ERROR_TEXT_REQUIRED;
+type FormSchemaType = z.infer<typeof formSchema>;
 
-function SigninForm({ initialValues, onSubmit }: any) {
-  const setField = (setFieldValue: any, setFieldName: any, value: any): any =>
-    setFieldValue(setFieldName, value);
+function SigninForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }) {
+  const {
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    register,
+  } = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+  });
 
-  const onChange =
-    (setFieldValue: any, setFieldName: any): any =>
-    ({ target: { value = '' } }: any) =>
-      setField(setFieldValue, setFieldName, value);
-
-  const onValidate = (values: object): {} => {
-    const errors = {};
-
-    if (!values[INPUT_NAME.EMAIL]) {
-      errors[INPUT_NAME.EMAIL] = ERROR_TEXT_REQUIRED_EMAIL;
-    }
-
-    if (!values[INPUT_NAME.PASSWORD]) {
-      errors[INPUT_NAME.PASSWORD] = ERROR_TEXT_REQUIRED_PASSWORD;
-    }
-
-    return errors;
-  };
-
-  const renderForm = ({ setFieldValue, values, errors, touched }: any): any => (
+  return (
     <div className="form-signin">
-      <Form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <h1 className="h3 mb-1">Please authenticate</h1>
           <span>to continue</span>
         </div>
         <div className="form-floating">
-          <Field
-            id="floatingInput"
-            name={INPUT_NAME.EMAIL}
+          <input
             className="form-control mb-2"
-            type="email"
-            onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
+            id="floatingInput"
             placeholder={PLACEHOLDER_EMAIL}
-            value={values?.[INPUT_NAME.EMAIL]}
+            type="email"
+            {...register(INPUT_NAME.EMAIL)}
             required
           />
-          {touched[INPUT_NAME.EMAIL] && errors && errors[INPUT_NAME.EMAIL] ? (
-            <span className="error-text">{errors[INPUT_NAME.EMAIL]}</span>
+          {errors?.[INPUT_NAME.EMAIL] ? (
+            <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
           ) : null}
           <label htmlFor="floatingInput">{LABEL_EMAIL}</label>
         </div>
         <div className="form-floating">
-          <Field
-            id="floatingPassword"
+          <input
             className="form-control mb-2"
-            name={INPUT_NAME.PASSWORD}
-            type="password"
-            onChange={onChange(setFieldValue, INPUT_NAME.PASSWORD)}
+            id="floatingPassword"
             placeholder={PLACEHOLDER_PASSWORD}
-            value={values?.[INPUT_NAME.PASSWORD]}
+            type="password"
+            {...register(INPUT_NAME.PASSWORD)}
             required
           />
-          {touched[INPUT_NAME.PASSWORD] && errors && errors[INPUT_NAME.PASSWORD] ? (
-            <span className="error-text">{errors[INPUT_NAME.PASSWORD]}</span>
+          {errors?.[INPUT_NAME.PASSWORD] ? (
+            <span className="error-text">{errors[INPUT_NAME.PASSWORD].message}</span>
           ) : null}
           <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
         </div>
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
+        <button className="w-100 btn btn-lg btn-primary" disabled={isSubmitting} type="submit">
           Sign in
         </button>
         <div className="c-action">
           <span>Have an account ?</span>
-          <Link to={ROUTER_PATH.SIGNUP} className="text-muted">
+          <Link className="text-muted" to={ROUTER_PATH.SIGNUP}>
             Signup
           </Link>
-          <Link to={ROUTER_PATH.FORGOT_PASSWORD} className="text-muted">
+          <Link className="text-muted" to={ROUTER_PATH.FORGOT_PASSWORD}>
             Forgot Password
           </Link>
         </div>
-      </Form>
+      </form>
     </div>
-  );
-
-  return (
-    <Formik
-      enableReinitialize
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validate={onValidate}
-    >
-      {renderForm}
-    </Formik>
   );
 }
 
