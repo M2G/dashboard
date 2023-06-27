@@ -1,3 +1,3 @@
-import SignupForm from './SignupForm';
+import ResetPasswordForm from './ResetPasswordForm';
 
-export default SignupForm;
+export default ResetPasswordForm;
