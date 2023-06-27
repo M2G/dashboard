@@ -1,102 +1,92 @@
-/* eslint-disable */
 import { AuthActionTypes } from './types';
 
-export const authUpdateUserProfilAction = (data: any) => {
-  console.log('AUTH_UPDATE_USER_PROFIL_REQUEST', data);
-  return {
-    type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST,
-    data,
-  };
-};
+export const authCreateUserProfilAction = (data: any) => ({
+  data,
+  type: AuthActionTypes.AUTH_CREATE_USER_PROFIL_REQUEST,
+});
 
-export const authDeleteUserProfilAction = ({ id }: { id: number }): { id: number; type: AuthActionTypes } => {
-  return {
-    type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST,
-    id,
-  };
-};
+export const authUpdateUserProfilAction = (data: any) => ({
+  data,
+  type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST,
+});
 
-export const authDeleteUserProfilSuccess = (): { type: AuthActionTypes } => {
-  return {
-    type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_SUCCESS,
-  };
-};
+export const authDeleteUserProfilAction = ({
+  id,
+}: {
+  id: number;
+}): { id: number; type: AuthActionTypes } => ({
+  id,
+  type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST,
+});
 
-export const authDeleteUserProfilError = (errors: any) => {
-  console.log('AUTH_DELETE_USER_PROFIL_ERROR', errors);
-  return {
-    type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_ERROR,
-    errors,
-  };
-};
+export const authDeleteUserProfilSuccess = (): { type: AuthActionTypes } => ({
+  type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_SUCCESS,
+});
 
-export const authGetUserProfilErrorAction = (data: any) => {
-  console.log('AUTH_GET_USER_PROFIL_REQUEST', data);
-  return {
-    type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
-    data,
-  };
-};
+export const authDeleteUserProfilError = (errors: any) => ({
+  errors,
+  type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_ERROR,
+});
 
-export const authGetUsersProfilAction = (args?: any) => {
-  console.log('AUTH_GET_USERS_PROFIL_REQUEST', args);
-  return {
-    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
-    ...args,
-  };
-};
+export const authGetUserProfilErrorAction = (data: any) => ({
+  data,
+  type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
+});
+
+export const authGetUsersProfilAction = (args?: any) => ({
+  type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
+  ...args,
+});
 
 export const authUpdatePasswordAction = (data: any) => {
   console.log('authUpdatePasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST,
     data,
+    type: AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST,
   };
 };
 
 export const authRecoverPasswordAction = (data: any) => {
   console.log('authRecoverPasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST,
     data,
+    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST,
   };
 };
 
 export const authForgotPasswordAction = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST,
     data,
+    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST,
   };
 };
 
 export const authForgotPasswordError = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_ERROR,
     data,
+    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_ERROR,
   };
 };
 
-export const authUpdateUserProfilSuccess = () => {
-  return {
-    type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS,
-  };
-};
+export const authUpdateUserProfilSuccess = () => ({
+  type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS,
+});
 
 export const authUpdateUserProfilError = (data: any) => {
   console.log('authUpdateUserProfilError', data);
   return {
-    type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR,
     data,
+    type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR,
   };
 };
 
 export const authGetUsersProfilSuccess = ({ data, ...args }: any) => {
   console.log('authGetUsersProfilSuccess', data, args);
   return {
-    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS,
     data,
+    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS,
     ...args,
   };
 };
@@ -104,63 +94,63 @@ export const authGetUsersProfilSuccess = ({ data, ...args }: any) => {
 export const authGetUserProfilSuccess = (data: any) => {
   console.log('authUpdateUserProfilAction', data);
   return {
-    type: AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS,
     data,
+    type: AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS,
   };
 };
 
 export const authGetUserProfilError = (data: any) => {
   console.log('authGetUserProfilError', data);
   return {
-    type: AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR,
     data,
+    type: AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR,
   };
 };
 
 export const authGetUsersProfilError = (data: any) => {
   console.log('authGetUserProfilError', data);
   return {
-    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_ERROR,
     data,
+    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_ERROR,
   };
 };
 
 export const authUpdatePasswordSuccess = (data: any) => {
   console.log('authUpdatePasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS,
     data,
+    type: AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS,
   };
 };
 
 export const authRecoverPasswordSuccess = (data: any) => {
   console.log('authRecoverPasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS,
     data,
+    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS,
   };
 };
 
 export const authRecoverPasswordError = (data: any) => {
   console.log('authRecoverPasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_ERROR,
     data,
+    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_ERROR,
   };
 };
 
 export const authForgotPasswordSuccess = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_SUCCESS,
     data,
+    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_SUCCESS,
   };
 };
 
 export const authRequestErrorAction = (data: any) => {
   console.log('authForgotPasswordAction', data);
   return {
-    type: AuthActionTypes.AUTH_REQUEST_ERROR,
     data,
+    type: AuthActionTypes.AUTH_REQUEST_ERROR,
   };
 };

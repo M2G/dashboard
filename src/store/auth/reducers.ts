@@ -20,7 +20,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return { ...state, loading: true };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST:
       return { ...state, loading: true };
-    case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST:
+    case AuthActionTypes.AUTH_CREATE_USER_PROFIL_REQUEST:
       return { ...state, loading: true };
     case AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST:
       return { ...state, loading: true };
@@ -34,6 +34,8 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS:
       return { ...state, loading: false, data };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS:
+      return { ...state, loading: false, data };
+    case AuthActionTypes.AUTH_CREATE_USER_PROFIL_SUCCESS:
       return { ...state, loading: false, data };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS:
       return { ...state, loading: false };
@@ -51,6 +53,8 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR:
       return { ...state, loading: false, errors: data };
     case AuthActionTypes.AUTH_GET_USERS_PROFIL_ERROR:
+      return { ...state, loading: false, errors: data };
+    case AuthActionTypes.AUTH_CREATE_USER_PROFIL_ERROR:
       return { ...state, loading: false, errors: data };
     case AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR:
       return { ...state, loading: false, errors: data };

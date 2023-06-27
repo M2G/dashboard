@@ -1,18 +1,12 @@
 /* eslint-disable */
-import {
-  all,
-  fork,
-  call,
-  put,
-  takeEvery,
-} from 'redux-saga/effects';
+import { all, fork, call, put, takeEvery } from 'redux-saga/effects';
 import {
   forgotPasswordService,
   userProfilService,
   updateUserProfilService,
   getUsersService,
   deleteUsersService,
-  recoverPasswordService
+  recoverPasswordService,
 } from './services';
 
 import { AuthActionTypes } from './types';
@@ -28,22 +22,28 @@ import {
   authGetUsersProfilSuccess,
   authGetUsersProfilError,
   authRecoverPasswordSuccess,
-  authRecoverPasswordError, authForgotPasswordSuccess,
+  authRecoverPasswordError,
+  authForgotPasswordSuccess,
 } from './actions';
 import { signoutUserAction } from 'store/signout/actions';
 import { history } from 'index';
 import Config from '../../constants';
-import ROUTER_PATH from "constants/RouterPath";
-import {clearAuthStorage, clearUserStorage, setAuthStorage, setUserStorage} from "services/storage";
-import {signinSuccess} from "../../actions";
+import ROUTER_PATH from 'constants/RouterPath';
+import {
+  clearAuthStorage,
+  clearUserStorage,
+  setAuthStorage,
+  setUserStorage,
+} from 'services/storage';
+import { signinSuccess } from '../../actions';
 
 export interface ResponseGenerator {
-  config?:any,
-  data?:any,
-  headers?:any,
-  request?:any,
-  status?:number,
-  statusText?:string
+  config?: any;
+  data?: any;
+  headers?: any;
+  request?: any;
+  status?: number;
+  statusText?: string;
 }
 
 function forwardTo(history: { push: Function }, location: string) {
@@ -51,64 +51,58 @@ function forwardTo(history: { push: Function }, location: string) {
 }
 
 function* forgotPassword({ data }: any): any {
-      try {
-        const res: ResponseGenerator = yield call(forgotPasswordService, { ...data });
+  try {
+    const res: ResponseGenerator = yield call(forgotPasswordService, { ...data });
 
-        yield put(authForgotPasswordSuccess({ ...res.data }));
+    yield put(authForgotPasswordSuccess({ ...res.data }));
+  } catch (err: any) {
+    if (err instanceof Error) {
+      yield put(authForgotPasswordError({ ...(err.stack as any) }));
+    }
 
-    } catch (err: any) {
-
-        if (err instanceof Error) {
-          yield put(authForgotPasswordError({ ...(err.stack as any) }));
-        }
-
-        yield put(authForgotPasswordError("An unknown error occured."));
-      }
+    yield put(authForgotPasswordError('An unknown error occured.'));
+  }
 }
 
 function* recoverPassword({ data }: any): any {
-    try {
-
-      const res: ResponseGenerator = yield call(recoverPasswordService, { ...data });
-      yield put(authRecoverPasswordSuccess({ ...res.data }));
-      yield call(history?.replace, Config.ROUTER_PATH.HOME);
-
-    } catch (err) {
-      if (err instanceof Error) {
-        yield put(authRecoverPasswordError({ ...(err.stack as any) }));
-      }
-
-      yield put(authRecoverPasswordError("An unknown error occured."));
+  try {
+    const res: ResponseGenerator = yield call(recoverPasswordService, { ...data });
+    yield put(authRecoverPasswordSuccess({ ...res.data }));
+    yield call(history?.replace, Config.ROUTER_PATH.HOME);
+  } catch (err) {
+    if (err instanceof Error) {
+      yield put(authRecoverPasswordError({ ...(err.stack as any) }));
     }
+
+    yield put(authRecoverPasswordError('An unknown error occured.'));
+  }
 }
 
 function* getUserProfil(params: { id: any }): any {
   try {
-
     const res: ResponseGenerator = yield call(userProfilService, params?.id);
 
     yield put(authGetUserProfilSuccess({ ...res.data }));
-
   } catch (err) {
     if (err?.response?.status === 401) {
       yield clearAuthStorage();
       yield clearUserStorage();
       yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
-    return yield put(signoutUserAction({  ...err.response.data.error }));
-  }
+      return yield put(signoutUserAction({ ...err.response.data.error }));
+    }
 
     if (err instanceof Error) {
       return yield put(authGetUsersProfilError({ ...(err.stack as any) }));
     }
 
-    yield put(authGetUserProfilError("An unknown error occured."));
+    yield put(authGetUserProfilError('An unknown error occured.'));
   }
 }
 
 function* getUsersProfil(params: any): any {
   try {
-  const filters = params?.filters ? params.filters : '';
-  const res = yield call(getUsersService, filters);
+    const filters = params?.filters ? params.filters : '';
+    const res = yield call(getUsersService, filters);
     yield put(authGetUsersProfilSuccess({ filters, ...res.data }));
   } catch (err) {
     if (err?.response?.status === 401) {
@@ -122,49 +116,47 @@ function* getUsersProfil(params: any): any {
       return yield put(authGetUsersProfilError({ ...(err.stack as any) }));
     }
 
-    yield put(authGetUsersProfilError("An unknown error occured."));
+    yield put(authGetUsersProfilError('An unknown error occured.'));
   }
 }
 
-function* deleteUserProfil({id}: { id: number }): any {
-  console.log('deleteUserProfil', id)
-    try {
-      yield call(deleteUsersService, id);
-      yield put(authDeleteUserProfilSuccess());
-    } catch (err: any) {
-
-      if (err?.response?.status === 401) {
-        return yield put(signoutUserAction({ ...err.data.response.data.error }));
-      }
-
-      if (err instanceof Error) {
-        yield put(authDeleteUserProfilError({ ...(err.stack as any) }));
-      }
-
-      yield put(authDeleteUserProfilError("An unknown error occured."));
+function* deleteUserProfil({ id }: { id: number }): any {
+  console.log('deleteUserProfil', id);
+  try {
+    yield call(deleteUsersService, id);
+    yield put(authDeleteUserProfilSuccess());
+  } catch (err: any) {
+    if (err?.response?.status === 401) {
+      return yield put(signoutUserAction({ ...err.data.response.data.error }));
     }
+
+    if (err instanceof Error) {
+      yield put(authDeleteUserProfilError({ ...(err.stack as any) }));
+    }
+
+    yield put(authDeleteUserProfilError('An unknown error occured.'));
+  }
+}
+
+function* createUserProfil({ data }: any): any {
+  console.log('createUserProfil', data);
 }
 
 function* updateUserProfil({ data }: any): any {
   try {
-
     yield call(updateUserProfilService, { ...data });
     yield put(authUpdateUserProfilSuccess());
+  } catch (err: any) {
+    if (err?.response?.status === 401) {
+      return yield put(signoutUserAction({ ...err.data.response.data.error }));
+    }
 
-    } catch (err: any) {
+    if (err instanceof Error) {
+      yield put(authUpdateUserProfilError({ ...(err.stack as any) }));
+    }
 
-      if (err?.response?.status === 401) {
-        return yield put(signoutUserAction({ ...err.data.response.data.error }));
-      }
-
-      if (err instanceof Error) {
-        yield put(authUpdateUserProfilError({ ...(err.stack as any) }));
-      }
-
-      yield put(authUpdateUserProfilError("An unknown error occured."));
-
+    yield put(authUpdateUserProfilError('An unknown error occured.'));
   }
-
 }
 
 /*
@@ -198,6 +190,10 @@ function* updatePassword(api, action) {
 }
 */
 
+function* watchCreateUserProfil() {
+  yield takeEvery(AuthActionTypes.AUTH_CREATE_USER_PROFIL_REQUEST, createUserProfil);
+}
+
 function* watchRecoverPassword() {
   yield takeEvery(AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST, recoverPassword);
 }
@@ -207,36 +203,25 @@ function* watchForgotPassword() {
 }
 
 function* watchUser() {
-  yield takeEvery(
-    AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST as any,
-    getUserProfil
-  );
+  yield takeEvery(AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST as any, getUserProfil);
 }
 
 function* watchUsers() {
-  yield takeEvery(
-    AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST as any,
-    getUsersProfil
-  );
+  yield takeEvery(AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST as any, getUsersProfil);
 }
 
 function* watchUpdateUser() {
-  yield takeEvery(
-    AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST as any,
-    updateUserProfil
-  );
+  yield takeEvery(AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST as any, updateUserProfil);
 }
 
 function* watchDeleteUser() {
-  yield takeEvery(
-    AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST as any,
-    deleteUserProfil
-  );
+  yield takeEvery(AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST as any, deleteUserProfil);
 }
 
 // We can also use `fork()` here to split our saga into multiple watchers.
 function* authSaga() {
   yield all([
+    fork(watchCreateUserProfil),
     fork(watchRecoverPassword),
     fork(watchForgotPassword),
     fork(watchUsers),
@@ -248,10 +233,11 @@ function* authSaga() {
 
 export {
   authSaga,
+  createUserProfil,
   forgotPassword,
   recoverPassword,
   getUserProfil,
   getUsersProfil,
   deleteUserProfil,
   updateUserProfil,
-}
+};

@@ -19,8 +19,8 @@ function createUserProfilService(params: any): Promise<any> {
   return api.post(`/users`, params);
 }
 
-function updateUserProfilService({ _id, ...params }: any): Promise<any> {
-  return api.put(`/auth/users/${_id}`, params);
+function updateUserProfilService({ id, ...params }: any): Promise<any> {
+  return api.put(`/auth/users/${id}`, params);
 }
 
 function getUsersService(data?: string): Promise<any> {
