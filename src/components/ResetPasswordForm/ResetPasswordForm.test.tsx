@@ -1,11 +1,11 @@
-/* eslint-disable */
+/*eslint-disable*/
 import { fireEvent, render, cleanup } from '@testing-library/react';
-import ForgotPasswordView from './ForgotPasswordView';
+import SignupForm from './SignupForm';
 import { INPUT_NAME } from './constants';
 
 afterEach(cleanup);
 
-describe('Signup Container', () => {
+describe('Signin Container', () => {
   describe('Submitting form', () => {
     let wrapper: any;
     let floatingInput: HTMLInputElement;
@@ -14,11 +14,12 @@ describe('Signup Container', () => {
 
     beforeEach(() => {
       const INITIAL_VALUES = {
-        [INPUT_NAME.EMAIL]: ''
+        [INPUT_NAME.EMAIL]: '',
+        [INPUT_NAME.PASSWORD]: ''
       };
 
       wrapper = render(
-        <ForgotPasswordView initialValues={INITIAL_VALUES} onSubmit={onSubmit} />
+        <SignupForm initialValues={INITIAL_VALUES} onSubmit={onSubmit} />
       );
 
       floatingInput = wrapper.container.querySelector('#floatingInput');
