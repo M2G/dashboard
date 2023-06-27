@@ -1,22 +1,25 @@
-/*eslint-disable*/
+import type { JSX } from 'react';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from "react-router-dom";
-import { authRecoverPasswordAction } from "store/auth/actions";
+import { useLocation } from 'react-router-dom';
+import { authRecoverPasswordAction } from 'store/auth/actions';
+import ResetPasswordView from 'components/ResetPasswordForm';
 import { INITIAL_VALUES } from './constants';
-import ResetPasswordView from './ResetPassword';
 
-function ResetPassword() {
-  let { search } = useLocation();
+function ResetPassword(): JSX.Element {
+  const { search } = useLocation();
   const dispatch = useDispatch();
 
-  const onSubmit = useCallback((e: any) => {
-    const searchParams = new URLSearchParams(search);
-    if (searchParams.has("token")) {
-      const token = searchParams.get("token");
-      console.log('dispatch', { ...e, token });
-      dispatch(authRecoverPasswordAction({ ...e, token }));
-    }}, [dispatch]);
+  const onSubmit = useCallback(
+    (e) => {
+      const searchParams = new URLSearchParams(search);
+      if (searchParams.has('token')) {
+        const token = searchParams.get('token');
+        dispatch(authRecoverPasswordAction({ ...e, token }));
+      }
+    },
+    [dispatch, search],
+  );
 
   return <ResetPasswordView initialValues={INITIAL_VALUES} onSubmit={onSubmit} />;
 }
