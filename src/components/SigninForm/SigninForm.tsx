@@ -1,10 +1,11 @@
-import type { FormSchemaType, SubmitHandler } from 'react-hook-form';
+import type { JSX } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import ROUTER_PATH from 'constants/RouterPath';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
+import ROUTER_PATH from 'constants/RouterPath';
 
 import {
   INPUT_NAME,
@@ -18,12 +19,21 @@ import './index.scss';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function SigninForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }) {
+function SigninForm({
+  initialValues,
+  onSubmit,
+}: {
+  initialValues: any;
+  onSubmit: SubmitHandler<FormSchemaType>;
+}): JSX.Element {
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
+    defaultValues: {
+      ...initialValues,
+    },
     resolver: zodResolver(formSchema),
   });
 
