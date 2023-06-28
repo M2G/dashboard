@@ -2,23 +2,23 @@ import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import ROUTER_PATH from 'constants/RouterPath';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 
 import {
   INPUT_NAME,
   LABEL_EMAIL,
-  LABEL_PASSWORD,
+  LABEL_FIRST_NAME,
+  LABEL_LAST_NAME,
   PLACEHOLDER_EMAIL,
-  PLACEHOLDER_PASSWORD,
+  PLACEHOLDER_FIRST_NAME,
+  PLACEHOLDER_LAST_NAME,
   formSchema,
 } from './constants';
 import './index.scss';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function SigninForm({
+function UserEditForm({
   initialValues,
   onSubmit,
 }: {
@@ -47,45 +47,50 @@ function SigninForm({
           <input
             className="form-control mb-2"
             id="floatingInput"
-            placeholder={PLACEHOLDER_EMAIL}
+            placeholder={PLACEHOLDER_FIRST_NAME}
             type="email"
+            {...register(INPUT_NAME.FIRST_NAME)}
+            required
+          />
+          {errors?.[INPUT_NAME.FIRST_NAME] ? (
+            <span className="error-text">{errors[INPUT_NAME.FIRST_NAME].message}</span>
+          ) : null}
+          <label htmlFor="floatingInput">{LABEL_FIRST_NAME}</label>
+        </div>
+        <div className="form-floating">
+          <input
+            className="form-control mb-2"
+            id="floatingPassword"
+            placeholder={PLACEHOLDER_LAST_NAME}
+            type="password"
+            {...register(INPUT_NAME.LAST_NAME)}
+            required
+          />
+          {errors?.[INPUT_NAME.LAST_NAME] ? (
+            <span className="error-text">{errors[INPUT_NAME.LAST_NAME].message}</span>
+          ) : null}
+          <label htmlFor="floatingLastname">{LABEL_LAST_NAME}</label>
+        </div>
+        <div className="form-floating">
+          <input
+            className="form-control mb-2"
+            id="floatingPassword"
+            placeholder={PLACEHOLDER_EMAIL}
+            type="password"
             {...register(INPUT_NAME.EMAIL)}
             required
           />
           {errors?.[INPUT_NAME.EMAIL] ? (
             <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
           ) : null}
-          <label htmlFor="floatingInput">{LABEL_EMAIL}</label>
+          <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
         </div>
-        <div className="form-floating">
-          <input
-            className="form-control mb-2"
-            id="floatingPassword"
-            placeholder={PLACEHOLDER_PASSWORD}
-            type="password"
-            {...register(INPUT_NAME.PASSWORD)}
-            required
-          />
-          {errors?.[INPUT_NAME.PASSWORD] ? (
-            <span className="error-text">{errors[INPUT_NAME.PASSWORD].message}</span>
-          ) : null}
-          <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
-        </div>
-        <button className="w-100 btn btn-lg btn-primary" disabled={isSubmitting} type="submit">
-          Sign up
+        <button className="btn btn-light" type="submit">
+          Save
         </button>
-        <div className="c-action">
-          <span>Have an account ?</span>
-          <Link className="text-muted" to={ROUTER_PATH.SIGNIN}>
-            Signin
-          </Link>
-          <Link className="text-muted" to={ROUTER_PATH.FORGOT_PASSWORD}>
-            Forgot Password
-          </Link>
-        </div>
       </form>
     </div>
   );
 }
 
-export default SigninForm;
+export default UserEditForm;
