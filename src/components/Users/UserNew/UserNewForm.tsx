@@ -1,4 +1,4 @@
-import { Field, Formik, Form } from 'formik';
+import type { JSX } from 'react';
 import {
   PLACEHOLDER_PASSWORD,
   PLACEHOLDER_EMAIL,
@@ -6,88 +6,69 @@ import {
   ERROR_TEXT_REQUIRED,
   LABEL_PASSWORD,
   LABEL_EMAIL,
+  formSchema,
 } from './constants';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
-const { ERROR_TEXT_REQUIRED_EMAIL, ERROR_TEXT_REQUIRED_PASSWORD } = ERROR_TEXT_REQUIRED;
+type FormSchemaType = z.infer<typeof formSchema>;
 
-function UserNew({ onSubmit, initialValues }: any): any {
-  const setField = (setFieldValue: any, setFieldName: any, value: any): any =>
-    setFieldValue(setFieldName, value);
-
-  const onChange = (setFieldValue: any, setFieldName: any): any =>
-    ({ target: { value = '' } }: any) =>
-      setField(setFieldValue, setFieldName, value);
-
-  const onValidate = (values: object): {} => {
-    const errors = {};
-
-    if (!values[INPUT_NAME.EMAIL]) {
-      errors[INPUT_NAME.EMAIL] = ERROR_TEXT_REQUIRED_EMAIL;
-    }
-
-    if (!values[INPUT_NAME.PASSWORD]) {
-      errors[INPUT_NAME.PASSWORD] = ERROR_TEXT_REQUIRED_PASSWORD;
-    }
-
-    return errors;
-  };
-
-  const handleSubmit = (values: object) => onSubmit({ ...values });
-
-  const renderForm = ({
- setFieldValue, values, errors, touched,
-}: any): any => (
-    <Form className="mt-5">
-      <div className="form-floating mb-3">
-        <Field
-          id="floatingEmail"
-          className="form-control mb-2"
-          name={INPUT_NAME.EMAIL}
-          type="email"
-          onChange={onChange(setFieldValue, INPUT_NAME.EMAIL)}
-          placeholder={PLACEHOLDER_EMAIL}
-          value={values[INPUT_NAME.EMAIL]}
-          required
-        />
-        {touched[INPUT_NAME.EMAIL] && errors && errors[INPUT_NAME.EMAIL] ? (
-          <span className="error-text">{errors[INPUT_NAME.EMAIL]}</span>
-        ) : null}
-        <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
-      </div>
-      <div className="form-floating mb-3">
-        <Field
-          id="floatingPassword"
-          name={INPUT_NAME.PASSWORD}
-          className="form-control mb-2"
-          type="password"
-          onChange={onChange(setFieldValue, INPUT_NAME.PASSWORD)}
-          placeholder={PLACEHOLDER_PASSWORD}
-          value={values[INPUT_NAME.PASSWORD]}
-          required
-        />
-        {touched[INPUT_NAME.PASSWORD]
-        && errors
-        && errors[INPUT_NAME.PASSWORD] ? (
-          <span className="error-text">{errors[INPUT_NAME.PASSWORD]}</span>
-        ) : null}
-        <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
-      </div>
-      <button className="btn btn-light" type="submit">
-        Save
-      </button>
-    </Form>
-  );
+function UserNewForm({
+  initialValues,
+  onSubmit,
+}: {
+  initialValues: any;
+  onSubmit: SubmitHandler<FormSchemaType>;
+}): JSX.Element {
+  const {
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    register,
+  } = useForm<FormSchemaType>({
+    defaultValues: {
+      ...initialValues,
+    },
+    resolver: zodResolver(formSchema),
+  });
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validate={onValidate}
-    >
-      {renderForm}
-    </Formik>
+    <div className="form-signup">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control mb-2"
+            id="floatingEmail"
+            placeholder={PLACEHOLDER_EMAIL}
+            type="email"
+            {...register(INPUT_NAME.EMAIL)}
+            required
+          />
+          {errors?.[INPUT_NAME.EMAIL] ? (
+            <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
+          ) : null}
+          <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control mb-2"
+            id="floatingEmail"
+            placeholder={PLACEHOLDER_PASSWORD}
+            type="email"
+            {...register(INPUT_NAME.PASSWORD)}
+            required
+          />
+          {errors?.[INPUT_NAME.PASSWORD] ? (
+            <span className="error-text">{errors[INPUT_NAME.PASSWORD].message}</span>
+          ) : null}
+          <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
+        </div>
+        <button className="btn btn-light" type="submit">
+          Save
+        </button>
+      </form>
+    </div>
   );
 }
 
-export default UserNew;
+export default UserNewForm;
