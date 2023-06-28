@@ -22,10 +22,7 @@ export const PLACEHOLDER_EMAIL = 'Email';
 export const PLACEHOLDER_PASSWORD = 'Mot de passe';
 
 export const formSchema = z.object({
-  [INPUT_NAME.EMAIL]: z
-    .string()
-    .email('Invalid email')
-    .min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_EMAIL),
-  [INPUT_NAME.PASSWORD]: z.string().min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_PASSWORD),
+  email: z.string().email('Invalid email').min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_EMAIL),
+  password: z.string().min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_PASSWORD),
   // .min(8, 'Password must have more than 8 characters'),
 });
