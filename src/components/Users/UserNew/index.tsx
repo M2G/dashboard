@@ -1,5 +1,4 @@
-import UserNewView from 'containers/Users/UserNew/UserNew';
-import type { User } from 'modules/graphql/generated';
+//import UserNewView from 'components/Users/UserNew/UserNew';
 import { INITIAL_VALUES } from './constants';
 
 interface IUserNew {
@@ -11,7 +10,8 @@ function UserNew({ onSubmit }: IUserNew): JSX.Element {
     return { ...INITIAL_VALUES };
   }
 
-  return <UserNewView initialValues={initialValues()} onSubmit={onSubmit} />;
+  // return <UserNewView initialValues={initialValues()} onSubmit={onSubmit} />;
+  return null;
 }
 
 export default UserNew;
