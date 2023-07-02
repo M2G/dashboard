@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, useEffect } from 'react';
+import { useMemo, useState, useCallback, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import userListItem from './UserListItem';
@@ -49,9 +49,9 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
   const dispatch = useDispatch();
 
   const authGetUsersProfil = (params: any) => dispatch(authGetUsersProfilAction(params));
-  const deleteUserAction = (id: string) => dispatch(authDeleteUserProfilAction(id) as any);
-  const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params) as any);
-  const signupAction = (params: any) => dispatch(signupUserAction(params) as any);
+  const deleteUserAction = (id: number) => dispatch(authDeleteUserProfilAction(id));
+  const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params));
+  const signupAction = (params: any) => dispatch(signupUserAction(params));
 
   useEffect(() => {
     authGetUsersProfil({
@@ -78,13 +78,24 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
   }, []);
 
   const onEditUser = useCallback(
-    (user: any) => {
-      console.log('onEditUser', user);
-      //editUserAction(user);
-      //authGetUsersProfil();
+    (user) => {
+      editUserAction({ ...user, id: state.editingUser.id });
+      authGetUsersProfil({
+        filters: term,
+        page: pagination.page,
+        pageSize: pagination.pageSize,
+      });
       onClose();
     },
-    [onClose],
+    [
+      authGetUsersProfil,
+      editUserAction,
+      onClose,
+      pagination.page,
+      pagination.pageSize,
+      state.editingUser.id,
+      term,
+    ],
   );
 
   const onChangePageSize = useCallback(

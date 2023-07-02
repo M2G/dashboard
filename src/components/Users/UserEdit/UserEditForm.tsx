@@ -23,7 +23,7 @@ function UserEditForm({
   initialValues,
   onSubmit,
 }: {
-  initialValues: any;
+  initialValues: Record<string, string>;
   onSubmit: SubmitHandler<FormSchemaType>;
 }) {
   const {
@@ -43,8 +43,6 @@ function UserEditForm({
     };
     reset({ ...defaultValues });
   }, [initialValues, reset]);
-
-  console.log('errors errors', errors);
 
   return (
     <div className="form-edit">
