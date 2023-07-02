@@ -3,14 +3,13 @@ import DateCell from 'components/Core/Table/DateCell';
 import type { ITableStaticCol } from 'components/Core/Table/TableStaticCol';
 import TableStaticCol from 'components/Core/Table/TableStaticCol';
 import IconNames from 'components/Core/Icon/Icons.types';
-import type { Maybe, User } from 'modules/graphql/generated';
 
 export interface IUserListItem {
   id: string;
-  user: User;
+  user: any;
   label: string;
-  onEdit: (user: User) => void;
-  onDelete: (user: User) => void;
+  onEdit: (user: any) => void;
+  onDelete: (user: any) => void;
   canDelete: boolean | undefined;
   canEdit: boolean | undefined;
 }
@@ -25,7 +24,7 @@ function userListItem({
   canEdit,
 }: IUserListItem): (
   | {
-      display: Date | Maybe<number> | string | undefined;
+      display: Date | number | string | undefined;
       value: Date | number | string | null | undefined;
     }
   | { display: JSX.Element }
