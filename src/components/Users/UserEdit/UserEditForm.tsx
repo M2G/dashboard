@@ -25,13 +25,17 @@ function UserEditForm({
   initialValues: any;
   onSubmit: SubmitHandler<FormSchemaType>;
 }) {
+  console.log('UserEditForm initialValues', initialValues);
+
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
     defaultValues: {
-      ...initialValues,
+      [INPUT_NAME.EMAIL]: '',
+      [INPUT_NAME.FIRST_NAME]: '',
+      [INPUT_NAME.LAST_NAME]: '',
     },
     resolver: zodResolver(formSchema),
   });
@@ -46,6 +50,7 @@ function UserEditForm({
         <div className="form-floating">
           <input
             className="form-control mb-2"
+            defaultValue={initialValues[INPUT_NAME.FIRST_NAME]}
             id="floatingInput"
             placeholder={PLACEHOLDER_FIRST_NAME}
             type="email"
@@ -60,6 +65,7 @@ function UserEditForm({
         <div className="form-floating">
           <input
             className="form-control mb-2"
+            defaultValue={initialValues[INPUT_NAME.LAST_NAME]}
             id="floatingPassword"
             placeholder={PLACEHOLDER_LAST_NAME}
             type="password"
@@ -74,6 +80,7 @@ function UserEditForm({
         <div className="form-floating">
           <input
             className="form-control mb-2"
+            defaultValue={initialValues[INPUT_NAME.EMAIL]}
             id="floatingPassword"
             placeholder={PLACEHOLDER_EMAIL}
             type="password"
