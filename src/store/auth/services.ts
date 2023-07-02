@@ -23,8 +23,14 @@ function updateUserProfilService({ id, ...params }: any): Promise<any> {
   return api.put(`/auth/users/${id}`, params);
 }
 
-function getUsersService(data?: string): Promise<any> {
-  return api.get(`/auth/users${data ? `?filters=${data}` : ''}`);
+function getUsersService({ filters, page, pageSize }): Promise<any> {
+  return api.get(
+    `/auth/users${
+      filters
+        ? `?filters=${filters}&page=${page}&pageSize=${pageSize}`
+        : `?page=${page}&pageSize=${pageSize}`
+    }`,
+  );
 }
 
 function deleteUsersService(id: string): Promise<any> {

@@ -33,6 +33,11 @@ export const authGetUserProfilErrorAction = (data: any) => ({
   type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
 });
 
+export const authGetUserProfilAction = (args?: any) => ({
+  type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
+  ...args,
+});
+
 export const authGetUsersProfilAction = (args?: any) => ({
   type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
   ...args,

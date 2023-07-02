@@ -78,7 +78,9 @@ function* recoverPassword({ data }: any): any {
   }
 }
 
-function* getUserProfil(params: { id: any }): any {
+function* getUserProfil(params: { id }): any {
+  console.log('getUserProfil', params);
+
   try {
     const res: ResponseGenerator = yield call(userProfilService, params?.id);
 
@@ -99,10 +101,10 @@ function* getUserProfil(params: { id: any }): any {
   }
 }
 
-function* getUsersProfil(params: any): any {
+function* getUsersProfil({ filters, page, pageSize }): any {
+  console.log('getUsersProfil', { filters, page, pageSize });
   try {
-    const filters = params?.filters ? params.filters : '';
-    const res = yield call(getUsersService, filters);
+    const res = yield call(getUsersService, { filters, page, pageSize });
     yield put(authGetUsersProfilSuccess({ filters, ...res.data }));
   } catch (err) {
     if (err?.response?.status === 401) {
