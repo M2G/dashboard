@@ -12,14 +12,14 @@ import './i18n';
 
 function App(): JSX.Element {
   return (
-      <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
-          <AuthContext.Provider>
-            <BrowserRouter>
-              <Routes />
-              <ToastContainer />
-            </BrowserRouter>
-          </AuthContext.Provider>
-      </ErrorBoundary>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
+      <AuthContext.Provider>
+        <BrowserRouter>
+          <Routes />
+          <ToastContainer />
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </ErrorBoundary>
   );
 }
 
