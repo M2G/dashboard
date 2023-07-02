@@ -77,11 +77,15 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
     setUser({ deletingUser: false, editingUser: user, newUser: false });
   }, []);
 
-  const onEditUser = useCallback((user: any) => {
-    editUserAction(user);
-    authGetUsersProfil();
-    onClose();
-  }, []);
+  const onEditUser = useCallback(
+    (user: any) => {
+      console.log('onEditUser', user);
+      //editUserAction(user);
+      //authGetUsersProfil();
+      onClose();
+    },
+    [onClose],
+  );
 
   const onChangePageSize = useCallback(
     async (pageSize: number): Promise<void> => {
@@ -185,6 +189,8 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
   );
 
   if (!users?.length && auth.loading) return <TopLineLoading />;
+
+  console.log('state.editingUser', state.editingUser);
 
   return (
     <div className="c-user-list">

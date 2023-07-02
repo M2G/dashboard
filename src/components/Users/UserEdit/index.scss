@@ -1,19 +1,14 @@
-.form-signin {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.form-edit {
+  padding-top: 50px;
 
   form {
-    padding: 25px;
+    padding: 10px;
   }
 
   button {
     box-sizing: inherit;
     margin: 0;
     padding: 0.625rem 1rem;
-    color: white;
     outline: transparent solid 2px;
     outline-offset: 2px;
     width: 100%;
@@ -26,18 +21,17 @@
     border-radius: 0.5em;
     border: 1px solid rgba(0, 0, 0, 0.16);
     -webkit-font-smoothing: auto !important;
-    background-color: black;
   }
 
   .form-floating {
     input {
       padding: 0.625rem;
-      height: calc(2.5rem + 2px);
+      height: calc(2.5rem + 12px);
     }
-  }
-
-  .form-floating > label {
-    padding: 0.5rem;
+    label {
+      padding: 0.5rem;
+      color: var(--color-text-heading);
+    }
   }
 
   .c-action {

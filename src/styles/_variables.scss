@@ -15,7 +15,6 @@ $_color-golden: #e6d600 !default;
 $_color-thema: (
   data: $_color-golden
 ) !default;
-
 $_color-backdrop: darken($_color-grey-dark, 10%) !default;
 // Base
 // ==========================================================================
@@ -162,6 +161,7 @@ $container-padding-x: $grid-gutter-width !default;
   --color-icon: #71717A;
   --color-bg-form: #FFFFFF;
   --color-text-heading: #71717A;
+  --color-error: #FF4D4F;
 }
 
 

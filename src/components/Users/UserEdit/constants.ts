@@ -40,7 +40,17 @@ export const formSchema = z.object({
   [INPUT_NAME.EMAIL]: z
     .string()
     .email('Invalid email')
-    .min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_EMAIL),
-  [INPUT_NAME.FIRST_NAME]: z.string().min(1, { message: 'Firstname is required' }),
-  [INPUT_NAME.LAST_NAME]: z.string().min(1, { message: 'Lastname is required' }),
+    .min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_EMAIL)
+    .optional()
+    .or(z.literal('')),
+  [INPUT_NAME.FIRST_NAME]: z
+    .string()
+    .min(1, { message: 'Firstname is required' })
+    .optional()
+    .or(z.literal('')),
+  [INPUT_NAME.LAST_NAME]: z
+    .string()
+    .min(1, { message: 'Lastname is required' })
+    .optional()
+    .or(z.literal('')),
 });

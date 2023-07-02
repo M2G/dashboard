@@ -1,8 +1,9 @@
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   INPUT_NAME,
@@ -25,74 +26,69 @@ function UserEditForm({
   initialValues: any;
   onSubmit: SubmitHandler<FormSchemaType>;
 }) {
-  console.log('UserEditForm initialValues', initialValues);
-
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit,
     register,
+    reset,
   } = useForm<FormSchemaType>({
-    defaultValues: {
-      [INPUT_NAME.EMAIL]: '',
-      [INPUT_NAME.FIRST_NAME]: '',
-      [INPUT_NAME.LAST_NAME]: '',
-    },
     resolver: zodResolver(formSchema),
   });
 
+  useEffect(() => {
+    const defaultValues = {
+      [INPUT_NAME.EMAIL]: initialValues[INPUT_NAME.EMAIL],
+      [INPUT_NAME.FIRST_NAME]: initialValues[INPUT_NAME.FIRST_NAME],
+      [INPUT_NAME.LAST_NAME]: initialValues[INPUT_NAME.LAST_NAME],
+    };
+    reset({ ...defaultValues });
+  }, [initialValues, reset]);
+
+  console.log('errors errors', errors);
+
   return (
-    <div className="form-signup">
+    <div className="form-edit">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <h1 className="h3 mb-1">Please authenticate</h1>
-          <span>to continue</span>
-        </div>
         <div className="form-floating">
           <input
-            className="form-control mb-2"
-            defaultValue={initialValues[INPUT_NAME.FIRST_NAME]}
+            className="form-control mt-3"
             id="floatingInput"
             placeholder={PLACEHOLDER_FIRST_NAME}
-            type="email"
+            type="text"
             {...register(INPUT_NAME.FIRST_NAME)}
-            required
           />
-          {errors?.[INPUT_NAME.FIRST_NAME] ? (
-            <span className="error-text">{errors[INPUT_NAME.FIRST_NAME].message}</span>
-          ) : null}
+          {errors?.[INPUT_NAME.FIRST_NAME]?.message && (
+            <span className="error-text mb-2">{errors[INPUT_NAME.FIRST_NAME].message}</span>
+          )}
           <label htmlFor="floatingInput">{LABEL_FIRST_NAME}</label>
         </div>
         <div className="form-floating">
           <input
-            className="form-control mb-2"
-            defaultValue={initialValues[INPUT_NAME.LAST_NAME]}
+            className="form-control mt-3"
             id="floatingPassword"
             placeholder={PLACEHOLDER_LAST_NAME}
-            type="password"
+            type="text"
             {...register(INPUT_NAME.LAST_NAME)}
-            required
           />
-          {errors?.[INPUT_NAME.LAST_NAME] ? (
-            <span className="error-text">{errors[INPUT_NAME.LAST_NAME].message}</span>
-          ) : null}
+          {errors?.[INPUT_NAME.LAST_NAME]?.message && (
+            <span className="error-text mb-2">{errors[INPUT_NAME.LAST_NAME].message}</span>
+          )}
           <label htmlFor="floatingLastname">{LABEL_LAST_NAME}</label>
         </div>
         <div className="form-floating">
           <input
-            className="form-control mb-2"
-            defaultValue={initialValues[INPUT_NAME.EMAIL]}
+            className="form-control mt-3"
             id="floatingPassword"
             placeholder={PLACEHOLDER_EMAIL}
-            type="password"
+            type="email"
             {...register(INPUT_NAME.EMAIL)}
-            required
           />
-          {errors?.[INPUT_NAME.EMAIL] ? (
-            <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
-          ) : null}
+          {errors?.[INPUT_NAME.EMAIL]?.message && (
+            <span className="error-text mb-2">{errors[INPUT_NAME.EMAIL].message}</span>
+          )}
           <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
         </div>
-        <button className="btn btn-light" type="submit">
+        <button className="btn btn-light mt-3" type="submit">
           Save
         </button>
       </form>
