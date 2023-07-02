@@ -1,21 +1,22 @@
 import type { JSX } from 'react';
+
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ROUTER_PATH from 'constants/RouterPath';
 
-const Signin = lazy(async () => import('../../containers2/Signin'));
-const Signup = lazy(async () => import('../../containers2/Signup'));
-const ForgotPassword = lazy(async () => import('../../containers2/ForgotPassword'));
-const ResetPassword = lazy(async () => import('../../containers2/ResetPassword'));
+const Signin = lazy(() => import('../../containers/Signin'));
+const Signup = lazy(() => import('../../containers/Signup'));
+const ForgotPassword = lazy(() => import('../../containers/ForgotPassword'));
+const ResetPassword = lazy(() => import('../../containers/ResetPassword'));
 
 function PublicRoutes(): JSX.Element {
   return (
     <Routes>
-      <Route path={ROUTER_PATH.RESET_PASSWORD} element={<ResetPassword />} />
-      <Route path={ROUTER_PATH.FORGOT_PASSWORD} element={<ForgotPassword />} />
-      <Route path={ROUTER_PATH.SIGNUP} element={<Signup />} />
-      <Route path={ROUTER_PATH.SIGNIN} element={<Signin />} />
-      <Route path="*" element={<Navigate to={ROUTER_PATH.SIGNIN} replace />} />
+      <Route element={<ResetPassword />} path={ROUTER_PATH.RESET_PASSWORD} />
+      <Route element={<ForgotPassword />} path={ROUTER_PATH.FORGOT_PASSWORD} />
+      <Route element={<Signup />} path={ROUTER_PATH.SIGNUP} />
+      <Route element={<Signin />} path={ROUTER_PATH.SIGNIN} />
+      <Route element={<Navigate replace to={ROUTER_PATH.SIGNIN} />} path="*" />
     </Routes>
   );
 }
