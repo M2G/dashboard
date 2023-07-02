@@ -7,6 +7,7 @@ export default defineConfig(() => ({
   plugins: [react(), svgr()],
   resolve: {
     alias: {
+      api: path.resolve(__dirname, './src/api/'),
       assets: path.resolve(__dirname, './src/assets/'),
       components: path.resolve(__dirname, './src/components/'),
       constants: path.resolve(__dirname, './src/constants/'),
@@ -15,13 +16,12 @@ export default defineConfig(() => ({
       fixtures: path.resolve(__dirname, './src/fixtures/'),
       gql: path.resolve(__dirname, './src/gql/'),
       hooks: path.resolve(__dirname, './src/hooks/'),
+      index: path.resolve(__dirname, './src/index/'),
       modules: path.resolve(__dirname, './src/modules/'),
       routes: path.resolve(__dirname, './src/routes/'),
       sentry: path.resolve(__dirname, './src/sentry/'),
       services: path.resolve(__dirname, './src/services/'),
       store: path.resolve(__dirname, './src/store/'),
-      index: path.resolve(__dirname, './src/index/'),
-      api: path.resolve(__dirname, './src/api/'),
     },
     css: {
       modules: {
