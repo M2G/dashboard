@@ -16,10 +16,8 @@ const api = axios.create({
     function (data, headers) {
       // Do whatever you want to transform the data
       const { token } = Config.GLOBAL_VAR;
-      if (token) {
-        if (headers) {
-          headers['Authorization'] = `Bearer ${token}`;
-        }
+      if (token && headers) {
+        headers['Authorization'] = `Bearer ${token}`;
       }
       console.log('transformRequest', data);
 
@@ -53,9 +51,11 @@ const myInterceptor = api.interceptors.response.use(
     console.log('interceptors', error?.response);
 
     api.interceptors.response.eject(myInterceptor);
-    (import.meta as any).env.MODE === 'development' ? console.error(JSON.stringify(error?.response)) : '';
+    (import.meta as any).env.MODE === 'development'
+      ? console.error(JSON.stringify(error?.response))
+      : '';
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;
