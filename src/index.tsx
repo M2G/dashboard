@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { init as initSentry } from "@sentry/react";
