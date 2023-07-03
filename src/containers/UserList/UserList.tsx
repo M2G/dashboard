@@ -105,30 +105,25 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
         pageSize,
       }));
 
-      /* await getUsers({
-        variables: {
-          filters: term,
-          page: pagination.page,
-          pageSize: pageSize || pagination.pageSize,
-        },
-      });*/
+      authGetUsersProfil({
+        filters: term,
+        page: pagination.page,
+        pageSize: pageSize || pagination.pageSize,
+      });
     },
-    [pagination],
+    [authGetUsersProfil, pagination.page, pagination.pageSize, term],
   );
 
   const searchTerms = useCallback(
     async (term: string): Promise<void> => {
       setTerm(term);
-      /*
-      await getUsers({
-        variables: {
-          filters: term,
-          page: pagination.page,
-          pageSize: pagination.pageSize,
-        },
-      });*/
+      authGetUsersProfil({
+        filters: term,
+        page: pagination.page,
+        pageSize: pagination.pageSize,
+      });
     },
-    [pagination.page, pagination.pageSize],
+    [authGetUsersProfil, pagination.page, pagination.pageSize],
   );
 
   const onChangePage = useCallback(
@@ -137,16 +132,14 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
         ...prevState,
         page,
       }));
-      /*
-           await getUsers({
-             variables: {
-               filters: term,
-               page: page || pagination.page,
-               pageSize: pagination.pageSize,
-             },
-           });*/
+
+      authGetUsersProfil({
+        filters: term,
+        page: page || pagination.page,
+        pageSize: pagination.pageSize,
+      });
     },
-    [term, pagination.page, pagination.pageSize],
+    [authGetUsersProfil, term, pagination.page, pagination.pageSize],
   );
 
   const onNewUser = useCallback(
@@ -160,11 +153,18 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
     [onClose],
   );
 
-  const onDeleteUser = useCallback((user: any) => {
-    //deleteUserAction(user._id);
-    //authGetUsersProfil();
-    onClose();
-  }, []);
+  const onDeleteUser = useCallback(
+    (user: any) => {
+      deleteUserAction({ id: user.id });
+      authGetUsersProfil({
+        filters: term,
+        page: pagination.page,
+        pageSize: pagination.pageSize,
+      });
+      onClose();
+    },
+    [authGetUsersProfil, deleteUserAction, onClose, pagination.page, pagination.pageSize, term],
+  );
 
   const users: any = auth?.data || [];
   const results = users?.results || [];
