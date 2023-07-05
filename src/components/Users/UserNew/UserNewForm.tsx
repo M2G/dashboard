@@ -1,21 +1,25 @@
 import type { JSX } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import type { z } from 'zod';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import './index.scss';
+
 import {
-  PLACEHOLDER_PASSWORD,
-  PLACEHOLDER_EMAIL,
-  INPUT_NAME,
   ERROR_TEXT_REQUIRED,
-  LABEL_PASSWORD,
+  INITIAL_VALUES,
+  INPUT_NAME,
   LABEL_EMAIL,
+  LABEL_PASSWORD,
+  PLACEHOLDER_EMAIL,
+  PLACEHOLDER_PASSWORD,
   formSchema,
 } from './constants';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
 function UserNewForm({
-  initialValues,
   onSubmit,
 }: {
   initialValues: any;
@@ -27,13 +31,13 @@ function UserNewForm({
     register,
   } = useForm<FormSchemaType>({
     defaultValues: {
-      ...initialValues,
+      ...INITIAL_VALUES,
     },
     resolver: zodResolver(formSchema),
   });
 
   return (
-    <div className="form-signup">
+    <div className="form-create">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-floating mb-3">
           <input

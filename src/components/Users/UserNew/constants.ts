@@ -20,3 +20,5 @@ export const ERROR_TEXT_REQUIRED = {
 
 export const LABEL_PASSWORD = 'Password';
 export const LABEL_EMAIL = 'Email';
+
+export const formSchema = z.object({});
