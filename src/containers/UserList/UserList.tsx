@@ -143,14 +143,18 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
   );
 
   const onNewUser = useCallback(
-    (user: any) => {
+    (user) => {
       console.log('onNewUser', user);
-      // setNewUser(user);
-      // signupAction(user);
-      // authGetUsersProfil();
+      setUser(user);
+      signupAction(user);
+      authGetUsersProfil({
+        filters: term,
+        page: pagination.page,
+        pageSize: pagination.pageSize,
+      });
       onClose();
     },
-    [onClose],
+    [authGetUsersProfil, onClose, pagination.page, pagination.pageSize, signupAction, term],
   );
 
   const onDeleteUser = useCallback(

@@ -21,4 +21,12 @@ export const ERROR_TEXT_REQUIRED = {
 export const LABEL_PASSWORD = 'Password';
 export const LABEL_EMAIL = 'Email';
 
-export const formSchema = z.object({});
+export const formSchema = z.object({
+  [INPUT_NAME.EMAIL]: z
+    .string()
+    .email('Invalid email')
+    .min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_EMAIL)
+    .optional()
+    .or(z.literal('')),
+  [INPUT_NAME.PASSWORD]: z.string().min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_PASSWORD),
+});

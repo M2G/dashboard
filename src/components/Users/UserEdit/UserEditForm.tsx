@@ -27,7 +27,7 @@ function UserEditForm({
   onSubmit: SubmitHandler<FormSchemaType>;
 }) {
   const {
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
     register,
     reset,
@@ -86,7 +86,7 @@ function UserEditForm({
           )}
           <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
         </div>
-        <button className="btn btn-light mt-3" type="submit">
+        <button className="btn btn-light mt-3" disabled={isSubmitting} type="submit">
           Save
         </button>
       </form>

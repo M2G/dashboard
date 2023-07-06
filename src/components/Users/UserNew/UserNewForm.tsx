@@ -19,12 +19,7 @@ import {
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function UserNewForm({
-  onSubmit,
-}: {
-  initialValues: any;
-  onSubmit: SubmitHandler<FormSchemaType>;
-}): JSX.Element {
+function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }): JSX.Element {
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -58,7 +53,7 @@ function UserNewForm({
             className="form-control mb-2"
             id="floatingEmail"
             placeholder={PLACEHOLDER_PASSWORD}
-            type="email"
+            type="password"
             {...register(INPUT_NAME.PASSWORD)}
             required
           />
@@ -67,7 +62,7 @@ function UserNewForm({
           ) : null}
           <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
         </div>
-        <button className="btn btn-light" type="submit">
+        <button className="btn btn-light" disabled={isSubmitting} type="submit">
           Save
         </button>
       </form>
