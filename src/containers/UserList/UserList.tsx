@@ -1,24 +1,39 @@
-import { useMemo, useState, useCallback, useEffect, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import userListItem from './UserListItem';
+import type { JSX } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import ModalWrapper from 'components/Core/Modal/ModalWrapper';
+import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
+import TopLineLoading from 'components/Loading/TopLineLoading';
+import NoData from 'components/NoData';
 import UserEdit from 'components/Users/UserEdit';
 import UserNew from 'components/Users/UserNew';
-import { signupUserAction } from 'store/signup/actions';
+import UserFilters from 'containers/UserFilters';
+import List from 'containers/UserList/ListLegacy';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  authGetUsersProfilAction,
   authDeleteUserProfilAction,
+  authGetUsersProfilAction,
   authUpdateUserProfilAction,
 } from 'store/auth/actions';
-import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
-import ModalWrapper from 'components/Core/Modal/ModalWrapper';
-import TopLineLoading from 'components/Loading/TopLineLoading';
-import List from 'containers/UserList/ListLegacy';
-import NoData from 'components/NoData';
-import UserFilters from 'containers/UserFilters';
-import AddUser from './Action/AddUser';
+import { signupUserAction } from 'store/signup/actions';
 
-function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
+import AddUser from './Action/AddUser';
+import userListItem from './UserListItem';
+
+type UserListProps = {
+  canAdd?: boolean;
+  canDelete?: boolean;
+  canEdit?: boolean;
+  id?: string;
+};
+
+function UserList({
+  canAdd = false,
+  canDelete = false,
+  canEdit = false,
+  id,
+}: UserListProps): null | JSX.Element {
   const { t } = useTranslation();
   const [pagination, setPagination] = useState<{
     page: number;
@@ -41,17 +56,17 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
   const {
     auth,
   }: // signup
-  any = useSelector(({ signup, auth }) => ({
+  any = useSelector(({ auth, signup }) => ({
     auth,
     signup,
   }));
 
   const dispatch = useDispatch();
 
-  const authGetUsersProfil = (params: any) => dispatch(authGetUsersProfilAction(params));
+  const authGetUsersProfil = (params) => dispatch(authGetUsersProfilAction(params));
   const deleteUserAction = (id: number) => dispatch(authDeleteUserProfilAction(id));
-  const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params));
-  const signupAction = (params: any) => dispatch(signupUserAction(params));
+  const editUserAction = (params) => dispatch(authUpdateUserProfilAction(params));
+  const signupAction = (params) => dispatch(signupUserAction(params));
 
   useEffect(() => {
     authGetUsersProfil({
@@ -144,7 +159,7 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
 
   const onNewUser = useCallback(
     (user) => {
-      console.log('onNewUser', user);
+      // console.log('onNewUser', user);
       setUser(user);
       signupAction(user);
       authGetUsersProfil({
@@ -158,7 +173,7 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
   );
 
   const onDeleteUser = useCallback(
-    (user: any) => {
+    (user) => {
       deleteUserAction({ id: user.id });
       authGetUsersProfil({
         filters: term,
@@ -178,7 +193,7 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
 
   const rows = useMemo(
     () =>
-      results?.map((user: any) =>
+      results?.map((user) =>
         userListItem({
           canDelete,
           canEdit,
@@ -205,41 +220,46 @@ function UserList({ id, canEdit = false, canDelete = false, canAdd = false }) {
 
   if (!users?.length && auth.loading) return <TopLineLoading />;
 
-  console.log('state.editingUser', state.editingUser);
-
   return (
     <div className="c-user-list">
       <AddUser canAdd={canAdd} onAdd={onAdd} />
 
-      {!results.length && <NoData />}
-      <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
-      <List
-        count={pageInfo?.count}
-        currentPage={pagination?.page}
-        currentPageSize={pagination?.pageSize}
-        data={results}
-        header={header}
-        id={id}
-        rows={rows}
-        setCurrentPage={onChangePage}
-        setCurrentPageSize={onChangePageSize}
-      />
+      {results.length ? (
+        <>
+          <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
+          <List
+            count={pageInfo?.count}
+            currentPage={pagination?.page}
+            currentPageSize={pagination?.pageSize}
+            data={results}
+            header={header}
+            id={id}
+            rows={rows}
+            setCurrentPage={onChangePage}
+            setCurrentPageSize={onChangePageSize}
+          />
 
-      <SidebarWrapper isOpened={!!state.editingUser} setIsOpened={onClose}>
-        <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />
-      </SidebarWrapper>
+          <SidebarWrapper isOpened={!!state.editingUser} setIsOpened={onClose}>
+            <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />
+          </SidebarWrapper>
 
-      <SidebarWrapper isOpened={!!state.newUser} setIsOpened={onClose}>
-        <UserNew onSubmit={onNewUser} />
-      </SidebarWrapper>
+          <SidebarWrapper isOpened={!!state.newUser} setIsOpened={onClose}>
+            <UserNew onSubmit={onNewUser} />
+          </SidebarWrapper>
 
-      <ModalWrapper
-        onConfirm={async () => onDeleteUser(state.deletingUser as unknown as any)}
-        hide={onClose}
-        isShowing={state.deletingUser}
-        title="Delete">
-        <p>Warning, you are about to perform an irreversible action</p>
-      </ModalWrapper>
+          <ModalWrapper
+            onConfirm={() => {
+              onDeleteUser(state.deletingUser as unknown as any);
+            }}
+            hide={onClose}
+            isShowing={state.deletingUser}
+            title="Delete">
+            <p>Warning, you are about to perform an irreversible action</p>
+          </ModalWrapper>
+        </>
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 }
