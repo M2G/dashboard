@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { AuthActionTypes } from './types';
 
 function signinSuccess() {

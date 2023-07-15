@@ -1,7 +1,7 @@
-import type { ReactNode, JSX } from 'react';
-import { createContext, useState, useMemo } from 'react';
-
 import jwt_decode from 'jwt-decode';
+import type { JSX, ReactNode } from 'react';
+import { createContext, useMemo, useState } from 'react';
+
 import {
   clearAuthStorage,
   clearUserStorage,
@@ -17,12 +17,8 @@ interface AuthContextProps {
 }
 
 function Provider({ children }: AuthContextProps): JSX.Element {
-  const [isAuth, setIsAuth] = useState<boolean | string | null>(() =>
-    getAuthStorage(),
-  );
-  const [userData, setUserData] = useState<boolean | string | null>(() =>
-    getUserStorage(),
-  );
+  const [isAuth, setIsAuth] = useState<boolean | string | null>(() => getAuthStorage());
+  const [userData, setUserData] = useState<boolean | string | null>(() => getUserStorage());
 
   const value = {
     isAuth,
@@ -54,9 +50,7 @@ function Provider({ children }: AuthContextProps): JSX.Element {
 
   const authValue = useMemo(() => value, [value]);
 
-  return (
-    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 }
 
 export default { Consumer: AuthContext.Consumer, Provider };

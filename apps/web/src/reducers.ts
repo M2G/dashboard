@@ -1,6 +1,6 @@
+import { clearAuthStorage, getAuthStorage } from '@/services/storage';
 import { Reducer } from 'redux';
 import { AuthActionTypes, AuthGlobalState } from './types';
-import { getAuthStorage, clearAuthStorage } from 'services/storage';
 
 // Type-safe initialState!
 export const initialState: AuthGlobalState = {

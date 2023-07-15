@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import Config from './constants';
 
 const api = axios.create({
@@ -17,7 +18,7 @@ const api = axios.create({
       // Do whatever you want to transform the data
       const { token } = Config.GLOBAL_VAR;
       if (token && headers) {
-        headers['Authorization'] = `Bearer ${token}`;
+        headers.Authorization = `Bearer ${token}`;
       }
       console.log('transformRequest', data);
 

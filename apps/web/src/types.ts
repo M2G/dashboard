@@ -1,4 +1,3 @@
-/* eslint-disable */
 /*
  * Response object for GET /heroes
  * https://docs.opendota.com/#tag/heroes%2Fpaths%2F~1heroes%2Fget
