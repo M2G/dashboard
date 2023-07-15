@@ -1,6 +1,6 @@
 {
-  "name": "Canal+ starter",
-  "short_name": "Canal+",
+  "name": "starter",
+  "short_name": "test",
   "icons": [
     {
       "src": "/android-chrome-96x96.png",
