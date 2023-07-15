@@ -1,9 +1,9 @@
 import { useCallback, useContext, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import ProfilForm from 'components/ProfilForm';
-import { INPUT_NAME, INITIAL_VALUES } from 'components/ProfilForm/constants';
-import { authGetUserProfilAction } from 'store/auth/actions';
-import { AuthContext } from '../../AuthContext';
+import ProfilForm from '@/components/ProfilForm';
+import { INPUT_NAME, INITIAL_VALUES } from '@/components/ProfilForm/constants';
+import { authGetUserProfilAction } from '@/store/auth/actions';
+import { AuthContext } from '@/AuthContext';
 
 function initialValues(values: {
   [x: string]: string;

@@ -9,10 +9,9 @@ import {
   getUserStorage,
   setAuthStorage,
   setUserStorage,
-} from 'services/storage';
+} from '@/services/storage';
 
 export const AuthContext = createContext({});
-
 interface AuthContextProps {
   children: ReactNode;
 }

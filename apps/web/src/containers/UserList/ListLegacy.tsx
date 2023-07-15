@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
-import Pagination from 'components/Core/Pagination/PaginationLegacy';
-import PageSize from 'components/Core/Pagination/PageSize';
-import TableWrapper from 'components/Core/Table';
+import Pagination from '@/components/Core/Pagination/PaginationLegacy';
+import PageSize from '@/components/Core/Pagination/PageSize';
+import TableWrapper from '@/components/Core/Table';
 import './index.scss';
 
 function List({

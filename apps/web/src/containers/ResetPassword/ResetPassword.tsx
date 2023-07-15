@@ -2,8 +2,8 @@ import type { JSX } from 'react';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { authRecoverPasswordAction } from 'store/auth/actions';
-import ResetPasswordView from 'components/ResetPasswordForm';
+import { authRecoverPasswordAction } from '@/store/auth/actions';
+import ResetPasswordView from '@/components/ResetPasswordForm';
 import { INITIAL_VALUES } from './constants';
 
 function ResetPassword(): JSX.Element {

@@ -1,10 +1,10 @@
 import type { JSX } from 'react';
 import { useCallback, useContext, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { signinUserAction } from 'store/signin/actions';
-import SigninForm from 'components/SigninForm';
+import { signinUserAction } from '@/store/signin/actions';
+import SigninForm from '@/components/SigninForm';
 import { INITIAL_VALUES } from './constants';
-import { AuthContext } from '../../AuthContext';
+import { AuthContext } from '@/AuthContext';
 
 interface ISignin {
   loading: boolean;

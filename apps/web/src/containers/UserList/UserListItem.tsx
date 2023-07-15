@@ -1,8 +1,8 @@
 import type { JSX } from 'react';
-import DateCell from 'components/Core/Table/DateCell';
-import type { ITableStaticCol } from 'components/Core/Table/TableStaticCol';
-import TableStaticCol from 'components/Core/Table/TableStaticCol';
-import IconNames from 'components/Core/Icon/Icons.types';
+import DateCell from '@/components/Core/Table/DateCell';
+import type { ITableStaticCol } from '@/components/Core/Table/TableStaticCol';
+import TableStaticCol from '@/components/Core/Table/TableStaticCol';
+import IconNames from '@/components/Core/Icon/Icons.types';
 
 export interface IUserListItem {
   id: string;

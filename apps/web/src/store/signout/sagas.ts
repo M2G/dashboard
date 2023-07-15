@@ -1,10 +1,9 @@
-/* eslint-disable */
 import { all, fork, call, takeEvery, put } from 'redux-saga/effects';
 import { SignoutActionTypes } from './types';
-import { clearAuthStorage } from 'services/Storage';
-import Config from '../../constants';
-import { history } from 'index';
-import { signoutSuccess } from '../../actions';
+import { clearAuthStorage } from '@/services/storage';
+import Config from '@/constants/constants';
+import { history } from '@/index';
+import { signoutSuccess } from '@/actions';
 
 function* signoutFlow() {
   Config.GLOBAL_VAR.token = '';

@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import UserFiltersView from './UserFilters';
 
 type UserFilters = {

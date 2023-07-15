@@ -1,5 +1,5 @@
-import Navbar from 'components/Navbar/Navbar';
-import Sidebar from 'components/Sidebar';
+import Navbar from '@/components/Navbar/Navbar';
+import Sidebar from '@/components/Sidebar';
 import Profil from './Profil';
 import './index.scss';
 
