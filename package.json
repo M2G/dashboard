@@ -11,6 +11,7 @@
     "version-packages": "changeset version",
     "release": "turbo run build --filter=docs^... && changeset publish",
     "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
     "stylint": "npx stylelint \"**/*.scss\"",
     "lint:css": "stylelint '**/*.{scss,ts,tsx}'",
     "lint:css:fix": "stylelint --fix '**/*.scss'",
