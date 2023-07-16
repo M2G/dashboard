@@ -1,18 +1,18 @@
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
+import ROUTER_PATH from '@/constants/RouterPath';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { zodResolver } from '@hookform/resolvers/zod';
-import ROUTER_PATH from 'constants/RouterPath';
 
 import {
+  formSchema,
   INPUT_NAME,
   LABEL_EMAIL,
   LABEL_PASSWORD,
   PLACEHOLDER_EMAIL,
   PLACEHOLDER_PASSWORD,
-  formSchema,
 } from './constants';
 import './index.scss';
 
