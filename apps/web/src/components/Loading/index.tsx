@@ -1,6 +1,5 @@
-/* eslint-disable */
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import TopLineLoading from './TopLineLoading';
 
 export interface LoadingNS {
