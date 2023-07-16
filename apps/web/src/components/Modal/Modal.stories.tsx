@@ -1,5 +1,5 @@
+import ModalWrapper from '@/components/Core/Modal/ModalWrapper';
 import { useState } from 'react';
-import ModalWrapper from 'components/Core/Modal/ModalWrapper';
 
 export default {
   component: ModalWrapper,
@@ -15,8 +15,7 @@ function Template(args: any) {
         type="button"
         onClick={() => {
           setIsOpened(!isOpened);
-        }}
-      >
+        }}>
         OK
       </button>
       <ModalWrapper
@@ -25,8 +24,7 @@ function Template(args: any) {
         isShowing={isOpened}
         hide={() => {
           setIsOpened(false);
-        }}
-      >
+        }}>
         <div>Test</div>
       </ModalWrapper>
     </>
