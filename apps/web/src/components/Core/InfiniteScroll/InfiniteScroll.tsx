@@ -1,9 +1,10 @@
 import type { JSX, MutableRefObject, ReactNode } from 'react';
 
-import { useEffect, useRef } from 'react';
 import { throttle } from 'lodash';
-import TopLineLoading from 'components/Loading/TopLineLoading';
-import { useWindowSize } from 'hooks';
+import { useEffect, useRef } from 'react';
+
+import TopLineLoading from '@/components/Loading/TopLineLoading';
+import { useWindowSize } from '@/hooks';
 
 interface IInfiniteScroll {
   children: ReactNode;
@@ -26,10 +27,7 @@ function InfiniteScroll({
         return;
       }
 
-      if (
-        ref.current.scrollTop + ref.current.clientHeight >=
-        ref.current.scrollHeight
-      ) {
+      if (ref.current.scrollTop + ref.current.clientHeight >= ref.current.scrollHeight) {
         // Fix for the issue where the scroll event is triggered multiple times
         if (hasMore && isMounted.current) {
           onLoadMore();
@@ -64,8 +62,7 @@ function InfiniteScroll({
         overflowY: 'scroll',
         paddingBottom: '500px',
       }}
-      ref={ref}
-    >
+      ref={ref}>
       {children}
     </div>
   );
