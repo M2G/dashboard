@@ -1,6 +1,5 @@
-/*eslint-disable*/
+import SidebarWrapper from '@/components/Core/Sidebar/SidebarWrapper';
 import { useState } from 'react';
-import SidebarWrapper from 'components/Core/Sidebar/SidebarWrapper';
 
 export default {
   component: SidebarWrapper,
