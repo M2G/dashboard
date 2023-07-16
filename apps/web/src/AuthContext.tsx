@@ -1,6 +1,7 @@
-import jwt_decode from 'jwt-decode';
 import type { JSX, ReactNode } from 'react';
 import { createContext, useMemo, useState } from 'react';
+
+import jwt_decode from 'jwt-decode';
 
 import {
   clearAuthStorage,
