@@ -1,5 +1,5 @@
-import type { IconComponent } from 'components/Core/Icon/Icons.types';
-import IconNames from 'components/Core/Icon/Icons.types';
+import type { IconComponent } from '@/components/Core/Icon/Icons.types';
+import IconNames from '@/components/Core/Icon/Icons.types';
 import { ReactComponent as IconBin } from 'assets/icons/bin.svg';
 import { ReactComponent as IconPencil } from 'assets/icons/pencil.svg';
 
