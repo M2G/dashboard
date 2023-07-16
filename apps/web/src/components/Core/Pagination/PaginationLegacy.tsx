@@ -1,4 +1,3 @@
-/*eslint-disable*/
 interface IPagination {
   currentPage: number;
   totalItems: number;
@@ -6,16 +5,11 @@ interface IPagination {
   setCurrentPage: (params: any) => {};
 }
 
-function Pagination({
-  currentPage,
-  totalItems,
-  perPage,
-  setCurrentPage
-}: IPagination) {
+function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagination) {
   const handleClick = ({
     target: {
-      dataset: { id }
-    }
+      dataset: { id },
+    },
   }: {
     target: { dataset: { id: string } };
   }): any => setCurrentPage(parseInt(id, 10));
@@ -32,7 +26,7 @@ function Pagination({
 
   const displayNumbers = pageNumbers.slice(
     currentPage - 5 > 0 ? currentPage - 5 : 0,
-    currentPage + 5
+    currentPage + 5,
   );
 
   console.log('pageNumbers', pageNumbers);
@@ -49,25 +43,13 @@ function Pagination({
             </a>
           </li>
           {displayNumbers?.map((number) => (
-            <li
-              key={number}
-              className={`page-item ${currentPage === number ? 'active' : ''}`}
-            >
-              <a
-                data-id={number}
-                className="page-link"
-                href="#"
-                onClick={handleClick as any}
-              >
+            <li className={`page-item ${currentPage === number ? 'active' : ''}`} key={number}>
+              <a className="page-link" data-id={number} href="#" onClick={handleClick as any}>
                 {number}
               </a>
             </li>
           ))}
-          <li
-            className={`page-item ${
-              currentPage === pageNumbers.length ? 'disabled' : ''
-            }`}
-          >
+          <li className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
             <a className="page-link" href="#" onClick={handleNextClick}>
               Next
             </a>
