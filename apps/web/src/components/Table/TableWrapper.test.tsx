@@ -1,19 +1,11 @@
 /*eslint-disable*/
-import { render, screen, fireEvent } from '@testing-library/react';
+import DateCell from '@/components/Core/Table/DateCell';
+import TableStaticCol from '@/components/Core/Table/TableStaticCol';
+import TableWrapper from '@/components/Core/Table/TableWrapper';
 import { faker } from '@faker-js/faker';
-import TableWrapper from 'components/Core/Table/TableWrapper';
-import DateCell from 'components/Core/Table/DateCell';
-import TableStaticCol from 'components/Core/Table/TableStaticCol';
+import { fireEvent, render, screen } from '@testing-library/react';
 
-const listItem = ({
-  id: rowId,
-  label,
-  user,
-  onEdit,
-  onDelete,
-  canDelete,
-  canEdit
-}: any) => {
+const listItem = ({ id: rowId, label, user, onEdit, onDelete, canDelete, canEdit }: any) => {
   const id = `user__row__${rowId}__${user.id}`;
 
   const actions = [];
@@ -25,7 +17,7 @@ const listItem = ({
       id: `${id}__edit`,
       action: () => {
         onEdit(user);
-      }
+      },
     });
   }
 
@@ -36,40 +28,40 @@ const listItem = ({
       id: `${id}__delete`,
       action: () => {
         onDelete(user);
-      }
+      },
     });
   }
 
   const tableStaticColProps: any = {
     id,
     actions,
-    label
+    label,
   };
 
   return [
     {
-      display: <TableStaticCol {...tableStaticColProps} />
+      display: <TableStaticCol {...tableStaticColProps} />,
     },
     {
       display: user?.first_name,
-      value: user?.first_name
+      value: user?.first_name,
     },
     {
       display: user?.last_name,
-      value: user?.last_name
+      value: user?.last_name,
     },
     {
       display: user?.email,
-      value: user?.email
+      value: user?.email,
     },
     {
       display: <DateCell date={user?.created_at} />,
-      value: new Date(user?.created_at)
+      value: new Date(user?.created_at),
     },
     {
       display: <DateCell date={user?.modified_at} />,
-      value: new Date(user?.modified_at)
-    }
+      value: new Date(user?.modified_at),
+    },
   ];
 };
 
@@ -82,9 +74,9 @@ describe('test TableStaticCol', () => {
     {
       label: 'Created at',
       sortable: true,
-      type: 'date'
+      type: 'date',
     },
-    { label: 'Modified at', sortable: true, type: 'date' }
+    { label: 'Modified at', sortable: true, type: 'date' },
   ];
 
   const createdAt = new Date().getTime();
@@ -99,7 +91,7 @@ describe('test TableStaticCol', () => {
     email: faker.internet.email(),
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
-    modified_at: modifiedAt
+    modified_at: modifiedAt,
   };
 
   const USER_2: any = {
@@ -108,7 +100,7 @@ describe('test TableStaticCol', () => {
     email: faker.internet.email(),
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
-    modified_at: null
+    modified_at: null,
   };
 
   const users: any = [
@@ -118,7 +110,7 @@ describe('test TableStaticCol', () => {
       email: USER_1.email,
       first_name: USER_1.first_name,
       last_name: USER_1.last_name,
-      modified_at: USER_1.modified_at
+      modified_at: USER_1.modified_at,
     },
     {
       _id: USER_2._id,
@@ -126,8 +118,8 @@ describe('test TableStaticCol', () => {
       email: USER_2.email,
       first_name: USER_2.first_name,
       last_name: USER_2.last_name,
-      modified_at: USER_2.modified_at
-    }
+      modified_at: USER_2.modified_at,
+    },
   ];
 
   const canDelete = true;
@@ -143,14 +135,12 @@ describe('test TableStaticCol', () => {
       onEdit,
       onDelete,
       canDelete,
-      canEdit
-    })
+      canEdit,
+    }),
   );
 
   test('should render', () => {
-    const { container } = render(
-      <TableWrapper id={id} header={header} rows={rows} />
-    );
+    const { container } = render(<TableWrapper id={id} header={header} rows={rows} />);
     const faEdit: any = container?.querySelector('.fa-edit');
     const faRemove: any = container?.querySelector('.fa-remove');
 
@@ -163,10 +153,10 @@ describe('test TableStaticCol', () => {
     expect(screen.getByText(USER_1.last_name)).toBeInTheDocument();
     expect(screen.getByText(USER_1.email)).toBeInTheDocument();
     expect(
-      screen.getByText(new Date(USER_1.created_at * 1000).toLocaleDateString())
+      screen.getByText(new Date(USER_1.created_at * 1000).toLocaleDateString()),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(new Date(USER_1.modified_at * 1000).toLocaleDateString())
+      screen.getByText(new Date(USER_1.modified_at * 1000).toLocaleDateString()),
     ).toBeInTheDocument();
 
     expect(screen.getByText(USER_2.first_name)).toBeInTheDocument();

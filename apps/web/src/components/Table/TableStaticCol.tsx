@@ -1,5 +1,5 @@
-import Action from 'components/Core/Table/Action';
-import type IconNames from 'components/Core/Icon/Icons.types';
+import type IconNames from '@/components/Core/Icon/Icons.types';
+import Action from '@/components/Core/Table/Action';
 import styles from './Table.module.scss';
 
 export interface ITableStaticCol {

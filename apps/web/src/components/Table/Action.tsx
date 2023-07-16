@@ -1,5 +1,5 @@
-import Icon from 'components/Core/Icon';
-import type IconNames from 'components/Core/Icon/Icons.types';
+import Icon from '@/components/Core/Icon';
+import type IconNames from '@/components/Core/Icon/Icons.types';
 import styles from './Table.module.scss';
 
 interface IAction {
