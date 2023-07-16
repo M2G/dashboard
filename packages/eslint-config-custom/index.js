@@ -51,6 +51,7 @@ module.exports = {
     '@typescript-eslint/return-await': 0,
     'import/extensions': 0,
     'import/no-unresolved': 0,
+    'perfectionist/sort-imports': 0,
     'react/jsx-uses-react': 0,
     'react/react-in-jsx-scope': 0,
   },
