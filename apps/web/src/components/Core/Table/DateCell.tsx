@@ -1,7 +1,5 @@
-import type { Maybe } from 'modules/graphql/generated';
-
 interface IDateCell {
-  readonly date: Maybe<number> | undefined;
+  readonly date?: number;
 }
 
 function DateCell({ date }: IDateCell): JSX.Element {
