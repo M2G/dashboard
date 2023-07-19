@@ -52,6 +52,7 @@ module.exports = {
     'import/extensions': 0,
     'import/no-unresolved': 0,
     'perfectionist/sort-imports': 0,
+    'react/jsx-filename-extension': 0,
     'react/jsx-uses-react': 0,
     'react/react-in-jsx-scope': 0,
   },

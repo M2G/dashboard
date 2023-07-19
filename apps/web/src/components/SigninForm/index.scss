@@ -38,11 +38,11 @@
       padding: 0.625rem;
       height: calc(2.5rem + 2px);
     }
+    & > label {
+      padding: 0.5rem;
+    }
   }
 
-  .form-floating > label {
-    padding: 0.5rem;
-  }
 
   .c-action {
     box-sizing: inherit;
