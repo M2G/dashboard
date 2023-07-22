@@ -2,18 +2,19 @@ import type { JSX } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
-import { useForm } from 'react-hook-form';
+import ROUTER_PATH from '@/constants/RouterPath';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import ROUTER_PATH from 'constants/RouterPath';
+import { Button } from 'ui';
 
 import {
+  formSchema,
   INPUT_NAME,
   LABEL_EMAIL,
   LABEL_PASSWORD,
   PLACEHOLDER_EMAIL,
   PLACEHOLDER_PASSWORD,
-  formSchema,
 } from './constants';
 import './index.scss';
 
@@ -38,15 +39,16 @@ function SigninForm({
   });
 
   return (
-    <div className="form-signin">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="form-signin flex min-h-screen flex-col items-center justify-center">
+      <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <h1 className="h3 mb-1">Please authenticate</h1>
           <span>to continue</span>
         </div>
-        <div className="form-floating">
+
+        <div className="floating-input relative">
           <input
-            className="form-control mb-2"
+            className="mb-2 h-12 w-full rounded-md border border-gray-200 p-2 pb-0 focus:border-gray-500 focus:shadow-sm focus:outline-none"
             id="floatingInput"
             placeholder={PLACEHOLDER_EMAIL}
             type="email"
@@ -56,31 +58,47 @@ function SigninForm({
           {errors?.[INPUT_NAME.EMAIL] ? (
             <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
           ) : null}
-          <label htmlFor="floatingInput">{LABEL_EMAIL}</label>
+          <label
+            className="pointer-events-none absolute left-0 top-0 h-full origin-left transform px-2 py-[12px] transition-all duration-100 ease-in-out"
+            htmlFor="email">
+            {LABEL_EMAIL}
+          </label>
         </div>
-        <div className="form-floating">
+
+        <div className="floating-input relative">
           <input
-            className="form-control mb-2"
-            id="floatingPassword"
+            className="mb-2 h-12 w-full rounded-md border border-gray-200 p-2 pb-0 focus:border-gray-500 focus:shadow-sm focus:outline-none"
+            id="floatingInput"
             placeholder={PLACEHOLDER_PASSWORD}
-            type="password"
-            {...register(INPUT_NAME.PASSWORD)}
+            type="email"
+            {...register(INPUT_NAME.EMAIL)}
             required
           />
           {errors?.[INPUT_NAME.PASSWORD] ? (
             <span className="error-text">{errors[INPUT_NAME.PASSWORD].message}</span>
           ) : null}
-          <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
+          <label
+            className="pointer-events-none absolute left-0 top-0 h-full origin-left transform px-2 py-[12px] transition-all duration-100 ease-in-out"
+            htmlFor="email">
+            {LABEL_PASSWORD}
+          </label>
         </div>
-        <button className="w-100 btn btn-lg btn-primary" disabled={isSubmitting} type="submit">
+
+        <Button className="w-full" disabled={isSubmitting} type="submit">
           Sign in
-        </button>
-        <div className="c-action">
-          <span>Have an account ?</span>
-          <Link className="text-muted" to={ROUTER_PATH.SIGNUP}>
+        </Button>
+        <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
+          <span className="m-0 box-border text-sm font-normal leading-tight">
+            Have an account ?
+          </span>
+          <Link
+            className="m-0 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-900 no-underline"
+            to={ROUTER_PATH.SIGNUP}>
             Signup
           </Link>
-          <Link className="text-muted" to={ROUTER_PATH.FORGOT_PASSWORD}>
+          <Link
+            className="m-0 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-900 no-underline"
+            to={ROUTER_PATH.FORGOT_PASSWORD}>
             Forgot Password
           </Link>
         </div>
