@@ -8,20 +8,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: AnyComponent;
   isLoading?: boolean;
   size?: 'regular' | 'small';
-  to?: string;
   variant?: 'primary' | 'secondary';
 }
 
 export const ButtonVariants = {
   primary: [
-    'min-w-[176px] text-white border border-primary bg-primary font-display uppercase',
-    'active:bg-primary-active active:border-primary-active',
-    'hover:bg-primary-hover hover:border-primary-hover',
-    'disabled:text-white/[.5] disabled:bg-primary-disabled disabled:border-primary-disabled disabled:hover:text-white/[.5] disabled:hover:bg-primary-disabled disabled:border-primary-disabled',
-    'hover:disabled:text-white/[.5] hover:disabled:bg-primary-disabled hover:disabled:border-primary-disabled hover:disabled:border-primary-disabled',
+    'min-w-[176px] text-white text-md border border-dark bg-dark font-display',
+    'active:bg-dark-active active:border-dark-active',
+    'hover:bg-dark-hover hover:border-dark-hover',
+    'disabled:text-white/[.5] disabled:bg-dark-disabled disabled:border-dark-disabled disabled:hover:text-white/[.5] disabled:hover:bg-dark-disabled disabled:border-dark-disabled',
+    'hover:disabled:text-white/[.5] hover:disabled:bg-dark-disabled hover:disabled:border-dark-disabled hover:disabled:border-dark-disabled',
   ].join(' '),
   secondary: [
-    'min-w-[176px] text-white border border-secondary bg-secondary font-display uppercase _:text-variants',
+    'min-w-[176px] text-white border border-secondary bg-secondary font-display _:text-variants',
     'active:bg-secondary-active active:border-secondary-active',
     'hover:bg-secondary-hover hover:border-secondary-hover',
     'disabled:text-variants/[.5] disabled:bg-secondary-disabled disabled:hover:text-white/[.5] disabled:hover:bg-secondary-disabled disabled:border-secondary-disabled',
@@ -33,8 +32,8 @@ export const ButtonVariants = {
  * Sizes of the button
  */
 export const ButtonSizes = {
-  small: '_:px-4 _:py-1.5 min-h-[34px]',
   regular: '_:px-4 _:py-[8px] min-h-[48px] text-lg',
+  small: '_:px-4 _:py-1.5 min-h-[34px]',
 };
 
 /**
@@ -71,15 +70,17 @@ export const Button: FC<ButtonProps> = ({
         ButtonSizes[size],
         rest.className,
       ].join(' ')}
-      disabled={rest.disabled}></DynamicTag>
+      disabled={rest.disabled}>
+      {children}
+    </DynamicTag>
   );
 };
 
 Button.propTypes = {
-  tag: PropTypes.any,
   children: PropTypes.string.isRequired,
-  size: PropTypes.oneOf(['small', 'regular']),
-  variant: PropTypes.oneOf(['primary', 'secondary']),
   icon: PropTypes.any,
   isLoading: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'regular']),
+  tag: PropTypes.any,
+  variant: PropTypes.oneOf(['primary', 'secondary']),
 };
