@@ -13,18 +13,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const ButtonVariants = {
   primary: [
-    'min-w-[176px] text-white text-md border border-dark bg-dark font-display',
-    'active:bg-dark-active active:border-dark-active',
-    'hover:bg-dark-hover hover:border-dark-hover',
-    'disabled:text-white/[.5] disabled:bg-dark-disabled disabled:border-dark-disabled disabled:hover:text-white/[.5] disabled:hover:bg-dark-disabled disabled:border-dark-disabled',
-    'hover:disabled:text-white/[.5] hover:disabled:bg-dark-disabled hover:disabled:border-dark-disabled hover:disabled:border-dark-disabled',
+    'min-w-[176px] text-white text-md border !border-primary !bg-primary font-display',
+    'active:bg-primary-active active:border-primary-active',
+    'hover:bg-primary-hover hover:border-primary-hover',
+    'disabled:text-white/[.5] disabled:bg-primary-disabled disabled:border-primary-disabled disabled:hover:text-white/[.5] disabled:hover:bg-primary-disabled disabled:border-primary-disabled',
+    'hover:disabled:text-white/[.5] hover:disabled:bg-primary-disabled hover:disabled:border-primary-disabled hover:disabled:border-primary-disabled',
   ].join(' '),
   secondary: [
-    'min-w-[176px] text-white border border-secondary bg-secondary font-display _:text-variants',
-    'active:bg-secondary-active active:border-secondary-active',
-    'hover:bg-secondary-hover hover:border-secondary-hover',
-    'disabled:text-variants/[.5] disabled:bg-secondary-disabled disabled:hover:text-white/[.5] disabled:hover:bg-secondary-disabled disabled:border-secondary-disabled',
-    'hover:disabled:text-variants/[.5] hover:disabled:bg-secondary-disabled hover:disabled:border-secondary-disabled',
+    'min-w-[176px] text-white border border-light bg-light font-display _:text-variants',
+    'active:bg-light-active active:border-light-active',
+    'hover:bg-light-hover hover:border-light-hover',
+    'disabled:text-variants/[.5] disabled:bg-light-disabled disabled:hover:text-white/[.5] disabled:hover:bg-light-disabled disabled:border-light-disabled',
+    'hover:disabled:text-variants/[.5] hover:disabled:bg-light-disabled hover:disabled:border-secondary-disabled',
   ].join(' '),
 };
 
