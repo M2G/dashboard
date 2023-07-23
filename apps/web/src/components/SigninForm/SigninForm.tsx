@@ -55,11 +55,11 @@ function SigninForm({
             {...register(INPUT_NAME.EMAIL)}
             required
           />
-          {errors?.[INPUT_NAME.EMAIL] ? (
+          {errors?.[INPUT_NAME.EMAIL] && (
             <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
-          ) : null}
+          )}
           <label
-            className="pointer-events-none absolute left-0 top-0 h-full origin-left transform px-2 py-[12px] transition-all duration-100 ease-in-out"
+            className="pointer-events-none absolute left-0 top-0 h-full origin-left transform px-2 py-[14px] transition-all duration-100 ease-in-out"
             htmlFor="email">
             {LABEL_EMAIL}
           </label>
@@ -70,21 +70,21 @@ function SigninForm({
             className="mb-2 h-12 w-full rounded-md border border-gray-200 p-2 pb-0 focus:border-gray-500 focus:shadow-sm focus:outline-none"
             id="floatingInput"
             placeholder={PLACEHOLDER_PASSWORD}
-            type="email"
-            {...register(INPUT_NAME.EMAIL)}
+            type="password"
+            {...register(INPUT_NAME.PASSWORD)}
             required
           />
-          {errors?.[INPUT_NAME.PASSWORD] ? (
+          {errors?.[INPUT_NAME.PASSWORD] && (
             <span className="error-text">{errors[INPUT_NAME.PASSWORD].message}</span>
-          ) : null}
+          )}
           <label
-            className="pointer-events-none absolute left-0 top-0 h-full origin-left transform px-2 py-[12px] transition-all duration-100 ease-in-out"
-            htmlFor="email">
+            className="pointer-events-none absolute left-0 top-0 h-full origin-left transform px-2 py-[14px] transition-all duration-100 ease-in-out"
+            htmlFor="password">
             {LABEL_PASSWORD}
           </label>
         </div>
 
-        <Button className="w-full" disabled={isSubmitting} type="submit">
+        <Button className="w-full" variant="primary" disabled={isSubmitting} type="submit">
           Sign in
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
@@ -92,12 +92,12 @@ function SigninForm({
             Have an account ?
           </span>
           <Link
-            className="m-0 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-900 no-underline"
+            className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-900 no-underline"
             to={ROUTER_PATH.SIGNUP}>
             Signup
           </Link>
           <Link
-            className="m-0 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-900 no-underline"
+            className="box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-900 no-underline"
             to={ROUTER_PATH.FORGOT_PASSWORD}>
             Forgot Password
           </Link>
