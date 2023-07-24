@@ -1,19 +1,8 @@
-import PropTypes from "prop-types";
-import { ReactNode } from "react";
+import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 
 interface GridProps {
-  tag?:
-    | "ul"
-    | "li"
-    | "ol"
-    | "nav"
-    | "form"
-    | "div"
-    | "header"
-    | "footer"
-    | "section"
-    | "article"
-    | "main";
+  tag?: 'div';
   children: ReactNode;
   className?: string;
 }
@@ -28,32 +17,17 @@ interface GridProps {
  *
  * @returns {JSX.Element}
  */
-export function Grid({ tag = "div", children, ...rest }: GridProps) {
+export function Grid({ children, tag = 'div', ...rest }: GridProps) {
   const DynamicTag = `${tag}` as keyof JSX.IntrinsicElements;
 
   return (
-    <DynamicTag
-      {...rest}
-      className={["grid grid-cols-12 gap-x-2", rest.className].join(" ")}
-    >
+    <DynamicTag {...rest} className={['grid grid-cols-12 gap-x-2', rest.className].join(' ')}>
       {children}
     </DynamicTag>
   );
 }
 
 Grid.propTypes = {
-  tag: PropTypes.oneOf([
-    "div",
-    "ul",
-    "li",
-    "ol",
-    "nav",
-    "form",
-    "header",
-    "footer",
-    "section",
-    "article",
-    "main",
-  ]),
+  tag: PropTypes.oneOf(['div']),
   children: PropTypes.node.isRequired,
 };
