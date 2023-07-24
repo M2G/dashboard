@@ -1,19 +1,8 @@
-import PropTypes from "prop-types";
-import { ReactNode } from "react";
+import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 
 interface RowProps {
-  tag?:
-    | "ul"
-    | "li"
-    | "ol"
-    | "nav"
-    | "form"
-    | "div"
-    | "header"
-    | "footer"
-    | "section"
-    | "article"
-    | "main";
+  tag?: 'div';
   children: ReactNode;
   className?: string;
 }
@@ -28,32 +17,17 @@ interface RowProps {
  *
  * @returns {JSX.Element}
  */
-export function Row({ tag = "div", children, ...rest }: RowProps) {
+export function Row({ tag = 'div', children, ...rest }: RowProps) {
   const DynamicTag = `${tag}` as keyof JSX.IntrinsicElements;
 
   return (
-    <DynamicTag
-      {...rest}
-      className={[rest.className ? rest.className : "col-span-full"].join(" ")}
-    >
+    <DynamicTag {...rest} className={[rest.className ? rest.className : 'col-span-full'].join(' ')}>
       {children}
     </DynamicTag>
   );
 }
 
 Row.propTypes = {
-  tag: PropTypes.oneOf([
-    "div",
-    "ul",
-    "li",
-    "ol",
-    "nav",
-    "form",
-    "header",
-    "footer",
-    "section",
-    "article",
-    "main",
-  ]),
+  tag: PropTypes.oneOf(['div']),
   children: PropTypes.node.isRequired,
 };
