@@ -11,8 +11,8 @@ export const INITIAL_VALUES = {
 };
 
 export const ERROR_TEXT_REQUIRED = {
-  ERROR_TEXT_REQUIRED_PASSWORD: 'Password is required',
   ERROR_TEXT_REQUIRED_EMAIL: 'Email is required',
+  ERROR_TEXT_REQUIRED_PASSWORD: 'Password is required',
 };
 
 export const LABEL_EMAIL = 'Email';
