@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import { Button, Field } from 'ui';
 
 import { formSchema, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
-import './index.scss';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -34,10 +33,10 @@ function SigninForm({
   });
 
   return (
-    <div className="form-signin flex min-h-screen flex-col items-center justify-center">
+    <div className="form-signup flex min-h-screen flex-col items-center justify-center">
       <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="h3 mb-1">Please authenticate</h1>
+          <h1 className="h3 mb-1">Create account</h1>
           <span>to continue</span>
         </div>
 
@@ -73,7 +72,7 @@ function SigninForm({
             Signup
           </Link>
           <Link
-            className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
+            className="box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
             to={ROUTER_PATH.FORGOT_PASSWORD}>
             Forgot Password
           </Link>
