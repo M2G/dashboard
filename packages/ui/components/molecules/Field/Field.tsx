@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { FC, HTMLInputTypeAttribute, ReactNode, useState } from 'react';
+import { FC, HTMLInputTypeAttribute, ReactNode } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
 import { AnyComponent } from '@types';
@@ -58,7 +58,6 @@ export const Field: FC<FieldProps> = ({
   type = 'text',
   ...rest
 }) => {
-  const [isRevealed, setIsRevealed] = useState<boolean>(false);
   const DynamicTag = tag || (`${tag}` as keyof AnyComponent);
 
   const currentRules = rules || { required: true };
@@ -68,8 +67,8 @@ export const Field: FC<FieldProps> = ({
       <div className="relative min-h-[52px] w-full">
         <DynamicTag
           className={[
-            'peer min-h-[52px] rounded-sm px-[15px] pt-4 font-sans text-sm font-normal outline outline-0',
-            'border-alt text-50 h-full w-full border bg-white leading-6',
+            'peer min-h-[52px] px-[15px] pt-4 font-sans text-sm font-normal outline outline-0',
+            'border-alt text-50 h-full w-full rounded-md border bg-white leading-6',
             'disabled:border-grey-dark disabled:bg-grey disabled:text-variants-50 disabled:cursor-not-allowed disabled:border',
             'placeholder-shown:border-alt',
             'focus:border-black focus:outline-0',
@@ -80,7 +79,7 @@ export const Field: FC<FieldProps> = ({
             errors && errors[name] && '_:border-2 _:border-danger',
           ].join(' ')}
           aria-invalid={errors && errors[name] ? 'true' : 'false'}
-          type={!isRevealed ? type : 'text'} // Force type to text to show password
+          type={type}
           {...{ name, placeholder, ...rest }}
           {...register(name, currentRules)}
         />
@@ -94,15 +93,6 @@ export const Field: FC<FieldProps> = ({
           htmlFor={name}>
           {label}
         </label>
-        {type === 'password' && (
-          <button
-            className={[
-              'min-w-8 min-h-8 bg-tranparent text-variants-50 absolute right-0 top-1/2 inline-flex h-8 w-8 items-center justify-center rounded-full px-1 py-1',
-              'hover:bg-grey -translate-x-1/2 -translate-y-1/2 transition-colors hover:text-black disabled:pointer-events-none',
-            ].join(' ')}
-            onClick={() => setIsRevealed((prev) => !prev)}
-          />
-        )}
       </div>
       {errors && errors[name] ? (
         <div className="border bg-red-100 px-4 py-3" role="alert">
