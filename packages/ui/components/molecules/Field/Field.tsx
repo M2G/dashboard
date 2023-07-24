@@ -86,7 +86,7 @@ export const Field: FC<FieldProps> = ({
         <label
           className={[
             'pointer-events-none absolute left-4 top-2 flex h-full w-full select-none text-[12px] font-normal leading-[1.5] transition-all',
-            'text-gray-400 peer-placeholder-shown:top-0 peer-placeholder-shown:text-base peer-placeholder-shown:leading-[3.5] dark:text-gray-500',
+            'text-gray-400 peer-placeholder-shown:top-0 peer-placeholder-shown:text-base peer-placeholder-shown:leading-[3.25] dark:text-gray-500',
             'peer-focus:top-2 peer-focus:text-[12px] peer-focus:leading-[1.5] peer-focus:after:scale-x-100',
             'peer-disabled:text-variants-50 peer-disabled:peer-placeholder-shown:text-variants-50',
           ].join(' ')}
