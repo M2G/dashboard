@@ -2,12 +2,12 @@ import type { JSX } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 import ROUTER_PATH from '@/constants/RouterPath';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useForm } from 'react-hook-form';
-
-import { Link } from 'react-router-dom';
 import { Button, Field } from 'ui';
 
 import { formSchema, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
