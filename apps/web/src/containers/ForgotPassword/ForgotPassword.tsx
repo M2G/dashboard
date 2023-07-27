@@ -1,8 +1,8 @@
+import ForgotPasswordView from '@/components/ForgotPasswordForm';
+import { authForgotPasswordAction } from '@/store/auth/actions';
 import type { JSX } from 'react';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { authForgotPasswordAction } from 'store/auth/actions';
-import ForgotPasswordView from 'components/ForgotPasswordForm';
 import { INITIAL_VALUES } from './constants';
 
 function ForgotPassword(): JSX.Element {
