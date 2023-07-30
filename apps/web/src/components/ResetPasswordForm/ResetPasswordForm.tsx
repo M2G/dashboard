@@ -1,16 +1,18 @@
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
+import { LABEL_EMAIL } from '@/components/ForgotPasswordForm/constants';
+import { Field } from 'ui';
 import {
+  formSchema,
   INPUT_NAME,
   LABEL_NEW_PASSWORD,
   LABEL_VERIFY_PASSWORD,
   PLACEHOLDER_NEW_PASSWORD,
   PLACEHOLDER_VERIFY_PASSWORD,
-  formSchema,
 } from './constants';
 import './index.scss';
 
@@ -38,15 +40,24 @@ function ResetPasswordForm({
     <div className="form-signup">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="h3 mb-1">Please authenticate</h1>
+          <h1 className="h3 mb-1">Reset password</h1>
           <span>to continue</span>
         </div>
         <div className="form-floating">
+          <Field
+            className="mb-2"
+            id="floatingInput"
+            label={LABEL_EMAIL}
+            type="email"
+            {...register(INPUT_NAME.EMAIL)}
+            required
+          />
+
           <input
             className="form-control mb-2"
             id="floatingInput"
             placeholder={PLACEHOLDER_NEW_PASSWORD}
-            type="email"
+            type="password"
             {...register(INPUT_NAME.NEW_PASSWORD)}
             required
           />
@@ -56,6 +67,15 @@ function ResetPasswordForm({
           <label htmlFor="floatingInput">{LABEL_NEW_PASSWORD}</label>
         </div>
         <div className="form-floating">
+          <Field
+            className="mb-2"
+            id="floatingInput"
+            label={LABEL_EMAIL}
+            type="email"
+            {...register(INPUT_NAME.EMAIL)}
+            required
+          />
+
           <input
             className="form-control mb-2"
             id="floatingInput"
