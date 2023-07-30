@@ -62,16 +62,6 @@ $sidebar-width: 280px;
     padding-right: _rem(map-get($_layout-grid, gutters));
     padding-left: _rem(map-get($_layout-grid, gutters));
   }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    svg {
-      width: 20px;
-      height: 20px;
-      stroke: white;
-    }
-  }
 }
 
 .sidebar .nav-link {
