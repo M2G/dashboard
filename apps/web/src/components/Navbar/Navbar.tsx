@@ -7,35 +7,22 @@ function Navbar(): JSX.Element {
   const { i18n } = useTranslation();
   const [state, setState] = useState<boolean>(false);
   return (
-      <nav className="navbar navbar-expand-md">
-        <div className="container-fluid">
+    <nav className="navbar flex">
+      <div className="container">
+        <div className="mr-2 flex justify-end">
           <button
-              aria-controls="navbarCollapse"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              className="navbar-toggler"
-              data-bs-target="#navbarCollapse"
-              data-bs-toggle="collapse"
-              type="button"
-          >
-            <span className="navbar-toggler-icon" />
+            onClick={() => {
+              setState(!state);
+              if (state) return i18n?.changeLanguage('fr');
+              i18n?.changeLanguage('en');
+            }}
+            className="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
+            type="button">
+            {i18n.language}
           </button>
-          <div className="collapse navbar-collapse" id="navbarCollapse">
-            <div className="navbar-nav me-auto mb-2 mb-md-0" />
-            <button
-                onClick={async () => {
-                  setState(!state);
-                  if (state) return i18n?.changeLanguage('fr');
-                  i18n?.changeLanguage('en');
-                }}
-                className="me-2 btn btn-light"
-                type="button"
-            >
-              {state ? 'fr' : 'en'}
-            </button>
-          </div>
         </div>
-      </nav>
+      </div>
+    </nav>
   );
 }
 
