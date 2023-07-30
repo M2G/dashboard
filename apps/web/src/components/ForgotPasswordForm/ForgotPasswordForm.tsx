@@ -38,7 +38,6 @@ function ForgotPasswordForm({
           className="mb-2"
           id="floatingInput"
           label={LABEL_EMAIL}
-          // placeholder={PLACEHOLDER_EMAIL}
           type="email"
           {...register(INPUT_NAME.EMAIL)}
           required
