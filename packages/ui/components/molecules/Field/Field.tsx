@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { FC, HTMLInputTypeAttribute, ReactNode } from 'react';
+import { FC, HTMLInputTypeAttribute, InputHTMLAttributes, ReactNode } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
 import { AnyComponent } from '@types';
@@ -17,7 +17,7 @@ import { AnyComponent } from '@types';
  *
  * @returns {JSX.Element}
  */
-interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+interface FieldProps extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   errors?: FieldErrors;
   icon?: ReactNode;
   label: string;
