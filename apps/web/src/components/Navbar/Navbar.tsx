@@ -8,7 +8,7 @@ function Navbar(): JSX.Element {
   const [state, setState] = useState<boolean>(false);
   return (
     <nav className="navbar flex">
-      <div className="container">
+      <div className="w-full">
         <div className="mr-2 flex justify-end">
           <button
             onClick={() => {
