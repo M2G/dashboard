@@ -1,4 +1,5 @@
 import ROUTER_PATH from '@/constants/RouterPath';
+import type { JSX } from 'react';
 
 function Sidebar(): JSX.Element {
   return (
