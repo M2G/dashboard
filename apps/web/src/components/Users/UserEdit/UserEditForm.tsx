@@ -1,19 +1,18 @@
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+
+import { Field } from 'ui';
 
 import {
+  formSchema,
   INPUT_NAME,
   LABEL_EMAIL,
   LABEL_FIRST_NAME,
   LABEL_LAST_NAME,
-  PLACEHOLDER_EMAIL,
-  PLACEHOLDER_FIRST_NAME,
-  PLACEHOLDER_LAST_NAME,
-  formSchema,
 } from './constants';
 import './index.scss';
 
@@ -47,45 +46,30 @@ function UserEditForm({
   return (
     <div className="form-edit">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-floating">
-          <input
-            className="form-control mt-3"
-            id="floatingInput"
-            placeholder={PLACEHOLDER_FIRST_NAME}
-            type="text"
-            {...register(INPUT_NAME.FIRST_NAME)}
-          />
-          {errors?.[INPUT_NAME.FIRST_NAME]?.message && (
-            <span className="error-text mb-2">{errors[INPUT_NAME.FIRST_NAME].message}</span>
-          )}
-          <label htmlFor="floatingInput">{LABEL_FIRST_NAME}</label>
-        </div>
-        <div className="form-floating">
-          <input
-            className="form-control mt-3"
-            id="floatingPassword"
-            placeholder={PLACEHOLDER_LAST_NAME}
-            type="text"
-            {...register(INPUT_NAME.LAST_NAME)}
-          />
-          {errors?.[INPUT_NAME.LAST_NAME]?.message && (
-            <span className="error-text mb-2">{errors[INPUT_NAME.LAST_NAME].message}</span>
-          )}
-          <label htmlFor="floatingLastname">{LABEL_LAST_NAME}</label>
-        </div>
-        <div className="form-floating">
-          <input
-            className="form-control mt-3"
-            id="floatingPassword"
-            placeholder={PLACEHOLDER_EMAIL}
-            type="email"
-            {...register(INPUT_NAME.EMAIL)}
-          />
-          {errors?.[INPUT_NAME.EMAIL]?.message && (
-            <span className="error-text mb-2">{errors[INPUT_NAME.EMAIL].message}</span>
-          )}
-          <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
-        </div>
+        <Field
+          className="mb-2"
+          id="floatingInput"
+          label={LABEL_FIRST_NAME}
+          name={INPUT_NAME.FIRST_NAME}
+          type="text"
+          {...{ errors, register }}
+        />
+        <Field
+          className="mb-2"
+          id="floatingInput"
+          label={LABEL_LAST_NAME}
+          name={INPUT_NAME.LAST_NAME}
+          type="text"
+          {...{ errors, register }}
+        />
+        <Field
+          className="mb-2"
+          id="floatingInput"
+          label={LABEL_EMAIL}
+          name={INPUT_NAME.EMAIL}
+          type="email"
+          {...{ errors, register }}
+        />
         <button className="btn btn-light mt-3" disabled={isSubmitting} type="submit">
           Save
         </button>
