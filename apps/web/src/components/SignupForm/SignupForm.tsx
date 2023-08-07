@@ -33,10 +33,12 @@ function SigninForm({
   });
 
   return (
-    <div className="form-signin flex min-h-screen flex-col items-center justify-center">
+    <div
+      id="form-signin"
+      className="form-signin flex min-h-screen flex-col items-center justify-center">
       <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="text-3xl font-bold dark:text-white">Please authenticate</h1>
+          <h1 className="text-3xl font-bold dark:text-black">Please authenticate</h1>
           <span>to continue</span>
         </div>
         <Field
@@ -44,8 +46,8 @@ function SigninForm({
           id="floatingInput"
           label={LABEL_EMAIL}
           type="email"
-          {...register}
           name={INPUT_NAME.EMAIL}
+          {...register}
           required
         />
         <Field
