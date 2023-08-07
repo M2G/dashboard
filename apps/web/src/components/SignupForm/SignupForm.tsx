@@ -33,25 +33,23 @@ function SigninForm({
   });
 
   return (
-    <div
-      id="form-signin"
-      className="form-signin flex min-h-screen flex-col items-center justify-center">
+    <div className="flex min-h-screen flex-col items-center justify-center" id="form-signin">
       <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="text-3xl font-bold dark:text-black">Please authenticate</h1>
+          <h1 className="text-3xl font-bold dark:text-black">Create account</h1>
           <span>to continue</span>
         </div>
         <Field
-          className="mb-2"
+          className="_:mb-2"
           id="floatingInput"
           label={LABEL_EMAIL}
-          type="email"
           name={INPUT_NAME.EMAIL}
+          type="email"
           {...register}
           required
         />
         <Field
-          className="mb-2"
+          className="_:mb-2"
           id="floatingInput"
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
