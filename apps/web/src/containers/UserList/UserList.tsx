@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import ModalWrapper from '@/components/Core/Modal/ModalWrapper';
+
 import SidebarWrapper from '@/components/Core/Sidebar/SidebarWrapper';
 import TopLineLoading from '@/components/Loading/TopLineLoading';
 import NoData from '@/components/NoData';
@@ -9,14 +9,15 @@ import UserEdit from '@/components/Users/UserEdit';
 import UserNew from '@/components/Users/UserNew';
 import UserFilters from '@/containers/UserFilters';
 import List from '@/containers/UserList/ListLegacy';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   authDeleteUserProfilAction,
   authGetUsersProfilAction,
   authUpdateUserProfilAction,
 } from '@/store/auth/actions';
 import { signupUserAction } from '@/store/signup/actions';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AddUser from './Action/AddUser';
 import userListItem from './UserListItem';
@@ -33,7 +34,7 @@ function UserList({
   canDelete = false,
   canEdit = false,
   id,
-}: UserListProps): null | JSX.Element {
+}: UserListProps): JSX.Element | null {
   const { t } = useTranslation();
   const [pagination, setPagination] = useState<{
     page: number;
