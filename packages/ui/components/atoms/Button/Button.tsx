@@ -13,7 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const ButtonVariants = {
   primary: [
-    'min-w-[176px] text-white text-md border !border-primary !bg-primary font-display',
+    'min-w-[176px] text-white text-md border !border-primary bg-primary font-display',
     'active:bg-primary-active active:border-primary-active',
     'hover:bg-primary-hover hover:border-primary-hover',
     'disabled:text-white/[.5] disabled:bg-primary-disabled disabled:border-primary-disabled disabled:hover:text-white/[.5] disabled:hover:bg-primary-disabled disabled:border-primary-disabled',
