@@ -5,24 +5,6 @@
     padding: 10px;
   }
 
-  button {
-    box-sizing: inherit;
-    margin: 0;
-    padding: 0.625rem 1rem;
-    outline: transparent solid 2px;
-    outline-offset: 2px;
-    width: 100%;
-    aspect-ratio: unset;
-    accent-color: rgb(20, 20, 20);
-    font-family: inherit;
-    font-weight: 400;
-    font-size: 0.8125rem;
-    line-height: 1.25;
-    border-radius: 0.5em;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-    -webkit-font-smoothing: auto !important;
-  }
-
   .form-floating {
     input {
       padding: 0.625rem;
