@@ -2,11 +2,11 @@ import type { JSX } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-
 import ROUTER_PATH from '@/constants/RouterPath';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 import { Button, Field } from 'ui';
 
@@ -35,31 +35,31 @@ function SigninForm({
   console.log('isSubmitting', isSubmitting);
 
   return (
-    <div className="form-signup flex min-h-screen flex-col items-center justify-center">
+    <div
+      className="form-signup flex min-h-screen flex-col items-center justify-center"
+      id="form-signup">
       <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="text-3xl font-bold dark:text-white">Create account</h1>
+          <h1 className="text-3xl font-bold dark:text-black">Create account</h1>
           <span>to continue</span>
         </div>
-
         <Field
           className="!mb-2"
           id="floatingInput"
           label={LABEL_EMAIL}
-          type="email"
           name={INPUT_NAME.EMAIL}
-          register={register}
+          {...{ errors, register }}
           required
+          type="email"
         />
-
         <Field
           className="!mb-2"
           id="floatingInput"
           label={LABEL_PASSWORD}
-          type="password"
           name={INPUT_NAME.PASSWORD}
-          register={register}
+          {...{ errors, register }}
           required
+          type="password"
         />
         <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
           Sign in
