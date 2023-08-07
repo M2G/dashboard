@@ -70,7 +70,10 @@ function UserEditForm({
           type="email"
           {...{ errors, register }}
         />
-        <Button className="_:bg-white w-full text-black" type="submit" variant="primary">
+        <Button
+          className="_:bg-white _:font-normal _:text-black w-full"
+          type="submit"
+          variant="primary">
           Save
         </Button>
       </form>
