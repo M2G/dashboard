@@ -4,18 +4,10 @@ import type { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import './index.scss';
+import { Button, Field } from 'ui';
 
-import {
-  ERROR_TEXT_REQUIRED,
-  INITIAL_VALUES,
-  INPUT_NAME,
-  LABEL_EMAIL,
-  LABEL_PASSWORD,
-  PLACEHOLDER_EMAIL,
-  PLACEHOLDER_PASSWORD,
-  formSchema,
-} from './constants';
+import { formSchema, INITIAL_VALUES, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
+import './index.scss';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -34,37 +26,27 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
   return (
     <div className="form-create">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-floating mb-3">
-          <input
-            className="form-control mb-2"
-            id="floatingEmail"
-            placeholder={PLACEHOLDER_EMAIL}
-            type="email"
-            {...register(INPUT_NAME.EMAIL)}
-            required
-          />
-          {errors?.[INPUT_NAME.EMAIL] ? (
-            <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
-          ) : null}
-          <label htmlFor="floatingEmail">{LABEL_EMAIL}</label>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            className="form-control mb-2"
-            id="floatingEmail"
-            placeholder={PLACEHOLDER_PASSWORD}
-            type="password"
-            {...register(INPUT_NAME.PASSWORD)}
-            required
-          />
-          {errors?.[INPUT_NAME.PASSWORD] ? (
-            <span className="error-text">{errors[INPUT_NAME.PASSWORD].message}</span>
-          ) : null}
-          <label htmlFor="floatingPassword">{LABEL_PASSWORD}</label>
-        </div>
-        <button className="btn btn-light" disabled={isSubmitting} type="submit">
+        <Field
+          className="_:mb-4"
+          label={LABEL_EMAIL}
+          name={INPUT_NAME.EMAIL}
+          type="email"
+          {...{ errors, register }}
+        />
+        <Field
+          className="_:mb-4"
+          label={LABEL_PASSWORD}
+          name={INPUT_NAME.PASSWORD}
+          type="text"
+          {...{ errors, register }}
+        />
+        <Button
+          className="_:bg-white _:font-normal _:text-black w-full"
+          disabled={isSubmitting}
+          type="submit"
+          variant="primary">
           Save
-        </button>
+        </Button>
       </form>
     </div>
   );
