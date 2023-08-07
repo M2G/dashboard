@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Field } from 'ui';
+import { Button, Field } from 'ui';
 
 import {
   formSchema,
@@ -47,7 +47,7 @@ function UserEditForm({
     <div className="form-edit">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Field
-          className="mb-2"
+          className="_:mb-4"
           id="floatingInput"
           label={LABEL_FIRST_NAME}
           name={INPUT_NAME.FIRST_NAME}
@@ -55,7 +55,7 @@ function UserEditForm({
           {...{ errors, register }}
         />
         <Field
-          className="mb-2"
+          className="_:mb-4"
           id="floatingInput"
           label={LABEL_LAST_NAME}
           name={INPUT_NAME.LAST_NAME}
@@ -63,16 +63,16 @@ function UserEditForm({
           {...{ errors, register }}
         />
         <Field
-          className="mb-2"
+          className="_:mb-4"
           id="floatingInput"
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
           type="email"
           {...{ errors, register }}
         />
-        <button className="btn btn-light mt-3" disabled={isSubmitting} type="submit">
+        <Button className="_:bg-white w-full text-black" type="submit" variant="primary">
           Save
-        </button>
+        </Button>
       </form>
     </div>
   );
