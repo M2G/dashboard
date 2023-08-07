@@ -2,6 +2,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "../../packages/ui/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -54,6 +55,21 @@ module.exports = {
           disabled: "#F59FA2",
           surface: "#FDECEC",
         },
+        header: {
+          bg: "#161617",
+        },
+        navbar: {
+          bg: "#18181B",
+        },
+        sidebar: {
+          bg: "#121212",
+        },
+        modal: {
+          bg: "#121212",
+        },
+        input: {
+          bg: "#121212",
+        }
       },
     },
   },
