@@ -31,7 +31,8 @@ select:-webkit-autofill:focus {
 
 // signup and signin
 #form-signup,
-#form-signin {
+#form-signin,
+#form-forgot-password {
   input {
     background-color: $_color-white;
   }
