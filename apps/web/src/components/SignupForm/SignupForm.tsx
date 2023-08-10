@@ -45,7 +45,7 @@ function SigninForm({
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
           type="email"
-          {...register}
+          {...{ errors, register }}
           required
         />
         <Field
@@ -54,7 +54,7 @@ function SigninForm({
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
           type="email"
-          {...register}
+          {...{ errors, register }}
           required
         />
         <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">

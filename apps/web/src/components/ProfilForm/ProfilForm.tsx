@@ -1,18 +1,18 @@
-import { z } from 'zod';
-import type { JSX } from 'react';
-import { Link } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import ROUTER_PATH from '@/constants/RouterPath';
 import { zodResolver } from '@hookform/resolvers/zod';
-import ROUTER_PATH from 'constants/RouterPath';
+import type { JSX } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { Button, Field } from 'ui';
+import { z } from 'zod';
 import {
+  formSchema,
   INPUT_NAME,
   LABEL_EMAIL,
   LABEL_FIRST_NAME,
   LABEL_LAST_NAME,
   PLACEHOLDER_EMAIL,
-  PLACEHOLDER_FIRST_NAME,
   PLACEHOLDER_LAST_NAME,
-  formSchema,
 } from './constants';
 
 interface IForm {
@@ -41,25 +41,20 @@ function ProfilForm({
   });
 
   return (
-    <div className="form-signup">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex min-h-screen flex-col items-center justify-center" id="form-profil">
+      <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="h3 mb-1">User Profil</h1>
+          <h1 className="text-3xl font-bold dark:text-black">User Profil</h1>
         </div>
-        <div className="form-floating">
-          <input
-            className="form-control mb-2"
-            id="floatingInput"
-            placeholder={PLACEHOLDER_FIRST_NAME}
-            type="text"
-            {...register(INPUT_NAME.FIRST_NAME)}
-            required
-          />
-          {errors?.[INPUT_NAME.FIRST_NAME] ? (
-            <span className="error-text">{errors[INPUT_NAME.FIRST_NAME].message}</span>
-          ) : null}
-          <label htmlFor="floatingInput">{LABEL_FIRST_NAME}</label>
-        </div>
+        <Field
+          className="_:mb-2"
+          id="floatingInput"
+          label={LABEL_FIRST_NAME}
+          name={INPUT_NAME.FIRST_NAME}
+          type="email"
+          {...{ errors, register }}
+          required
+        />
         <div className="form-floating">
           <input
             className="form-control mb-2"
@@ -88,15 +83,21 @@ function ProfilForm({
           ) : null}
           <label htmlFor="floatingPassword">{LABEL_EMAIL}</label>
         </div>
-        <button className="w-100 btn btn-lg" type="submit">
+        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
           Save
-        </button>
-        <div className="c-action">
-          <span>Have an account ?</span>
-          <Link to={ROUTER_PATH.CHANGE_PASSWORD} className="text-muted">
+        </Button>
+        <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
+          <span className="m-0 box-border text-sm font-normal leading-tight">
+            Have an account ?
+          </span>
+          <Link
+            className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
+            to={ROUTER_PATH.CHANGE_PASSWORD}>
             Change Password
           </Link>
-          <Link to={ROUTER_PATH.HOME} className="text-muted">
+          <Link
+            className="box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
+            to={ROUTER_PATH.HOME}>
             Home
           </Link>
         </div>
