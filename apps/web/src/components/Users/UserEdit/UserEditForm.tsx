@@ -48,7 +48,6 @@ function UserEditForm({
       <form onSubmit={handleSubmit(onSubmit)}>
         <Field
           className="_:mb-4"
-          id="floatingInput"
           label={LABEL_FIRST_NAME}
           name={INPUT_NAME.FIRST_NAME}
           type="text"
@@ -56,7 +55,6 @@ function UserEditForm({
         />
         <Field
           className="_:mb-4"
-          id="floatingInput"
           label={LABEL_LAST_NAME}
           name={INPUT_NAME.LAST_NAME}
           type="text"
@@ -64,7 +62,6 @@ function UserEditForm({
         />
         <Field
           className="_:mb-4"
-          id="floatingInput"
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
           type="email"
