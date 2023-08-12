@@ -12,7 +12,7 @@ function recoverPasswordService(params: any): Promise<any> {
 }
 
 function userProfilService(id: string): Promise<any> {
-  return api.get(`/users/${id}`);
+  return api.get(`/auth/users/${id}`);
 }
 
 function createUserProfilService(params: any): Promise<any> {
