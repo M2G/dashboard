@@ -1,6 +1,7 @@
 import ROUTER_PATH from '@/constants/RouterPath';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { JSX } from 'react';
+import { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Button, Field } from 'ui';
@@ -11,8 +12,6 @@ import {
   LABEL_EMAIL,
   LABEL_FIRST_NAME,
   LABEL_LAST_NAME,
-  PLACEHOLDER_EMAIL,
-  PLACEHOLDER_LAST_NAME,
 } from './constants';
 
 interface IForm {
@@ -33,12 +32,19 @@ function ProfilForm({
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
+    reset,
   } = useForm<FormSchemaType>({
-    defaultValues: {
-      ...initialValues,
-    },
     resolver: zodResolver(formSchema),
   });
+
+  useMemo(() => {
+    const defaultValues = {
+      [INPUT_NAME.EMAIL]: initialValues[INPUT_NAME.EMAIL],
+      [INPUT_NAME.FIRST_NAME]: initialValues[INPUT_NAME.FIRST_NAME],
+      [INPUT_NAME.LAST_NAME]: initialValues[INPUT_NAME.LAST_NAME],
+    };
+    reset({ ...defaultValues });
+  }, [initialValues, reset]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center" id="form-profil">
@@ -48,41 +54,28 @@ function ProfilForm({
         </div>
         <Field
           className="_:mb-2"
-          id="floatingInput"
           label={LABEL_FIRST_NAME}
           name={INPUT_NAME.FIRST_NAME}
           type="email"
           {...{ errors, register }}
           required
         />
-        <div className="form-floating">
-          <input
-            className="form-control mb-2"
-            id="floatingInput"
-            placeholder={PLACEHOLDER_LAST_NAME}
-            type="text"
-            {...register(INPUT_NAME.LAST_NAME)}
-            required
-          />
-          {errors[INPUT_NAME.LAST_NAME] ? (
-            <span className="error-text">{errors[INPUT_NAME.LAST_NAME].message}</span>
-          ) : null}
-          <label htmlFor="floatingInput">{LABEL_LAST_NAME}</label>
-        </div>
-        <div className="form-floating">
-          <input
-            className="form-control mb-2"
-            id="floatingInput"
-            placeholder={PLACEHOLDER_EMAIL}
-            type="email"
-            {...register(INPUT_NAME.EMAIL)}
-            required
-          />
-          {errors?.[INPUT_NAME.EMAIL] ? (
-            <span className="error-text">{errors[INPUT_NAME.EMAIL].message}</span>
-          ) : null}
-          <label htmlFor="floatingPassword">{LABEL_EMAIL}</label>
-        </div>
+        <Field
+          className="_:mb-2"
+          label={LABEL_LAST_NAME}
+          name={INPUT_NAME.LAST_NAME}
+          type="email"
+          {...{ errors, register }}
+          required
+        />
+        <Field
+          className="_:mb-2"
+          label={LABEL_EMAIL}
+          name={INPUT_NAME.EMAIL}
+          type="email"
+          {...{ errors, register }}
+          required
+        />
         <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
           Save
         </Button>
