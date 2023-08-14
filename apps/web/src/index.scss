@@ -36,6 +36,7 @@ select:-webkit-autofill:focus {
 #form-forgot-password {
   input {
     background-color: $_color-white;
+    color: $_color-black;
   }
   label {
     color: $_color-black;

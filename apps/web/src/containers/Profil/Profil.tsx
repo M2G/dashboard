@@ -1,9 +1,9 @@
-import { useCallback, useContext, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import ProfilForm from '@/components/ProfilForm';
-import { INPUT_NAME, INITIAL_VALUES } from '@/components/ProfilForm/constants';
-import { authGetUserProfilAction } from '@/store/auth/actions';
 import { AuthContext } from '@/AuthContext';
+import ProfilForm from '@/components/ProfilForm';
+import { INITIAL_VALUES, INPUT_NAME } from '@/components/ProfilForm/constants';
+import { authGetUserProfilAction } from '@/store/auth/actions';
+import { useCallback, useContext, useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 function initialValues(values: {
   [x: string]: string;
@@ -32,6 +32,13 @@ function Profil(): JSX.Element | null {
     console.log('userData userData', userData);
     dispatch(authGetUserProfilAction({ id: userData?.id }));
   }, [dispatch, userData]);
+
+  const { auth: { data } = {} } = useSelector(({ auth }) => ({
+    auth,
+  }));
+
+  console.log('auth auth auth auth auth auth', data);
+
   /*
   const { userData }: { userData: { id: number } } = useContext(AuthContext);
 
@@ -89,14 +96,14 @@ function Profil(): JSX.Element | null {
 
   const handleSubmit: any = useCallback(() => {}, []);
 
-  return <ProfilForm initialValues={initialValues({})} onSubmit={handleSubmit} />;
+  return <ProfilForm initialValues={initialValues({ ...data.data })} onSubmit={handleSubmit} />;
 }
 
-const mapStateToProps = (state: { signin: { data: any; loading: any } }) => {
+const mapStateToProps = (state: { auth: { data: any; loading: boolean } }) => {
   console.log('state state', state);
   return {
-    loading: state.signin.loading,
-    signin: state.signin.data,
+    loading: state.auth.loading,
+    auth: state.auth.data,
   };
 };
 
