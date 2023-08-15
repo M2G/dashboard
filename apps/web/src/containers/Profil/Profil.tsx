@@ -17,6 +17,8 @@ function initialValues(values: {
 }) {
   const initialValues = { ...INITIAL_VALUES };
   if (values) {
+    console.log('values values', values);
+
     initialValues[INPUT_NAME.FIRST_NAME] = values?.[INPUT_NAME.FIRST_NAME] || '';
     initialValues[INPUT_NAME.LAST_NAME] = values?.[INPUT_NAME.LAST_NAME] || '';
     initialValues[INPUT_NAME.EMAIL] = values?.[INPUT_NAME.EMAIL] || '';

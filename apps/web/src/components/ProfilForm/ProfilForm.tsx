@@ -43,6 +43,9 @@ function ProfilForm({
       [INPUT_NAME.FIRST_NAME]: initialValues[INPUT_NAME.FIRST_NAME],
       [INPUT_NAME.LAST_NAME]: initialValues[INPUT_NAME.LAST_NAME],
     };
+
+    console.log('defaultValues defaultValues', defaultValues);
+
     reset({ ...defaultValues });
   }, [initialValues, reset]);
 
