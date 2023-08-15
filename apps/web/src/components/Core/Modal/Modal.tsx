@@ -2,6 +2,7 @@ import type { JSX, MouseEventHandler, MutableRefObject } from 'react';
 import { useEffect, useRef } from 'react';
 
 import Portal from '@/components/Core/Portal';
+import { Button } from 'ui';
 
 import styles from './Modal.module.scss';
 
@@ -30,9 +31,9 @@ function Modal({ children, hide, id, isShowing, onConfirm, title }: IModal): JSX
 
   return isShowing ? (
     <Portal id={id}>
-      <div className={styles.overlay}>
-        <div className={styles.wrapper}>
-          <div className={styles.modal} ref={ref}>
+      <div className="fixed left-0 top-0 z-10 h-screen w-screen bg-black opacity-50">
+        <div className="z-11 fixed left-0 top-0 flex h-full w-full items-center overflow-y-auto overflow-x-hidden outline-none">
+          <div className="relative m-auto rounded-lg p-4 text-gray-900" ref={ref}>
             <div className={styles.header}>
               <h5 className={styles.title}>{title}</h5>
               <button
@@ -58,17 +59,20 @@ function Modal({ children, hide, id, isShowing, onConfirm, title }: IModal): JSX
               </button>
             </div>
             <div className={styles.body}>{children}</div>
-            <div className="modal-footer border-top-0">
-              <button className="btn btn-light me-2" onClick={onConfirm} type="button">
+            <div className="modal-footer border-top-0 flex justify-around">
+              <Button
+                className="_:bg-white _:font-normal _:text-black"
+                onClick={onConfirm}
+                type="button">
                 Confirmer
-              </button>
-              <button
-                className="btn btn-light"
+              </Button>
+              <Button
+                className="_:bg-white _:font-normal _:text-black"
                 data-bs-dismiss="modal"
                 onClick={hide}
                 type="button">
                 Close
-              </button>
+              </Button>
             </div>
           </div>
         </div>
