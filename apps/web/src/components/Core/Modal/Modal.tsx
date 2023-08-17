@@ -1,4 +1,4 @@
-import type { JSX, MouseEventHandler, MutableRefObject } from 'react';
+import type { JSX, MouseEventHandler, RefObject } from 'react';
 import { useEffect, useRef } from 'react';
 
 import Portal from '@/components/Core/Portal';
@@ -14,7 +14,7 @@ interface IModal {
 }
 
 function Modal({ children, hide, id, isShowing, onConfirm, title }: IModal): JSX.Element | null {
-  const ref: MutableRefObject<HTMLDivElement | undefined> = useRef();
+  const ref: RefObject<HTMLDivElement> = useRef();
   useEffect(() => {
     const checkIfClickedOutside = (e: Event): void => {
       if (ref.current && !ref.current.contains(e.target as HTMLDivElement)) {
@@ -29,8 +29,8 @@ function Modal({ children, hide, id, isShowing, onConfirm, title }: IModal): JSX
 
   return isShowing ? (
     <Portal id={id}>
-      <div className="fixed left-0 top-0 z-10 h-screen w-screen bg-black opacity-50">
-        <div className="fixed left-0 top-0 z-20 flex h-full w-full items-center overflow-y-auto overflow-x-hidden outline-none">
+      <div className="fixed left-0 top-0 z-[100] h-screen w-screen bg-black/[.5]">
+        <div className="fixed left-0 top-0 z-[101] flex h-full w-full items-center overflow-y-auto overflow-x-hidden outline-none">
           <div
             className="relative m-auto max-w-[400px] rounded-lg bg-[linear-gradient(to_top_right,rgba(39,39,42,1),rgba(24,24,27,1))] p-4 text-gray-900 shadow-[0_0.5rem_1rem_rgba(0,0,0,0.15)]"
             ref={ref}>
