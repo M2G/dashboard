@@ -50,7 +50,9 @@ function ProfilForm({
   }, [initialValues, reset]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center" id="form-profil">
+    <div
+      className="flex h-[calc(100vh-140px)] flex-col items-center justify-center"
+      id="form-profil">
       <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <h1 className="text-3xl font-bold dark:text-black">User Profil</h1>

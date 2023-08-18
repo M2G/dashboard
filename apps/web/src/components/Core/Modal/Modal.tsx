@@ -43,7 +43,7 @@ function Modal({ children, hide, id, isShowing, onConfirm, title }: IModal): JSX
                 onClick={hide}
                 type="button">
                 <svg
-                  className="h-4 w-4"
+                  className="h-6 w-6 stroke-white"
                   fill="none"
                   height="24"
                   stroke="currentColor"
