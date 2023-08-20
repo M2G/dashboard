@@ -17,8 +17,6 @@ function initialValues(values: {
 }) {
   const initialValues = { ...INITIAL_VALUES };
   if (values) {
-    console.log('values values', values);
-
     initialValues[INPUT_NAME.FIRST_NAME] = values?.[INPUT_NAME.FIRST_NAME] || '';
     initialValues[INPUT_NAME.LAST_NAME] = values?.[INPUT_NAME.LAST_NAME] || '';
     initialValues[INPUT_NAME.EMAIL] = values?.[INPUT_NAME.EMAIL] || '';
@@ -35,7 +33,7 @@ function Profil(): JSX.Element | null {
     dispatch(authGetUserProfilAction({ id: userData?.id }));
   }, [dispatch, userData]);
 
-  const { auth: { data } = {} } = useSelector(({ auth }) => ({
+  const { auth: { data: { data } } = {} } = useSelector(({ auth }) => ({
     auth,
   }));
 
@@ -98,7 +96,7 @@ function Profil(): JSX.Element | null {
 
   const handleSubmit: any = useCallback(() => {}, []);
 
-  return <ProfilForm initialValues={initialValues({ ...data.data })} onSubmit={handleSubmit} />;
+  return data && <ProfilForm initialValues={initialValues({ ...data })} onSubmit={handleSubmit} />;
 }
 
 const mapStateToProps = (state: { auth: { data: any; loading: boolean } }) => {
