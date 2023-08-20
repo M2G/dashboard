@@ -3,8 +3,8 @@ import type { JSX } from 'react';
 import { Suspense, useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import TopLineLoading from 'components/Loading/TopLineLoading';
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '@/AuthContext';
+import TopLineLoading from '@/components/Loading/TopLineLoading';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
 
@@ -25,7 +25,7 @@ function Router(): JSX.Element {
 
   console.log('userData', {
     userData,
-    isAuth
+    isAuth,
   });
 
   const userId = userData?.id;
