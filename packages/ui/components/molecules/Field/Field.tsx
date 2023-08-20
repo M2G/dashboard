@@ -94,7 +94,7 @@ export const Field: FC<FieldProps> = ({
           {label}
         </label>
       </div>
-      {errors && errors[name] ? (
+      {errors?.[name] ? (
         <div className="border bg-red-100 px-4 py-3" role="alert">
           <span>{errors[name]?.message}</span>
         </div>
