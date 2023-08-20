@@ -1,8 +1,8 @@
+import { useMemo } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button, Field } from 'ui';
@@ -29,19 +29,15 @@ function UserEditForm({
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
-    reset,
   } = useForm<FormSchemaType>({
+    defaultValues: useMemo(
+      () => ({
+        ...initialValues,
+      }),
+      [initialValues],
+    ),
     resolver: zodResolver(formSchema),
   });
-
-  useEffect(() => {
-    const defaultValues = {
-      [INPUT_NAME.EMAIL]: initialValues[INPUT_NAME.EMAIL],
-      [INPUT_NAME.FIRST_NAME]: initialValues[INPUT_NAME.FIRST_NAME],
-      [INPUT_NAME.LAST_NAME]: initialValues[INPUT_NAME.LAST_NAME],
-    };
-    reset({ ...defaultValues });
-  }, [initialValues, reset]);
 
   return (
     <div className="form-edit">
