@@ -1,13 +1,13 @@
 import type { JSX } from 'react';
 
+import ROUTER_PATH from '@/constants/RouterPath';
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ROUTER_PATH from 'constants/RouterPath';
 
-const Home = lazy(() => import('../../containers/Home'));
-const Users = lazy(() => import('../../containers/Users'));
-const ChangePassword = lazy(() => import('../../containers/ChangePassword'));
-const Profil = lazy(() => import('../../containers/Profil'));
+const Home = lazy(() => import('@/containers/Home'));
+const Users = lazy(() => import('@/containers/Users'));
+const ChangePassword = lazy(() => import('@/containers/ChangePassword'));
+const Profil = lazy(() => import('@/containers/Profil'));
 
 function PrivateRoutes(): JSX.Element {
   return (
