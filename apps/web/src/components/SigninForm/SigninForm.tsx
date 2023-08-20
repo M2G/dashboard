@@ -43,7 +43,6 @@ function SigninForm({
         </div>
         <Field
           className="_:mb-2"
-          id="floatingInput"
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
           {...{ errors, register }}
@@ -52,7 +51,6 @@ function SigninForm({
         />
         <Field
           className="_:mb-2"
-          id="floatingInput"
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
           {...{ errors, register }}
