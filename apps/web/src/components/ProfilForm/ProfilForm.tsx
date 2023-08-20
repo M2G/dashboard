@@ -32,22 +32,15 @@ function ProfilForm({
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
-    reset,
   } = useForm<FormSchemaType>({
+    defaultValues: useMemo(
+      () => ({
+        ...initialValues,
+      }),
+      [initialValues],
+    ),
     resolver: zodResolver(formSchema),
   });
-
-  useMemo(() => {
-    const defaultValues = {
-      [INPUT_NAME.EMAIL]: initialValues[INPUT_NAME.EMAIL],
-      [INPUT_NAME.FIRST_NAME]: initialValues[INPUT_NAME.FIRST_NAME],
-      [INPUT_NAME.LAST_NAME]: initialValues[INPUT_NAME.LAST_NAME],
-    };
-
-    console.log('defaultValues defaultValues', defaultValues);
-
-    reset({ ...defaultValues });
-  }, [initialValues, reset]);
 
   return (
     <div
