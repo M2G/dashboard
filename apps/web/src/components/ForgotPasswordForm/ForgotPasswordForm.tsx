@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Button, Field } from 'ui';
 
+import { useMemo } from 'react';
 import { formSchema, INPUT_NAME, LABEL_EMAIL } from './constants';
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -24,9 +25,12 @@ function ForgotPasswordForm({
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
-    defaultValues: {
-      ...initialValues,
-    },
+    defaultValues: useMemo(
+      () => ({
+        ...initialValues,
+      }),
+      [initialValues],
+    ),
     resolver: zodResolver(formSchema),
   });
 
