@@ -241,7 +241,9 @@ function UserList({
           />
 
           <SidebarWrapper isOpened={!!state.editingUser} setIsOpened={onClose}>
-            <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />
+            {state.editingUser && (
+              <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />
+            )}
           </SidebarWrapper>
 
           <SidebarWrapper isOpened={!!state.newUser} setIsOpened={onClose}>
