@@ -1,7 +1,8 @@
 import type { JSX, MouseEventHandler, RefObject } from 'react';
-import { useEffect, useRef } from 'react';
 
 import Portal from '@/components/Core/Portal';
+
+import { useEffect, useRef } from 'react';
 import { Button } from 'ui';
 
 interface IModal {
