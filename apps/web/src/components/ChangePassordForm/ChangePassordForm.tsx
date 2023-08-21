@@ -83,6 +83,11 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
             to={ROUTER_PATH.PROFIL}>
             Profil
           </Link>
+          <Link
+            className="box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
+            to={ROUTER_PATH.HOME}>
+            Home
+          </Link>
         </div>
       </form>
     </div>
