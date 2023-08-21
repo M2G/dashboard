@@ -1,31 +1,26 @@
 import type { JSX } from 'react';
+
 import Modal from './Modal';
 
 interface IModalWrapper {
+  children: any;
+  hide: any;
   id?: string | undefined;
   isShowing: any;
-  hide: any;
-  title: any;
   onConfirm: any;
-  children: any;
+  title: any;
 }
 
 function ModalWrapper({
+  children,
+  hide,
   id,
   isShowing,
-  hide,
-  title,
   onConfirm,
-  children,
+  title,
 }: IModalWrapper): JSX.Element {
   return (
-    <Modal
-      id={id}
-      isShowing={isShowing}
-      hide={hide}
-      title={title}
-      onConfirm={onConfirm}
-    >
+    <Modal hide={hide} id={id} isShowing={isShowing} onConfirm={onConfirm} title={title}>
       {children}
     </Modal>
   );
