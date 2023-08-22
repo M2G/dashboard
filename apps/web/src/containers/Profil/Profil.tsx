@@ -1,7 +1,7 @@
 import { AuthContext } from '@/AuthContext';
 import ProfilForm from '@/components/ProfilForm';
 import { INITIAL_VALUES, INPUT_NAME } from '@/components/ProfilForm/constants';
-import { authGetUserProfilAction } from '@/store/auth/actions';
+import { authGetUserProfilAction, authUpdateUserProfilAction } from '@/store/auth/actions';
 import { useCallback, useContext, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
@@ -39,62 +39,12 @@ function Profil(): JSX.Element | null {
 
   console.log('auth auth auth auth auth auth', data);
 
-  /*
-  const { userData }: { userData: { id: number } } = useContext(AuthContext);
-
-  const {
-    loading,
-    data: userProfil = {
-      __typename: 'Query',
-      getUser: null,
+  const handleSubmit = useCallback(
+    (data) => {
+      dispatch(authUpdateUserProfilAction({ ...data, id: userData?.id }));
     },
-  }: QueryResult<GetUserQuery, Exact<{ id: number }>> = useGetUserQuery({
-    fetchPolicy: 'cache-and-network',
-    variables: {
-      id: userData?.id,
-    },
-  });
-
-  const [updateUserMutation, { data: updateProfil }] = useUpdateUserMutation();
-
-  console.log('updateProfil updateProfil', updateProfil);
-
-  const handleSubmit: any = useCallback(
-    async (formData: {
-      email: any;
-      first_name: any;
-      last_name: any;
-      username: any;
-    }) => {
-      console.log('userProfil userProfil', userProfil);
-      console.log('formData formData', formData);
-
-      await updateUserMutation({
-        variables: {
-          id: userProfil?.getUser?.id,
-          input: {
-            email: formData?.email,
-            first_name: formData?.first_name,
-            last_name: formData?.last_name,
-            username: formData?.username,
-          },
-        },
-        optimisticResponse: {
-          __typename: 'Mutation',
-          updateUser: {
-            __typename: 'Status',
-            success: true,
-          },
-        },
-      });
-    },
-    [userProfil, updateUserMutation],
+    [dispatch, userData?.id],
   );
-
-  if (loading && userProfil?.getUser) return null;
-*/
-
-  const handleSubmit: any = useCallback(() => {}, []);
 
   return data && <ProfilForm initialValues={initialValues({ ...data })} onSubmit={handleSubmit} />;
 }
