@@ -54,7 +54,7 @@ function ProfilForm({
           className="_:mb-2"
           label={LABEL_FIRST_NAME}
           name={INPUT_NAME.FIRST_NAME}
-          type="email"
+          type="text"
           {...{ errors, register }}
           required
         />
@@ -62,7 +62,7 @@ function ProfilForm({
           className="_:mb-2"
           label={LABEL_LAST_NAME}
           name={INPUT_NAME.LAST_NAME}
-          type="email"
+          type="text"
           {...{ errors, register }}
           required
         />
