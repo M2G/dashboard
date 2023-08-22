@@ -224,7 +224,7 @@ function UserList({
   return (
     <div className="c-user-list">
       <AddUser canAdd={canAdd} onAdd={onAdd} />
-
+      {results.length && <NoData />}
       {results.length ? (
         <>
           <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
@@ -260,8 +260,6 @@ function UserList({
             <p>Warning, you are about to perform an irreversible action</p>
           </ModalWrapper>
         </>
-      ) : (
-        <NoData />
       )}
     </div>
   );
