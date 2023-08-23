@@ -225,7 +225,7 @@ function UserList({
     <div className="c-user-list">
       <AddUser canAdd={canAdd} onAdd={onAdd} />
       {results.length && <NoData />}
-      {results.length ? (
+      {results.length && (
         <>
           <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
           <List

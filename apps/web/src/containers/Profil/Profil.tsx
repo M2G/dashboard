@@ -49,7 +49,7 @@ function Profil(): JSX.Element | null {
   return data && <ProfilForm initialValues={initialValues({ ...data })} onSubmit={handleSubmit} />;
 }
 
-const mapStateToProps = (state: { auth: { data: any; loading: boolean } }) => {
+const mapStateToProps = (state: { auth: { data: never; loading: boolean } }) => {
   console.log('state state', state);
   return {
     loading: state.auth.loading,
