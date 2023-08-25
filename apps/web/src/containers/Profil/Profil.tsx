@@ -5,16 +5,7 @@ import { authGetUserProfilAction, authUpdateUserProfilAction } from '@/store/aut
 import { useCallback, useContext, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
-function initialValues(values: {
-  [x: string]: string;
-  id?: any;
-  first_name?: any;
-  last_name?: any;
-  email?: any;
-  created_at?: any;
-  modified_at?: any;
-  password?: any;
-}) {
+function initialValues(values: { [x: string]: string }): any {
   const initialValues = { ...INITIAL_VALUES };
   if (values) {
     initialValues[INPUT_NAME.FIRST_NAME] = values?.[INPUT_NAME.FIRST_NAME] || '';
@@ -46,14 +37,24 @@ function Profil(): JSX.Element | null {
     [dispatch, userData?.id],
   );
 
-  return data && <ProfilForm initialValues={initialValues({ ...data })} onSubmit={handleSubmit} />;
+  return (
+    data && (
+      <ProfilForm
+        initialValues={
+          // initialValues({ ...data })
+          { ...data }
+        }
+        onSubmit={handleSubmit}
+      />
+    )
+  );
 }
 
 const mapStateToProps = (state: { auth: { data: never; loading: boolean } }) => {
   console.log('state state', state);
   return {
-    loading: state.auth.loading,
     auth: state.auth.data,
+    loading: state.auth.loading,
   };
 };
 
