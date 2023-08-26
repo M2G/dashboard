@@ -30,7 +30,6 @@ export const PLACEHOLDER_PASSWORD2 = 'Mot de passe 2';
 export const formSchema = z.object({
   [INPUT_NAME.OLD_PASSWORD]: z
     .string()
-    .email('Invalid email')
     .min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_OLD_PASSWORD),
   [INPUT_NAME.PASSWORD]: z
     .string()
