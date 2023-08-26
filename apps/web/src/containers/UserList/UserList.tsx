@@ -64,10 +64,11 @@ function UserList({
 
   const dispatch = useDispatch();
 
-  const authGetUsersProfil = (params) => dispatch(authGetUsersProfilAction(params));
-  const deleteUserAction = (id: number) => dispatch(authDeleteUserProfilAction(id));
-  const editUserAction = (params) => dispatch(authUpdateUserProfilAction(params));
-  const signupAction = (params) => dispatch(signupUserAction(params));
+  const authGetUsersProfil = (params: { filters: string; page: number; pageSize: number }) =>
+    dispatch(authGetUsersProfilAction(params));
+  const deleteUserAction = (id: { id: any }) => dispatch(authDeleteUserProfilAction(id));
+  const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params));
+  const signupAction = (params: any) => dispatch(signupUserAction(params));
 
   useEffect(() => {
     authGetUsersProfil({
@@ -186,7 +187,7 @@ function UserList({
     [authGetUsersProfil, deleteUserAction, onClose, pagination.page, pagination.pageSize, term],
   );
 
-  const users: any = auth?.data || [];
+  const users = auth?.data || [];
   const results = users?.results || [];
   const pageInfo = users?.pageInfo || {};
 
