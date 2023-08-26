@@ -1,7 +1,4 @@
 import type { JSX, ReactNode } from 'react';
-import { createContext, useMemo, useState } from 'react';
-
-import jwt_decode from 'jwt-decode';
 
 import {
   clearAuthStorage,
@@ -12,18 +9,20 @@ import {
   setUserStorage,
 } from '@/services/storage';
 
+import jwt_decode from 'jwt-decode';
+
+import { createContext, useMemo, useState } from 'react';
+
 export const AuthContext = createContext({});
 interface AuthContextProps {
   children: ReactNode;
 }
 
 function Provider({ children }: AuthContextProps): JSX.Element {
-  const [isAuth, setIsAuth] = useState<boolean | string | null>(() => getAuthStorage());
-  const [userData, setUserData] = useState<boolean | string | null>(() => getUserStorage());
+  const [isAuth, setIsAuth] = useState<boolean | null | string>(() => getAuthStorage());
+  const [userData, setUserData] = useState<boolean | null | string>(() => getUserStorage());
 
   const value = {
-    isAuth,
-    userData: userData ? JSON.parse(userData) : null,
     activateAuth: (token: string) => {
       const decodedToken: {
         email: string;
@@ -39,12 +38,14 @@ function Provider({ children }: AuthContextProps): JSX.Element {
       setAuthStorage(token);
       setIsAuth(true);
     },
+    isAuth,
     removeAuth: () => {
       setIsAuth(false);
       setUserStorage(null);
       clearUserStorage();
       clearAuthStorage();
     },
+    userData: userData ? JSON.parse(userData) : null,
   };
 
   console.log('value', isAuth);
