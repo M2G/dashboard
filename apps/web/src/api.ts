@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import Config from './constants';
 
@@ -50,6 +51,9 @@ const myInterceptor = api.interceptors.response.use(
      */
 
     console.log('interceptors', error?.response);
+
+    console.log('error?.message', error);
+    toast.error(`${error?.message} : ${error?.response.data.error}`);
 
     api.interceptors.response.eject(myInterceptor);
     (import.meta as any).env.MODE === 'development'
