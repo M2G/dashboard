@@ -1,41 +1,35 @@
 /* eslint-disable */
-import { all, fork, call, put, takeEvery } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
-  forgotPasswordService,
-  userProfilService,
-  updateUserProfilService,
-  getUsersService,
   deleteUsersService,
+  forgotPasswordService,
+  getUsersService,
   recoverPasswordService,
+  updateUserProfilService,
+  userProfilService,
 } from './services';
 
-import { AuthActionTypes } from './types';
+import ROUTER_PATH from 'constants/RouterPath';
+import { history } from 'index';
+import { clearAuthStorage, clearUserStorage } from 'services/storage';
+import { signoutUserAction } from 'store/signout/actions';
+import Config from '../../constants';
 import {
-  authForgotPasswordError,
-  authDeleteUserProfilSuccess,
   authDeleteUserProfilError,
-  authGetUserProfilSuccess,
+  authDeleteUserProfilSuccess,
+  authForgotPasswordError,
+  authForgotPasswordSuccess,
   authGetUserProfilError,
-  authUpdateUserProfilSuccess,
-  authUpdateUserProfilError,
+  authGetUserProfilSuccess,
+  authGetUsersProfilError,
   // authRequestErrorAction,
   authGetUsersProfilSuccess,
-  authGetUsersProfilError,
-  authRecoverPasswordSuccess,
   authRecoverPasswordError,
-  authForgotPasswordSuccess,
+  authRecoverPasswordSuccess,
+  authUpdateUserProfilError,
+  authUpdateUserProfilSuccess,
 } from './actions';
-import { signoutUserAction } from 'store/signout/actions';
-import { history } from 'index';
-import Config from '../../constants';
-import ROUTER_PATH from 'constants/RouterPath';
-import {
-  clearAuthStorage,
-  clearUserStorage,
-  setAuthStorage,
-  setUserStorage,
-} from 'services/storage';
-import { signinSuccess } from '../../actions';
+import { AuthActionTypes } from './types';
 
 export interface ResponseGenerator {
   config?: any;
@@ -145,6 +139,7 @@ function* createUserProfil({ data }: any): any {
 }
 
 function* updateUserProfil({ data }: any): any {
+  console.log('updateUserProfil updateUserProfil updateUserProfil', data);
   try {
     yield call(updateUserProfilService, { ...data });
     yield put(authUpdateUserProfilSuccess());
@@ -216,6 +211,10 @@ function* watchUpdateUser() {
   yield takeEvery(AuthActionTypes.AUTH_UPDATE_USER_PROFIL_REQUEST as any, updateUserProfil);
 }
 
+function* watchUpdateUserPassword() {
+  yield takeEvery(AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST as any, updateUserProfil);
+}
+
 function* watchDeleteUser() {
   yield takeEvery(AuthActionTypes.AUTH_DELETE_USER_PROFIL_REQUEST as any, deleteUserProfil);
 }
@@ -229,6 +228,7 @@ function* authSaga() {
     fork(watchUsers),
     fork(watchUser),
     fork(watchUpdateUser),
+    fork(watchUpdateUserPassword),
     fork(watchDeleteUser),
   ]);
 }
