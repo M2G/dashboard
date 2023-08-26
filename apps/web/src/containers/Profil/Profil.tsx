@@ -1,20 +1,8 @@
 import { AuthContext } from '@/AuthContext';
 import ProfilForm from '@/components/ProfilForm';
-import { INITIAL_VALUES, INPUT_NAME } from '@/components/ProfilForm/constants';
 import { authGetUserProfilAction, authUpdateUserProfilAction } from '@/store/auth/actions';
 import { useCallback, useContext, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-
-function initialValues(values: { [x: string]: string }): any {
-  const initialValues = { ...INITIAL_VALUES };
-  if (values) {
-    initialValues[INPUT_NAME.FIRST_NAME] = values?.[INPUT_NAME.FIRST_NAME] || '';
-    initialValues[INPUT_NAME.LAST_NAME] = values?.[INPUT_NAME.LAST_NAME] || '';
-    initialValues[INPUT_NAME.EMAIL] = values?.[INPUT_NAME.EMAIL] || '';
-  }
-
-  return initialValues;
-}
 
 function Profil(): JSX.Element | null {
   const { userData }: { userData: { id: number } } = useContext(AuthContext);
@@ -37,17 +25,7 @@ function Profil(): JSX.Element | null {
     [dispatch, userData?.id],
   );
 
-  return (
-    data && (
-      <ProfilForm
-        initialValues={
-          // initialValues({ ...data })
-          { ...data }
-        }
-        onSubmit={handleSubmit}
-      />
-    )
-  );
+  return data && <ProfilForm initialValues={{ ...data }} onSubmit={handleSubmit} />;
 }
 
 const mapStateToProps = (state: { auth: { data: never; loading: boolean } }) => {
