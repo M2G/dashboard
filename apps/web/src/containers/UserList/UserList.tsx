@@ -41,7 +41,7 @@ function UserList({
     pageSize: number;
   }>({
     page: 1,
-    pageSize: 5,
+    pageSize: 2,
   });
   const [term, setTerm] = useState('');
   const [state, setUser] = useState<{
