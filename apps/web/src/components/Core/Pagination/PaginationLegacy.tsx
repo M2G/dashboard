@@ -25,8 +25,8 @@ function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagin
   }
 
   const displayNumbers = pageNumbers.slice(
-    currentPage - 5 > 0 ? currentPage - 5 : 0,
-    currentPage + 5,
+    currentPage - 2 > 0 ? currentPage - 2 : 0,
+    currentPage + 2,
   );
 
   console.log('pageNumbers', pageNumbers);
