@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
 
-import styles from './Pagination.module.scss';
-
 interface IPageSize {
   currentPageSize: number;
   setCurrentPageSize: (params: number) => void;
@@ -14,12 +12,7 @@ function PageSize({ currentPageSize, setCurrentPageSize }: IPageSize) {
     setCurrentPageSize(parseInt(value, 10));
 
   return (
-    <select
-      aria-label="-1"
-      className={styles.select}
-      onChange={handleClick}
-      value={pageSize}
-    >
+    <select aria-label="-1" onChange={handleClick} value={pageSize}>
       <option value="2">2</option>
       <option value="5">5</option>
       <option value="10">10</option>
