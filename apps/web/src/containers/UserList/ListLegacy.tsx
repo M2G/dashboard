@@ -1,7 +1,7 @@
-import type { JSX } from 'react';
-import Pagination from '@/components/Core/Pagination/PaginationLegacy';
 import PageSize from '@/components/Core/Pagination/PageSize';
+import Pagination from '@/components/Core/Pagination/PaginationLegacy';
 import TableWrapper from '@/components/Core/Table';
+import type { JSX } from 'react';
 import './index.scss';
 
 function List({
@@ -19,11 +19,8 @@ function List({
   return (
     <>
       <TableWrapper id={id} header={header} rows={rows} />
-      <div className="d-flex w-100 justify-content-end">
-        <PageSize
-          currentPageSize={currentPageSize}
-          setCurrentPageSize={setCurrentPageSize}
-        />
+      <div className="w-100 mt-2 flex justify-end">
+        <PageSize currentPageSize={currentPageSize} setCurrentPageSize={setCurrentPageSize} />
         <Pagination
           totalItems={count}
           perPage={perPage}
