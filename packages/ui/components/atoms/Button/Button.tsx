@@ -19,13 +19,6 @@ export const ButtonVariants = {
     'disabled:text-white/[.5] disabled:bg-primary-disabled disabled:border-primary-disabled disabled:hover:text-white/[.5] disabled:hover:bg-primary-disabled disabled:border-primary-disabled',
     'hover:disabled:text-white/[.5] hover:disabled:bg-primary-disabled hover:disabled:border-primary-disabled hover:disabled:border-primary-disabled',
   ].join(' '),
-  secondary: [
-    'min-w-[176px] text-white border border-light bg-light font-display _:text-variants',
-    'active:bg-light-active active:border-light-active',
-    'hover:bg-light-hover hover:border-light-hover',
-    'disabled:text-variants/[.5] disabled:bg-light-disabled disabled:hover:text-white/[.5] disabled:hover:bg-light-disabled disabled:border-light-disabled',
-    'hover:disabled:text-variants/[.5] hover:disabled:bg-light-disabled hover:disabled:border-secondary-disabled',
-  ].join(' '),
 };
 
 /**
