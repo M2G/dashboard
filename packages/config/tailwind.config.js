@@ -37,6 +37,12 @@ module.exports = {
       'l7': 'hsl(0, 0%, 30%)',
       'l8': 'hsl(0, 0%, 20%)',
       'l9': 'hsl(0, 0%, 10%)',
+
+      'grey-dark': 'hsl(240, 4%, 46%)',
+
+
+
+
     },
     extend: {
       fontFamily: {
