@@ -66,7 +66,7 @@ module.exports = {
         grey: {
           light: "#F5F5F5",
           DEFAULT: "#EBEBEB",
-          dark: "#D6D6D6",
+          // dark: "#D6D6D6",
         },
         // Global
         primary: {

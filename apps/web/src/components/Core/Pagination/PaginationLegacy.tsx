@@ -39,8 +39,8 @@ function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagin
         <ul className="inline-flex h-10 -space-x-px text-base">
           <li>
             <a
-              className={`border-semi-10-contrast text-grey-dark ml-0 flex h-10 items-center justify-center rounded-l-lg border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-                currentPage === 1 ? 'pointer-events-none' : ''
+              className={`border-semi-10-contrast ml-0 flex h-10 items-center justify-center rounded-l-lg border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white ${
+                currentPage === 1 ? '_:dark:text-grey-dark pointer-events-none' : ''
               }`}
               href="#"
               onClick={handlePrevClick}>
@@ -50,7 +50,7 @@ function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagin
           {displayNumbers?.map((number) => (
             <li>
               <a
-                className={`border-semi-10-contrast text-grey-dark flex h-10 items-center justify-center border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
+                className={`border-semi-10-contrast text-grey-dark flex h-10 items-center justify-center border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white ${
                   currentPage === number
                     ? 'flex h-10 items-center justify-center border px-4 text-blue-600 dark:text-white'
                     : ''
@@ -65,8 +65,10 @@ function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagin
           ))}
           <li>
             <a
-              className={`border-semi-10-contrast text-grey-dark flex h-10 items-center justify-center rounded-r-lg border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-                currentPage === pageNumbers.length ? 'pointer-events-none' : ''
+              className={`border-semi-10-contrast text-grey-dark flex h-10 items-center justify-center rounded-r-lg border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white ${
+                currentPage === pageNumbers.length
+                  ? '_:dark:text-grey-dark pointer-events-none'
+                  : ''
               }`}
               href="#"
               onClick={handleNextClick}>
