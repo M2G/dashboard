@@ -36,7 +36,7 @@ function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagin
   return (
     <nav aria-label="-1">
       {pageNumbers.length > 1 && (
-        <ul className="inline-flex h-10 -space-x-px text-base">
+        <ul className="inline-flex h-10 -space-x-px px-4 py-2 text-base">
           <li>
             <a
               className={`border-semi-10-contrast ml-0 flex h-10 items-center justify-center rounded-l-lg border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white ${

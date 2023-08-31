@@ -19,7 +19,7 @@ function List({
   return (
     <>
       <TableWrapper id={id} header={header} rows={rows} />
-      <div className="w-100 mt-2 flex justify-end">
+      <div className="w-100 mt-2 flex items-center justify-end">
         <PageSize currentPageSize={currentPageSize} setCurrentPageSize={setCurrentPageSize} />
         <Pagination
           totalItems={count}
