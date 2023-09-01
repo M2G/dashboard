@@ -14,7 +14,7 @@ function PageSize({ currentPageSize, setCurrentPageSize }: IPageSize) {
   return (
     <select
       aria-label="-1"
-      className="block appearance-none border-none bg-transparent px-2 text-base font-normal leading-normal text-white outline-none"
+      className="mb-2 block appearance-none border-none bg-transparent px-2 text-base font-normal leading-normal text-white outline-none"
       onChange={handleClick}
       value={pageSize}>
       <option value="2">2</option>

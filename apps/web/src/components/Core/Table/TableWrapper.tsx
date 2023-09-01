@@ -1,8 +1,6 @@
 import TableBody from '@/components/Core/Table/TableBody';
 import TableHead from '@/components/Core/Table/TableHead';
-import clsx from 'clsx';
 import { createContext, useEffect, useMemo, useState } from 'react';
-import styles from './Table.module.scss';
 
 export const TableContext = createContext<Record<string, any>>({});
 
@@ -57,7 +55,7 @@ function TableWrapper({ header, rows, id, className = '' }: ITableWrapper): JSX.
 
   return (
     <TableContext.Provider value={{ header, handleSort, sortData, getSortedTable }}>
-      <table className={clsx(styles.table, 'c-table', className)}>
+      <table className="c-table text-grey-dark w-full border-collapse">
         <TableHead key="tableHead" id={id} />
         <TableBody key="tableBody" id={id} />
       </table>
