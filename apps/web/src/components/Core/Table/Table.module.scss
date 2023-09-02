@@ -41,21 +41,6 @@ button {
   width: 1em;
 }
 
-.td {
-  border-color: hsla(0deg, 0%, 100%, 0.1);
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-}
-
-.tr {
-  border-color: hsla(0deg, 0%, 100%, 0.1);
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  &:hover {
-    background-color: #eee;
-  }
-}
-
 .ascending {
   &::before {
     content: '\f0de';

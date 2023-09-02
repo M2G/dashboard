@@ -38,7 +38,6 @@ module.exports = {
     'unused-imports',
     'jest',
     'perfectionist',
-    'simple-import-sort',
   ],
   rules: {
     '@typescript-eslint/dot-notation': 0,

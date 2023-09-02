@@ -62,6 +62,8 @@ export const Field: FC<FieldProps> = ({
 
   const currentRules = rules || { required: true };
 
+  console.log('errors', errors);
+
   return (
     <div className={['mb-6 min-w-[240px]', className].join(' ')}>
       <div className="relative min-h-[52px] w-full">

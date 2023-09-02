@@ -6,23 +6,18 @@ interface IPagination {
   setCurrentPage: (params: any) => {};
 }
 
-function Pagination({
-  currentPage,
-  totalItems,
-  perPage,
-  setCurrentPage
-}: IPagination) {
+function Pagination({ currentPage, totalItems, perPage, setCurrentPage }: IPagination) {
   const handleClick = ({
     target: {
-      dataset: { id }
-    }
+      dataset: { id },
+    },
   }: {
     target: { dataset: { id: string } };
   }): any => setCurrentPage(parseInt(id, 10));
 
-  const handlePrevClick = (): any => setCurrentPage(currentPage - 1);
+  const handlePrevClick = () => setCurrentPage(currentPage - 1);
 
-  const handleNextClick = (): any => setCurrentPage(currentPage + 1);
+  const handleNextClick = () => setCurrentPage(currentPage + 1);
 
   const pageNumbers = [];
 
@@ -32,7 +27,7 @@ function Pagination({
 
   const displayNumbers = pageNumbers.slice(
     currentPage - 5 > 0 ? currentPage - 5 : 0,
-    currentPage + 5
+    currentPage + 5,
   );
 
   console.log('pageNumbers', pageNumbers);
@@ -49,25 +44,13 @@ function Pagination({
             </a>
           </li>
           {displayNumbers?.map((number) => (
-            <li
-              key={number}
-              className={`page-item ${currentPage === number ? 'active' : ''}`}
-            >
-              <a
-                data-id={number}
-                className="page-link"
-                href="#"
-                onClick={handleClick as any}
-              >
+            <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+              <a data-id={number} className="page-link" href="#" onClick={handleClick as any}>
                 {number}
               </a>
             </li>
           ))}
-          <li
-            className={`page-item ${
-              currentPage === pageNumbers.length ? 'disabled' : ''
-            }`}
-          >
+          <li className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
             <a className="page-link" href="#" onClick={handleNextClick}>
               Next
             </a>
