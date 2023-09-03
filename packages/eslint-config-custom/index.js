@@ -50,8 +50,32 @@ module.exports = {
     '@typescript-eslint/return-await': 0,
     'import/extensions': 0,
     'import/no-unresolved': 0,
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          caseInsensitive: true,
+          order: 'asc',
+        },
+        groups: [['builtin', 'external'], 'internal', ['sibling']],
+        'newlines-between': 'always',
+        pathGroups: [
+          {
+            group: 'external',
+            pattern: 'react',
+            position: 'before',
+          },
+          {
+            group: 'internal',
+            pattern: '@/**',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['internal', 'react'],
+      },
+    ],
     'react/jsx-filename-extension': 0,
     'react/jsx-uses-react': 0,
     'react/react-in-jsx-scope': 0,
+    'sort-imports': ['error', { ignoreCase: true, ignoreDeclarationSort: true }],
   },
 };
