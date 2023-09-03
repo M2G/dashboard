@@ -33,7 +33,7 @@ function userListItem({
 
   const id = `user__row__${rowId}__${user.id}`;
 
-  const actions: any = [];
+  const actions = [];
 
   if (canEdit) {
     actions.push({
