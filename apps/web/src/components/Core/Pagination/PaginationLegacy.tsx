@@ -47,7 +47,7 @@ function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagin
               Prev
             </a>
           </li>
-          {displayNumbers?.map((number) => (
+          {displayNumbers?.map((number, index) => (
             <li>
               <a
                 className={`border-semi-10-contrast text-grey-dark flex h-10 items-center justify-center border px-4 leading-tight hover:bg-gray-100 hover:text-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white ${
@@ -55,7 +55,7 @@ function Pagination({ currentPage, perPage, setCurrentPage, totalItems }: IPagin
                     ? 'flex h-10 items-center justify-center border px-4 text-blue-600 dark:text-white'
                     : ''
                 }`}
-                key={number}
+                key={`${number}-${index}`}
                 data-id={number}
                 href="#"
                 onClick={handleClick}>
