@@ -15,7 +15,7 @@ function Action({ actions }: IAction): JSX.Element[] | undefined {
   return actions?.map(({ id, action, icon }) => (
     <div key={`actionCol__${id}`} className="cursor-pointer px-2">
       <div aria-hidden="true" id={id} onClick={action}>
-        {icon && <Icon className="w-4 cursor-pointer" icon={icon as IconNames} />}
+        <Icon className="fill-grey-dark w-4 cursor-pointer" icon={icon as IconNames} />
       </div>
     </div>
   ));
