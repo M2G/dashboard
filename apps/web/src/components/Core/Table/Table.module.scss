@@ -1,17 +1,34 @@
 @import 'src/styles/variables.scss';
 
+//@TODO
+
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  color: var(--color-text-heading);
+  // width: 100%;
+  // border-collapse: collapse;
+  // color: var(--color-text-heading);
 }
 
 .th {
-  border-bottom-width: 0;
-  padding: 0.5em 0.5em 0.5em 0;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
+ // border-bottom-width: 0;
+//  padding: 0.5em 0.5em 0.5em 0;
+ // font-weight: 700;
+ // font-size: 16px;
+ // cursor: pointer;
+}
+
+.td {
+  //border-color: hsla(0deg, 0%, 100%, 0.1);
+  //border-bottom-style: solid;
+  //border-bottom-width: 1px;
+}
+
+.tr {
+ // border-color: hsla(0deg, 0%, 100%, 0.1);
+ // border-bottom-style: solid;
+//  border-bottom-width: 1px;
+//  &:hover {
+//    background-color: #eee;
+//  }
 }
 
 button {
