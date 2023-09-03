@@ -1,31 +1,31 @@
+import { createContext, useEffect, useMemo, useState } from 'react';
 import TableBody from '@/components/Core/Table/TableBody';
 import TableHead from '@/components/Core/Table/TableHead';
-import { createContext, useEffect, useMemo, useState } from 'react';
 
 export const TableContext = createContext<Record<string, any>>({});
 
 interface ITableWrapper {
-  header: any;
-  rows: any;
-  id: string | number;
   className?: string;
+  header: any;
+  id: number | string;
+  rows: any;
 }
 
-function TableWrapper({ header, rows, id, className = '' }: ITableWrapper): JSX.Element {
+function TableWrapper({ className = '', header, id, rows }: ITableWrapper): JSX.Element {
   console.log('rows rows', rows);
 
   const [sortData, setSortData] = useState<any>(null);
 
   const handleSort = (index: any, sortDirection: string, type: any) =>
     setSortData({
-      index,
       direction: sortDirection,
+      index,
       type,
     } as any);
 
   const getSortedTable = useMemo(() => {
     if (!sortData) return rows;
-    const { index, direction, type }: any = sortData;
+    const { direction, index, type }: any = sortData;
 
     if (!type || type === 'string') {
       return rows?.sort(
@@ -54,10 +54,10 @@ function TableWrapper({ header, rows, id, className = '' }: ITableWrapper): JSX.
   }, [header]);
 
   return (
-    <TableContext.Provider value={{ header, handleSort, sortData, getSortedTable }}>
+    <TableContext.Provider value={{ getSortedTable, handleSort, header, sortData }}>
       <table className="c-table text-grey-dark w-full border-collapse">
-        <TableHead key="tableHead" id={id} />
-        <TableBody key="tableBody" id={id} />
+        <TableHead id={id} key="tableHead" />
+        <TableBody id={id} key="tableBody" />
       </table>
     </TableContext.Provider>
   );
