@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import styles from './Table.module.scss';
+import Icon from '../Icon';
+import IconNames from '../Icon/Icons.types';
 
 interface ITableHeaderCell {
   currentSortedData: any;
@@ -14,6 +15,7 @@ function TableHeaderCell({
   label,
   onSort,
 }: ITableHeaderCell): JSX.Element {
+  console.log('RENDERRRRRRRRRR');
   const onSortClick = () =>
     onSort(
       !currentSortedData || currentSortedData.direction === 'ascending'
@@ -22,7 +24,13 @@ function TableHeaderCell({
     );
 
   const sortedClass =
-    currentSortedData?.direction === styles.ascending ? styles.ascending : styles.descending;
+    currentSortedData?.direction === 'ascending' ? (
+      <Icon className="fill-grey-dark w-4 cursor-pointer" icon={IconNames.ARROW_UP} />
+    ) : (
+      <Icon className="fill-grey-dark w-4 cursor-pointer" icon={IconNames.ARROW_DOWN} />
+    );
+
+  console.log('sortedClass sortedClass sortedClass', { sortedClass, currentSortedData });
 
   return (
     <th className="border-b-0 p-2 pl-0 text-base font-bold">
@@ -30,10 +38,9 @@ function TableHeaderCell({
       {isSortable && (
         <button
           onClick={onSortClick}
-          className={`sort-icon mb-0 rounded-none border-0 bg-transparent font-bold ${
-            currentSortedData ? sortedClass : ''
-          }`}
-        />
+          className={`sort-icon mb-0 rounded-none border-0 bg-transparent font-bold`}>
+          {currentSortedData ? sortedClass : ''}
+        </button>
       )}
     </th>
   );
