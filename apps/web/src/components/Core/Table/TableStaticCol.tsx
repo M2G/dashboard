@@ -5,19 +5,19 @@ import styles from './Table.module.scss';
 export interface ITableStaticCol {
   actions: [
     {
-      id: string;
       action: () => void;
       icon: IconNames | undefined;
+      id: string;
     },
   ];
   id?: string | undefined;
   label?: string | undefined;
 }
 
-function TableStaticCol({ id, label, actions }: ITableStaticCol): JSX.Element {
+function TableStaticCol({ actions, id, label }: ITableStaticCol): JSX.Element {
   return (
     <div className="tableStaticCol">
-      <div className={styles.actions}>
+      <div className="flex">
         {label && (
           <div className="labelHandler">
             <label id={id}>{label}</label>
