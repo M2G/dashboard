@@ -1,6 +1,8 @@
 import type { ComponentType, SVGAttributes } from 'react';
 
 enum IconNames {
+  ARROW_DOWN = 'ArrowDown',
+  ARROW_UP = 'ArrowUp',
   DELETE = 'Delete',
   EDIT = 'Edit',
 }
