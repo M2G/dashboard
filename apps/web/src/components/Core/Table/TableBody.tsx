@@ -1,5 +1,5 @@
-import { TableContext } from '@/components/Core/Table/TableWrapper';
 import { useContext } from 'react';
+import { TableContext } from '@/components/Core/Table/TableWrapper';
 
 interface ITableBody {
   id: number | string;
