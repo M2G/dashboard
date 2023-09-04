@@ -16,12 +16,14 @@ function TableWrapper({ className = '', header, id, rows }: ITableWrapper): JSX.
 
   const [sortData, setSortData] = useState<any>(null);
 
-  const handleSort = (index: any, sortDirection: string, type: any) =>
+  const handleSort = (index: any, sortDirection: string, type: any) => {
+    console.log('sortDirection', sortDirection);
     setSortData({
       direction: sortDirection,
       index,
       type,
     } as any);
+  };
 
   const getSortedTable = useMemo(() => {
     if (!sortData) return rows;
