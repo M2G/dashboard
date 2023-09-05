@@ -19,11 +19,16 @@ interface ISidebarWrapper {
 
 function Sidebar({ children, setIsOpened, show }: ISidebar): JSX.Element {
   return (
-    <div className={clsx('c-sidebar', styles.sidebar, show ? styles.active : '')}>
-      <div className={styles.wrapper}>
+    <div
+      className={clsx(
+        'bg-black-dark w-max-[300px] fixed left-0 top-0 z-50 h-full w-4/5 p-4',
+        styles.sidebar,
+        show ? styles.active : '',
+      )}>
+      <div className="relative flex flex-col">
         <div
           aria-hidden="true"
-          className={styles.icon}
+          className="absolute right-0 cursor-pointer"
           onClick={() => setIsOpened(false)}
           role="button"
           tabIndex={0}>

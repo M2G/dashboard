@@ -8,7 +8,7 @@ interface ITableBody {
 function TableBody({ id }: ITableBody): JSX.Element {
   const { getSortedTable } = useContext(TableContext);
   return (
-    <tbody className="c-table-body">
+    <tbody>
       {getSortedTable?.map((row: { display: any }[], indexRow: number) => (
         <tr
           className="border-semi-10-contrast border-b-solid border-b-[1px]"

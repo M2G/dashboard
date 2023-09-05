@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import TableHeaderCell from '@/components/Core/Table/TableHeaderCell';
 import { TableContext } from '@/components/Core/Table/TableWrapper';
 
@@ -11,7 +11,7 @@ interface ITableHead {
 function TableHead({ id }: ITableHead): JSX.Element {
   const { handleSort, header, sortData } = useContext(TableContext);
   return (
-    <thead className="c-table-head text-left">
+    <thead className="text-left">
       <tr className="border-semi-10-contrast border-b-solid border-b-[1px]">
         {header?.map(({ label, sortable, type }: never, index: number) => (
           <TableHeaderCell
@@ -19,7 +19,7 @@ function TableHead({ id }: ITableHead): JSX.Element {
             isSortable={sortable}
             key={`tableHeaderCell__${id}__${index}`}
             label={label}
-            onSort={(sortDirection: any) => handleSort(index, sortDirection, type)}
+            onSort={(sortDirection) => handleSort(index, sortDirection, type)}
           />
         ))}
       </tr>

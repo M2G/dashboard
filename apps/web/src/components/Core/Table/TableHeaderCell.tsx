@@ -43,7 +43,7 @@ function TableHeaderCell({
       {label}
       {isSortable && (
         <button
-          className="sort-icon mb-0 rounded-none border-0 bg-transparent font-bold"
+          className="sort-icon mb-0 rounded-none border-0 bg-transparent px-2 font-bold"
           onClick={onSortClick}>
           <Icon className="fill-grey-dark w-4 cursor-pointer" icon={sortedClass} />
         </button>
