@@ -21,7 +21,7 @@ function Sidebar({ children, setIsOpened, show }: ISidebar): JSX.Element {
   return (
     <div
       className={clsx(
-        'bg-black-dark w-max-[300px] fixed left-0 top-0 z-50 h-full w-4/5 p-4',
+        'bg-black-dark w-max-[300px] fixed left-0 top-0 z-[9999] h-full w-4/5 w-[80%] translate-x-[-100%] p-4 transition-all duration-300 ease-in-out',
         styles.sidebar,
         show ? styles.active : '',
       )}>
