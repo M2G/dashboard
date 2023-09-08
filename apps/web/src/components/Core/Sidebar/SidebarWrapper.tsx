@@ -3,7 +3,6 @@ import type { Dispatch, JSX, ReactNode, SetStateAction } from 'react';
 import clsx from 'clsx';
 
 import Background from './Background';
-import styles from './Sidebar.module.scss';
 
 interface ISidebar {
   children: ReactNode;
@@ -21,9 +20,8 @@ function Sidebar({ children, setIsOpened, show }: ISidebar): JSX.Element {
   return (
     <div
       className={clsx(
-        'bg-black-dark fixed left-0 top-0 z-[9999] h-full w-4/5 max-w-[300px] translate-x-[-100%] p-4 transition-all duration-300 ease-in-out',
-        styles.sidebar,
-        show ? styles.active : '',
+        'bg-black-dark fixed left-0 top-0 z-[9999] h-full w-4/5 max-w-[300px] translate-x-[-100%] p-4 shadow-[0_8px_10px_-5px_rgb(0,0,0/20%),0_16px_24px_2px_rgb(0,0,0/14%),0_6px_30px_5px_rgb(0,0,0/12%)] transition-all duration-300 ease-in-out',
+        show ? 'translate-x-[0]' : '',
       )}>
       <div className="relative flex flex-col">
         <div

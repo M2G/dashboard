@@ -8,9 +8,6 @@ module.exports = {
   ],
   darkMode: 'class',
   extend: {
-      boxShadow: {
-        "custom": 'rgb(0 0 0 / 20%) 0 8px 10px -5px, rgb(0 0 0 / 14%) 0px 16px 24px 2px, rgb(0 0 0 / 12%) 0px 6px 30px 5px'
-      },
       colors: {
         // Common
         ...defaultTheme.colors,
