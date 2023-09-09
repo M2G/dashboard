@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+
 import UserList from '@/containers/UserList/UserList';
 
 function Users(): JSX.Element {
@@ -8,7 +9,7 @@ function Users(): JSX.Element {
         <div className="o-grid__row">
           <div className="o-col">
             <div className="o-cell--one">
-              <UserList canEdit canDelete canAdd id="test" />
+              <UserList canAdd canDelete canEdit id="test" />
             </div>
           </div>
         </div>
