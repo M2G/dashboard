@@ -226,44 +226,39 @@ function UserList({
   return (
     <div className="c-user-list">
       <AddUser canAdd={canAdd} onAdd={onAdd} />
+      <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
       {results.length > 0 ? (
-        <>
-          <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
-          <List
-            count={pageInfo?.count}
-            currentPage={pagination?.page}
-            currentPageSize={pagination?.pageSize}
-            data={results}
-            header={header}
-            id={id}
-            rows={rows}
-            setCurrentPage={onChangePage}
-            setCurrentPageSize={onChangePageSize}
-          />
-
-          <SidebarWrapper isOpened={!!state.editingUser} setIsOpened={onClose}>
-            {state.editingUser && (
-              <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />
-            )}
-          </SidebarWrapper>
-
-          <SidebarWrapper isOpened={!!state.newUser} setIsOpened={onClose}>
-            <UserNew onSubmit={onNewUser} />
-          </SidebarWrapper>
-
-          <ModalWrapper
-            onConfirm={() => {
-              onDeleteUser(state.deletingUser as unknown as any);
-            }}
-            hide={onClose}
-            isShowing={state.deletingUser}
-            title="Delete">
-            <p>Warning, you are about to perform an irreversible action</p>
-          </ModalWrapper>
-        </>
+        <List
+          count={pageInfo?.count}
+          currentPage={pagination?.page}
+          currentPageSize={pagination?.pageSize}
+          data={results}
+          header={header}
+          id={id}
+          rows={rows}
+          setCurrentPage={onChangePage}
+          setCurrentPageSize={onChangePageSize}
+        />
       ) : (
         <NoData />
       )}
+      <SidebarWrapper isOpened={!!state.editingUser} setIsOpened={onClose}>
+        {state.editingUser && <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />}
+      </SidebarWrapper>
+
+      <SidebarWrapper isOpened={!!state.newUser} setIsOpened={onClose}>
+        <UserNew onSubmit={onNewUser} />
+      </SidebarWrapper>
+
+      <ModalWrapper
+        onConfirm={() => {
+          onDeleteUser(state.deletingUser as unknown as any);
+        }}
+        hide={onClose}
+        isShowing={state.deletingUser}
+        title="Delete">
+        <p>Warning, you are about to perform an irreversible action</p>
+      </ModalWrapper>
     </div>
   );
 }
