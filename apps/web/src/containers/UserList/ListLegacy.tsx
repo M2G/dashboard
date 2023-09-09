@@ -1,31 +1,31 @@
+import type { JSX } from 'react';
+
 import PageSize from '@/components/Core/Pagination/PageSize';
 import Pagination from '@/components/Core/Pagination/PaginationLegacy';
 import TableWrapper from '@/components/Core/Table';
-import type { JSX } from 'react';
-import './index.scss';
 
 function List({
-  id,
-  header,
-  rows,
-  data,
   count,
+  currentPage,
+  currentPageSize,
+  data,
+  header,
+  id,
+  rows,
   setCurrentPage,
   setCurrentPageSize,
-  currentPageSize,
-  currentPage,
 }: any): JSX.Element {
   const perPage = currentPageSize;
   return (
     <>
-      <TableWrapper id={id} header={header} rows={rows} />
+      <TableWrapper header={header} id={id} rows={rows} />
       <div className="w-100 mt-2 flex items-center justify-end">
         <PageSize currentPageSize={currentPageSize} setCurrentPageSize={setCurrentPageSize} />
         <Pagination
-          totalItems={count}
-          perPage={perPage}
           currentPage={currentPage}
+          perPage={perPage}
           setCurrentPage={setCurrentPage}
+          totalItems={count}
         />
       </div>
     </>
