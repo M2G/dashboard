@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import Icon from '../Icon';
-import IconNames from '../Icon/Icons.types';
+import Icon from '@/components/Core/Icon';
+import IconNames from '@/components/Core/Icon/Icons.types';
 
 enum SortDirection {
   ASCENDING = 'ascending',
@@ -32,11 +32,13 @@ function TableHeaderCell({
 
   const sortedClass = useMemo(
     () =>
-      currentSortedData?.direction === 'ascending' ? IconNames.ARROW_DOWN : IconNames.ARROW_UP,
+      currentSortedData?.direction === SortDirection.ASCENDING
+        ? IconNames.ARROW_DOWN
+        : IconNames.ARROW_UP,
     [currentSortedData],
   );
 
-  console.log('sortedClass sortedClass sortedClass', { sortedClass, currentSortedData });
+  console.log('sortedClass sortedClass sortedClass', { currentSortedData, sortedClass });
 
   return (
     <th className="border-b-0 p-2 pl-0 text-base font-bold">
