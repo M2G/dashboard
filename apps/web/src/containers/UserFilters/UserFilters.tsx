@@ -34,7 +34,7 @@ function UserFilters({ currentTerm, onSearchTerm }: UserFiltersProps): JSX.Eleme
   return (
     <input
       aria-label="Search"
-      className="form-control c-search-input w-full focus:outline-none"
+      className="placeholder:text-grey-dark -ml-px mb-px w-full rounded-none border-b border-[hsla(0deg,0%,100%,0.1)] bg-transparent p-2 text-[rgb(113_113_122/var(--tw-text-opacity))] focus:shadow-none focus:outline-none"
       id="floatingInput"
       name={INPUT_NAME.SEARCH}
       onChange={handleChange}
