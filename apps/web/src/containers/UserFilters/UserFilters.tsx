@@ -4,7 +4,6 @@ import { debounce } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 
 import { INPUT_NAME, PLACEHOLDER_SEARCH } from './constants';
-import './index.scss';
 
 interface UserFiltersProps {
   currentTerm?: string;
