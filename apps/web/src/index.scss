@@ -59,44 +59,10 @@ $header-menu-button-width: 70px;
 $sidebar-width: 280px;
 
 .sidebar {
-  background-color: var(--color-sidebar-bg);
-  position: fixed;
-  top: 0;
-  /* rtl:raw:
-  right: 0;
-  */
-  bottom: 0;
-  /* rtl:remove */
-  left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
-  min-width: $sidebar-width;
-
-  border-color: hsla(0, 0%, 100%, 0.1);
-  border-right-style: solid;
-  border-right-width: 1px;
-
-  h3 {
-    color: white;
-    text-align: center;
-    letter-spacing: 1px;
-  }
-
   .nav {
     padding-right: _rem(map-get($_layout-grid, gutters));
     padding-left: _rem(map-get($_layout-grid, gutters));
   }
-}
-
-.sidebar .nav-link {
-  font-size: _em(16px);
-  font-weight: 500;
-  color: var(--color-text);
-}
-
-.sidebar .nav-link.active {
-  // color: var(--color-text);
 }
 
 .sidebar-heading {
@@ -143,70 +109,12 @@ nav.navbar {
   width: 100vw;
 }
 
-.navbar-nav {
-  .nav-item {
-    .nav-link {
-      color: var(--color-text);
-    }
-  }
-}
-
-.navbar-brand {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  background-color: rgba(0, 0, 0, 0.25);
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
-}
-
-.navbar .navbar-toggler {
-  top: 0.25rem;
-  right: 1rem;
-}
-
-.navbar .form-control {
-  padding: 0.75rem 1rem;
-}
-
-.form-control-dark {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.form-control-dark:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
-}
-
 //
 html,
 body {
   background-color: var(--color-bg) !important;
 }
 
-/*
-.c-sidebar {
-  .form-control {
-    background-color: var(--color-input-bg);
-    color: var(--color-text);
-    border-color: hsla(0, 0%, 100%, 0.1);
-    border-style: solid;
-    border-width: 1px;
-
-    & + label {
-      color: var(--color-text-heading);
-    }
-    &:focus {
-      background-color: var(--color-input-bg);
-      color: var(--color-text);
-      box-shadow: initial;
-      border-color: hsla(0, 0%, 100%, 0.1);
-      border-style: solid;
-      border-width: 1px;
-    }
-  }
-}
-*/
 .error-text {
   color: var(--color-error);
 }
