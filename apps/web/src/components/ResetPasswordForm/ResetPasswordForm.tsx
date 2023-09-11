@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { LABEL_EMAIL } from '@/components/ForgotPasswordForm/constants';
-import { Field } from 'ui';
+import { Button, Field } from 'ui';
 import {
   formSchema,
   INPUT_NAME,
@@ -15,6 +15,8 @@ import {
   PLACEHOLDER_VERIFY_PASSWORD,
 } from './constants';
 import './index.scss';
+import { Link } from 'react-router-dom';
+import ROUTER_PATH from '@/constants/RouterPath';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -37,61 +39,48 @@ function ResetPasswordForm({
   });
 
   return (
-    <div className="form-signup">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div
+      className="flex min-h-screen flex-col items-center justify-center"
+      id="form-reset-password">
+      <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="h3 mb-1">Reset password</h1>
+          <h1 className="text-3xl font-bold dark:text-black">Reset password</h1>
           <span>to continue</span>
         </div>
-        <div className="form-floating">
-          <Field
-            className="mb-2"
-            id="floatingInput"
-            label={LABEL_EMAIL}
-            type="email"
-            {...register(INPUT_NAME.EMAIL)}
-            required
-          />
-
-          <input
-            className="form-control mb-2"
-            id="floatingInput"
-            placeholder={PLACEHOLDER_NEW_PASSWORD}
-            type="password"
-            {...register(INPUT_NAME.NEW_PASSWORD)}
-            required
-          />
-          {errors?.[INPUT_NAME.NEW_PASSWORD] ? (
-            <span className="error-text">{errors[INPUT_NAME.NEW_PASSWORD].message}</span>
-          ) : null}
-          <label htmlFor="floatingInput">{LABEL_NEW_PASSWORD}</label>
+        <Field
+          className="_:mb-2"
+          label={LABEL_NEW_PASSWORD}
+          name={INPUT_NAME.NEW_PASSWORD}
+          type="email"
+          {...{ errors, register }}
+          required
+        />
+        <Field
+          className="_:mb-2"
+          label={LABEL_VERIFY_PASSWORD}
+          name={INPUT_NAME.VERIFY_PASSWORD}
+          type="email"
+          {...{ errors, register }}
+          required
+        />
+        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
+          Submit
+        </Button>
+        <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
+          <span className="m-0 box-border text-sm font-normal leading-tight">
+            Have an account ?
+          </span>
+          <Link
+            className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
+            to={ROUTER_PATH.HOME}>
+            Home
+          </Link>
+          <Link
+            className="ml-0 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
+            to={ROUTER_PATH.SIGNUP}>
+            Signup
+          </Link>
         </div>
-        <div className="form-floating">
-          <Field
-            className="mb-2"
-            id="floatingInput"
-            label={LABEL_EMAIL}
-            type="email"
-            {...register(INPUT_NAME.EMAIL)}
-            required
-          />
-
-          <input
-            className="form-control mb-2"
-            id="floatingInput"
-            placeholder={PLACEHOLDER_VERIFY_PASSWORD}
-            type="email"
-            {...register(INPUT_NAME.VERIFY_PASSWORD)}
-            required
-          />
-          {errors?.[INPUT_NAME.VERIFY_PASSWORD] ? (
-            <span className="error-text">{errors[INPUT_NAME.VERIFY_PASSWORD].message}</span>
-          ) : null}
-          <label htmlFor="floatingPassword">{LABEL_VERIFY_PASSWORD}</label>
-        </div>
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
-          Reset Password
-        </button>
       </form>
     </div>
   );
