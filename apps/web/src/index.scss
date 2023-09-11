@@ -33,7 +33,8 @@ select:-webkit-autofill:focus {
 #form-signup,
 #form-signin,
 #form-profil,
-#form-forgot-password {
+#form-forgot-password,
+#form-reset-password {
   input {
     background-color: $_color-white;
     color: $_color-black;
