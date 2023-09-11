@@ -96,9 +96,9 @@ export const Field: FC<FieldProps> = ({
           {label}
         </label>
       </div>
-      {errors?.[name] ? (
-        <div className="border bg-red-100 px-4 py-3" role="alert">
-          <span>{errors[name]?.message}</span>
+      {errors?.[name]?.message ? (
+        <div className="mt-1 border bg-red-100 px-4 py-3" role="alert">
+          <span>{errors[name].message}</span>
         </div>
       ) : null}
     </div>
