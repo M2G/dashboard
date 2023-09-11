@@ -45,7 +45,6 @@ function ForgotPasswordForm({
         </div>
         <Field
           className="_:mb-2"
-          id="floatingInput"
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
           type="email"
