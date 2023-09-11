@@ -55,13 +55,7 @@ function UserList({
     newUser: false,
   });
 
-  const {
-    auth,
-  }: // signup
-  any = useSelector(({ auth, signup }) => ({
-    auth,
-    signup,
-  }));
+  const auth = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -77,23 +71,22 @@ function UserList({
       page: pagination.page,
       pageSize: pagination.pageSize,
     });
-  }, [term, pagination]);
+  }, [term, pagination.page, pagination.pageSize]);
 
-  const onDelete = useCallback((user: any): void => {
-    setUser({ deletingUser: user, editingUser: false, newUser: false });
-  }, []);
-
-  const onClose = useCallback(() => {
-    setUser({ deletingUser: false, editingUser: false, newUser: false });
-  }, []);
-
-  const onAdd = useCallback((): void => {
-    setUser({ deletingUser: false, editingUser: false, newUser: true });
-  }, []);
-
-  const onEdit = useCallback((user: any): void => {
-    setUser({ deletingUser: false, editingUser: user, newUser: false });
-  }, []);
+  const handleAction = useCallback(
+    ({
+      deletingUser,
+      editingUser,
+      newUser,
+    }: {
+      deletingUser: any;
+      editingUser: boolean;
+      newUser: boolean;
+    }): void => {
+      setUser({ deletingUser, editingUser, newUser });
+    },
+    [],
+  );
 
   const onEditUser = useCallback(
     (user) => {
@@ -103,12 +96,12 @@ function UserList({
         page: pagination.page,
         pageSize: pagination.pageSize,
       });
-      onClose();
+      handleAction({ deletingUser: false, editingUser: false, newUser: false });
     },
     [
       authGetUsersProfil,
       editUserAction,
-      onClose,
+      handleAction,
       pagination.page,
       pagination.pageSize,
       state.editingUser.id,
@@ -170,9 +163,9 @@ function UserList({
         page: pagination.page,
         pageSize: pagination.pageSize,
       });
-      onClose();
+      handleAction({ deletingUser: false, editingUser: false, newUser: false });
     },
-    [authGetUsersProfil, onClose, pagination.page, pagination.pageSize, signupAction, term],
+    [authGetUsersProfil, handleAction, pagination.page, pagination.pageSize, signupAction, term],
   );
 
   const onDeleteUser = useCallback(
@@ -183,9 +176,16 @@ function UserList({
         page: pagination.page,
         pageSize: pagination.pageSize,
       });
-      onClose();
+      handleAction({ deletingUser: false, editingUser: false, newUser: false });
     },
-    [authGetUsersProfil, deleteUserAction, onClose, pagination.page, pagination.pageSize, term],
+    [
+      authGetUsersProfil,
+      deleteUserAction,
+      handleAction,
+      pagination.page,
+      pagination.pageSize,
+      term,
+    ],
   );
 
   const users = auth?.data || [];
@@ -201,12 +201,12 @@ function UserList({
           canDelete,
           canEdit,
           id,
-          onDelete,
-          onEdit,
+          onDelete: (d) => handleAction({ deletingUser: d, editingUser: false, newUser: false }),
+          onEdit: (d) => handleAction({ deletingUser: false, editingUser: d, newUser: false }),
           user,
-        } as any),
+        }),
       ),
-    [results, canDelete, canEdit, id, onDelete, onEdit],
+    [results, canDelete, canEdit, id, handleAction],
   );
 
   const header = useMemo(
@@ -225,7 +225,10 @@ function UserList({
 
   return (
     <div className="c-user-list">
-      <AddUser canAdd={canAdd} onAdd={onAdd} />
+      <AddUser
+        canAdd={canAdd}
+        onAdd={() => handleAction({ deletingUser: false, editingUser: false, newUser: true })}
+      />
       <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
       {results.length > 0 ? (
         <List
@@ -242,11 +245,19 @@ function UserList({
       ) : (
         <NoData />
       )}
-      <SidebarWrapper isOpened={!!state.editingUser} setIsOpened={onClose}>
+      <SidebarWrapper
+        setIsOpened={() =>
+          handleAction({ deletingUser: false, editingUser: false, newUser: false })
+        }
+        isOpened={!!state.editingUser}>
         {state.editingUser && <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />}
       </SidebarWrapper>
 
-      <SidebarWrapper isOpened={!!state.newUser} setIsOpened={onClose}>
+      <SidebarWrapper
+        setIsOpened={() =>
+          handleAction({ deletingUser: false, editingUser: false, newUser: false })
+        }
+        isOpened={!!state.newUser}>
         <UserNew onSubmit={onNewUser} />
       </SidebarWrapper>
 
@@ -254,7 +265,7 @@ function UserList({
         onConfirm={() => {
           onDeleteUser(state.deletingUser as unknown as any);
         }}
-        hide={onClose}
+        hide={() => handleAction({ deletingUser: false, editingUser: false, newUser: false })}
         isShowing={state.deletingUser}
         title="Delete">
         <p>Warning, you are about to perform an irreversible action</p>
