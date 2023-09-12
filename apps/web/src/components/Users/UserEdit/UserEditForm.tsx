@@ -64,7 +64,7 @@ function UserEditForm({
           {...{ errors, register }}
         />
         <Button
-          className="_:bg-white _:font-normal _:text-black w-full"
+          className="_:bg-white _:font-medium _:text-black w-full text-3xl"
           type="submit"
           variant="primary">
           Save
