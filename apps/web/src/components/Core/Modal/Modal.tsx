@@ -37,7 +37,7 @@ function Modal({ children, hide, id, isShowing, onConfirm, title }: IModal): JSX
               className="relative m-auto max-w-[400px] rounded-lg bg-[linear-gradient(to_top_right,rgba(39,39,42,1),rgba(24,24,27,1))] p-4 text-gray-900 shadow-[0_0.5rem_1rem_rgba(0,0,0,0.15)]"
               ref={ref}>
               <div className="relative flex items-center justify-between">
-                <h5 className="mb-2 text-white">{title}</h5>
+                <h4 className="mb-2 text-2xl font-bold text-white dark:text-white">{title}</h4>
                 <button
                   aria-label="Close"
                   className="absolute bottom-2 left-[calc(100%-20px)]"
