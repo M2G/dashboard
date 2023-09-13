@@ -24,8 +24,8 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
   });
 
   return (
-    <div className="form-create">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="pt-[50px]">
+      <form className="p-2" onSubmit={handleSubmit(onSubmit)}>
         <Field
           className="_:mb-4"
           label={LABEL_EMAIL}
@@ -37,11 +37,11 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
           className="_:mb-4"
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
-          type="text"
+          type="password"
           {...{ errors, register }}
         />
         <Button
-          className="_:bg-white _:font-medium _:text-black w-full text-3xl"
+          className="_:bg-white _:font-normal _:text-black w-full"
           disabled={isSubmitting}
           type="submit"
           variant="primary">

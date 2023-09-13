@@ -11,7 +11,7 @@ function AddUser({ canAdd, onAdd }: IAddUser): JSX.Element | null {
     <div className="flex w-full justify-end">
       {canAdd && (
         <button
-          className="m-4 mb-2 rounded-md px-4 py-2 text-3xl text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-white"
+          className="m-4 mb-2 rounded-md px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 dark:bg-white"
           onClick={onAdd}
           type="submit">
           {t('Add user')}
