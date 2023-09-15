@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { Button, Field } from 'ui';
 
 import { formSchema, INITIAL_VALUES, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
-import './index.scss';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
