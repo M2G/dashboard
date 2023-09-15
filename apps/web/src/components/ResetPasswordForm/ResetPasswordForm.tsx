@@ -4,7 +4,6 @@ import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { LABEL_EMAIL } from '@/components/ForgotPasswordForm/constants';
 import { Button, Field } from 'ui';
 import {
   formSchema,
@@ -14,7 +13,6 @@ import {
   PLACEHOLDER_NEW_PASSWORD,
   PLACEHOLDER_VERIFY_PASSWORD,
 } from './constants';
-import './index.scss';
 import { Link } from 'react-router-dom';
 import ROUTER_PATH from '@/constants/RouterPath';
 
