@@ -225,10 +225,11 @@ function UserList({
 
   return (
     <div className="c-user-list">
-      <AddUser
-        canAdd={canAdd}
-        onAdd={() => handleAction({ deletingUser: false, editingUser: false, newUser: true })}
-      />
+      {canAdd && (
+        <AddUser
+          onAdd={() => handleAction({ deletingUser: false, editingUser: false, newUser: true })}
+        />
+      )}
       <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
       {results.length > 0 ? (
         <List
