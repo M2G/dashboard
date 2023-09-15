@@ -25,7 +25,7 @@ export const ButtonVariants = {
  * Sizes of the button
  */
 export const ButtonSizes = {
-  regular: '_:px-4 _:py-[8px] min-h-[48px] text-lg',
+  regular: '_:px-4 _:py-[8px] min-h-[48px] text-md',
   small: '_:px-4 _:py-1.5 min-h-[34px]',
 };
 
