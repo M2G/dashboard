@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 
 import { Button, Field } from 'ui';
 
-import { formSchema, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
+import { formSchema, INITIAL_VALUES, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
+import { useMemo } from 'react';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -18,21 +19,24 @@ function SigninForm({
   initialValues,
   onSubmit,
 }: {
-  initialValues: any;
+  initialValues: INITIAL_VALUES;
   onSubmit: SubmitHandler<FormSchemaType>;
 }): JSX.Element {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
-    defaultValues: {
-      ...initialValues,
-    },
+    defaultValues: useMemo(
+      () => ({
+        ...initialValues,
+      }),
+      [initialValues],
+    ),
     resolver: zodResolver(formSchema),
   });
 
-  console.log('isSubmitting', isSubmitting);
+  console.log('isSubmitting isSubmitting isSubmitting isSubmitting', isValid);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center" id="form-signup">
@@ -57,7 +61,7 @@ function SigninForm({
           required
           type="password"
         />
-        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
+        <Button className="w-full" disabled={!isValid} type="submit" variant="primary">
           Sign in
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
