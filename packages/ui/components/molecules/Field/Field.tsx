@@ -56,6 +56,7 @@ export const Field: FC<FieldProps> = ({
   status = 'default',
   tag = 'input',
   type = 'text',
+  defaultValue,
   ...rest
 }) => {
   const DynamicTag = tag || (`${tag}` as keyof AnyComponent);
@@ -82,6 +83,7 @@ export const Field: FC<FieldProps> = ({
           ].join(' ')}
           aria-invalid={errors && errors[name] ? 'true' : 'false'}
           type={type}
+          defaultValue={defaultValue}
           {...{ name, placeholder, ...rest }}
           {...register(name, currentRules)}
         />
