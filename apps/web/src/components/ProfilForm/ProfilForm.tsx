@@ -24,13 +24,7 @@ interface IForm {
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function ProfilForm({
-  initialValues,
-  onSubmit,
-}: {
-  initialValues: any;
-  onSubmit: SubmitHandler<FormSchemaType>;
-}): JSX.Element {
+function ProfilForm({ initialValues, onSubmit }: IForm): JSX.Element {
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
