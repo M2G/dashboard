@@ -259,7 +259,7 @@ function UserList({
           handleAction({ deletingUser: false, editingUser: false, newUser: false })
         }
         isOpened={!!state.newUser}>
-        <UserNew onSubmit={onNewUser} />
+        {state.newUser && <UserNew onSubmit={onNewUser} />}
       </SidebarWrapper>
 
       <ModalWrapper
