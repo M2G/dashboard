@@ -1,20 +1,18 @@
-import { useMemo } from 'react';
-import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
-
 import { Button, Field } from 'ui';
 
 import {
-  formSchema,
   INPUT_NAME,
   LABEL_EMAIL,
   LABEL_FIRST_NAME,
   LABEL_LAST_NAME,
+  formSchema,
 } from './constants';
-import './index.scss';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
