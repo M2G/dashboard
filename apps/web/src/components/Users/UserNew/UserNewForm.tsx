@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Button, Field } from 'ui';
 
 import { formSchema, INITIAL_VALUES, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
+import { useMemo } from 'react';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -16,9 +17,12 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
-    defaultValues: {
-      ...INITIAL_VALUES,
-    },
+    defaultValues: useMemo(
+      () => ({
+        ...INITIAL_VALUES,
+      }),
+      [],
+    ),
     resolver: zodResolver(formSchema),
   });
 
@@ -26,6 +30,7 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
     <div className="pt-[50px]">
       <form className="p-2" onSubmit={handleSubmit(onSubmit)}>
         <Field
+          defaultValue={INITIAL_VALUES.EMAIL}
           className="_:mb-4"
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
@@ -33,6 +38,7 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
           {...{ errors, register }}
         />
         <Field
+          defaultValue={INITIAL_VALUES.PASSWORD}
           className="_:mb-4"
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
