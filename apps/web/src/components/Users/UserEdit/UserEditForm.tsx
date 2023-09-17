@@ -1,30 +1,29 @@
 import type { z } from 'zod';
+import type { SubmitHandler } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
-import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { Button, Field } from 'ui';
 
 import {
+  formSchema,
   INPUT_NAME,
   LABEL_EMAIL,
   LABEL_FIRST_NAME,
   LABEL_LAST_NAME,
-  formSchema,
 } from './constants';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function UserEditForm({
-  initialValues,
-  onSubmit,
-}: {
-  initialValues: Record<string, string>;
+interface IForm {
+  initialValues: Record<any, unknown>;
   onSubmit: SubmitHandler<FormSchemaType>;
-}) {
+}
+
+function UserEditForm({ initialValues, onSubmit }: IForm) {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
@@ -63,7 +62,7 @@ function UserEditForm({
         />
         <Button
           className="_:bg-white _:font-normal _:text-black w-full"
-          disabled={isSubmitting}
+          disabled={isValid}
           type="submit"
           variant="primary">
           Save
