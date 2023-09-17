@@ -3,17 +3,22 @@ import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+
 import { Button, Field } from 'ui';
 
 import { formSchema, INITIAL_VALUES, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
-import { useMemo } from 'react';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }): JSX.Element {
+interface IForm {
+  onSubmit: SubmitHandler<FormSchemaType>;
+}
+
+function UserNewForm({ onSubmit }: IForm): JSX.Element {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
@@ -30,16 +35,16 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
     <div className="pt-[50px]">
       <form className="p-2" onSubmit={handleSubmit(onSubmit)}>
         <Field
-          defaultValue={INITIAL_VALUES.EMAIL}
           className="_:mb-4"
+          defaultValue={INITIAL_VALUES.EMAIL}
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
           type="email"
           {...{ errors, register }}
         />
         <Field
-          defaultValue={INITIAL_VALUES.PASSWORD}
           className="_:mb-4"
+          defaultValue={INITIAL_VALUES.PASSWORD}
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
           type="password"
@@ -47,7 +52,7 @@ function UserNewForm({ onSubmit }: { onSubmit: SubmitHandler<FormSchemaType> }):
         />
         <Button
           className="_:bg-white _:font-normal _:text-black w-full"
-          disabled={isSubmitting}
+          disabled={isValid}
           type="submit"
           variant="primary">
           Save
