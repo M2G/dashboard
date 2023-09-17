@@ -11,15 +11,14 @@ import ROUTER_PATH from '@/constants/RouterPath';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function ResetPasswordForm({
-  initialValues,
-  onSubmit,
-}: {
-  initialValues: any;
+interface IForm {
+  initialValues: Record<any, unknown>;
   onSubmit: SubmitHandler<FormSchemaType>;
-}) {
+}
+
+function ResetPasswordForm({ initialValues, onSubmit }: IForm) {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
@@ -54,7 +53,7 @@ function ResetPasswordForm({
           {...{ errors, register }}
           required
         />
-        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
+        <Button className="w-full" disabled={isValid} type="submit" variant="primary">
           Submit
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
