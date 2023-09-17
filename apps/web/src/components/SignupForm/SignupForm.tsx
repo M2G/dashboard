@@ -14,15 +14,14 @@ import { formSchema, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function SigninForm({
-  initialValues,
-  onSubmit,
-}: {
-  initialValues: any;
+interface IForm {
+  initialValues: Record<any, unknown>;
   onSubmit: SubmitHandler<FormSchemaType>;
-}): JSX.Element {
+}
+
+function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
@@ -57,7 +56,7 @@ function SigninForm({
           {...{ errors, register }}
           required
         />
-        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
+        <Button className="w-full" disabled={isValid} type="submit" variant="primary">
           Sign up
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
