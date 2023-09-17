@@ -55,8 +55,7 @@ function UserList({
     newUser: false,
   });
 
-  const auth = useSelector((state) => state.auth);
-
+  const auth = useSelector((stateSelector) => stateSelector.auth);
   const dispatch = useDispatch();
 
   const authGetUsersProfil = (params: { filters: string; page: number; pageSize: number }) =>
