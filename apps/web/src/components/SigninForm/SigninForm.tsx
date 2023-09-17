@@ -15,13 +15,12 @@ import { useMemo } from 'react';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function SigninForm({
-  initialValues,
-  onSubmit,
-}: {
-  initialValues: INITIAL_VALUES;
+interface IForm {
+  initialValues: typeof INITIAL_VALUES;
   onSubmit: SubmitHandler<FormSchemaType>;
-}): JSX.Element {
+}
+
+function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
   const {
     formState: { errors, isValid },
     handleSubmit,
@@ -35,8 +34,6 @@ function SigninForm({
     ),
     resolver: zodResolver(formSchema),
   });
-
-  console.log('isSubmitting isSubmitting isSubmitting isSubmitting', isValid);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center" id="form-signup">
