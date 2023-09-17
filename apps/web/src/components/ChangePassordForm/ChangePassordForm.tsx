@@ -25,7 +25,7 @@ interface IForm {
 
 function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
@@ -72,7 +72,7 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
           {...{ errors, register }}
           required
         />
-        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
+        <Button className="w-full" disabled={isValid} type="submit" variant="primary">
           Change password
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
