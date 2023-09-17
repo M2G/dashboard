@@ -26,7 +26,7 @@ type FormSchemaType = z.infer<typeof formSchema>;
 
 function ProfilForm({ initialValues, onSubmit }: IForm): JSX.Element {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
@@ -71,7 +71,7 @@ function ProfilForm({ initialValues, onSubmit }: IForm): JSX.Element {
           {...{ errors, register }}
           required
         />
-        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
+        <Button className="w-full" disabled={isValid} type="submit" variant="primary">
           Save
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
