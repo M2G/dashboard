@@ -13,15 +13,14 @@ import { formSchema, INPUT_NAME, LABEL_EMAIL } from './constants';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-function ForgotPasswordForm({
-  initialValues,
-  onSubmit,
-}: {
-  initialValues: any;
+interface IForm {
+  initialValues: Record<any, unknown>;
   onSubmit: SubmitHandler<FormSchemaType>;
-}) {
+}
+
+function ForgotPasswordForm({ initialValues, onSubmit }: IForm) {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
@@ -51,7 +50,7 @@ function ForgotPasswordForm({
           {...{ errors, register }}
           required
         />
-        <Button className="w-full" disabled={isSubmitting} type="submit" variant="primary">
+        <Button className="w-full" disabled={isValid} type="submit" variant="primary">
           Submit
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
