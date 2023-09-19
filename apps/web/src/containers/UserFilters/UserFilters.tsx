@@ -1,5 +1,6 @@
 import type { JSX } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { debounce } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 
@@ -11,6 +12,7 @@ interface UserFiltersProps {
 }
 
 function UserFilters({ currentTerm, onSearchTerm }: UserFiltersProps): JSX.Element {
+  const { t } = useTranslation();
   const [term, setTerm] = useState(currentTerm);
   const debouncedSearch = useRef(
     debounce((criteria: string): void => {

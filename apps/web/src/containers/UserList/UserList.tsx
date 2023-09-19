@@ -30,6 +30,12 @@ type UserListProps = {
   id?: string;
 };
 
+enum UserListActions {
+  DELETE = 'delete',
+  EDIT = 'edit',
+  NEW = 'new',
+}
+
 function UserList({
   canAdd = false,
   canDelete = false,
@@ -195,7 +201,7 @@ function UserList({
 
   const rows = useMemo(
     () =>
-      results?.map((user) =>
+      results?.map((user: any) =>
         userListItem({
           canDelete,
           canEdit,
