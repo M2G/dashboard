@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Button, Field } from 'ui';
 
 import { formSchema, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
+import { useMemo } from 'react';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -25,9 +26,13 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
     handleSubmit,
     register,
   } = useForm<FormSchemaType>({
-    defaultValues: {
-      ...initialValues,
-    },
+    defaultValues: useMemo(
+      () => ({
+        ...initialValues,
+      }),
+      [initialValues],
+    ),
+    mode: 'onBlur',
     resolver: zodResolver(formSchema),
   });
 

@@ -3,15 +3,47 @@ import { initReactI18next } from 'react-i18next';
 
 const resources = {
   en: {
-    test: 'ggggggggggg',
     translation: {
-      'Welcome to React': 'Welcome to React and react-i18next',
+      very: {
+        deeply: {
+          nested: {
+            key: 'here',
+          },
+        },
+      },
+      field: {
+        createAt: 'Create At',
+        email: 'Email',
+        firstname: 'Firstname',
+        lastname: 'Lastname',
+        updateAt: 'Update At',
+      },
+      nested: {
+        key: 'here',
+      },
+      'Welcome to React': 'Welcome to React and react-i18next 2',
     },
   },
   fr: {
-    test: 'aaaaaaaaaaa',
     translation: {
-      'Welcome to React': 'Bienvenue à React et react-i18next',
+      very: {
+        deeply: {
+          nested: {
+            key: 'here',
+          },
+        },
+      },
+      field: {
+        createAt: 'Create At',
+        email: 'Email',
+        firstname: 'Firstname',
+        lastname: 'Lastname',
+        updateAt: 'Update At',
+      },
+      nested: {
+        key: 'here',
+      },
+      'Welcome to React': 'Bienvenue à React et react-i18next 2',
     },
   },
 };
@@ -20,8 +52,9 @@ const resources = {
   interpolation: {
     escapeValue: false,
   },
-  keySeparator: false,
+  // keySeparator: false,
   lng: 'en',
+  fallbackLng: 'en',
   resources,
 });
 

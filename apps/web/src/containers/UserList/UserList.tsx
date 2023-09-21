@@ -24,10 +24,10 @@ import AddUser from './Action/AddUser';
 import userListItem from './UserListItem';
 
 type UserListProps = {
-  canAdd?: boolean;
-  canDelete?: boolean;
-  canEdit?: boolean;
-  id?: string;
+  canAdd: boolean;
+  canDelete: boolean;
+  canEdit: boolean;
+  id: string;
 };
 function UserList({
   canAdd = false,
@@ -124,7 +124,7 @@ function UserList({
   );
 
   const searchTerms = useCallback(
-    async (term: string): Promise<void> => {
+    (term: string): void => {
       setTerm(term);
       authGetUsersProfil({
         filters: term,
@@ -136,7 +136,7 @@ function UserList({
   );
 
   const onChangePage = useCallback(
-    async (page: number): Promise<void> => {
+    (page: number): void => {
       setPagination((prevState) => ({
         ...prevState,
         page,
@@ -194,7 +194,7 @@ function UserList({
 
   const rows = useMemo(
     () =>
-      results?.map((user: any) =>
+      results?.map((user) =>
         userListItem({
           canDelete,
           canEdit,
@@ -210,11 +210,11 @@ function UserList({
   const header = useMemo(
     () => [
       { label: '', sortable: false },
-      { label: 'First name', sortable: false },
-      { label: 'Last name', sortable: false },
-      { label: 'Email', sortable: false },
-      { label: 'Created at', sortable: true, type: 'date' },
-      { label: 'Modified at', sortable: true, type: 'date' },
+      { label: t('field.firstname'), sortable: false },
+      { label: t('field.lastname'), sortable: false },
+      { label: t('field.email'), sortable: false },
+      { label: t('field.createdAt'), sortable: true, type: 'date' },
+      { label: t('field.updateAt'), sortable: true, type: 'date' },
     ],
     [],
   );

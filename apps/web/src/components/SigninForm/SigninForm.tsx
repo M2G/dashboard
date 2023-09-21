@@ -32,6 +32,7 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
       }),
       [initialValues],
     ),
+    mode: 'onBlur',
     resolver: zodResolver(formSchema),
   });
 
