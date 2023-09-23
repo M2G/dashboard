@@ -39,7 +39,7 @@ function UserNewForm({ onSubmit }: IForm): JSX.Element {
         <Field
           className="_:mb-4"
           defaultValue={INITIAL_VALUES.EMAIL}
-          label={LABEL_EMAIL}
+          label={t('field.email')}
           name={INPUT_NAME.EMAIL}
           type="email"
           {...{ errors, register }}
@@ -47,7 +47,7 @@ function UserNewForm({ onSubmit }: IForm): JSX.Element {
         <Field
           className="_:mb-4"
           defaultValue={INITIAL_VALUES.PASSWORD}
-          label={LABEL_PASSWORD}
+          label={t('field.password')}
           name={INPUT_NAME.PASSWORD}
           type="password"
           {...{ errors, register }}
