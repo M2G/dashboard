@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 enum Language {
