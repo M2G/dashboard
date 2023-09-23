@@ -1,6 +1,7 @@
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
+import { useTranslation } from 'react-i18next';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -17,6 +18,7 @@ interface IForm {
 }
 
 function ResetPasswordForm({ initialValues, onSubmit }: IForm) {
+  const { t } = useTranslation();
   const {
     formState: { errors, isValid },
     handleSubmit,
@@ -34,8 +36,8 @@ function ResetPasswordForm({ initialValues, onSubmit }: IForm) {
       id="form-reset-password">
       <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="text-3xl font-bold dark:text-black">Reset password</h1>
-          <span>to continue</span>
+          <h1 className="text-3xl font-bold dark:text-black">{t('form.resetPassword')}</h1>
+          <span>{t('form.toContinue')}</span>
         </div>
         <Field
           className="_:mb-2"
@@ -54,21 +56,21 @@ function ResetPasswordForm({ initialValues, onSubmit }: IForm) {
           required
         />
         <Button className="w-full" disabled={isValid} type="submit" variant="primary">
-          Submit
+          {t('form.submit')}
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
           <span className="m-0 box-border text-sm font-normal leading-tight">
-            Have an account ?
+            {t('form.haveAnAccount')}
           </span>
           <Link
             className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
             to={ROUTER_PATH.HOME}>
-            Home
+            {t('form.home')}
           </Link>
           <Link
             className="ml-0 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
             to={ROUTER_PATH.SIGNUP}>
-            Signup
+            {t('form.signup')}
           </Link>
         </div>
       </form>
