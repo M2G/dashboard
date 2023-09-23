@@ -1,8 +1,10 @@
 import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import ROUTER_PATH from '@/constants/RouterPath';
 
 function Sidebar(): JSX.Element {
+  const { t } = useTranslation();
   return (
     <nav className="sidebar color:var(--color-sidebar-bg)] fixed inset-y-0 left-0 z-[100] min-w-[280px] border-r border-[hsla(0,0%,100%,0.1)] px-0 pb-0 pt-12 shadow-[inset_-1px_0_0_rgba(0,0,0,0.1)]">
       <div className="sticky">
@@ -29,7 +31,7 @@ function Sidebar(): JSX.Element {
               aria-current="page"
               className="ml-2 font-medium text-[\_em(16px)] text-[color:var(--color-text)]"
               href={ROUTER_PATH.HOME}>
-              Home
+              {t('navbar.home')}
             </a>
           </li>
           <li className="mb-4 flex stroke-white">
@@ -47,7 +49,7 @@ function Sidebar(): JSX.Element {
               aria-current="page"
               className="ml-2 font-medium text-[\_em(16px)] text-[color:var(--color-text)]"
               href={ROUTER_PATH.PROFIL}>
-              Profil
+              {t('navbar.profil')}
             </a>
           </li>
           <li className="mb-4 flex stroke-white">
@@ -66,7 +68,7 @@ function Sidebar(): JSX.Element {
               aria-current="page"
               className="ml-2 font-medium text-[\_em(16px)] text-[color:var(--color-text)]"
               href={ROUTER_PATH.USERS}>
-              Users
+              {t('navbar.users')}
             </a>
           </li>
         </ul>
