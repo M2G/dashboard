@@ -47,7 +47,7 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
         </div>
         <Field
           className="_:mb-2"
-          label={LABEL_EMAIL}
+          label={t('field.email')}
           name={INPUT_NAME.EMAIL}
           {...{ errors, register }}
           required
@@ -55,7 +55,7 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
         />
         <Field
           className="_:mb-2"
-          label={LABEL_PASSWORD}
+          label={t('field.password')}
           name={INPUT_NAME.PASSWORD}
           {...{ errors, register }}
           required
