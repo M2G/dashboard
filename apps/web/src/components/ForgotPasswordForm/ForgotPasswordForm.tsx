@@ -4,6 +4,7 @@ import type { z } from 'zod';
 import ROUTER_PATH from '@/constants/RouterPath';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Button, Field } from 'ui';
@@ -19,6 +20,7 @@ interface IForm {
 }
 
 function ForgotPasswordForm({ initialValues, onSubmit }: IForm) {
+  const { t } = useTranslation();
   const {
     formState: { errors, isValid },
     handleSubmit,
@@ -55,17 +57,17 @@ function ForgotPasswordForm({ initialValues, onSubmit }: IForm) {
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
           <span className="m-0 box-border text-sm font-normal leading-tight">
-            Have an account ?
+            {t('form.haveAnAccount')}
           </span>
           <Link
             className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
             to={ROUTER_PATH.SIGNIN}>
-            Signin
+            {t('form.signin')}
           </Link>
           <Link
             className="ml-0 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
             to={ROUTER_PATH.SIGNUP}>
-            Signup
+            {t('form.signup')}
           </Link>
         </div>
       </form>
