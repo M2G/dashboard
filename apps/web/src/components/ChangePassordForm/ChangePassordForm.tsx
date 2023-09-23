@@ -79,7 +79,7 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
           <span className="m-0 box-border text-sm font-normal leading-tight">
-            Want to see your ?
+            {t('form.wantToSeeYour')}
           </span>
           <Link
             className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
