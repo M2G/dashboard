@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { JSX, SetStateAction } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,6 +29,7 @@ type UserListProps = {
   canEdit: boolean;
   id: string;
 };
+
 function UserList({
   canAdd = false,
   canDelete = false,
@@ -81,20 +82,31 @@ function UserList({
       editingUser: boolean;
       newUser: boolean;
     }): void => {
-      setUser({ deletingUser, editingUser, newUser });
+      setUser({
+        deletingUser,
+        editingUser,
+        newUser,
+      });
     },
     [],
   );
 
   const onEditUser = useCallback(
     (user) => {
-      editUserAction({ ...user, id: state.editingUser.id });
+      editUserAction({
+        ...user,
+        id: state.editingUser.id,
+      });
       authGetUsersProfil({
         filters: term,
         page: pagination.page,
         pageSize: pagination.pageSize,
       });
-      handleAction({ deletingUser: false, editingUser: false, newUser: false });
+      handleAction({
+        deletingUser: false,
+        editingUser: false,
+        newUser: false,
+      });
     },
     [
       authGetUsersProfil,
@@ -124,10 +136,10 @@ function UserList({
   );
 
   const searchTerms = useCallback(
-    (term: string): void => {
-      setTerm(term);
+    (terms: string): void => {
+      setTerm(terms);
       authGetUsersProfil({
-        filters: term,
+        filters: terms,
         page: pagination.page,
         pageSize: pagination.pageSize,
       });
@@ -152,7 +164,7 @@ function UserList({
   );
 
   const onNewUser = useCallback(
-    (user) => {
+    (user: SetStateAction<{ deletingUser?: any; editingUser?: any; newUser?: any }>) => {
       // console.log('onNewUser', user);
       setUser(user);
       signupAction(user);
@@ -216,7 +228,7 @@ function UserList({
       { label: t('field.createdAt'), sortable: true, type: 'date' },
       { label: t('field.updateAt'), sortable: true, type: 'date' },
     ],
-    [],
+    [t],
   );
 
   if (!users?.length && auth.loading) return <TopLineLoading />;
@@ -267,7 +279,7 @@ function UserList({
         hide={() => handleAction({ deletingUser: false, editingUser: false, newUser: false })}
         isShowing={state.deletingUser}
         title="Delete">
-        <p>Warning, you are about to perform an irreversible action</p>
+        <p>{t('alert.warning')}</p>
       </ModalWrapper>
     </div>
   );
