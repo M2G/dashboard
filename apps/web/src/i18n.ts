@@ -4,57 +4,82 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
-      very: {
-        deeply: {
-          nested: {
-            key: 'here',
-          },
-        },
+      alert: {
+        warning: 'Warning, you are about to perform an irreversible action',
       },
       field: {
-        createAt: 'Create At',
+        createdAt: 'Created at',
         email: 'Email',
-        firstname: 'Firstname',
-        lastname: 'Lastname',
-        updateAt: 'Update At',
+        firstname: 'First name',
+        lastname: 'Last name',
+        updateAt: 'Update at',
       },
-      nested: {
-        key: 'here',
+      form: {
+        createAccount: 'Create account',
+        forgotPassword: 'Forgot password',
+        pleaseAuthenticate: 'Please authenticate',
+        changePassword: 'Change Password',
+        resetPassword: 'Reset password',
+        toContinue: 'to continue',
+        userProfile: 'User Profile',
+        save: 'Save',
+        signup: 'Signup',
+        haveAnAccount: 'Have an account ?',
+        signin: 'Signin',
+        home: 'Home',
+        submit: 'Submit',
+        profile: 'Profile',
       },
-      'Welcome to React': 'Welcome to React and react-i18next 2',
+      navbar: {
+        home: 'Home',
+        profil: 'Profil',
+        users: 'Users',
+      },
     },
   },
   fr: {
     translation: {
-      very: {
-        deeply: {
-          nested: {
-            key: 'here',
-          },
-        },
+      alert: {
+        warning: "Attention, vous êtes sur le point d'effectuer une action irréversible",
       },
       field: {
-        createAt: 'Create At',
+        createdAt: 'Créé à',
         email: 'Email',
-        firstname: 'Firstname',
-        lastname: 'Lastname',
-        updateAt: 'Update At',
+        firstname: 'Prénom',
+        lastname: 'Nom de famille',
+        updateAt: 'Mise à jour à',
       },
-      nested: {
-        key: 'here',
+      form: {
+        createAccount: 'Créer un compte',
+        forgotPassword: 'Mot de passe oublié',
+        pleaseAuthenticate: 'Veuillez vous authentifier',
+        resetPassword: 'Réinitialiser le mot de passe',
+        toContinue: 'Continuer',
+        userProfile: "Profil de l'utilisateur",
+        save: 'Sauvegarder',
+        signup: 'Signup',
+        haveAnAccount: 'Vous avez un compte ?',
+        signin: 'Signin',
+        home: 'Home',
+        submit: 'Soumettre',
+        profile: 'Profile',
       },
-      'Welcome to React': 'Bienvenue à React et react-i18next 2',
+      navbar: {
+        home: 'Accueil',
+        profil: 'Profil',
+        users: 'Utilisateurs',
+      },
     },
   },
 };
 
 (i18n as any).use(initReactI18next).init({
+  fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
   },
   // keySeparator: false,
   lng: 'en',
-  fallbackLng: 'en',
   resources,
 });
 
