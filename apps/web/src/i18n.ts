@@ -11,8 +11,11 @@ const resources = {
         createdAt: 'Created at',
         email: 'Email',
         firstname: 'First name',
+        password: 'Password',
         lastname: 'Last name',
         updateAt: 'Update at',
+        newPassword: 'New password',
+        verifyPassword: 'Verify password',
       },
       form: {
         createAccount: 'Create account',
@@ -29,6 +32,7 @@ const resources = {
         home: 'Home',
         submit: 'Submit',
         profile: 'Profile',
+        wantToSeeYour: 'Want to see your ?',
       },
       navbar: {
         home: 'Home',
@@ -47,6 +51,7 @@ const resources = {
         email: 'Email',
         firstname: 'Prénom',
         lastname: 'Nom de famille',
+        password: 'Mot de passe',
         updateAt: 'Mise à jour à',
       },
       form: {
@@ -63,6 +68,7 @@ const resources = {
         home: 'Home',
         submit: 'Soumettre',
         profile: 'Profile',
+        wantToSeeYour: 'Voulez-vous voir votre ?',
       },
       navbar: {
         home: 'Accueil',
