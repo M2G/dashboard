@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
+import { useTranslation } from 'react-i18next';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,6 +18,7 @@ interface IForm {
 }
 
 function UserNewForm({ onSubmit }: IForm): JSX.Element {
+  const { t } = useTranslation();
   const {
     formState: { errors, isValid },
     handleSubmit,
@@ -55,7 +57,7 @@ function UserNewForm({ onSubmit }: IForm): JSX.Element {
           disabled={isValid}
           type="submit"
           variant="primary">
-          Save
+          {t('form.save')}
         </Button>
       </form>
     </div>
