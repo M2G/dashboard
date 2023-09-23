@@ -1,6 +1,7 @@
 import type { SubmitHandler } from 'react-hook-form';
 import type { z } from 'zod';
 
+import { useTranslation } from 'react-i18next';
 import ROUTER_PATH from '@/constants/RouterPath';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
@@ -24,6 +25,7 @@ interface IForm {
 }
 
 function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
+  const { t } = useTranslation();
   const {
     formState: { errors, isValid },
     handleSubmit,
@@ -45,8 +47,8 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
       id="form-forgot-password">
       <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="text-3xl font-bold dark:text-black">Forgot password</h1>
-          <span>to continue</span>
+          <h1 className="text-3xl font-bold dark:text-black">{t('form.forgotPassword')}</h1>
+          <span>{t('form.toContinue')}</span>
         </div>
         <Field
           className="_:mb-2"
@@ -73,7 +75,7 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
           required
         />
         <Button className="w-full" disabled={isValid} type="submit" variant="primary">
-          Change password
+          {t('form.changePassword')}
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
           <span className="m-0 box-border text-sm font-normal leading-tight">
@@ -82,12 +84,12 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
           <Link
             className="mx-1 box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
             to={ROUTER_PATH.PROFIL}>
-            Profil
+            {t('form.profile')}
           </Link>
           <Link
             className="box-border inline-flex cursor-pointer items-center text-sm font-normal leading-tight text-gray-950 no-underline hover:text-gray-600"
             to={ROUTER_PATH.HOME}>
-            Home
+            {t('form.home')}
           </Link>
         </div>
       </form>
