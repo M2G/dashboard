@@ -41,7 +41,7 @@ function ResetPasswordForm({ initialValues, onSubmit }: IForm) {
         </div>
         <Field
           className="_:mb-2"
-          label={LABEL_NEW_PASSWORD}
+          label={t('field.newPassword')}
           name={INPUT_NAME.NEW_PASSWORD}
           type="email"
           {...{ errors, register }}
@@ -49,7 +49,7 @@ function ResetPasswordForm({ initialValues, onSubmit }: IForm) {
         />
         <Field
           className="_:mb-2"
-          label={LABEL_VERIFY_PASSWORD}
+          label={t('field.verifyPassword')}
           name={INPUT_NAME.VERIFY_PASSWORD}
           type="email"
           {...{ errors, register }}
