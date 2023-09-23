@@ -1,6 +1,7 @@
 import type { z } from 'zod';
 import type { SubmitHandler } from 'react-hook-form';
 
+import { useTranslation } from 'react-i18next';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -22,6 +23,7 @@ interface IForm {
 }
 
 function UserEditForm({ initialValues, onSubmit }: IForm) {
+  const { t } = useTranslation();
   const {
     formState: { errors, isValid },
     handleSubmit,
@@ -43,21 +45,21 @@ function UserEditForm({ initialValues, onSubmit }: IForm) {
       <form className="p-2" onSubmit={handleSubmit(onSubmit)}>
         <Field
           className="_:mb-4"
-          label={LABEL_FIRST_NAME}
+          label={t('field.firstname')}
           name={INPUT_NAME.FIRST_NAME}
           type="text"
           {...{ errors, register }}
         />
         <Field
           className="_:mb-4"
-          label={LABEL_LAST_NAME}
+          label={t('field.lastname')}
           name={INPUT_NAME.LAST_NAME}
           type="text"
           {...{ errors, register }}
         />
         <Field
           className="_:mb-4"
-          label={LABEL_EMAIL}
+          label={t('field.email')}
           name={INPUT_NAME.EMAIL}
           type="email"
           {...{ errors, register }}
@@ -67,7 +69,7 @@ function UserEditForm({ initialValues, onSubmit }: IForm) {
           disabled={isValid}
           type="submit"
           variant="primary">
-          Save
+          {t('form.save')}
         </Button>
       </form>
     </div>
