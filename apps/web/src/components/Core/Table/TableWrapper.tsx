@@ -12,12 +12,8 @@ interface ITableWrapper {
 }
 
 function TableWrapper({ className = '', header, id, rows }: ITableWrapper): JSX.Element {
-  console.log('rows rows', rows);
-
   const [sortData, setSortData] = useState<any>(null);
-
   const handleSort = (index: any, sortDirection: string, type: any) => {
-    console.log('sortDirection', sortDirection);
     setSortData({
       direction: sortDirection,
       index,

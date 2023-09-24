@@ -21,7 +21,6 @@ const api = axios.create({
       if (token && headers) {
         headers.Authorization = `Bearer ${token}`;
       }
-      console.log('transformRequest', data);
 
       return data;
     },
@@ -49,10 +48,6 @@ const myInterceptor = api.interceptors.response.use(
      * https://stackoverflow.com/questions/57251719/acquiring-a-new-token-with-axios-interceptors
      * https://stackoverflow.com/questions/51646853/automating-access-token-refreshing-via-interceptors-in-axios
      */
-
-    console.log('interceptors', error?.response);
-
-    console.log('error?.message', error);
     toast.error(`${error?.message} : ${error?.response.data.error}`);
 
     api.interceptors.response.eject(myInterceptor);

@@ -48,8 +48,6 @@ function Provider({ children }: AuthContextProps): JSX.Element {
     userData: userData ? JSON.parse(userData) : null,
   };
 
-  console.log('value', isAuth);
-
   const authValue = useMemo(() => value, [value]);
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;

@@ -1,7 +1,11 @@
-import type { AllEffect, StrictEffect, TakeEffect, CallEffect, ForkEffect } from 'redux-saga/effects';
-import {
-all, fork, call, put, take,
+import type {
+  AllEffect,
+  StrictEffect,
+  TakeEffect,
+  CallEffect,
+  ForkEffect,
 } from 'redux-saga/effects';
+import { all, fork, call, put, take } from 'redux-saga/effects';
 import { history } from 'index';
 import ROUTER_PATH from 'constants/RouterPath';
 import signupUserService from './services';
@@ -14,9 +18,9 @@ function forwardTo(history: { push: Function }, location: string) {
 }
 
 function* authorize({
-                      email,
-                      password,
-                    }: {
+  email,
+  password,
+}: {
   email: string;
   password: string;
   redirect?: boolean;
@@ -39,9 +43,6 @@ function* authorize({
 function* watchSignup(): Generator<CallEffect | TakeEffect> {
   while (true) {
     const { user } = yield take(SignupActionTypes.SIGNUP_USER_REQUEST);
-
-    console.log('user user user', user);
-
     yield call(authorize, user);
   }
 }
@@ -51,7 +52,4 @@ function* signupSaga(): Generator<AllEffect<ForkEffect>> {
   yield all([fork(watchSignup)]);
 }
 
-export {
-  authorize,
-  signupSaga,
-};
+export { authorize, signupSaga };

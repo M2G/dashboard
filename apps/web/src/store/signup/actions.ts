@@ -1,24 +1,21 @@
 /* eslint-disable */
 import { SignupActionTypes } from './types';
 
-function signupUserAction(user: any){
-  console.log('registerUserAction', user);
+function signupUserAction(user: any) {
   return {
     type: SignupActionTypes.SIGNUP_USER_REQUEST,
     user,
   };
 }
 
-function signupUserSuccess(user?: any){
-  console.log('registerUserSuccess', user);
+function signupUserSuccess(user?: any) {
   return {
     type: SignupActionTypes.SIGNUP_USER_SUCCESS,
-    ...user
+    ...user,
   };
 }
 
-function signupUserError(user: any){
-  console.log('registerUserError', user);
+function signupUserError(user: any) {
   return {
     type: SignupActionTypes.SIGNUP_USER_ERROR,
     user,

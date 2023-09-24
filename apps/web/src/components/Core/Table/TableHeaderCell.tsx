@@ -20,9 +20,7 @@ function TableHeaderCell({
   label,
   onSort,
 }: ITableHeaderCell): JSX.Element {
-  console.log('RENDERRRRRRRRRR', currentSortedData);
   const onSortClick = () => {
-    console.log('onSortClick', currentSortedData);
     onSort(
       !currentSortedData || currentSortedData.direction === SortDirection.ASCENDING
         ? SortDirection.DESCENDING
@@ -37,8 +35,6 @@ function TableHeaderCell({
         : IconNames.ARROW_UP,
     [currentSortedData],
   );
-
-  console.log('sortedClass sortedClass sortedClass', { currentSortedData, sortedClass });
 
   return (
     <th className="border-b-0 p-2 pl-0 text-base font-bold">

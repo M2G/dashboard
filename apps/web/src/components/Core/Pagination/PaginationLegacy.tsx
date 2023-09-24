@@ -34,10 +34,6 @@ function Pagination({
     currentPage + 2,
   );
 
-  console.log('pageNumbers', pageNumbers);
-  console.log('currentPage', currentPage);
-  console.log('displayNumbers', displayNumbers);
-
   return (
     <nav aria-label="-1">
       {pageNumbers.length > 1 && (

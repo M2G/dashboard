@@ -8,15 +8,12 @@ function Profil(): JSX.Element | null {
   const { userData }: { userData: { id: number } } = useContext(AuthContext);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('userData userData', userData);
     dispatch(authGetUserProfilAction({ id: userData?.id }));
   }, [dispatch, userData]);
 
   const { auth: { data: { data } } = {} } = useSelector(({ auth }) => ({
     auth,
   }));
-
-  console.log('auth auth auth auth auth auth', data);
 
   const handleSubmit = useCallback(
     (data) => {
@@ -29,7 +26,6 @@ function Profil(): JSX.Element | null {
 }
 
 const mapStateToProps = (state: { auth: { data: never; loading: boolean } }) => {
-  console.log('state state', state);
   return {
     auth: state.auth.data,
     loading: state.auth.loading,

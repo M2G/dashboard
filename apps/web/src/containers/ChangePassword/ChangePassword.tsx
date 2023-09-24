@@ -11,7 +11,6 @@ function ChangePassword(): JSX.Element {
   } = useContext(AuthContext);
   const handleSubmit = useCallback(
     async (d) => {
-      console.log('---------', d);
       dispatch(authUpdatePasswordAction({ id, ...d }));
     },
     [dispatch, id],

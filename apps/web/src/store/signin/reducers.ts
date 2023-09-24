@@ -11,11 +11,6 @@ export const initialState: SigninState = {
 
 const reducer: Reducer<SigninState> = (state = initialState, action) => {
   const { data = {}, errors, type } = action || {};
-
-  console.log('------------------> SIGNIN action', action);
-  console.log('------------------> SIGNIN state', state);
-  console.log('------------------> SIGNIN data', data);
-
   switch (type) {
     case SigninActionTypes.SIGNIN_USER_REQUEST:
       return { ...state, loading: true };

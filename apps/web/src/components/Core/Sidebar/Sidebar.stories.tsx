@@ -8,9 +8,6 @@ export default {
 
 function Template(args: any) {
   const [isOpened, setIsOpened] = useState(false);
-
-  console.log('isOpened', isOpened);
-
   return (
     <>
       <button onClick={() => setIsOpened(!isOpened)}>OK</button>

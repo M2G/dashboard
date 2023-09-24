@@ -38,8 +38,6 @@ function UserEditForm({ initialValues, onSubmit }: IForm) {
     resolver: zodResolver(formSchema),
   });
 
-  console.log('isValid isValid', isValid);
-
   return (
     <div className="pt-[50px]">
       <form className="p-2" onSubmit={handleSubmit(onSubmit)}>

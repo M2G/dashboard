@@ -9,10 +9,6 @@ export const initialState: AuthGlobalState = {
 
 const reducer: Reducer<AuthGlobalState> = (state = initialState, action) => {
   const { type } = action;
-
-  console.log('type', type);
-  console.log('state', state);
-
   switch (type) {
     case AuthActionTypes.SIGNIN_SUCCESS_GLOBAL:
       return { ...state, isAuthenticated: true };

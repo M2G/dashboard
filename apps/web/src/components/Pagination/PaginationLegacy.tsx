@@ -29,11 +29,6 @@ function Pagination({ currentPage, totalItems, perPage, setCurrentPage }: IPagin
     currentPage - 5 > 0 ? currentPage - 5 : 0,
     currentPage + 5,
   );
-
-  console.log('pageNumbers', pageNumbers);
-  console.log('currentPage', currentPage);
-  console.log('displayNumbers', displayNumbers);
-
   return (
     <nav aria-label="-1">
       {pageNumbers.length > 1 && (

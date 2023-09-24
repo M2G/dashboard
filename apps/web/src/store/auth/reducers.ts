@@ -11,10 +11,6 @@ export const initialState: AuthState = {
 
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
   const { data, errors, type } = action || {};
-
-  console.log('------------------> AUTH action', action);
-  console.log('------------------> AUTH state', state);
-
   switch (type) {
     case AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST:
       return { ...state, loading: true };

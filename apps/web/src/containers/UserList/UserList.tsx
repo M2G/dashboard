@@ -165,7 +165,6 @@ function UserList({
 
   const onNewUser = useCallback(
     (user: SetStateAction<{ deletingUser?: any; editingUser?: any; newUser?: any }>) => {
-      // console.log('onNewUser', user);
       setUser(user);
       signupAction(user);
       authGetUsersProfil({
@@ -201,9 +200,6 @@ function UserList({
   const users = auth?.data || [];
   const results = users?.results || [];
   const pageInfo = users?.pageInfo || {};
-
-  console.log('auth', auth);
-
   const rows = useMemo(
     () =>
       results?.map((user) =>

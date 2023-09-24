@@ -29,8 +29,6 @@ function userListItem({
     }
   | { display: JSX.Element }
 )[] {
-  console.log('userListItem', user);
-
   const id = `user__row__${rowId}__${user.id}`;
 
   const actions = [];

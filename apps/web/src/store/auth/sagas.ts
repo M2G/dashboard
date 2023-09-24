@@ -73,8 +73,6 @@ function* recoverPassword({ data }: any): any {
 }
 
 function* getUserProfil(params: { id }): any {
-  console.log('getUserProfil', params);
-
   try {
     const res: ResponseGenerator = yield call(userProfilService, params?.id);
 
@@ -96,7 +94,6 @@ function* getUserProfil(params: { id }): any {
 }
 
 function* getUsersProfil({ filters, page, pageSize }): any {
-  console.log('getUsersProfil', { filters, page, pageSize });
   try {
     const res = yield call(getUsersService, { filters, page, pageSize });
     yield put(authGetUsersProfilSuccess({ filters, ...res.data }));
@@ -117,7 +114,6 @@ function* getUsersProfil({ filters, page, pageSize }): any {
 }
 
 function* deleteUserProfil({ id }: { id: number }): any {
-  console.log('deleteUserProfil', id);
   try {
     yield call(deleteUsersService, id);
     yield put(authDeleteUserProfilSuccess());
@@ -134,12 +130,9 @@ function* deleteUserProfil({ id }: { id: number }): any {
   }
 }
 
-function* createUserProfil({ data }: any): any {
-  console.log('createUserProfil', data);
-}
+function* createUserProfil({ data }: any): any {}
 
 function* updateUserProfil({ data }: any): any {
-  console.log('updateUserProfil updateUserProfil updateUserProfil', data);
   try {
     yield call(updateUserProfilService, { ...data });
     yield put(authUpdateUserProfilSuccess());

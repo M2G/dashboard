@@ -2,12 +2,10 @@
 import api from 'api';
 
 function forgotPasswordService(params: any): Promise<any> {
-  console.log('params', params);
   return api.post('/auth/forgot-password', params);
 }
 
 function recoverPasswordService(params: any): Promise<any> {
-  console.log('params', params);
   return api.post('/auth/reset-password', params);
 }
 
