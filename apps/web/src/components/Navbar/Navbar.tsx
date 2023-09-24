@@ -1,7 +1,8 @@
 import type { JSX } from 'react';
 
-import { useCallback } from 'react';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { LanguageContext } from '@/LanguageProvider';
 
 enum Language {
   EN = 'en',
@@ -9,12 +10,22 @@ enum Language {
 }
 
 function Navbar(): JSX.Element {
+  const { userLanguageChange, userLanguage } = useContext(LanguageContext);
   const { i18n } = useTranslation();
+
+  const lang = useMemo(
+    () => (userLanguage === Language.EN ? Language.FR : Language.EN),
+    [userLanguage],
+  );
+
   const handleLanguage = useCallback(() => {
-    i18n.language === Language.EN
-      ? i18n.changeLanguage(Language.FR)
-      : i18n.changeLanguage(Language.EN);
-  }, [i18n]);
+    userLanguageChange(lang);
+    i18n.changeLanguage(lang);
+  }, [i18n, lang, userLanguageChange]);
+
+  useEffect(() => {
+    i18n.changeLanguage(userLanguage);
+  }, [i18n, userLanguage]);
 
   return (
     <nav className="navbar flex">
@@ -24,7 +35,7 @@ function Navbar(): JSX.Element {
             className="rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
             onClick={handleLanguage}
             type="button">
-            {i18n.language}
+            {userLanguage}
           </button>
         </div>
       </div>
