@@ -23,10 +23,6 @@ function Navbar(): JSX.Element {
     i18n.changeLanguage(lang);
   }, [i18n, lang, userLanguageChange]);
 
-  useEffect(() => {
-    i18n.changeLanguage(userLanguage);
-  }, [i18n, userLanguage]);
-
   return (
     <nav className="navbar flex">
       <div className="w-full">

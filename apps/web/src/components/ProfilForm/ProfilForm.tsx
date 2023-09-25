@@ -38,8 +38,11 @@ function ProfilForm({ initialValues, onSubmit }: IForm): JSX.Element {
       }),
       [initialValues],
     ),
+    mode: 'onBlur',
     resolver: zodResolver(formSchema),
   });
+
+  console.log('isValid', isValid);
 
   return (
     <div
@@ -73,7 +76,7 @@ function ProfilForm({ initialValues, onSubmit }: IForm): JSX.Element {
           {...{ errors, register }}
           required
         />
-        <Button className="w-full" disabled={isValid} type="submit" variant="primary">
+        <Button className="w-full" disabled={!isValid} type="submit" variant="primary">
           {t('form.save')}
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">

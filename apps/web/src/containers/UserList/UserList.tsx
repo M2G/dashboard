@@ -164,7 +164,13 @@ function UserList({
   );
 
   const onNewUser = useCallback(
-    (user: SetStateAction<{ deletingUser?: any; editingUser?: any; newUser?: any }>) => {
+    (
+      user: SetStateAction<{
+        deletingUser?: boolean | any;
+        editingUser?: boolean | any;
+        newUser?: boolean | any;
+      }>,
+    ) => {
       setUser(user);
       signupAction(user);
       authGetUsersProfil({

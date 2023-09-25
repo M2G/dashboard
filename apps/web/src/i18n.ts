@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+//@TODO to json file
 const resources = {
   en: {
     translation: {
@@ -79,6 +80,7 @@ const resources = {
   },
 };
 
+// @see https://github.com/i18next/react-i18next/blob/master/example/react/src/i18n.js
 (i18n as any).use(initReactI18next).init({
   fallbackLng: 'en',
   interpolation: {

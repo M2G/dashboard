@@ -59,7 +59,7 @@ function ResetPasswordForm({ initialValues, onSubmit }: IForm) {
           {...{ errors, register }}
           required
         />
-        <Button className="w-full" disabled={isValid} type="submit" variant="primary">
+        <Button className="w-full" disabled={!isValid} type="submit" variant="primary">
           {t('form.submit')}
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">

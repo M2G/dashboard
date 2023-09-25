@@ -10,6 +10,7 @@ import AuthContext from './AuthContext';
 import Routes from './routes';
 import 'react-toastify/dist/ReactToastify.css';
 import './i18n';
+
 function App(): JSX.Element {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
