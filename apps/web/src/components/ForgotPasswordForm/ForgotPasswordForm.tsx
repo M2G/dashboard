@@ -32,6 +32,7 @@ function ForgotPasswordForm({ initialValues, onSubmit }: IForm) {
       }),
       [initialValues],
     ),
+    mode: 'onBlur',
     resolver: zodResolver(formSchema),
   });
 

@@ -47,7 +47,6 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
         </div>
         <Field
           className="_:mb-2"
-          id="floatingInput"
           label={LABEL_EMAIL}
           name={INPUT_NAME.EMAIL}
           type="email"
@@ -56,7 +55,6 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
         />
         <Field
           className="_:mb-2"
-          id="floatingInput"
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
           type="email"

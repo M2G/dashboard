@@ -56,12 +56,8 @@ function InfiniteScroll({
 
   return (
     <div
-      style={{
-        height: windowHeight,
-        overflowX: 'hidden',
-        overflowY: 'scroll',
-        paddingBottom: '500px',
-      }}
+      className="pb-500px overflow-x-hidden overflow-y-scroll"
+      style={{ height: windowHeight }}
       ref={ref}>
       {children}
     </div>
