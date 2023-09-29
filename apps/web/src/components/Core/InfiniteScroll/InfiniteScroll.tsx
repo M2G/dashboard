@@ -30,8 +30,7 @@ function InfiniteScroll({
       if (ref.current.scrollTop + ref.current.clientHeight >= ref.current.scrollHeight) {
         // Fix for the issue where the scroll event is triggered multiple times
         if (hasMore && isMounted.current) {
-          onLoadMore();
-          return;
+          return onLoadMore();
         }
 
         isMounted.current = false;
@@ -57,8 +56,8 @@ function InfiniteScroll({
   return (
     <div
       className="pb-500px overflow-x-hidden overflow-y-scroll"
-      style={{ height: windowHeight }}
-      ref={ref}>
+      ref={ref}
+      style={{ height: windowHeight }}>
       {children}
     </div>
   );

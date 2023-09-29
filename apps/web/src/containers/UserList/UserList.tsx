@@ -206,6 +206,7 @@ function UserList({
   const users = auth?.data || [];
   const results = users?.results || [];
   const pageInfo = users?.pageInfo || {};
+
   const rows = useMemo(
     () =>
       results?.map((user) =>
