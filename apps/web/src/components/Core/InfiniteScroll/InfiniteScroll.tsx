@@ -1,4 +1,5 @@
 import type { JSX, MutableRefObject, ReactNode } from 'react';
+import type { DebouncedFunc } from 'lodash';
 
 import { throttle } from 'lodash';
 import { useEffect, useRef } from 'react';
@@ -36,7 +37,7 @@ function InfiniteScroll({
         isMounted.current = false;
       }
     };
-    function debounceScroll() {
+    function debounceScroll(): DebouncedFunc<typeof scrollHandler> {
       // execute the last handleScroll function call, in every 100ms
       return throttle(scrollHandler, 100);
     }
@@ -54,10 +55,7 @@ function InfiniteScroll({
   const windowHeight = size.height - 500;
 
   return (
-    <div
-      className="pb-500px overflow-x-hidden overflow-y-scroll"
-      ref={ref}
-      style={{ height: windowHeight }}>
+    <div className={`pb-500px overflow-x-hidden overflow-y-scroll h-[${windowHeight}px]`} ref={ref}>
       {children}
     </div>
   );
