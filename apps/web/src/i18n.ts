@@ -36,6 +36,7 @@ const resources = {
         wantToSeeYour: 'Want to see your ?',
       },
       navbar: {
+        concerts: 'Concerts',
         home: 'Home',
         profil: 'Profil',
         users: 'Users',
@@ -72,6 +73,7 @@ const resources = {
         wantToSeeYour: 'Voulez-vous voir votre ?',
       },
       navbar: {
+        concerts: 'Concerts',
         home: 'Accueil',
         profil: 'Profil',
         users: 'Utilisateurs',

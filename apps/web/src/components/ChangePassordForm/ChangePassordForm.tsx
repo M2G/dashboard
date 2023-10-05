@@ -37,7 +37,7 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
       }),
       [initialValues],
     ),
-    mode: 'onBlur',
+    mode: 'all',
     resolver: zodResolver(formSchema),
   });
 
