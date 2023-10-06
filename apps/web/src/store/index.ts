@@ -12,13 +12,15 @@ import { authSaga } from './auth/sagas';
 import { signinSaga } from './signin/sagas';
 import { signupSaga } from './signup/sagas';
 import { signoutSaga } from './signout/sagas';
-
+// import { concertsSaga } from './concerts/sagas';
 
 import { AuthState } from './auth/types';
 import { SigninState } from './signin/types';
 import { SignupState } from './signup/types';
 import { SignoutState } from './signout/types';
-import { AuthGlobalState } from '../types';
+import { AuthGlobalState } from '@/types';
+import { ConcertState } from '@/store/concerts/types';
+import { concertReducer } from '@/store/concerts/reducers';
 
 // The top-level state object
 export interface ApplicationState {
@@ -27,6 +29,7 @@ export interface ApplicationState {
   signout: SignoutState;
   auth: AuthState;
   auth_global: AuthGlobalState;
+  concert: ConcertState;
 }
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -46,6 +49,7 @@ function rootReducer() {
     //signinplatform: signinPlatformReducer,
     signin: signinReducer,
     signout: signoutReducer,
+    concert: concertReducer,
   });
 }
 
@@ -60,6 +64,7 @@ function* rootSaga() {
     fork(signupSaga),
     fork(signoutSaga),
     fork(authSaga),
+    // fork(concertsSaga)
   ]);
 }
 //@ts-ignore
