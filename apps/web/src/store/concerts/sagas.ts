@@ -1,9 +1,10 @@
 /* eslint-disable */
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import {
+  getConcertsService,
   deleteUsersService,
   forgotPasswordService,
-  getUsersService,
+  getCurrentUserService,
   recoverPasswordService,
   updateUserProfilService,
   userProfilService,
@@ -28,8 +29,9 @@ import {
   authRecoverPasswordSuccess,
   authUpdateUserProfilError,
   authUpdateUserProfilSuccess,
+  getConcertsSuccess,
 } from './actions';
-import { AuthActionTypes } from './types';
+import { ConcertActionTypes } from './types';
 
 export interface ResponseGenerator {
   config?: any;
@@ -44,13 +46,14 @@ function forwardTo(history: { push: Function }, location: string) {
   return history.push({ pathname: location });
 }
 
-function* getUserProfil(params: { id }): any {
+function* getConcert(params: { id }): any {
+  console.log('getConcert getConcert getConcert getConcert');
   try {
-    const res: ResponseGenerator = yield call(userProfilService, params?.id);
+    /*const res: ResponseGenerator = yield call(userProfilService, params?.id);
 
-    yield put(authGetUserProfilSuccess({ ...res.data }));
+    yield put(authGetUserProfilSuccess({ ...res.data }));*/
   } catch (err) {
-    if (err?.response?.status === 401) {
+    /* if (err?.response?.status === 401) {
       yield clearAuthStorage();
       yield clearUserStorage();
       yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
@@ -61,16 +64,19 @@ function* getUserProfil(params: { id }): any {
       return yield put(authGetUsersProfilError({ ...(err.stack as any) }));
     }
 
-    yield put(authGetUserProfilError('An unknown error occured.'));
+    yield put(authGetUserProfilError('An unknown error occured.'));*/
   }
 }
 
-function* getUsersProfil({ filters, page, pageSize }): any {
+function* getConcerts({ filters, page, pageSize }): any {
   try {
-    const res = yield call(getUsersService, { filters, page, pageSize });
-    yield put(authGetUsersProfilSuccess({ filters, ...res.data }));
+    const res = yield call(getConcertsService, { filters, page, pageSize });
+
+    console.log('getConcerts getConcerts getConcerts getConcerts', res.data);
+
+    yield put(getConcertsSuccess({ filters, ...res.data }));
   } catch (err) {
-    if (err?.response?.status === 401) {
+    /*if (err?.response?.status === 401) {
       yield clearAuthStorage();
       yield clearUserStorage();
       yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
@@ -81,20 +87,20 @@ function* getUsersProfil({ filters, page, pageSize }): any {
       return yield put(authGetUsersProfilError({ ...(err.stack as any) }));
     }
 
-    yield put(authGetUsersProfilError('An unknown error occured.'));
+    yield put(authGetUsersProfilError('An unknown error occured.'));*/
   }
 }
-function* watchUser() {
-  yield takeEvery(AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST as any, getUserProfil);
+function* watchConcert() {
+  yield takeEvery(ConcertActionTypes.CONCERT_GET_REQUEST as any, getConcert);
 }
 
-function* watchUsers() {
-  yield takeEvery(AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST as any, getUsersProfil);
+function* watchConcerts() {
+  yield takeEvery(ConcertActionTypes.CONCERTS_GET_REQUEST as any, getConcerts);
 }
 
 // We can also use `fork()` here to split our saga into multiple watchers.
-function* authSaga() {
-  yield all([fork(watchUsers), fork(watchUser)]);
+function* concertSaga() {
+  yield all([fork(watchConcert), fork(watchConcerts)]);
 }
 
-export { authSaga, getUserProfil, getUsersProfil };
+export { concertSaga, getConcert, getConcerts };

@@ -9,6 +9,7 @@
       "@/assets/*": ["src/assets/*"],
       "@/utils/*": ["src/utils/*"],
       "@/api/*": ["src/api"],
+      "@/api2/*": ["src/api2"],
       "@/services/*": ["src/services/*"],
       "@/sentry/*": ["src/sentry/*"],
       "@/exceptions/*": ["src/exceptions/*"],

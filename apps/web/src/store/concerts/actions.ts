@@ -1,124 +1,39 @@
-import { AuthActionTypes } from './types';
+import { ConcertActionTypes } from './types';
 
-export const authDeleteUserProfilError = (errors: any) => ({
+export const getConcertError = (errors: any) => ({
   errors,
-  type: AuthActionTypes.AUTH_DELETE_USER_PROFIL_ERROR,
+  type: ConcertActionTypes.CONCERT_GET_ERROR,
 });
 
-export const authGetUserProfilErrorAction = (data: any) => ({
+export const getConcertsError = (data: any) => ({
   data,
-  type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
+  type: ConcertActionTypes.CONCERTS_GET_ERROR,
 });
 
-export const authGetUserProfilAction = (args?: any) => ({
-  type: AuthActionTypes.AUTH_GET_USER_PROFIL_REQUEST,
+export const getConcertAction = (args?: any) => ({
+  type: ConcertActionTypes.CONCERT_GET_REQUEST,
   ...args,
 });
 
-export const authGetUsersProfilAction = (args?: any) => ({
-  type: AuthActionTypes.AUTH_GET_USERS_PROFIL_REQUEST,
-  ...args,
-});
-
-export const authUpdatePasswordAction = (data: any) => {
+export const getConcertsAction = (args?: any) => {
+  console.log('getConcertsAction getConcertsAction getConcertsAction');
   return {
-    data,
-    type: AuthActionTypes.AUTH_UPDATE_PASSWORD_REQUEST,
-  };
-};
-
-export const authRecoverPasswordAction = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_REQUEST,
-  };
-};
-
-export const authForgotPasswordAction = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_REQUEST,
-  };
-};
-
-export const authForgotPasswordError = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_ERROR,
-  };
-};
-
-export const authUpdateUserProfilSuccess = () => ({
-  type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_SUCCESS,
-});
-
-export const authUpdateUserProfilError = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_UPDATE_USER_PROFIL_ERROR,
-  };
-};
-
-export const authGetUsersProfilSuccess = ({ data, ...args }: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_SUCCESS,
+    type: ConcertActionTypes.CONCERTS_GET_REQUEST,
     ...args,
   };
 };
 
-export const authGetUserProfilSuccess = (data: any) => {
+export const getConcertSuccess = ({ data, ...args }: any) => {
   return {
     data,
-    type: AuthActionTypes.AUTH_GET_USER_PROFIL_SUCCESS,
+    type: ConcertActionTypes.CONCERT_GET_SUCCESS,
+    ...args,
   };
 };
 
-export const authGetUserProfilError = (data: any) => {
+export const getConcertsSuccess = (data: any) => {
   return {
     data,
-    type: AuthActionTypes.AUTH_GET_USER_PROFIL_ERROR,
-  };
-};
-
-export const authGetUsersProfilError = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_GET_USERS_PROFIL_ERROR,
-  };
-};
-
-export const authUpdatePasswordSuccess = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_UPDATE_PASSWORD_SUCCESS,
-  };
-};
-
-export const authRecoverPasswordSuccess = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_SUCCESS,
-  };
-};
-
-export const authRecoverPasswordError = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_RECOVER_PASSWORD_ERROR,
-  };
-};
-
-export const authForgotPasswordSuccess = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_FORGOT_PASSWORD_SUCCESS,
-  };
-};
-
-export const authRequestErrorAction = (data: any) => {
-  return {
-    data,
-    type: AuthActionTypes.AUTH_REQUEST_ERROR,
+    type: ConcertActionTypes.CONCERTS_GET_SUCCESS,
   };
 };

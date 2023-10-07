@@ -1,18 +1,20 @@
 /* eslint-disable */
-import api from 'api';
+import api from 'api2';
 
-function userProfilService(id: string): Promise<any> {
-  return api.get(`/auth/users/${id}`);
+function getConcertService(id: string): Promise<any> {
+  return api.get(`/concerts/${id}`);
 }
 
-function getUsersService({ filters, page, pageSize }): Promise<any> {
-  return api.get(
-    `/auth/users${
+function getConcertsService({ filters, page, pageSize }): Promise<any> {
+  return api.get('/concerts?page=1&pageSize=5');
+
+  /*return api.get(
+    `/concerts${
       filters
         ? `?filters=${filters}&page=${page}&pageSize=${pageSize}`
         : `?page=${page}&pageSize=${pageSize}`
     }`,
-  );
+  );*/
 }
 
-export { getUsersService, userProfilService };
+export { getConcertsService, getConcertService };

@@ -12,7 +12,7 @@ import { authSaga } from './auth/sagas';
 import { signinSaga } from './signin/sagas';
 import { signupSaga } from './signup/sagas';
 import { signoutSaga } from './signout/sagas';
-// import { concertsSaga } from './concerts/sagas';
+import { concertSaga } from './concerts/sagas';
 
 import { AuthState } from './auth/types';
 import { SigninState } from './signin/types';
@@ -64,7 +64,7 @@ function* rootSaga() {
     fork(signupSaga),
     fork(signoutSaga),
     fork(authSaga),
-    // fork(concertsSaga)
+    fork(concertSaga),
   ]);
 }
 //@ts-ignore
