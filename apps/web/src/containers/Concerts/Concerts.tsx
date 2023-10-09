@@ -2,7 +2,7 @@ import InfiniteScroll from '@/components/Core/InfiniteScroll';
 import TopLineLoading from '@/components/Loading/TopLineLoading';
 import NoData from '@/components/NoData';
 import { debounce } from 'lodash';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { connect, useDispatch, useSelector } from 'react-redux';
 
@@ -12,12 +12,15 @@ import { getConcertsAction } from '@/store/concerts/actions';
 function Concerts() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getConcertsAction());
+    dispatch(
+      getConcertsAction({
+        page: 1,
+        pageSize: 5,
+      }),
+    );
   }, [dispatch]);
 
-  const { concert: { data: { data } } = {} } = useSelector(({ concert }) => ({
-    concert,
-  }));
+  const concert = useSelector((stateSelector) => stateSelector.concert);
 
   const [term, setTerm] = useState('');
   const debouncedSearch = useRef(
@@ -37,18 +40,23 @@ function Concerts() {
     debouncedSearch(value);
     setTerm(value);
   }
-  const loadMore = useCallback(async (): Promise<void> => {
-    console.log('ok');
+  const loadMore = useCallback(async (d): Promise<void> => {
+    console.log('loadMore loadMore loadMore', d);
   }, []);
 
   // if (loading) return <TopLineLoading />;
 
   // if (!concerts) return <NoData />;
 
-  const concerts = data?.results;
+  const concerts = useMemo(
+    () => ({
+      pageInfo: concert?.data?.data?.pageInfo,
+      results: chunk(concert?.data?.data?.results, 4),
+    }),
+    [concert?.data?.data],
+  );
 
-  console.log('concert concert concert concert concert', chunk(concerts, 4));
-
+  console.log('concerts concerts concerts concerts', concerts.pageInfo);
   return (
     <div className="o-zone c-home">
       <div className="o-grid">
@@ -63,9 +71,10 @@ function Concerts() {
           value={term}
         />
         <InfiniteScroll
-        // hasMore={pageInfo?.hasNextPage} loading={loading} onLoadMore={loadMore}
-        >
-          {(chunk(concerts, 4) || [])?.map((concert, index: number) => (
+          //loading={loading}
+          hasMore={!!concerts.pageInfo?.next}
+          onLoadMore={loadMore}>
+          {concerts?.results?.map((concert, index: number) => (
             <div className="o-grid__row" key={index}>
               {concert?.map(
                 (

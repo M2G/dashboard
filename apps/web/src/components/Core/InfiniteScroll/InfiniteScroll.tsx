@@ -50,16 +50,17 @@ function InfiniteScroll({
 
   const size = useWindowSize();
 
-  const windowHeight = useMemo(() => size.height - 500, [size.height]);
+  const windowHeight = useMemo(() => size.height - 1000, [size.height]);
 
   if (loading) return <TopLineLoading />;
 
-  console.log('windowHeight', windowHeight);
+  console.log('size', size);
 
   return (
     windowHeight && (
       <div
         className={`overflow-x-hidden overflow-y-scroll pb-[500px] h-[${windowHeight}px]`}
+        style={{ height: windowHeight + 'px' }}
         ref={ref}>
         {children}
       </div>
