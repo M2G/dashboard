@@ -31,9 +31,10 @@ export const getConcertSuccess = ({ data, ...args }: any) => {
   };
 };
 
-export const getConcertsSuccess = (data: any) => {
+export const getConcertsSuccess = ({ data, ...args }: any) => {
   return {
     data,
     type: ConcertActionTypes.CONCERTS_GET_SUCCESS,
+    ...args,
   };
 };
