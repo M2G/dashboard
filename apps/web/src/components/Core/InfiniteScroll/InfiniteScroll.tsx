@@ -9,29 +9,38 @@ import { useWindowSize } from '@/hooks';
 
 interface IInfiniteScroll {
   children: ReactNode;
-  hasMore?: boolean | null;
+  hasMore: boolean | null;
   loading: boolean;
   onLoadMore: () => void;
 }
+
+const LIMIT_SCROLL = 750;
+const WAIT = 250;
 
 function InfiniteScroll({
   children,
   hasMore,
   loading,
   onLoadMore,
-}: IInfiniteScroll): 0 | React.JSX.Element {
+}: IInfiniteScroll): 0 | JSX.Element {
   const ref: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const isMounted: MutableRefObject<boolean> = useRef(true);
   useEffect(() => {
-    const scrollHandler = (): typeof onLoadMore | undefined | void => {
+    const scrollHandler = (): undefined | void => {
       if (!ref.current) {
         return;
       }
 
-      if (ref.current.scrollTop + ref.current.clientHeight >= ref.current.scrollHeight) {
+      console.log('ref.current.scrollTop', ref.current.scrollTop);
+      console.log('ref.current.clientHeight', ref.current.clientHeight);
+      if (
+        ref.current.scrollTop + ref.current.clientHeight >=
+        ref.current.scrollHeight
+      ) {
         // Fix for the issue where the scroll event is triggered multiple times
         if (hasMore && isMounted.current) {
-          return onLoadMore();
+          onLoadMore();
+          return;
         }
 
         isMounted.current = false;
@@ -39,29 +48,27 @@ function InfiniteScroll({
     };
     function debounceScroll(): DebouncedFunc<typeof scrollHandler> {
       // execute the last handleScroll function call, in every 100ms
-      return throttle(scrollHandler, 100);
+      return throttle(scrollHandler, WAIT);
     }
 
     ref?.current?.addEventListener('scroll', debounceScroll());
     return () => {
       ref?.current?.removeEventListener('scroll', debounceScroll());
     };
-  }, [hasMore, onLoadMore]);
+  }, [hasMore, onLoadMore, loading]);
 
   const size = useWindowSize();
 
-  const windowHeight = useMemo(() => size.height - 1000, [size.height]);
+  const windowHeight = useMemo(() => size.height - LIMIT_SCROLL, [size.height]);
 
   if (loading) return <TopLineLoading />;
-
-  console.log('size', size);
 
   return (
     windowHeight && (
       <div
         className={`overflow-x-hidden overflow-y-scroll pb-[500px] h-[${windowHeight}px]`}
-        style={{ height: windowHeight + 'px' }}
-        ref={ref}>
+        ref={ref}
+        style={{ height: `${windowHeight}px` }}>
         {children}
       </div>
     )
