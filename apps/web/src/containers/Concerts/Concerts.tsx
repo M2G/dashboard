@@ -111,11 +111,15 @@ function Concerts() {
     !!concert?.data?.pageInfo?.next,
   );
 
-  const ok = Object.values(concertList)?.sort(
-    (a, b) => a.datetime - b.datetime,
+  const sortedConcertList = useMemo(
+    () =>
+      Object.values(concertList)?.sort(
+        (a, b) => new Date(a.datetime) - new Date(b.datetime),
+      ),
+    [concertList],
   );
 
-  console.log('state state state state', ok);
+  console.log('state state state state', sortedConcertList);
 
   return (
     <div className="o-zone c-home">
@@ -134,8 +138,8 @@ function Concerts() {
           hasMore={!!concerts?.pageInfo?.next}
           loading={concert?.loading}
           onLoadMore={loadMore}>
-          {ok?.length > 0 &&
-            chunk(ok, 4)?.map((concert, index: number) => (
+          {sortedConcertList?.length > 0 &&
+            chunk(sortedConcertList, 4)?.map((concert, index: number) => (
               <div className="o-grid__row" key={index}>
                 {concert?.map(
                   (
