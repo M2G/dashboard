@@ -15,7 +15,7 @@ interface IInfiniteScroll {
 }
 
 const LIMIT_SCROLL = 750;
-const WAIT = 250;
+const WAIT = 500;
 
 function InfiniteScroll({
   children,
@@ -25,18 +25,18 @@ function InfiniteScroll({
 }: IInfiniteScroll): 0 | JSX.Element {
   const ref: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const isMounted: MutableRefObject<boolean> = useRef(true);
+
   useEffect(() => {
     const scrollHandler = (): undefined | void => {
       if (!ref.current) {
         return;
       }
 
-      console.log('ref.current.scrollTop', ref.current.scrollTop);
-      console.log('ref.current.clientHeight', ref.current.clientHeight);
-      if (
-        ref.current.scrollTop + ref.current.clientHeight >=
-        ref.current.scrollHeight
-      ) {
+      const { clientHeight, scrollHeight, scrollTop } = ref.current;
+
+      console.log('ref.current.scrollTop', scrollTop);
+      console.log('ref.current.clientHeight', clientHeight);
+      if (scrollTop + clientHeight === scrollHeight) {
         // Fix for the issue where the scroll event is triggered multiple times
         if (hasMore && isMounted.current) {
           onLoadMore();
@@ -66,7 +66,7 @@ function InfiniteScroll({
   return (
     windowHeight && (
       <div
-        className={`overflow-x-hidden overflow-y-scroll pb-[500px] h-[${windowHeight}px]`}
+        className={`overflow-x-hidden overflow-y-scroll pb-[750px] h-[${windowHeight}px]`}
         ref={ref}
         style={{ height: `${windowHeight}px` }}>
         {children}
