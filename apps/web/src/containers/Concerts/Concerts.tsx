@@ -1,13 +1,16 @@
 import InfiniteScroll from '@/components/Core/InfiniteScroll';
 import TopLineLoading from '@/components/Loading/TopLineLoading';
 import NoData from '@/components/NoData';
-import { debounce } from 'lodash';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { getConcertsAction } from '@/store/concerts/actions';
+import { IConcert } from '@/store/concerts/types';
 
+import { debounce } from 'lodash';
+
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
+import ConcertList from './ConcertList';
 import chunk from './helpers';
-import { getConcertsAction } from '@/store/concerts/actions';
 
 const WAIT = 500;
 
@@ -87,15 +90,18 @@ function Concerts() {
     }));
   }, [concert?.data]);
 
-  const concertList = useMemo(() => {
+  const concertList: IConcert[] = useMemo(() => {
     console.log('RENDERRRR');
     const initialValue = {};
-    return state?.concert?.reduce((obj, item: { concert_id: number }) => {
-      return {
-        ...obj,
-        [item.concert_id]: item,
-      };
-    }, initialValue);
+    return Object.values(
+      state?.concert?.reduce((obj, item: { datetime: string }) => {
+        const id = new Date(item.datetime).getTime();
+        return {
+          ...obj,
+          [id]: item,
+        };
+      }, initialValue),
+    );
   }, [state?.concert]);
 
   const concerts = useMemo(() => concert?.data, [concert?.data]);
@@ -106,20 +112,12 @@ function Concerts() {
 
   console.log('pagination pagination pagination pagination', pagination);
 
+  console.log('concertList concertList concertList concertList', concertList);
+
   console.log(
     'hasMore hasMore hasMore hasMore',
     !!concert?.data?.pageInfo?.next,
   );
-
-  const sortedConcertList = useMemo(
-    () =>
-      Object.values(concertList)?.sort(
-        (a, b) => new Date(a.datetime) - new Date(b.datetime),
-      ),
-    [concertList],
-  );
-
-  console.log('state state state state', sortedConcertList);
 
   return (
     <div className="o-zone c-home">
@@ -138,9 +136,9 @@ function Concerts() {
           hasMore={!!concerts?.pageInfo?.next}
           loading={concert?.loading}
           onLoadMore={loadMore}>
-          {sortedConcertList?.length > 0 &&
-            chunk(sortedConcertList, 4)?.map((concert, index: number) => (
-              <div className="o-grid__row" key={index}>
+          {concertList?.length > 0 &&
+            chunk(concertList, 4)?.map((concert, index: number) => (
+              <div className="o-grid__row" key={`concert_${index}`}>
                 {concert?.map(
                   (
                     node: {
@@ -152,41 +150,11 @@ function Concerts() {
                     concertIdx: number,
                   ) => (
                     // console.log('concert node node node node', node),
-                    <div
-                      className="o-col--one-quarter--large o-col--half--medium"
-                      key={`${index}_${concertIdx}_${node?.concert_id}`}>
-                      <div className="o-cell--one">
-                        <div className="max-w-sm rounded-lg border border-gray-200 p-6 shadow dark:border-gray-700 dark:bg-gray-800">
-                          <a href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                              {node?.display_name}
-                            </h5>
-                          </a>
-                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {node?.city}
-                          </p>
-                          <a
-                            className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            href={node?.uri || ''}>
-                            Read more
-                            <svg
-                              aria-hidden="true"
-                              className="ml-2 h-3.5 w-3.5"
-                              fill="none"
-                              viewBox="0 0 14 10"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1 5h12m0 0L9 1m4 4L9 9"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                              />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                    <ConcertList
+                      key={`${index}_${concertIdx}_${node?.concert_id}`}
+                      city={node?.city}
+                      display_name={node?.display_name}
+                      uri={node?.uri}></ConcertList>
                   ),
                 )}
               </div>
