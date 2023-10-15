@@ -22,7 +22,7 @@ function InfiniteScroll({
   hasMore,
   loading,
   onLoadMore,
-}: IInfiniteScroll): 0 | JSX.Element {
+}: IInfiniteScroll): JSX.Element {
   const ref: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const isMounted: MutableRefObject<boolean> = useRef(true);
 
@@ -64,14 +64,12 @@ function InfiniteScroll({
   if (loading) return <TopLineLoading />;
 
   return (
-    windowHeight && (
-      <div
-        className={`overflow-x-hidden overflow-y-scroll pb-[750px] h-[${windowHeight}px]`}
-        ref={ref}
-        style={{ height: `${windowHeight}px` }}>
-        {children}
-      </div>
-    )
+    <div
+      className={`overflow-x-hidden overflow-y-scroll pb-[750px] h-[${windowHeight}px]`}
+      ref={ref}
+      style={{ height: `${windowHeight}px` }}>
+      {children}
+    </div>
   );
 }
 

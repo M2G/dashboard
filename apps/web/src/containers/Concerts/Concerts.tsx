@@ -33,7 +33,7 @@ function Concerts() {
     );
   }, [dispatch]);
 
-  const concert = useSelector((stateSelector) => stateSelector.concert);
+  const concert = useSelector((stateSelector: any) => stateSelector.concert);
 
   const [term, setTerm] = useState('');
   const debouncedSearch = useRef(
@@ -75,19 +75,22 @@ function Concerts() {
         pageSize: 5,
       }),
     );
-  }, [dispatch, pagination.page, setPagination]);
+  }, [dispatch, pagination]);
 
   // if (loading) return <TopLineLoading />;
 
   // if (!concerts) return <NoData />;
 
   useEffect(() => {
-    setState((prevState) => ({
-      concert:
-        concert?.data?.results && prevState?.concert
-          ? [...prevState?.concert, ...concert?.data?.results]
-          : [],
-    }));
+    setState(
+      (prevState: { concert: IConcert[] }) =>
+        ({
+          concert:
+            concert?.data?.results && prevState?.concert
+              ? [...prevState?.concert, ...concert?.data?.results]
+              : [],
+        } as never),
+    );
   }, [concert?.data]);
 
   const concertList: IConcert[] = useMemo(() => {
@@ -137,26 +140,16 @@ function Concerts() {
           loading={concert?.loading}
           onLoadMore={loadMore}>
           {concertList?.length > 0 &&
-            chunk(concertList, 4)?.map((concert, index: number) => (
+            chunk(concertList, 4)?.map((nodes, index: number) => (
               <div className="o-grid__row" key={`concert_${index}`}>
-                {concert?.map(
-                  (
-                    node: {
-                      city: string;
-                      concert_id: string;
-                      display_name: string;
-                      uri: string;
-                    },
-                    concertIdx: number,
-                  ) => (
-                    // console.log('concert node node node node', node),
-                    <ConcertList
-                      key={`${index}_${concertIdx}_${node?.concert_id}`}
-                      city={node?.city}
-                      display_name={node?.display_name}
-                      uri={node?.uri}></ConcertList>
-                  ),
-                )}
+                {nodes?.map((node: IConcert, concertIdx: number) => (
+                  <ConcertList
+                    city={node?.city}
+                    display_name={node?.display_name}
+                    key={`${index}_${concertIdx}_${node?.concert_id}`}
+                    uri={node?.uri}
+                  />
+                ))}
               </div>
             ))}
         </InfiniteScroll>

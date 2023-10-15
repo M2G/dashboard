@@ -10,10 +10,10 @@ import {
   userProfilService,
 } from './services';
 
-import ROUTER_PATH from 'constants/RouterPath';
-import { history } from 'index';
-import { clearAuthStorage, clearUserStorage } from 'services/storage';
-import { signoutUserAction } from 'store/signout/actions';
+import ROUTER_PATH from '@/constants/RouterPath';
+import { history } from '@/index';
+import { clearAuthStorage, clearUserStorage } from '@/services/storage';
+import { signoutUserAction } from '@/store/signout/actions';
 import Config from '../../constants';
 import {
   authDeleteUserProfilError,
@@ -22,7 +22,6 @@ import {
   authForgotPasswordSuccess,
   authGetUserProfilError,
   authGetUserProfilSuccess,
-  authGetUsersProfilError,
   // authRequestErrorAction,
   authGetUsersProfilSuccess,
   authRecoverPasswordError,
@@ -30,6 +29,7 @@ import {
   authUpdateUserProfilError,
   authUpdateUserProfilSuccess,
   getConcertsSuccess,
+  getConcertsError,
 } from './actions';
 import { ConcertActionTypes } from './types';
 
@@ -68,7 +68,15 @@ function* getConcert(params: { id }): any {
   }
 }
 
-function* getConcerts({ filters, page, pageSize }): any {
+function* getConcerts({
+  filters,
+  page,
+  pageSize,
+}: {
+  filters: any;
+  page: number;
+  pageSize: number;
+}): Prmoise<any> {
   try {
     const res = yield call(getConcertsService, { filters, page, pageSize });
 
@@ -76,7 +84,7 @@ function* getConcerts({ filters, page, pageSize }): any {
 
     yield put(getConcertsSuccess({ filters, ...res.data }));
   } catch (err) {
-    /*if (err?.response?.status === 401) {
+    if (err?.response?.status === 401) {
       yield clearAuthStorage();
       yield clearUserStorage();
       yield call(forwardTo, history, ROUTER_PATH.SIGNIN);
@@ -84,10 +92,10 @@ function* getConcerts({ filters, page, pageSize }): any {
     }
 
     if (err instanceof Error) {
-      return yield put(authGetUsersProfilError({ ...(err.stack as any) }));
+      return yield put(getConcertsError({ ...(err.stack as any) }));
     }
 
-    yield put(authGetUsersProfilError('An unknown error occured.'));*/
+    yield put(getConcertsError('An unknown error occured.'));
   }
 }
 function* watchConcert() {
