@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Card } from 'ui/components/layouts/Card/Card';
 
 type ConcertListProps = {
   display_name: string;
@@ -14,7 +15,7 @@ const ConcertList = ({
   return (
     <div className="o-col--one-quarter--large o-col--half--medium">
       <div className="o-cell--one">
-        <div className="max-w-sm rounded-lg border border-gray-200 p-6 shadow dark:border-gray-700 dark:bg-gray-800">
+        <Card>
           <a href="#">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {displayName}
@@ -44,7 +45,7 @@ const ConcertList = ({
               </svg>
             </a>
           )}
-        </div>
+        </Card>
       </div>
     </div>
   );
