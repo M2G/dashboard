@@ -94,7 +94,6 @@ function Concerts() {
   }, [concert?.data]);
 
   const concertList: IConcert[] = useMemo(() => {
-    console.log('RENDERRRR');
     const initialValue = {};
     return Object.values(
       state?.concert?.reduce((obj, item: { datetime: string }) => {
