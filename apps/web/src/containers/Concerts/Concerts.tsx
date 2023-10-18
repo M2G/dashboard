@@ -124,7 +124,21 @@ function Concerts() {
   return (
     <div className="o-zone c-home">
       <div className="o-grid">
-        <input
+        <div className="flex items-center">
+          <label className="sr-only" htmlFor="simple-search">
+            Search
+          </label>
+          <div className="relative w-full">
+            <input
+              className="block w-full rounded-sm border border-gray-300 bg-gray-50 bg-transparent p-5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              id="simple-search"
+              placeholder="Search branch name..."
+              required
+              type="text"
+            />
+          </div>
+        </div>
+        {/*<input
           aria-label="Search"
           className="form-control c-search-input"
           id="floatingInput"
@@ -133,7 +147,7 @@ function Concerts() {
           placeholder="Search"
           type="search"
           value={term}
-        />
+        />*/}
         <InfiniteScroll
           hasMore={!!concerts?.pageInfo?.next}
           loading={concert?.loading}

@@ -58,10 +58,15 @@ function UserList({
   const auth = useSelector((stateSelector) => stateSelector.auth);
   const dispatch = useDispatch();
 
-  const authGetUsersProfil = (params: { filters: string; page: number; pageSize: number }) =>
-    dispatch(authGetUsersProfilAction(params));
-  const deleteUserAction = (id: { id: any }) => dispatch(authDeleteUserProfilAction(id));
-  const editUserAction = (params: any) => dispatch(authUpdateUserProfilAction(params));
+  const authGetUsersProfil = (params: {
+    filters: string;
+    page: number;
+    pageSize: number;
+  }) => dispatch(authGetUsersProfilAction(params));
+  const deleteUserAction = (id: { id: any }) =>
+    dispatch(authDeleteUserProfilAction(id));
+  const editUserAction = (params: any) =>
+    dispatch(authUpdateUserProfilAction(params));
   const signupAction = (params: any) => dispatch(signupUserAction(params));
 
   useEffect(() => {
@@ -70,7 +75,7 @@ function UserList({
       page: pagination.page,
       pageSize: pagination.pageSize,
     });
-  }, [term, pagination.page, pagination.pageSize]);
+  }, [term, pagination.page, pagination.pageSize, authGetUsersProfil]);
 
   const handleAction = useCallback(
     ({
@@ -180,7 +185,14 @@ function UserList({
       });
       handleAction({ deletingUser: false, editingUser: false, newUser: false });
     },
-    [authGetUsersProfil, handleAction, pagination.page, pagination.pageSize, signupAction, term],
+    [
+      authGetUsersProfil,
+      handleAction,
+      pagination.page,
+      pagination.pageSize,
+      signupAction,
+      term,
+    ],
   );
 
   const onDeleteUser = useCallback(
@@ -214,8 +226,18 @@ function UserList({
           canDelete,
           canEdit,
           id,
-          onDelete: (d) => handleAction({ deletingUser: d, editingUser: false, newUser: false }),
-          onEdit: (d) => handleAction({ deletingUser: false, editingUser: d, newUser: false }),
+          onDelete: (d) =>
+            handleAction({
+              deletingUser: d,
+              editingUser: false,
+              newUser: false,
+            }),
+          onEdit: (d) =>
+            handleAction({
+              deletingUser: false,
+              editingUser: d,
+              newUser: false,
+            }),
           user,
         }),
       ),
@@ -240,7 +262,13 @@ function UserList({
     <div className="c-user-list">
       {canAdd && (
         <AddUser
-          onAdd={() => handleAction({ deletingUser: false, editingUser: false, newUser: true })}
+          onAdd={() =>
+            handleAction({
+              deletingUser: false,
+              editingUser: false,
+              newUser: true,
+            })
+          }
         />
       )}
       <UserFilters currentTerm={term} onSearchTerm={searchTerms} />
@@ -261,15 +289,25 @@ function UserList({
       )}
       <SidebarWrapper
         setIsOpened={() =>
-          handleAction({ deletingUser: false, editingUser: false, newUser: false })
+          handleAction({
+            deletingUser: false,
+            editingUser: false,
+            newUser: false,
+          })
         }
         isOpened={!!state.editingUser}>
-        {state.editingUser && <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />}
+        {state.editingUser && (
+          <UserEdit initialValues={state.editingUser} onSubmit={onEditUser} />
+        )}
       </SidebarWrapper>
 
       <SidebarWrapper
         setIsOpened={() =>
-          handleAction({ deletingUser: false, editingUser: false, newUser: false })
+          handleAction({
+            deletingUser: false,
+            editingUser: false,
+            newUser: false,
+          })
         }
         isOpened={!!state.newUser}>
         {state.newUser && <UserNew onSubmit={onNewUser} />}
@@ -279,7 +317,13 @@ function UserList({
         onConfirm={() => {
           onDeleteUser(state.deletingUser as unknown as any);
         }}
-        hide={() => handleAction({ deletingUser: false, editingUser: false, newUser: false })}
+        hide={() =>
+          handleAction({
+            deletingUser: false,
+            editingUser: false,
+            newUser: false,
+          })
+        }
         isShowing={state.deletingUser}
         title="Delete">
         <p>{t('alert.warning')}</p>
