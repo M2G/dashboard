@@ -76,7 +76,7 @@ function* getConcerts({
   filters: any;
   page: number;
   pageSize: number;
-}): Prmoise<any> {
+}): Promise<any> {
   try {
     const res = yield call(getConcertsService, { filters, page, pageSize });
 

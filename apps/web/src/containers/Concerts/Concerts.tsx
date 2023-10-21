@@ -8,38 +8,12 @@ import { debounce } from 'lodash';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import type { SubmitHandler } from 'react-hook-form';
-import type { z } from 'zod';
-
-export const formSchema = z.object({
-  email: z
-    .string()
-    .email('Invalid email')
-    .min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_EMAIL),
-  password: z.string().min(1, ERROR_TEXT_REQUIRED.ERROR_TEXT_REQUIRED_PASSWORD),
-  // .min(8, 'Password must have more than 8 characters'),
-});
-
-type FormSchemaType = z.infer<typeof formSchema>;
-
+import { Field } from 'ui';
 import ConcertList from './ConcertList';
 import chunk from './helpers';
-import {
-  ERROR_TEXT_REQUIRED,
-  formSchema,
-} from '@/components/SigninForm/constants';
 
 const WAIT = 500;
-
-export const INPUT_NAME = {
-  EMAIL: 'email',
-};
-
-export const INITIAL_VALUES = {
-  [INPUT_NAME.EMAIL]: '',
-};
 
 function Concerts() {
   const [state, setState] = useState({ concert: [] });
@@ -51,19 +25,11 @@ function Concerts() {
     pageSize: 5,
   });
   const {
-    formState: { errors, isValid },
-    handleSubmit,
+    control,
+    formState: { errors },
     register,
-  } = useForm<FormSchemaType>({
-    defaultValues: useMemo(
-      () => ({
-        ...INITIAL_VALUES,
-      }),
-      [],
-    ),
-    mode: 'onBlur',
-    resolver: zodResolver(formSchema),
-  });
+    watch,
+  } = useForm();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -77,28 +43,31 @@ function Concerts() {
 
   const concert = useSelector((stateSelector: any) => stateSelector.concert);
 
-  const [term, setTerm] = useState('');
   const debouncedSearch = useRef(
-    debounce(async (filters: string): Promise<void> => {
-      console.log('filters filters filters');
+    debounce((filters: string): void => {
+      console.log('filters filters filters', filters);
+      dispatch(
+        getConcertsAction({
+          filters,
+        }),
+      );
     }, WAIT),
   ).current;
 
-  useEffect(
-    () => (): void => {
-      debouncedSearch.cancel();
-    },
-    [debouncedSearch],
-  );
+  const search = watch('search');
 
-  function handleChange({
-    target: { value = '' },
-  }: {
-    target: { value: string };
-  }): void {
+  console.log('----------------------------', search);
+
+  function handleChange(value: string): void {
     debouncedSearch(value);
-    setTerm(value);
   }
+
+  useEffect(() => {
+    handleChange(search);
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [search, debouncedSearch]);
 
   const loadMore = useCallback((): void => {
     setPagination((prevState) => ({
@@ -133,7 +102,7 @@ function Concerts() {
               : [],
         } as never),
     );
-  }, [concert?.data]);
+  }, [concert?.data?.results]);
 
   const concertList: IConcert[] = useMemo(() => {
     const initialValue = {};
@@ -171,15 +140,16 @@ function Concerts() {
             Search
           </label>
           <form className="relative w-full">
-            <input
+            <Field
               className="focus:shadow-none;
-              -ml-px mb-2.5 ml-[7px] block w-full rounded-md rounded-sm border border-b
-
-              border-[hsla(0deg,0%,100%,0.1)] border-gray-300 bg-gray-50 bg-transparent bg-transparent p-2 p-2 pl-10 text-sm text-[color:var(--color-text-heading)] text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              mb-2.5 ml-[7px] block w-full rounded-sm
+              border-[hsla(0deg,0%,100%,0.1)] border-gray-300 bg-gray-50 bg-transparent text-sm text-[color:var(--color-text-heading)] text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               id="simple-search"
-              placeholder="Search branch name..."
+              label="Search branch name..."
+              name="search"
               required
               type="text"
+              {...{ control, errors, register }}
             />
           </form>
         </div>
