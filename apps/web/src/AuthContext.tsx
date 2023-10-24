@@ -1,5 +1,6 @@
-import type { JSX, ReactNode } from 'react';
+import type { Context, JSX, ReactNode } from 'react';
 
+import { createContext, useMemo, useState } from 'react';
 import {
   clearAuthStorage,
   clearUserStorage,
@@ -11,16 +12,18 @@ import {
 
 import jwt_decode from 'jwt-decode';
 
-import { createContext, useMemo, useState } from 'react';
-
-export const AuthContext = createContext({});
+export const AuthContext: Context<NonNullable<unknown>> = createContext({});
 interface AuthContextProps {
   children: ReactNode;
 }
 
 function Provider({ children }: AuthContextProps): JSX.Element {
-  const [isAuth, setIsAuth] = useState<boolean | null | string>(() => getAuthStorage());
-  const [userData, setUserData] = useState<boolean | null | string>(() => getUserStorage());
+  const [isAuth, setIsAuth] = useState<boolean | null | string>(() =>
+    getAuthStorage(),
+  );
+  const [userData, setUserData] = useState<boolean | null | string>(() =>
+    getUserStorage(),
+  );
 
   const value = {
     activateAuth: (token: string) => {
@@ -45,12 +48,14 @@ function Provider({ children }: AuthContextProps): JSX.Element {
       clearUserStorage();
       clearAuthStorage();
     },
-    userData: userData ? JSON.parse(userData) : null,
+    userData: userData ? JSON.parse(userData as string) : null,
   };
 
   const authValue = useMemo(() => value, [value]);
 
-  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
+  );
 }
 
 export default { Consumer: AuthContext.Consumer, Provider };

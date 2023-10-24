@@ -97,7 +97,7 @@ function UserList({
   );
 
   const onEditUser = useCallback(
-    (user) => {
+    (user: any): void => {
       editUserAction({
         ...user,
         id: state.editingUser.id,
@@ -314,9 +314,6 @@ function UserList({
       </SidebarWrapper>
 
       <ModalWrapper
-        onConfirm={() => {
-          onDeleteUser(state.deletingUser as unknown as any);
-        }}
         hide={() =>
           handleAction({
             deletingUser: false,
@@ -324,6 +321,9 @@ function UserList({
             newUser: false,
           })
         }
+        onConfirm={() => {
+          onDeleteUser(state.deletingUser as unknown as any);
+        }}
         isShowing={state.deletingUser}
         title="Delete">
         <p>{t('alert.warning')}</p>

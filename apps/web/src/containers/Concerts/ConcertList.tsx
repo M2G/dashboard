@@ -8,8 +8,8 @@ type ConcertListProps = {
 };
 
 const ConcertList = ({
-  display_name: displayName,
   city,
+  display_name: displayName,
   uri,
 }: ConcertListProps) => {
   return (

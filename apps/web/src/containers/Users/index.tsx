@@ -4,13 +4,7 @@ import Users from './Users';
 import './index.scss';
 
 function UsersPage(): JSX.Element {
-  return (
-    <>
-      <Navbar />
-      <Sidebar />
-      <Users />
-    </>
-  );
+  return <Users />;
 }
 
 export default UsersPage;

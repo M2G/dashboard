@@ -11,7 +11,13 @@ import { Link } from 'react-router-dom';
 
 import { Button, Field } from 'ui';
 
-import { formSchema, INITIAL_VALUES, INPUT_NAME, LABEL_EMAIL, LABEL_PASSWORD } from './constants';
+import {
+  INITIAL_VALUES,
+  INPUT_NAME,
+  LABEL_EMAIL,
+  LABEL_PASSWORD,
+  formSchema,
+} from './constants';
 import { useMemo } from 'react';
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -39,10 +45,16 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
   });
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center" id="form-signup">
-      <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
+    <div
+      className="flex min-h-screen flex-col items-center justify-center"
+      id="form-signup">
+      <form
+        className="rounded-2xl bg-white p-[25px]"
+        onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="text-3xl font-bold dark:text-black">{t('form.pleaseAuthenticate')}</h1>
+          <h1 className="text-3xl font-bold dark:text-black">
+            {t('form.pleaseAuthenticate')}
+          </h1>
           <span>{t('form.toContinue')}</span>
         </div>
         <Field
@@ -61,7 +73,11 @@ function SigninForm({ initialValues, onSubmit }: IForm): JSX.Element {
           required
           type="password"
         />
-        <Button className="w-full" disabled={!isValid} type="submit" variant="primary">
+        <Button
+          className="w-full"
+          disabled={!isValid}
+          type="submit"
+          variant="primary">
           {t('form.signin')}
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">
