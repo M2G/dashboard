@@ -1,3 +1,4 @@
+import { Field } from 'ui';
 import InfiniteScroll from '@/components/Core/InfiniteScroll';
 import TopLineLoading from '@/components/Loading/TopLineLoading';
 import NoData from '@/components/NoData';
@@ -6,16 +7,23 @@ import { IConcert } from '@/store/concerts/types';
 
 import { debounce } from 'lodash';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import {
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
-import { Field } from 'ui';
+import { connect, useDispatch, useSelector } from 'react-redux';
+
 import ConcertList from './ConcertList';
 import chunk from './helpers';
 
 const WAIT = 500;
 
-function Concerts() {
+function Concerts(): JSX.Element {
   const [state, setState] = useState({ concert: [] });
   const [pagination, setPagination] = useState<{
     page: number;
@@ -31,6 +39,8 @@ function Concerts() {
     watch,
   } = useForm();
 
+  const search = watch('search');
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -41,28 +51,28 @@ function Concerts() {
     );
   }, [dispatch]);
 
-  const concert = useSelector((stateSelector: any) => stateSelector.concert);
+  const concert = useSelector(
+    (stateSelector: { concert: any }) => stateSelector.concert,
+  );
 
   const debouncedSearch = useRef(
     debounce((filters: string): void => {
-      console.log('filters filters filters', filters);
       dispatch(
         getConcertsAction({
           filters,
+          page: pagination.page,
+          pageSize: 5,
         }),
       );
     }, WAIT),
   ).current;
 
-  const search = watch('search');
-
-  console.log('----------------------------', search);
-
+  console.log('----------------------------', pagination);
   function handleChange(value: string): void {
     debouncedSearch(value);
   }
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     handleChange(search);
     return () => {
       debouncedSearch.cancel();
@@ -75,34 +85,28 @@ function Concerts() {
       page: prevState.page + 1,
     }));
 
-    console.log(
-      'pagination pagination pagination loadMore loadMore loadMore',
-      pagination,
-    );
-
     dispatch(
       getConcertsAction({
         page: pagination.page,
         pageSize: 5,
       }),
     );
-  }, [dispatch, pagination]);
+  }, [dispatch, pagination.page]);
 
   // if (loading) return <TopLineLoading />;
 
   // if (!concerts) return <NoData />;
 
-  useEffect(() => {
-    setState(
-      (prevState: { concert: IConcert[] }) =>
-        ({
-          concert:
-            concert?.data?.results && prevState?.concert
-              ? [...prevState?.concert, ...concert?.data?.results]
-              : [],
-        } as never),
-    );
-  }, [concert?.data?.results]);
+  useEffect((): void => {
+    setState((prevState: { concert: IConcert[] }) => ({
+      concert:
+        concert?.data?.results && prevState?.concert && !search
+          ? [...prevState?.concert, ...concert?.data?.results]
+          : concert?.data?.results && prevState?.concert && search
+          ? [...concert?.data?.results]
+          : [],
+    }));
+  }, [concert?.data?.results, search]);
 
   const concertList: IConcert[] = useMemo(() => {
     const initialValue = {};
@@ -119,30 +123,14 @@ function Concerts() {
 
   const concerts = useMemo(() => concert?.data, [concert?.data]);
 
-  console.log('concert concert concert concert', concert);
-
-  console.log('concerts concerts concerts concerts', concerts);
-
-  console.log('pagination pagination pagination pagination', pagination);
-
-  console.log('concertList concertList concertList concertList', concertList);
-
-  console.log(
-    'hasMore hasMore hasMore hasMore',
-    !!concert?.data?.pageInfo?.next,
-  );
-
   return (
     <div className="o-zone c-home">
       <div className="o-grid">
         <div className="flex items-center">
-          <label className="sr-only" htmlFor="simple-search">
-            Search
-          </label>
           <form className="relative w-full">
             <Field
               className="focus:shadow-none;
-              mb-2.5 ml-[7px] block w-full rounded-sm
+              mb-2.5 block w-full rounded-sm
               border-[hsla(0deg,0%,100%,0.1)] border-gray-300 bg-gray-50 bg-transparent text-sm text-[color:var(--color-text-heading)] text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               id="simple-search"
               label="Search branch name..."
@@ -153,28 +141,18 @@ function Concerts() {
             />
           </form>
         </div>
-        {/*<input
-          aria-label="Search"
-          className="form-control c-search-input"
-          id="floatingInput"
-          name="search"
-          onChange={handleChange}
-          placeholder="Search"
-          type="search"
-          value={term}
-        />*/}
         <InfiniteScroll
           hasMore={!!concerts?.pageInfo?.next}
           loading={concert?.loading}
           onLoadMore={loadMore}>
           {concertList?.length > 0 &&
-            chunk(concertList, 4)?.map((nodes, index: number) => (
-              <div className="o-grid__row" key={`concert_${index}`}>
-                {nodes?.map((node: IConcert, concertIdx: number) => (
+            chunk(concertList, 4)?.map((nodes) => (
+              <div key={`concert_${nodes?.length}`} className="o-grid__row">
+                {nodes?.map((node: IConcert) => (
                   <ConcertList
                     city={node?.city}
                     display_name={node?.display_name}
-                    key={`${index}_${concertIdx}_${node?.concert_id}`}
+                    key={node?.concert_id}
                     uri={node?.uri}
                   />
                 ))}

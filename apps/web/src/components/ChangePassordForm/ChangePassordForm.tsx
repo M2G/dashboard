@@ -1,32 +1,33 @@
-import type { SubmitHandler } from 'react-hook-form';
-import type { z } from 'zod';
-
-import { useTranslation } from 'react-i18next';
-import ROUTER_PATH from '@/constants/RouterPath';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Field } from 'ui';
+import type { z } from 'zod';
+
+import ROUTER_PATH from '@/constants/RouterPath';
 
 import {
-  formSchema,
   INPUT_NAME,
   LABEL_OLD_PASSWORD,
   LABEL_PASSWORD,
   LABEL_PASSWORD2,
+  formSchema,
 } from './constants';
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
 interface IForm {
-  initialValues: Record<any, unknown>;
+  initialValues: { [x: string]: string | undefined };
   onSubmit: SubmitHandler<FormSchemaType>;
 }
 
 function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
   const { t } = useTranslation();
   const {
+    control,
     formState: { errors, isValid },
     handleSubmit,
     register,
@@ -45,9 +46,13 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
     <div
       className="flex min-h-screen flex-col items-center justify-center"
       id="form-forgot-password">
-      <form className="rounded-2xl bg-white p-[25px]" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="rounded-2xl bg-white p-[25px]"
+        onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <h1 className="text-3xl font-bold dark:text-black">{t('form.forgotPassword')}</h1>
+          <h1 className="text-3xl font-bold dark:text-black">
+            {t('form.forgotPassword')}
+          </h1>
           <span>{t('form.toContinue')}</span>
         </div>
         <Field
@@ -55,7 +60,7 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
           label={LABEL_OLD_PASSWORD}
           name={INPUT_NAME.OLD_PASSWORD}
           type="password"
-          {...{ errors, register }}
+          {...{ control, errors, register }}
           required
         />
         <Field
@@ -63,7 +68,7 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
           label={LABEL_PASSWORD}
           name={INPUT_NAME.PASSWORD}
           type="password"
-          {...{ errors, register }}
+          {...{ control, errors, register }}
           required
         />
         <Field
@@ -71,10 +76,14 @@ function ChangePassordForm({ initialValues, onSubmit }: IForm): JSX.Element {
           label={LABEL_PASSWORD2}
           name={INPUT_NAME.PASSWORD2}
           type="password"
-          {...{ errors, register }}
+          {...{ control, errors, register }}
           required
         />
-        <Button className="w-full" disabled={!isValid} type="submit" variant="primary">
+        <Button
+          className="w-full"
+          disabled={!isValid}
+          type="submit"
+          variant="primary">
           {t('form.changePassword')}
         </Button>
         <div className="c-action gab-1 mt-3 flex flex-nowrap justify-start">

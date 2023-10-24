@@ -15,7 +15,7 @@ const ConcertList = ({
   return (
     <div className="o-col--one-quarter--large o-col--half--medium">
       <div className="o-cell--one">
-        <Card>
+        <Card className="mb-5 border-[hsla(0deg,0%,100%,0.1)]">
           {displayName && (
             <a href="#test">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
