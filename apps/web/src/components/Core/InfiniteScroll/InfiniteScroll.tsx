@@ -1,11 +1,11 @@
-import type { JSX, MutableRefObject, ReactNode } from 'react';
 import type { DebouncedFunc } from 'lodash';
-
-import { throttle } from 'lodash';
-import { useEffect, useMemo, useRef } from 'react';
+import type { JSX, MutableRefObject, ReactNode } from 'react';
 
 import TopLineLoading from '@/components/Loading/TopLineLoading';
 import { useWindowSize } from '@/hooks';
+
+import { throttle } from 'lodash';
+import { useEffect, useMemo, useRef } from 'react';
 
 interface IInfiniteScroll {
   children: ReactNode;

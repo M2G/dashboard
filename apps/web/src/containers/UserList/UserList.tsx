@@ -75,7 +75,7 @@ function UserList({
       page: pagination.page,
       pageSize: pagination.pageSize,
     });
-  }, [term, pagination.page, pagination.pageSize, authGetUsersProfil]);
+  }, [term, pagination.page, pagination.pageSize]);
 
   const handleAction = useCallback(
     ({
