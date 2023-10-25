@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import './index.scss';
 
 import UserList from '@/containers/UserList/UserList';
 

@@ -63,11 +63,11 @@ function UserList({
     page: number;
     pageSize: number;
   }) => dispatch(authGetUsersProfilAction(params));
-  const deleteUserAction = (id: { id: any }) =>
+  const deleteUserAction = (id: { id: number }) =>
     dispatch(authDeleteUserProfilAction(id));
-  const editUserAction = (params: any) =>
+  const editUserAction = (params) =>
     dispatch(authUpdateUserProfilAction(params));
-  const signupAction = (params: any) => dispatch(signupUserAction(params));
+  const signupAction = (params) => dispatch(signupUserAction(params));
 
   useEffect(() => {
     authGetUsersProfil({
@@ -83,7 +83,7 @@ function UserList({
       editingUser,
       newUser,
     }: {
-      deletingUser: any;
+      deletingUser: boolean;
       editingUser: boolean;
       newUser: boolean;
     }): void => {

@@ -52,7 +52,7 @@ function Concerts(): JSX.Element {
   }, [dispatch]);
 
   const concert = useSelector(
-    (stateSelector: { concert: any }) => stateSelector.concert,
+    (stateSelector: { concert: IConcert }) => stateSelector.concert,
   );
 
   const debouncedSearch = useRef(
@@ -67,7 +67,6 @@ function Concerts(): JSX.Element {
     }, WAIT),
   ).current;
 
-  console.log('----------------------------', pagination);
   function handleChange(value: string): void {
     debouncedSearch(value);
   }
@@ -98,14 +97,17 @@ function Concerts(): JSX.Element {
   // if (!concerts) return <NoData />;
 
   useEffect((): void => {
-    setState((prevState: { concert: IConcert[] }) => ({
-      concert:
-        concert?.data?.results && prevState?.concert && !search
-          ? [...prevState?.concert, ...concert?.data?.results]
-          : concert?.data?.results && prevState?.concert && search
-          ? [...concert?.data?.results]
-          : [],
-    }));
+    setState(
+      (prevState: { concert: IConcert[] }) =>
+        ({
+          concert:
+            concert?.data?.results && prevState?.concert && !search
+              ? [...prevState?.concert, ...concert?.data?.results]
+              : concert?.data?.results && prevState?.concert && search
+              ? [...concert?.data?.results]
+              : [],
+        } as any),
+    );
   }, [concert?.data?.results, search]);
 
   const concertList: IConcert[] = useMemo(() => {
@@ -122,6 +124,8 @@ function Concerts(): JSX.Element {
   }, [state?.concert]);
 
   const concerts = useMemo(() => concert?.data, [concert?.data]);
+
+  if (concert?.loading) return <TopLineLoading />;
 
   return (
     <div className="o-zone c-home">
@@ -147,7 +151,9 @@ function Concerts(): JSX.Element {
           onLoadMore={loadMore}>
           {concertList?.length > 0 &&
             chunk(concertList, 4)?.map((nodes) => (
-              <div key={`concert_${nodes?.length}`} className="o-grid__row">
+              <div
+                className="o-grid__row"
+                key={`concert_${nodes?.[0]?.datetime}`}>
                 {nodes?.map((node: IConcert) => (
                   <ConcertList
                     city={node?.city}
@@ -165,7 +171,7 @@ function Concerts(): JSX.Element {
 }
 
 const mapStateToProps = (state: {
-  concert: { data: never; loading: boolean };
+  concert: { data: IConcert[]; loading: boolean };
 }) => ({
   concert: state.concert.data,
   loading: state.concert.loading,

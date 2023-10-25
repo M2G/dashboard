@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestHeaders } from 'axios';
 import { toast } from 'react-toastify';
 
 import Config from './constants';
@@ -15,7 +15,7 @@ const api = axios.create({
   timeout: 20000,
 
   transformRequest: [
-    function (data, headers) {
+    function (data, headers: AxiosRequestHeaders | undefined) {
       // Do whatever you want to transform the data
       const { token } = Config.GLOBAL_VAR;
       if (token && headers) {

@@ -9,8 +9,8 @@ const clearAuthStorage = () => {
   localStorage.removeItem(STORAGE_KEY_AUTH);
 };
 
-const setUserStorage = (userData: string) => {
-  localStorage.setItem(STORAGE_KEY_USER, userData);
+const setUserStorage = (userData?: string) => {
+  localStorage.setItem(STORAGE_KEY_USER, userData as string);
 };
 const getUserStorage = () => localStorage.getItem(STORAGE_KEY_USER);
 const clearUserStorage = () => {
