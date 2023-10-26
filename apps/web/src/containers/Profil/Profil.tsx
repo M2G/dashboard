@@ -1,6 +1,9 @@
 import { AuthContext } from '@/AuthContext';
 import ProfilForm from '@/components/ProfilForm';
-import { authGetUserProfilAction, authUpdateUserProfilAction } from '@/store/auth/actions';
+import {
+  authGetUserProfilAction,
+  authUpdateUserProfilAction,
+} from '@/store/auth/actions';
 import { useCallback, useContext, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
@@ -22,10 +25,15 @@ function Profil(): JSX.Element | null {
     [dispatch, userData?.id],
   );
 
-  return data && <ProfilForm initialValues={{ ...data }} onSubmit={handleSubmit} />;
+  return (
+    data && <ProfilForm initialValues={{ ...data }} onSubmit={handleSubmit} />
+  );
 }
 
-const mapStateToProps = (state: { auth: { data: never; loading: boolean } }) => {
+// remove and use  const auth = useSelector((stateSelector) => stateSelector.auth);
+const mapStateToProps = (state: {
+  auth: { data: never; loading: boolean };
+}) => {
   return {
     auth: state.auth.data,
     loading: state.auth.loading,

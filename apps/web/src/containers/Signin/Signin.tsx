@@ -25,7 +25,7 @@ function Signin({ loading, signin }: ISignin): JSX.Element {
 
   return <SigninForm initialValues={INITIAL_VALUES} onSubmit={onSubmit} />;
 }
-
+// remove and use  const auth = useSelector((stateSelector) => stateSelector.auth);
 const mapStateToProps = (state: { signin: { data: any; loading: any } }) => {
   return {
     loading: state.signin.loading,

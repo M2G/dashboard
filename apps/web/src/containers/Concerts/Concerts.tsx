@@ -169,7 +169,7 @@ function Concerts(): JSX.Element {
     </div>
   );
 }
-
+// remove and use  const auth = useSelector((stateSelector) => stateSelector.auth);
 const mapStateToProps = (state: {
   concert: { data: IConcert[]; loading: boolean };
 }) => ({
